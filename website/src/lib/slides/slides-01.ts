@@ -13,34 +13,34 @@ export const slides01: SlideSection[] = [
   // ── Slide 1b: Kuis Pembuka ──
   {
     layout: "bullets",
-    title: "Kuis Pembuka: Sebelum Kita Mulai",
+    title: "Cek Siap: Sebelum Masuk W1",
     bullets: [
-      "**Soal 1:** Dataset harga rumah (angka kontinu). Task apa? Loss apa?",
-      "**Soal 2:** Deteksi email spam. Output head: `Linear(D,1)` atau `Linear(D,2)`?",
-      "**Soal 3:** Prediksi 3 kategori cuaca. Target y bertipe `int` atau `float`?",
+      "**Soal 1:** Harga rumah (angka kontinu). Pakai loss apa: MSE atau CrossEntropy?",
+      "**Soal 2:** Deteksi spam (ya/tidak). Output head pakai `Linear(D,1)` atau `Linear(D,2)`?",
+      "**Soal 3:** 3 kategori cuaca. Target `y` bertipe `int` (0,1,2) atau `float` (0.0, 1.0, 2.0)?",
     ],
-    footnote: "Tiga soal, 3 menit. Tidak dinilai - untuk memetakan titik awal sebelum masuk materi.",
+    footnote: "Tiga soal, 2 menit. Bukan ujian - cuma cek apakah prasyarat sudah nyantol.",
   },
 
   // ── Slide 1c: Jawaban Kuis Pembuka ──
   {
     layout: "grid",
-    title: "Jawaban Kuis Pembuka",
+    title: "Jawaban: Cek Siap W1",
     gridItems: [
       {
-        title: "Soal 1: Regresi + MSELoss",
-        body: "Nilai kontinu → regresi. MSELoss untuk rata-rata kuadrat selisih. Head: Linear(D,1) tanpa aktivasi.",
+        title: "Soal 1: MSELoss",
+        body: "Angka kontinu → regresi → MSELoss. Head: Linear(D,1). Target: float biasa, bukan kelas.",
       },
       {
-        title: "Soal 2: Dua pilihan valid",
-        body: "Linear(D,1)+BCEWithLogitsLoss atau Linear(D,2)+CrossEntropyLoss. Pilih satu dan konsisten di seluruh eksperimen.",
+        title: "Soal 2: Dua-duanya boleh",
+        body: "Linear(D,1)+BCEWithLogitsLoss ATAU Linear(D,2)+CrossEntropyLoss. Pilih satu, pakai terus sampai akhir.",
       },
       {
-        title: "Soal 3: int64",
-        body: "CrossEntropyLoss butuh target integer 0..N-1, bukan one-hot float. `y = torch.tensor([0,1,2], dtype=torch.long)`.",
+        title: "Soal 3: int (0,1,2)",
+        body: "CrossEntropyLoss butuh integer, bukan float. `y = torch.tensor([0,1,2], dtype=torch.long)`.",
       },
     ],
-    footnote: "Jika ketiga jawaban langsung benar - slide berikutnya adalah konfirmasi. Jika ada yang ragu - W1 menjelaskan semuanya.",
+    footnote: "Kalau ketiganya benar: kamu siap masuk W1. Kalau ada yang ragu: baca ulang bab 00a dulu, cukup 15 menit.",
   },
 
   // ── Slide 2: Mengapa tabular lebih dulu ──

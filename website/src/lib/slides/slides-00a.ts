@@ -51,18 +51,17 @@ export const slides00a: SlideSection[] = [
     title: "Jawaban: Shape (32, 3, 64, 64)",
     left: {
       title: "Jawaban: B",
-      body: "B=32 (batch size), C=3 (channel RGB), H=64, W=64. Urutan NCHW adalah konvensi PyTorch.",
+      body: "B=32 (batch), C=3 (channel RGB), H=64, W=64.\n\nKonvensi PyTorch: NCHW. Dimensi selalu dari kiri ke kanan: batch, channel, tinggi, lebar.",
     },
     right: {
-      title: "Cara Memastikan",
+      title: "Kenapa Bukan yang Lain?",
       bullets: [
-        "`x.shape` → `torch.Size([32, 3, 64, 64])`",
-        "`x.shape[0]` → 32 (batch)",
-        "`x.shape[1]` → 3 (channel)",
-        "Baca dari kiri ke kanan: N, C, H, W",
+        "**A:** C=32 tidak mungkin - channel citra hanya 1 (grayscale) atau 3-4 (RGB/RGBA)",
+        "**C:** H=3 tidak mungkin - itu ukuran piksel, bukan channel",
+        "**D:** urutan NCHW adalah standar PyTorch, konsisten di semua fungsi dan dokumentasi",
       ],
     },
-    footnote: "Shape adalah hal pertama yang dilihat saat debugging - bukan error message.",
+    footnote: "Shape adalah gerbang pertama debugging. Baca sebelum bertanya ke internet atau LLM.",
   },
 
   // ── Slide 4: Video deeplizard ──
@@ -216,32 +215,28 @@ y.backward()                 # x.grad berisi gradient`,
     footnote: "x.requires_grad=True biasanya tidak perlu di-set manual - nn.Parameter sudah mengaktifkannya.",
   },
 
-  // ── Slide 9b: Quiz kode PyTorch ──
-  {
-    layout: "code",
-    title: "Kuis: Ada yang Salah di Sini?",
-    code: `# Versi A
-loss = criterion(torch.softmax(logits, dim=1), y)
-
-# Versi B
-loss = criterion(logits, y)  # CrossEntropyLoss
-
-# Versi C
-loss = criterion(logits.squeeze() > 0, y)  # binary`,
-    lang: "python",
-    footnote: "Satu versi benar, dua salah. Identifikasi masalahnya sebelum ke slide berikutnya.",
-  },
-
-  // ── Slide 9c: Jawaban kode ──
+  // ── Slide 9b: Kuis 3 operasi ──
   {
     layout: "bullets",
-    title: "Jawaban: Versi B yang Benar",
+    title: "Kuis: 3 Operasi Wajib",
     bullets: [
-      "**Versi A salah:** CrossEntropyLoss sudah memasukkan log-softmax. Menambah softmax lagi = dobel = distribusi jadi salah.",
-      "**Versi C salah:** `logits.squeeze() > 0` menghasilkan bool tensor, bukan logit. Loss tidak bisa menghitung gradient dengan benar.",
-      "**Versi B benar:** Masukkan logit mentah ke CrossEntropyLoss. Tidak perlu aktivasi apapun sebelumnya.",
+      "**Soal 1:** `torch.randn(4, 3, 32, 32).shape` menghasilkan apa?",
+      "**Soal 2:** Kapan kita menulis `device = 'cuda'` vs `device = 'cpu'`?",
+      "**Soal 3:** `loss.backward()` menghitung apa, dan di mana hasilnya disimpan?",
     ],
-    footnote: "Bug versi A umum terjadi. Loss masih turun - tapi model tidak belajar distribusi yang benar.",
+    footnote: "Tiga soal, 2 menit. Jawaban di slide berikutnya.",
+  },
+
+  // ── Slide 9c: Jawaban 3 operasi ──
+  {
+    layout: "bullets",
+    title: "Jawaban: 3 Operasi Wajib",
+    bullets: [
+      "**Soal 1:** `torch.Size([4, 3, 32, 32])` — N=4, C=3, H=32, W=32",
+      "**Soal 2:** `'cuda'` jika `torch.cuda.is_available()`, `'cpu'` jika tidak. Cek dulu, jangan asumsi GPU selalu tersedia.",
+      "**Soal 3:** Gradient dihitung mundur dari loss ke semua parameter — disimpan di `.grad` setiap parameter. Parameter belum berubah sampai `optimizer.step()`.",
+    ],
+    footnote: "Jika ketiganya langsung benar: lanjut ke W1. Jika ragu: baca ulang bab 00a, cukup 10 menit.",
   },
 
   // ── Slide 10: Glosarium 19 istilah ──
