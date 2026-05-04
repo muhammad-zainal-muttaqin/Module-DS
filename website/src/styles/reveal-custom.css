@@ -439,8 +439,13 @@
 }
 
 .slide-code-block {
-  max-height: 300px;
-  overflow-y: auto;
+  overflow: visible;
+}
+
+.slide-code-block pre,
+.slide-code-block .shiki {
+  overflow-x: auto;
+  overflow-y: visible;
 }
 
 /* ═══════════════════════════════════════════
