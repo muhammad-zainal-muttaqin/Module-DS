@@ -244,7 +244,7 @@ Skenario dari seorang mahasiswa fiktif, Rani, yang ingin belajar teknik *focal l
 
 **Rabu - paper-to-code.** Rani menulis catatan input/output: input loss adalah logits dan target class; output adalah scalar loss. Ia memisahkan inti dari detail rekayasa: tidak perlu implement RetinaNet, anchor matching, atau FPN. Untuk Lab W10, cukup implement focal loss pada classifier kecil dengan dataset imbalanced.
 
-**Kamis - implementasi.** Rani menambahkan `FocalLoss` di `src/losses.py`, membuat smoke test:
+**Kamis - implementasi.** Rani menambahkan `FocalLoss` di [`src/losses.py`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/src/losses.py), membuat smoke test:
 
 ```python
 gamma = 0.0  # should match cross-entropy
