@@ -18,6 +18,58 @@ export const slides00a: SlideSection[] = [
     footnote: "Jika sudah pernah memakai PyTorch dan paham shape (B, C, H, W), slide ini bisa di-skip.",
   },
 
+  // ── Slide 2b: Materi Bab Ini ──
+  {
+    layout: "bullets",
+    title: "Materi Bab Ini",
+    body: "Halaman prasyarat ini memuat enam topik dasar yang dipakai di setiap bab modul:",
+    bullets: [
+      "**Shape tensor** - cara membaca tuple (B, C, H, W) dan peran koma akhir pada (3,).",
+      "**Konvensi huruf modul** - N, F, B, C, H, W, T dipakai konsisten dari W1 sampai capstone.",
+      "**Notasi panah `->`** - misalnya (F,) -> (1,) artinya shape input dan output keseluruhan model.",
+      "**Kalkulus mini** - turunan sebagai kemiringan dan chain rule sebagai rantai turunan.",
+      "**PyTorch primer** - tiga operasi inti: cek shape, pindah ke device, dan backward.",
+      "**Glosarium 19 istilah** yang muncul berulang sejak W1, cukup dikenali sebagai peta kasar.",
+    ],
+    footnote: "Bab ini bukan ujian masuk - kosakata bersama yang dipakai sebagai rujukan cepat.",
+  },
+
+  // ── Slide 2c: Objektif Belajar ──
+  {
+    layout: "bullets",
+    title: "Objektif Belajar",
+    body: "Selama membaca bab prasyarat, kamu akan:",
+    bullets: [
+      "**Membaca shape tuple** dan menyebutkan arti setiap sumbu untuk data tabular dan citra.",
+      "**Menerjemahkan notasi panah** seperti (C, H, W) -> (N,) ke deskripsi tugas yang konkret.",
+      "**Memahami chain rule** sebagai gambaran tanpa harus menurunkan derivasi penuh - cukup paham arah aliran gradient.",
+      "**Mengenali tiga operasi PyTorch** yang akan dipakai di setiap lab mulai W1.",
+    ],
+    footnote: "Tujuannya bukan menguasai PyTorch, cukup tidak panik saat shape dan autograd muncul di W1.",
+  },
+
+  // ── Slide 2d: Setelah Bab Ini Kamu Paham ──
+  {
+    layout: "grid",
+    title: "Setelah Bab Ini Kamu Paham",
+    body: "Setelah selesai membaca prasyarat, kamu diharapkan mampu:",
+    gridItems: [
+      {
+        title: "Mendeskripsikan Tensor (32, 3, 224, 224)",
+        body: "Kamu bisa menjawab langsung bahwa tensor ini adalah batch 32 citra RGB beresolusi 224x224 piksel - tanpa harus mencari di dokumentasi atau bertanya ke internet.",
+      },
+      {
+        title: "Membaca Kode PyTorch Dasar",
+        body: "Kamu memahami bahwa pola model(x), loss = criterion(...), loss.backward(), optimizer.step() bukan kotak hitam - sudah jelas apa yang dihitung di setiap baris.",
+      },
+      {
+        title: "Tidak Panik dengan Istilah",
+        body: "Sembilan belas istilah inti seperti loss, gradient, optimizer, baseline, freeze, fine-tune, ablation, leakage, dan seterusnya sudah kamu kenali sebagai peta kasar - definisi rinci bisa dibuka kembali saat dibutuhkan.",
+      },
+    ],
+    footnote: "Jika tiga capaian terasa kurang, baca bab prasyarat penuh sekitar 20 menit sebelum lanjut ke W1.",
+  },
+
   // ── Slide 3: Shape Tensor ──
   {
     layout: "bullets",

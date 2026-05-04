@@ -57,6 +57,56 @@ export const slides00: SlideSection[] = [
     footnote: "Silakan lanjut dulu ke slide berikutnya, kembali ke video setelah membaca modul.",
   },
 
+  // ── Slide 5b: Materi Bab Ini ──
+  {
+    layout: "bullets",
+    title: "Materi Bab Ini",
+    body: "Bab pendahuluan ini membahas empat hal utama:",
+    bullets: [
+      "**Konteks bootcamp** - 11 minggu inti plus 4 minggu capstone yang menyiapkan kamu menjadi asisten riset ML/DL.",
+      "**Tiga pilar target hasil** - Ketajaman Teknis, Diagnosis & Kemandirian, dan Perancangan Riset.",
+      "**Sepuluh kompetensi inti** yang dibagi menjadi tiga gelombang sesuai urutan minggu.",
+      "**Empat sikap riset dan Kontrak Belajar** yang menjadi komitmen kamu sepanjang bootcamp.",
+    ],
+    footnote: "Bab ini tidak menuntut hafalan - peta orientasi yang akan dirujuk berulang sepanjang modul.",
+  },
+
+  // ── Slide 5c: Objektif Belajar ──
+  {
+    layout: "bullets",
+    title: "Objektif Belajar",
+    body: "Selama mengikuti bab pendahuluan ini, kamu akan:",
+    bullets: [
+      "**Mengenali tiga pilar** dan mengaitkannya dengan kompetensi yang dilatih per minggu.",
+      "**Memetakan posisi diri** di sepuluh kompetensi - mana yang sudah dikenal, mana yang masih asing.",
+      "**Menyetujui Kontrak Belajar** dengan tiga komitmen: ritme mingguan, akuntabilitas pemikiran, dan breadth empat dari lima keluarga arsitektur.",
+      "**Menulis refleksi awal** yang akan dirujuk kembali di Minggu 14 untuk mengukur perubahan.",
+    ],
+    footnote: "Tujuannya bukan sekadar membaca - bab ini memberi kamu peta yang siap dipakai sebelum masuk W1.",
+  },
+
+  // ── Slide 5d: Setelah Bab Ini Kamu Paham ──
+  {
+    layout: "grid",
+    title: "Setelah Bab Ini Kamu Paham",
+    body: "Setelah membaca bab pendahuluan, kamu diharapkan mampu:",
+    gridItems: [
+      {
+        title: "Menjawab 'Mengapa Bootcamp Ini Ada'",
+        body: "Kamu bisa menjelaskan bahwa email PI dua kalimat menyimpan enam keputusan tersembunyi yang harus diambil oleh asisten riset, dan bootcamp ini melatih cara mengambil keputusan-keputusan tersebut secara sistematis.",
+      },
+      {
+        title: "Menjelaskan Empat Sikap Riset",
+        body: "Kamu bisa menyebutkan Curiosity, Rigor, Skepticism, dan Ownership beserta contoh konkret kapan tiap sikap dipakai - misalnya kapan harus mencurigai akurasi 99% di hari pertama.",
+      },
+      {
+        title: "Menghindari Empat Kebiasaan Pemblok",
+        body: "Kamu bisa mengenali empat kebiasaan yang menghambat kemajuan trainee - berhenti saat kode jalan, LLM tanpa verifikasi, catatan ditunda, dan training tanpa EDA - beserta strategi konkret untuk menghindarinya.",
+      },
+    ],
+    footnote: "Tiga capaian ini akan diperdalam lewat kebiasaan riset minggu demi minggu mulai W1.",
+  },
+
   // ── Slide 6: 3 Pilar target ──
   {
     layout: "section",

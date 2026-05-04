@@ -45,6 +45,57 @@ export const slides01: SlideSection[] = [
     footnote: "Kalau ketiganya benar: kamu siap masuk W1. Kalau ada yang ragu: baca ulang bab 00a dulu, cukup 15 menit.",
   },
 
+  // ── Slide 1d: Materi Bab Ini ──
+  {
+    layout: "bullets",
+    title: "Materi Bab Ini",
+    body: "Minggu pertama membahas lima ide fondasi yang menjadi dasar seluruh bootcamp:",
+    bullets: [
+      "**MLP sebagai pengubah bentuk tensor** - rangkaian Linear plus ReLU memetakan (F,) menjadi (D_out,).",
+      "**Body dan Head** - badan model bersama untuk semua tugas, head berubah sesuai bentuk output.",
+      "**Pasangan output head dan loss** - regresi cocok dengan MSE, biner dengan BCE atau CrossEntropy, multikelas dengan CrossEntropy.",
+      "**Pipeline training PyTorch** - lima baris kunci: forward, loss, zero_grad, backward, step.",
+      "**Kebiasaan riset W1** - menulis observasi sebelum kesimpulan, menjadi fondasi sepanjang modul.",
+    ],
+    footnote: "Lima ide ini menjadi rujukan yang akan dipakai berulang di W2 sampai W11.",
+  },
+
+  // ── Slide 1e: Objektif Belajar ──
+  {
+    layout: "bullets",
+    title: "Objektif Belajar",
+    body: "Selama mengikuti W1 dan Lab 0, kamu akan:",
+    bullets: [
+      "**Menerapkan tiga tugas berbeda** (regresi, biner, multikelas) pada satu dataset tabular yang sama.",
+      "**Memilih output head dan loss** yang cocok dari tabel rujukan §2.2.4 di modul.",
+      "**Sengaja salah-pasangkan loss dan head** lalu mengamati training gagal sebagai pelajaran konkret.",
+      "**Menulis observasi dan interpretasi** sebagai dua paragraf terpisah dalam catatan lab.",
+    ],
+    footnote: "Lab W1 mencakup dua pelaksanaan: Lab 1a (3 tugas plus mismatch) dan Lab 1b (MLP from scratch dengan NumPy).",
+  },
+
+  // ── Slide 1f: Setelah Bab Ini Kamu Paham ──
+  {
+    layout: "grid",
+    title: "Setelah Bab Ini Kamu Paham",
+    body: "Setelah Lab W1 selesai, kamu diharapkan mampu:",
+    gridItems: [
+      {
+        title: "Menjawab 'Tugas X Butuh Head dan Loss Apa'",
+        body: "Saat menerima tugas baru, kamu memiliki refleks otomatis untuk membaca shape input dan tipe output, lalu memilih pasangan head-loss yang sesuai dari lima konfigurasi resmi.",
+      },
+      {
+        title: "Mengidentifikasi Loss-Head Mismatch",
+        body: "Saat loss konstan dari epoch pertama atau berubah dengan cara yang aneh, kamu memeriksa pasangan loss-head-target lebih dulu sebelum mendebug arsitektur atau hyperparameter.",
+      },
+      {
+        title: "Memisahkan Observasi dan Interpretasi",
+        body: "Kamu terbiasa menulis dua paragraf terpisah: satu murni angka dan bentuk kurva yang dilihat, satu lagi tafsiran tentang apa yang terjadi - kebiasaan ini akan dipakai sepanjang modul.",
+      },
+    ],
+    footnote: "Tiga capaian W1 menjadi pondasi yang tidak boleh dilewati - W2 dan setelahnya bertumpu di sini.",
+  },
+
   // ── Slide 2: Mengapa tabular lebih dulu ──
   {
     layout: "section",
