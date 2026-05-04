@@ -93,9 +93,9 @@ Setiap baris di bawah adalah kompetensi; setiap kolom adalah level. Deskriptor d
 > **Breadth Check Policy.** Untuk mencapai level *Proficient* pada Kompetensi 1, mahasiswa wajib menyelesaikan **4 dari 5 keluarga arsitektur** berikut:
 > - **MLP:** Lab 1c (numpy manual) - **wajib**
 > - **CNN:** Lab 1 (CIFAR-10 baseline) - **wajib**
-> - **RNN/LSTM:** Lab 3b ([lab_w5_lstm_sequence.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w5_lstm_sequence.ipynb)) - **wajib**
-> - **Transformer:** Lab 6b ([lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w7_transformer_mini.ipynb)) - **wajib** untuk breadth check; bukan opsional
-> - **Autoencoder:** Lab 7b ([lab_breadth_autoencoder.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_breadth_autoencoder.ipynb)) - opsional; dapat diganti dengan eksplorasi arsitektur baru di Komponen Mandiri
+> - **RNN/LSTM:** Lab 3b ([lab_w5_lstm_sequence.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w5_lstm_sequence.ipynb)) - **wajib**
+> - **Transformer:** Lab 6b ([lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_transformer_mini.ipynb)) - **wajib** untuk breadth check; bukan opsional
+> - **Autoencoder:** Lab 7b ([lab_breadth_autoencoder.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_breadth_autoencoder.ipynb)) - opsional; dapat diganti dengan eksplorasi arsitektur baru di Komponen Mandiri
 >
 > Konten di dalam `<details><summary>Pendalaman</summary>` (misalnya derivasi backprop, GRU equations, D1-D7 repo adoption) adalah **opsional** dan tidak masuk syarat minimum breadth check - tetapi dapat dipakai sebagai bukti untuk level *Masterpiece*.
 

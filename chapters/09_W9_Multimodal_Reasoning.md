@@ -32,7 +32,7 @@
 **Baris peta besar:** beberapa tensor -> prediksi bersama
 **Kebiasaan riset:** Ablasi per modalitas dan analisis kegagalan multimodal
 **Dataset:** Dataset multimodal dengan minimal dua modalitas (sensor + image, atau audio + text)
-**Lab utama:** Lab W9 - Multimodal Ablation ([lab_w9_multimodal_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w9_multimodal_ablation.ipynb))
+**Lab utama:** Lab W9 - Multimodal Ablation ([lab_w9_multimodal_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w9_multimodal_ablation.ipynb))
 
 ---
 
@@ -108,7 +108,7 @@ Image pixels + Text tokens → concat/project → Shared Transformer → predict
 Satu modalitas digunakan sebagai query dan yang lain sebagai key/value dalam attention mechanism. Model secara eksplisit belajar "bagian mana dari modalitas A yang relevan untuk setiap elemen modalitas B?"
 
 > [!NOTE]
-> **Q/K/V primer.** Untuk recap konsep `Q`, `K`, `V` dan rumus `softmax(QK^T/√d)V`, lihat W7 §1 dan Lab [lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w7_transformer_mini.ipynb). Ringkasan 3-step:
+> **Q/K/V primer.** Untuk recap konsep `Q`, `K`, `V` dan rumus `softmax(QK^T/√d)V`, lihat W7 §1 dan Lab [lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_transformer_mini.ipynb). Ringkasan 3-step:
 >
 > 1. **Q (Query)** dari modalitas A shape `(B, T_A, d)` - "apa yang sedang saya cari?"
 > 2. **K (Key)** dan **V (Value)** dari modalitas B shape `(B, T_B, d)` - "apa yang tersedia untuk dicocokkan, dan apa nilai aktualnya?"
@@ -380,7 +380,7 @@ class PainEstimator(nn.Module):
 
 ## 5. Lab W9 - Multimodal Ablation
 
-Buka [lab_w9_multimodal_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w9_multimodal_ablation.ipynb).
+Buka [lab_w9_multimodal_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w9_multimodal_ablation.ipynb).
 
 **Tugas:**
 

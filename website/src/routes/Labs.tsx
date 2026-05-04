@@ -1,8 +1,8 @@
-import { CHAPTERS } from "../lib/chapters";
+﻿import { CHAPTERS } from "../lib/chapters";
 
-const REPO_BASE = "https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/";
-const NBVIEWER_BASE = "https://nbviewer.org/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/";
-const COLAB_BASE = "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/";
+const REPO_BASE = "https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/";
+const NBVIEWER_BASE = "https://nbviewer.org/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/";
+const COLAB_BASE = "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/";
 
 type NotebookEntry = { file: string; label: string };
 

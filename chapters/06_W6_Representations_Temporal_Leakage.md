@@ -32,7 +32,7 @@
 **Baris peta besar:** `(T, F) -> (1,)`, `(N,)`, `(T'', 1)` (lanjutan W5, fokus representasi + validasi)
 **Kebiasaan riset:** Validate preprocessing dan prevent temporal leakage
 **Dataset:** Sensor atau time-series dataset
-**Lab utama:** Lab W6 - Temporal Leakage ([lab_w6_temporal_leakage.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w6_temporal_leakage.ipynb)) + EDA ([lab_w6_eda_leakage.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w6_eda_leakage.ipynb))
+**Lab utama:** Lab W6 - Temporal Leakage ([lab_w6_temporal_leakage.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w6_temporal_leakage.ipynb)) + EDA ([lab_w6_eda_leakage.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w6_eda_leakage.ipynb))
 
 ---
 
@@ -557,7 +557,7 @@ Laporan ini masuk ke `experiments/lab4/audit.md`, dibaca bersama protokol eksper
 
 ## 5. Lab W6 - Audit PathMNIST dan Pipeline Pra-pemrosesan
 
-Buka [lab_w6_eda_leakage.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w6_eda_leakage.ipynb).
+Buka [lab_w6_eda_leakage.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w6_eda_leakage.ipynb).
 
 Tugas:
 
@@ -580,7 +580,7 @@ Tugas:
 
 ### 5.2 Temporal Leakage Demonstration
 
-Buka [lab_w6_temporal_leakage.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w6_temporal_leakage.ipynb).
+Buka [lab_w6_temporal_leakage.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w6_temporal_leakage.ipynb).
 
 **Tugas:**
 

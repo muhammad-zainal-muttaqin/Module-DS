@@ -1,4 +1,4 @@
-// Load konten .md sumber via Vite `?raw`. Semua bundled di build; cukup cepat.
+﻿// Load konten .md sumber via Vite `?raw`. Semua bundled di build; cukup cepat.
 import GithubSlugger from "github-slugger";
 import c00 from "../content/chapters/00_Pendahuluan.md?raw";
 import c00a from "../content/chapters/00a_Prasyarat.md?raw";
@@ -76,7 +76,7 @@ function rewriteImagePaths(md: string): string {
 }
 
 const GITHUB_FILE_BASE =
-  "https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/main";
+  "https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master";
 
 // Rewrite relative template/ links to GitHub URLs.
 // Matches `(template/...)` that are not already absolute URLs.

@@ -169,7 +169,7 @@ Tinjauan ulang adalah luaran terpenting dari capstone. Tinjauan ulang yang berka
 
 **Mulai menulis.** Mulai membuat draft selama minggu ini. Jangan menunggu W15. Bahkan draft kasar dari bagian metode dan hasil membuat penulisan final jauh lebih mudah. Pendahuluan dan karya terkait bisa menyusul kemudian, saat kontribusinya sudah jelas.
 
-**Draf demo.** Demo Streamlit atau Gradio yang berfungsi. Tidak harus dipoles. Harus bisa dijalankan. Buat mudah untuk menemukan kasus di mana model gagal, bukan hanya kasus di mana berhasil. Gunakan [lab_w12_demo_app.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w12_demo_app.ipynb) sebagai template awal (Streamlit classifier + Gradio annotation).
+**Draf demo.** Demo Streamlit atau Gradio yang berfungsi. Tidak harus dipoles. Harus bisa dijalankan. Buat mudah untuk menemukan kasus di mana model gagal, bukan hanya kasus di mana berhasil. Gunakan [lab_w12_demo_app.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w12_demo_app.ipynb) sebagai template awal (Streamlit classifier + Gradio annotation).
 
 ---
 

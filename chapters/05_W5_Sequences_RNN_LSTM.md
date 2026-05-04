@@ -32,7 +32,7 @@
 **Baris peta besar:** `(T, F) -> (1,)`, `(N,)`, `(T'', 1)`
 **Kebiasaan riset:** Diagnosis sequence panjang dan justifikasi arsitektur
 **Dataset:** Sequence dataset dengan dependensi panjang yang terlihat
-**Lab utama:** Lab 3b ([lab_w5_lstm_sequence.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w5_lstm_sequence.ipynb)) - **wajib di W5**
+**Lab utama:** Lab 3b ([lab_w5_lstm_sequence.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w5_lstm_sequence.ipynb)) - **wajib di W5**
 
 ---
 
@@ -357,7 +357,7 @@ Pertanyaan diagnosis saat gradient meledak: (1) apakah `clip_grad_norm_` dipangg
 
 ### Lab 3b - RNN vs LSTM Gradient Flow (wajib W5)
 
-Buka [lab_w5_lstm_sequence.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w5_lstm_sequence.ipynb).
+Buka [lab_w5_lstm_sequence.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w5_lstm_sequence.ipynb).
 
 **Tugas utama:**
 

@@ -32,7 +32,7 @@
 **Baris peta besar:** `(F,) -> (1,)`, `(1,)`, `(N,)`
 **Kebiasaan riset:** Observasi sebelum kesimpulan
 **Dataset:** Tabular bersama sintetis yang mendukung regresi, klasifikasi biner, dan multiclass dari input yang sama
-**Lab utama:** Lab 0 ([lab_w1_tabular_heads.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w1_tabular_heads.ipynb))
+**Lab utama:** Lab 0 ([lab_w1_tabular_heads.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w1_tabular_heads.ipynb))
 
 ---
 
@@ -290,7 +290,7 @@ Catat untuk setiap run:
 
 ## 5. Lab 0 - Tabular Output Heads
 
-**File:** [lab_w1_tabular_heads.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w1_tabular_heads.ipynb)
+**File:** [lab_w1_tabular_heads.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w1_tabular_heads.ipynb)
 **Estimasi waktu:** 3-4 jam.
 
 **Langkah:**

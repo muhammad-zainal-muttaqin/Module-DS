@@ -32,7 +32,7 @@
 **Baris peta besar:** `(T,) -> (N,)`, `(1,)`, `(T, N)`
 **Kebiasaan riset:** Verifikasi kode dari AI, inspeksi tokenisasi, petakan repositori eksternal
 **Dataset:** Dataset teks Indonesia (IndoNLU SmSA)
-**Lab utama:** Lab 5b ([lab_w7_text_classification.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w7_text_classification.ipynb)) + Lab 6 repo adoption ([lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w7_repo_adoption.ipynb))
+**Lab utama:** Lab 5b ([lab_w7_text_classification.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_text_classification.ipynb)) + Lab 6 repo adoption ([lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_repo_adoption.ipynb))
 
 ---
 
@@ -153,7 +153,7 @@ Dimensi input dan *output* selalu sama, itulah sebabnya blok ini dapat ditumpuk 
 
 **Dampak saat Anda melakukan freeze atau fine-tune.** Melakukan *freeze* pada model berarti mengunci $W_Q, W_K, W_V$ (beserta parameter lainnya). Proyeksi yang menghasilkan Q, K, dan V terkunci, sehingga kalkulasi attention tetap berjalan tetapi tidak bisa beradaptasi dengan domain Anda. Sebaliknya, *fine-tune* memungkinkan matriks-matriks ini beradaptasi agar bobot attention bisa menangkap hubungan yang dibutuhkan oleh tugas Anda. Matematika di balik attention tidak pernah berubah, hanya matriks proyeksinya saja yang berubah.
 
-Lab 6b ([lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w7_transformer_mini.ipynb)) menugaskan Anda untuk menerapkan `scaled_dot_product_attention` dari awal dan memverifikasinya terhadap `nn.TransformerEncoderLayer`. *Notebook* tersebut merupakan praktik langsung yang mendampingi bagian ini.
+Lab 6b ([lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_transformer_mini.ipynb)) menugaskan Anda untuk menerapkan `scaled_dot_product_attention` dari awal dan memverifikasinya terhadap `nn.TransformerEncoderLayer`. *Notebook* tersebut merupakan praktik langsung yang mendampingi bagian ini.
 
 ### 1.4 Frozen vs Fine-tuned: Eksperimen 2x2
 
@@ -228,7 +228,7 @@ Alat AI berguna melampaui kode:
 
 ### 2.4 Lab Praktik: AI-Assisted Dev Loop
 
-Untuk pengalaman langsung mengikuti protokol di atas, buka [lab_w7_llm_assisted.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w7_llm_assisted.ipynb). Lab ini memandu Anda melalui implementasi MixUp augmentation menggunakan bantuan AI, termasuk 4 sanity tests, comparison training, dan log interaksi LLM.
+Untuk pengalaman langsung mengikuti protokol di atas, buka [lab_w7_llm_assisted.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_llm_assisted.ipynb). Lab ini memandu Anda melalui implementasi MixUp augmentation menggunakan bantuan AI, termasuk 4 sanity tests, comparison training, dan log interaksi LLM.
 
 ---
 
@@ -248,7 +248,7 @@ Konten repo adoption dari bab ini (urutan membaca, environment setup, modifikasi
 
 ### Lab 5b - Text Classification IndoNLU (lab utama W7)
 
-Buka [lab_w7_text_classification.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w7_text_classification.ipynb).
+Buka [lab_w7_text_classification.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_text_classification.ipynb).
 
 **Tugas:**
 1. Muat dataset IndoNLU SmSA (sentimen Bahasa Indonesia).
@@ -266,7 +266,7 @@ Buka [lab_w7_text_classification.ipynb](https://colab.research.google.com/github
 
 ### Lab 6 - Pengantar Adopsi Repo
 
-Buka [lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w7_repo_adoption.ipynb).
+Buka [lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_repo_adoption.ipynb).
 
 **Tugas:**
 1. Clone satu repositori riset publik (daftar pilihan disediakan di lab).
@@ -814,7 +814,7 @@ Total: ~3 jam dari clone sampai laporan pertama. Bandingkan dengan "dua minggu" 
 
 ## D5. Lab 6 - Mengadopsi dan Memodifikasi Repo Eksternal
 
-Buka [lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w7_repo_adoption.ipynb).
+Buka [lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_repo_adoption.ipynb).
 
 Tugas:
 
@@ -835,7 +835,7 @@ Tugas:
 
 ### Lab 6b (breadth) - Transformer-Mini dari Nol
 
-Buka [lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w7_transformer_mini.ipynb). Setelah Anda paham cara membaca repo eksternal, langkah berikutnya adalah paham arsitektur yang paling sering Anda temui di repo riset modern: **Transformer**. Lab ini menyuruh Anda menulis ulang komponen intinya dari nol.
+Buka [lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_transformer_mini.ipynb). Setelah Anda paham cara membaca repo eksternal, langkah berikutnya adalah paham arsitektur yang paling sering Anda temui di repo riset modern: **Transformer**. Lab ini menyuruh Anda menulis ulang komponen intinya dari nol.
 
 Fokus:
 

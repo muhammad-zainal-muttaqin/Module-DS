@@ -32,7 +32,7 @@
 **Baris peta besar:** keluarga model yang sama, sekarang dengan disiplin alur kerja riset
 **Kebiasaan riset:** Matriks eksperimen sebelum coding
 **Dataset:** Dataset baru (berbeda dari W2-W3) untuk menguji disiplin alur kerja di luar dataset yang sudah dikenal
-**Lab utama:** Lab 3 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w4_experiment_tracking.ipynb))
+**Lab utama:** Lab 3 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb))
 
 ---
 
@@ -250,7 +250,7 @@ Ini *terutama* membutuhkan skeptisisme. Jika hipotesis "naik 3 poin" tapi aktual
 
 Reproduksibilitas bertumpu pada empat pilar yang saling mengunci. Hyperparameter hidup di config YAML deklaratif, bukan di angka ajaib yang berserakan di kode; config disimpan bersama checkpoint sehingga setiap hasil bisa ditelusuri ke konfigurasi persis yang menghasilkannya. Seed dikunci di awal training dengan `set_seed(cfg['seed'])` sebelum operasi apapun, dan untuk reproduksibilitas ketat di GPU disertai `torch.backends.cudnn.deterministic = True`; satu seed per run, variasi seed dipakai antar replikasi sebagai pengukur noise.
 
-Dua pilar berikutnya mengikat hasil pada jejak yang bisa diaudit. Checkpoint menyimpan lebih dari sekadar `model.state_dict()` - di dalamnya ada `config`, `git_hash`, `epoch`, `metrics`, dan `timestamp`, karena checkpoint tanpa config hanyalah setengah bukti. Git hash mengikat setiap run ke commit yang menghasilkannya lewat `get_git_hash()`, dan flag "dirty" memperingatkan ketika ada perubahan yang belum di-commit. Implementasi keempat pilar tersedia di `template/src/utils.py`; Lab 3 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w4_experiment_tracking.ipynb)) membangun keempatnya secara berurutan.
+Dua pilar berikutnya mengikat hasil pada jejak yang bisa diaudit. Checkpoint menyimpan lebih dari sekadar `model.state_dict()` - di dalamnya ada `config`, `git_hash`, `epoch`, `metrics`, dan `timestamp`, karena checkpoint tanpa config hanyalah setengah bukti. Git hash mengikat setiap run ke commit yang menghasilkannya lewat `get_git_hash()`, dan flag "dirty" memperingatkan ketika ada perubahan yang belum di-commit. Implementasi keempat pilar tersedia di `template/src/utils.py`; Lab 3 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb)) membangun keempatnya secara berurutan.
 
 **Seperti apa bentuk YAML config yang akan Anda pakai?** Di bawah ini adalah `configs/baseline.yaml` dari template repo, contoh konkret yang dipakai di seluruh modul:
 
@@ -446,7 +446,7 @@ Di luar update rutin, ada tiga alat yang membentuk kebiasaan komunikasi seorang 
 
 ### 5.1 Focal Loss + Freeze Layer dengan Ablation
 
-Buka [lab_w3_loss_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w3_loss_ablation.ipynb).
+Buka [lab_w3_loss_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb).
 
 Tugas:
 
@@ -470,7 +470,7 @@ Tugas:
 
 ![Struktur Folder Eksperimen: config.yaml, train.log, checkpoint, summary.json, TensorBoard](../figures/fig03b_experiment_folder.svg)
 
-Buka [lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/main/template/notebooks/lab_w4_experiment_tracking.ipynb). Tugas:
+Buka [lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb). Tugas:
 
 1. Tulis `protocol.md` + matriks eksperimen sebelum menyentuh kode.
 2. Refaktor konfigurasi dari hardcoded ke YAML.
