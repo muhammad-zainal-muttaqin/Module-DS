@@ -451,7 +451,7 @@ Buka [lab_w3_loss_ablation.ipynb](https://colab.research.google.com/github/muham
 Tugas:
 
 1. Tulis `protocol.md` di `experiments/lab2/` dengan lima bagian (variabel, hipotesis, metrik, eksekusi, waktu) *sebelum* menyentuh kode training.
-2. Implementasi `FocalLoss` di [src/losses.py](template/src/losses.py), sertakan uji: ketika γ=0 hasilnya identik dengan `CrossEntropyLoss`.
+2. Implementasi `FocalLoss` di [src/losses.py](../template/src/losses.py), sertakan uji: ketika γ=0 hasilnya identik dengan `CrossEntropyLoss`.
 3. Jalankan enam run (3 seed × 2 kondisi) memakai `SimpleCNN` pada CIFAR-10.
 4. Hasilkan tabel agregat dan plot F1 per kelas (baseline vs focal+freeze).
 5. Tulis laporan singkat (1 halaman): hipotesis, hasil, interpretasi, langkah berikutnya.

@@ -79,9 +79,9 @@ const GITHUB_FILE_BASE =
   "https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master";
 
 // Rewrite relative template/ links to GitHub URLs.
-// Matches `(template/...)` that are not already absolute URLs.
+// Matches `(template/...)` or `(../template/...)` that are not already absolute URLs.
 function rewriteSourceFileLinks(md: string): string {
-  return md.replace(/\((template\/[^)]+)\)/g, (_m, path: string) => {
+  return md.replace(/\((\.\.\/)?(template\/[^)]+)\)/g, (_m, _prefix: string, path: string) => {
     return `(${GITHUB_FILE_BASE}/${path})`;
   });
 }

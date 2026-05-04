@@ -108,4 +108,4 @@ Baca [15_Panduan_Instruktur.md](chapters/15_Panduan_Instruktur.md) untuk panduan
 
 ## Langkah Selanjutnya
 
-Mulai dari [00 - Pendahuluan](00_Pendahuluan.md). Bab tersebut menjelaskan mengapa sepuluh kompetensi ini dipilih, dan kontrak kecil yang perlu dipahami sebelum masuk ke materi teknis.
+Mulai dari [00 - Pendahuluan](chapters/00_Pendahuluan.md). Bab tersebut menjelaskan mengapa sepuluh kompetensi ini dipilih, dan kontrak kecil yang perlu dipahami sebelum masuk ke materi teknis.

@@ -313,7 +313,7 @@ Catat untuk setiap run:
 
 ## 6. Refleksi
 
-Tulis jawaban singkat (1-2 paragraf masing-masing) untuk tiga pertanyaan berikut. Simpan di [`notebooks/portofolio_mandiri.ipynb`](template/notebooks/portofolio_mandiri.ipynb) sebagai entri pra-W4 (tidak masuk hitungan portofolio resmi tapi melatih kebiasaan).
+Tulis jawaban singkat (1-2 paragraf masing-masing) untuk tiga pertanyaan berikut. Simpan di [`notebooks/portofolio_mandiri.ipynb`](../template/notebooks/portofolio_mandiri.ipynb) sebagai entri pra-W4 (tidak masuk hitungan portofolio resmi tapi melatih kebiasaan).
 
 1. **Output head yang sama, loss berbeda.** Ada situasi di mana binary classification dijalankan dengan `Linear(D, 1) + BCEWithLogitsLoss` dan situasi lain dengan `Linear(D, 2) + CrossEntropyLoss`. Apa konsekuensi praktisnya? Mana yang Anda pilih untuk Lab 0, dan mengapa?
 2. **Observasi vs interpretasi.** Sebutkan satu pengamatan dari Lab 0 yang tergoda Anda interpretasikan terlalu cepat. Apa pertanyaan tambahan yang seharusnya Anda ajukan sebelum menyimpulkan?
