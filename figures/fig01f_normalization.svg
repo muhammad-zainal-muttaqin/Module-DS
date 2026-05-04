@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="760" height="400" fill="#F9FAFB" rx="12"/>
+
+  <!-- Title -->
+  <text x="380" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">BatchNorm vs LayerNorm vs GroupNorm</text>
+  <text x="380" y="50" text-anchor="middle" font-size="10" fill="#6B7280">Warna = dimensi yang dinormalisasi bersama (mean &amp; std dihitung di area berwarna sama)</text>
+
+  <!-- ===== Card 1: BatchNorm ===== -->
+  <g transform="translate(25,68)">
+    <rect width="212" height="312" rx="10" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+
+    <!-- Header -->
+    <text x="106" y="26" text-anchor="middle" font-size="14" font-weight="700" fill="#1D4ED8">BatchNorm</text>
+    <text x="106" y="44" text-anchor="middle" font-size="9" fill="#374151">Normalisasi per channel, across N</text>
+
+    <!-- Grid 4C × 4N, cell 36×22, gap 4 — columns share color -->
+    <!-- Col c1: dark blue -->
+    <rect x="28" y="58" width="36" height="22" rx="2" fill="#2563EB"/>
+    <rect x="28" y="84" width="36" height="22" rx="2" fill="#2563EB"/>
+    <rect x="28" y="110" width="36" height="22" rx="2" fill="#2563EB"/>
+    <rect x="28" y="136" width="36" height="22" rx="2" fill="#2563EB"/>
+    <!-- Col c2 -->
+    <rect x="68" y="58" width="36" height="22" rx="2" fill="#60A5FA"/>
+    <rect x="68" y="84" width="36" height="22" rx="2" fill="#60A5FA"/>
+    <rect x="68" y="110" width="36" height="22" rx="2" fill="#60A5FA"/>
+    <rect x="68" y="136" width="36" height="22" rx="2" fill="#60A5FA"/>
+    <!-- Col c3 -->
+    <rect x="108" y="58" width="36" height="22" rx="2" fill="#93C5FD"/>
+    <rect x="108" y="84" width="36" height="22" rx="2" fill="#93C5FD"/>
+    <rect x="108" y="110" width="36" height="22" rx="2" fill="#93C5FD"/>
+    <rect x="108" y="136" width="36" height="22" rx="2" fill="#93C5FD"/>
+    <!-- Col c4 -->
+    <rect x="148" y="58" width="36" height="22" rx="2" fill="#BFDBFE"/>
+    <rect x="148" y="84" width="36" height="22" rx="2" fill="#BFDBFE"/>
+    <rect x="148" y="110" width="36" height="22" rx="2" fill="#BFDBFE"/>
+    <rect x="148" y="136" width="36" height="22" rx="2" fill="#BFDBFE"/>
+
+    <!-- Axis labels -->
+    <text x="21" y="72" text-anchor="middle" font-size="8" fill="#6B7280">N↓</text>
+    <text x="46" y="55" text-anchor="middle" font-size="8" fill="#1D4ED8">c₁</text>
+    <text x="86" y="55" text-anchor="middle" font-size="8" fill="#1D4ED8">c₂</text>
+    <text x="126" y="55" text-anchor="middle" font-size="8" fill="#1D4ED8">c₃</text>
+    <text x="166" y="55" text-anchor="middle" font-size="8" fill="#1D4ED8">c₄</text>
+    <text x="106" y="170" text-anchor="middle" font-size="8" fill="#6B7280">C (channel) →</text>
+
+    <!-- Formula badge -->
+    <rect x="16" y="180" width="180" height="22" rx="5" fill="#DBEAFE"/>
+    <text x="106" y="195" text-anchor="middle" font-size="9" font-weight="600" fill="#1D4ED8">μ, σ per channel across N, H, W</text>
+
+    <!-- Divider -->
+    <line x1="16" y1="210" x2="196" y2="210" stroke="#BFDBFE" stroke-width="1"/>
+
+    <!-- Pros & cons -->
+    <text x="20" y="228" font-size="10" fill="#065F46">✓ Efektif untuk CNN</text>
+    <text x="20" y="248" font-size="10" fill="#065F46">✓ Stabil saat batch besar</text>
+    <text x="20" y="270" font-size="10" fill="#9B1C1C">✗ Gagal saat batch kecil</text>
+    <text x="20" y="290" font-size="10" fill="#9B1C1C">✗ Tidak cocok RNN/Transformer</text>
+  </g>
+
+  <!-- ===== Card 2: LayerNorm ===== -->
+  <g transform="translate(274,68)">
+    <rect width="212" height="312" rx="10" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+
+    <text x="106" y="26" text-anchor="middle" font-size="14" font-weight="700" fill="#065F46">LayerNorm</text>
+    <text x="106" y="44" text-anchor="middle" font-size="9" fill="#374151">Normalisasi per sample, across C</text>
+
+    <!-- Grid: each ROW fully shaded — row = one sample -->
+    <rect x="28" y="58" width="156" height="22" rx="2" fill="#059669"/>
+    <rect x="28" y="84" width="156" height="22" rx="2" fill="#34D399"/>
+    <rect x="28" y="110" width="156" height="22" rx="2" fill="#6EE7B7"/>
+    <rect x="28" y="136" width="156" height="22" rx="2" fill="#A7F3D0"/>
+
+    <!-- Axis labels -->
+    <text x="21" y="72" text-anchor="middle" font-size="8" fill="#6B7280">N↓</text>
+    <text x="36" y="55" font-size="8" fill="#065F46">n₁</text>
+    <text x="36" y="81" font-size="8" fill="#065F46">n₂</text>
+    <text x="36" y="107" font-size="8" fill="#065F46">n₃</text>
+    <text x="36" y="133" font-size="8" fill="#065F46">n₄</text>
+    <text x="106" y="170" text-anchor="middle" font-size="8" fill="#6B7280">C (channel) →</text>
+
+    <!-- Formula badge -->
+    <rect x="16" y="180" width="180" height="22" rx="5" fill="#D1FAE5"/>
+    <text x="106" y="195" text-anchor="middle" font-size="9" font-weight="600" fill="#065F46">μ, σ per sample across C, H, W</text>
+
+    <line x1="16" y1="210" x2="196" y2="210" stroke="#A7F3D0" stroke-width="1"/>
+
+    <text x="20" y="228" font-size="10" fill="#065F46">✓ Cocok untuk Transformer</text>
+    <text x="20" y="248" font-size="10" fill="#065F46">✓ Bekerja di semua batch size</text>
+    <text x="20" y="270" font-size="10" fill="#9B1C1C">✗ Kurang optimal untuk CNN</text>
+    <text x="20" y="290" font-size="10" fill="#374151">→ Standar di BERT, GPT, ViT</text>
+  </g>
+
+  <!-- ===== Card 3: GroupNorm ===== -->
+  <g transform="translate(523,68)">
+    <rect width="212" height="312" rx="10" fill="#FFF7ED" stroke="#F59E0B" stroke-width="2"/>
+
+    <text x="106" y="26" text-anchor="middle" font-size="14" font-weight="700" fill="#92400E">GroupNorm</text>
+    <text x="106" y="44" text-anchor="middle" font-size="9" fill="#374151">Normalisasi per group channel</text>
+
+    <!-- Grid: 2 groups of 2 columns each -->
+    <!-- Group 1: col c1, c2 -->
+    <rect x="28" y="58" width="74" height="22" rx="2" fill="#D97706"/>
+    <rect x="28" y="84" width="74" height="22" rx="2" fill="#D97706"/>
+    <rect x="28" y="110" width="74" height="22" rx="2" fill="#D97706"/>
+    <rect x="28" y="136" width="74" height="22" rx="2" fill="#D97706"/>
+    <!-- Group 2: col c3, c4 -->
+    <rect x="110" y="58" width="74" height="22" rx="2" fill="#FCD34D"/>
+    <rect x="110" y="84" width="74" height="22" rx="2" fill="#FCD34D"/>
+    <rect x="110" y="110" width="74" height="22" rx="2" fill="#FCD34D"/>
+    <rect x="110" y="136" width="74" height="22" rx="2" fill="#FCD34D"/>
+
+    <!-- Group divider line -->
+    <line x1="106" y1="54" x2="106" y2="162" stroke="#92400E" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Group labels -->
+    <text x="65" y="54" text-anchor="middle" font-size="8" font-weight="600" fill="#92400E">G₁</text>
+    <text x="147" y="54" text-anchor="middle" font-size="8" font-weight="600" fill="#92400E">G₂</text>
+    <text x="21" y="72" text-anchor="middle" font-size="8" fill="#6B7280">N↓</text>
+    <text x="106" y="170" text-anchor="middle" font-size="8" fill="#6B7280">C (channel) →</text>
+
+    <!-- Formula badge -->
+    <rect x="16" y="180" width="180" height="22" rx="5" fill="#FEF3C7"/>
+    <text x="106" y="195" text-anchor="middle" font-size="9" font-weight="600" fill="#92400E">μ, σ per (sample, group)</text>
+
+    <line x1="16" y1="210" x2="196" y2="210" stroke="#FCD34D" stroke-width="1"/>
+
+    <text x="20" y="228" font-size="10" fill="#065F46">✓ Bekerja saat batch kecil</text>
+    <text x="20" y="248" font-size="10" fill="#065F46">✓ Kompromi BN dan LN</text>
+    <text x="20" y="270" font-size="10" fill="#374151">→ Dipakai di Mask R-CNN</text>
+    <text x="20" y="290" font-size="10" fill="#374151">→ Deteksi &amp; segmentasi</text>
+  </g>
+
+  <!-- Bottom caption -->
+  <text x="380" y="392" text-anchor="middle" font-size="9" fill="#6B7280">Pilih: BatchNorm (CNN, batch ≥ 16) · LayerNorm (Transformer/NLP) · GroupNorm (deteksi/segmentasi, batch kecil)</text>
+</svg>

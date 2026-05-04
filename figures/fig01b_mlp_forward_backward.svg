@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="820" height="400" fill="#F9FAFB" rx="12"/>
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">MLP: Forward Pass &amp; Backpropagation</text>
+
+  <!-- Column labels -->
+  <text x="90"  y="58" text-anchor="middle" font-size="11" font-weight="600" fill="#6B7280">Input (x)</text>
+  <text x="270" y="58" text-anchor="middle" font-size="11" font-weight="600" fill="#6B7280">Hidden₁</text>
+  <text x="460" y="58" text-anchor="middle" font-size="11" font-weight="600" fill="#6B7280">Hidden₂</text>
+  <text x="650" y="58" text-anchor="middle" font-size="11" font-weight="600" fill="#6B7280">Output (ŷ)</text>
+
+  <!-- Forward connections -->
+  <g stroke="#93C5FD" stroke-width="1" opacity="0.55">
+    <line x1="108" y1="100" x2="252" y2="120"/><line x1="108" y1="100" x2="252" y2="170"/><line x1="108" y1="100" x2="252" y2="220"/>
+    <line x1="108" y1="160" x2="252" y2="120"/><line x1="108" y1="160" x2="252" y2="170"/><line x1="108" y1="160" x2="252" y2="220"/>
+    <line x1="108" y1="220" x2="252" y2="120"/><line x1="108" y1="220" x2="252" y2="170"/><line x1="108" y1="220" x2="252" y2="220"/>
+    <line x1="108" y1="280" x2="252" y2="120"/><line x1="108" y1="280" x2="252" y2="170"/><line x1="108" y1="280" x2="252" y2="220"/>
+    <line x1="288" y1="120" x2="442" y2="145"/><line x1="288" y1="120" x2="442" y2="195"/><line x1="288" y1="120" x2="442" y2="245"/>
+    <line x1="288" y1="170" x2="442" y2="145"/><line x1="288" y1="170" x2="442" y2="195"/><line x1="288" y1="170" x2="442" y2="245"/>
+    <line x1="288" y1="220" x2="442" y2="145"/><line x1="288" y1="220" x2="442" y2="195"/><line x1="288" y1="220" x2="442" y2="245"/>
+    <line x1="478" y1="145" x2="632" y2="175"/><line x1="478" y1="145" x2="632" y2="225"/>
+    <line x1="478" y1="195" x2="632" y2="175"/><line x1="478" y1="195" x2="632" y2="225"/>
+    <line x1="478" y1="245" x2="632" y2="175"/><line x1="478" y1="245" x2="632" y2="225"/>
+  </g>
+
+  <!-- Input neurons -->
+  <circle cx="108" cy="100" r="20" fill="#3B82F6" stroke="#1D4ED8" stroke-width="2"/>
+  <circle cx="108" cy="160" r="20" fill="#3B82F6" stroke="#1D4ED8" stroke-width="2"/>
+  <circle cx="108" cy="220" r="20" fill="#3B82F6" stroke="#1D4ED8" stroke-width="2"/>
+  <circle cx="108" cy="280" r="20" fill="#3B82F6" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="108" y="105" text-anchor="middle" font-size="11" fill="white" font-weight="700">x₁</text>
+  <text x="108" y="165" text-anchor="middle" font-size="11" fill="white" font-weight="700">x₂</text>
+  <text x="108" y="225" text-anchor="middle" font-size="11" fill="white" font-weight="700">x₃</text>
+  <text x="108" y="285" text-anchor="middle" font-size="11" fill="white" font-weight="700">x₄</text>
+
+  <!-- Hidden1 neurons -->
+  <circle cx="270" cy="120" r="20" fill="#60A5FA" stroke="#3B82F6" stroke-width="2"/>
+  <circle cx="270" cy="170" r="20" fill="#60A5FA" stroke="#3B82F6" stroke-width="2"/>
+  <circle cx="270" cy="220" r="20" fill="#60A5FA" stroke="#3B82F6" stroke-width="2"/>
+  <text x="270" y="125" text-anchor="middle" font-size="11" fill="white" font-weight="700">h₁</text>
+  <text x="270" y="175" text-anchor="middle" font-size="11" fill="white" font-weight="700">h₂</text>
+  <text x="270" y="225" text-anchor="middle" font-size="11" fill="white" font-weight="700">h₃</text>
+
+  <!-- Hidden2 neurons -->
+  <circle cx="460" cy="145" r="20" fill="#818CF8" stroke="#6366F1" stroke-width="2"/>
+  <circle cx="460" cy="195" r="20" fill="#818CF8" stroke="#6366F1" stroke-width="2"/>
+  <circle cx="460" cy="245" r="20" fill="#818CF8" stroke="#6366F1" stroke-width="2"/>
+  <text x="460" y="150" text-anchor="middle" font-size="11" fill="white" font-weight="700">h'₁</text>
+  <text x="460" y="200" text-anchor="middle" font-size="11" fill="white" font-weight="700">h'₂</text>
+  <text x="460" y="250" text-anchor="middle" font-size="11" fill="white" font-weight="700">h'₃</text>
+
+  <!-- Output neurons -->
+  <circle cx="650" cy="175" r="20" fill="#A78BFA" stroke="#7C3AED" stroke-width="2"/>
+  <circle cx="650" cy="225" r="20" fill="#A78BFA" stroke="#7C3AED" stroke-width="2"/>
+  <text x="650" y="180" text-anchor="middle" font-size="11" fill="white" font-weight="700">ŷ₁</text>
+  <text x="650" y="230" text-anchor="middle" font-size="11" fill="white" font-weight="700">ŷ₂</text>
+
+  <!-- Loss box -->
+  <rect x="700" y="162" width="106" height="50" rx="6" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="753" y="181" text-anchor="middle" font-size="10" font-weight="700" fill="#92400E">Loss L</text>
+  <text x="753" y="198" text-anchor="middle" font-size="9" fill="#92400E">−Σ yₖ log(ŷₖ)</text>
+  <line x1="670" y1="192" x2="698" y2="192" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#arrowAmb)"/>
+
+  <!-- Backprop arrow -->
+  <path d="M668 76 L112 76" stroke="#EF4444" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowRed)"/>
+  <rect x="270" y="62" width="222" height="22" rx="4" fill="#FEE2E2"/>
+  <text x="381" y="77" text-anchor="middle" font-size="10" fill="#B91C1C" font-weight="600">← BACKPROP: ∂L/∂W = δ · aᵀ</text>
+
+  <!-- Forward pass label -->
+  <rect x="108" y="314" width="454" height="22" rx="4" fill="#DBEAFE"/>
+  <text x="335" y="329" text-anchor="middle" font-size="10" fill="#1D4ED8" font-weight="600">→ FORWARD: x → W₁h+b₁ → σ → W₂h'+b₂ → σ → ŷ</text>
+
+  <!-- Chain rule box -->
+  <rect x="20" y="348" width="778" height="40" rx="6" fill="#F0FDF4" stroke="#10B981" stroke-width="1.5"/>
+  <text x="409" y="364" text-anchor="middle" font-size="10" font-weight="700" fill="#065F46">Chain rule (7 langkah):</text>
+  <text x="409" y="380" text-anchor="middle" font-size="9" fill="#065F46">∂L/∂W² = ∂L/∂ŷ · ∂ŷ/∂z² · ∂z²/∂W²   ─   ∂L/∂W¹ = ∂L/∂ŷ · ∂ŷ/∂z² · ∂z²/∂a¹ · ∂a¹/∂z¹ · ∂z¹/∂W¹</text>
+
+  <defs>
+    <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#EF4444"/>
+    </marker>
+    <marker id="arrowAmb" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#F59E0B"/>
+    </marker>
+  </defs>
+</svg>

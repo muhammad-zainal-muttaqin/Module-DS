@@ -1,0 +1,49 @@
+[19.06, 2/5/2026] Bu Fatma (Dosen ( Dosen Ilkom): Walaupun ada lab 7b, tambahkan sedikit terkait penjelasan attention di dokumen utama.
+[19.14, 2/5/2026] Bu Fatma (Dosen ( Dosen Ilkom): (Send Image Sembilan kompetensi
+Dari memahami sistem sampai berkembang mandiri.
+Setiap kompetensi dibahas satu bab penuh dengan satu lab pendamping. Klik untuk membuka babnya langsung.
+
+1
+Memahami sistem ML/DL dalam praktiknya
+Bab 01 · Minggu 1
+2
+Menerjemahkan ide menjadi eksperimen
+Bab 02 · Minggu 2
+3
+Eksperimen reproduksibel
+Bab 04 · Minggu 4
+4
+Validasi data dan pra-pemrosesan
+Bab 06 · Minggu 6
+5
+AI tools sebagai pendukung
+Bab 07 · Minggu 7
+6
+Adopsi repository riset asing
+Bab 08 · Minggu 8
+7
+Membuat alat pendukung riset ringan
+Bab 09 · Minggu 9
+8
+Mengadopsi platform dan tool baru
+Bab 10 · Minggu 10
+9
+Berkembang mandiri
+Bab 11 · Minggu 11) Halaman depan.) Label dan linknya banyak yang kurang sesuai.
+[19.15, 2/5/2026] Bu Fatma (Dosen ( Dosen Ilkom): (Send Image # Pemetaan Kompetensi × Bab
+
+| No | Kompetensi | W Dilatih |
+|:---|:---|:---|
+| K1 | Memahami Sistem ML/DL Praktis | W1-W9 |
+| K2 | Menerjemahkan Ide Menjadi Eksperimen | W3-W4, W11, Capstone |
+| K3 | Eksperimen Reproduksibel | W3, W4, Capstone |
+| K4 | Validasi Data & Pra-pemrosesan | W3, W6, W9 |
+| K5 | Alat AI Sebagai Pendukung | W7-W8 |
+| K6 | Adopsi Repository Riset | W7, W10, Capstone |
+| K7 | Alat Pendukung Ringan | W12-W15 |
+| K8 | Platform & Alat Baru | W8, Capstone |
+| K9 | Pengembangan Mandiri | W10, W11, Capstone |) Kenapa tidak dipetakan seperti ini saja? karena 1 kompetensi bisa lebih dari 1 week. Atau bagaimana?
+[19.28, 2/5/2026] Muhammad Zainal Muttaqin: Kenapa tidak dipetakan seperti ini saja? karena 1 kompetensi bisa lebih dari 1 week. Atau bagaimana?
+bisa sih bu, saya coba resturkturisasi
+[19.29, 2/5/2026] Muhammad Zainal Muttaqin: saya coba kerjakan
+[19.32, 2/5/2026] Muhammad Zainal Muttaqin: saya coba buat branch baru dulu, kemudian setelah selesai dicek dulu sama pian baru jika disetujui di merge

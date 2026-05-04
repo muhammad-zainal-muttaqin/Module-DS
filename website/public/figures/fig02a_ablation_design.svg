@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="740" height="340" fill="#F9FAFB" rx="12"/>
+  <text x="370" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Desain Ablation Study: Satu Variabel Berubah</text>
+  <text x="370" y="46" text-anchor="middle" font-size="10" fill="#6B7280">Setiap kondisi = baseline + tepat satu perubahan. Bandingkan langsung untuk isolasi efek.</text>
+
+  <!-- Header row -->
+  <rect x="20" y="60" width="700" height="38" rx="6" fill="#1F2937"/>
+  <text x="148" y="84" text-anchor="middle" font-size="11" font-weight="700" fill="white">Kondisi</text>
+  <text x="320" y="84" text-anchor="middle" font-size="11" font-weight="700" fill="white">Loss Fn</text>
+  <text x="450" y="84" text-anchor="middle" font-size="11" font-weight="700" fill="white">Freeze</text>
+  <text x="566" y="84" text-anchor="middle" font-size="11" font-weight="700" fill="white">LR</text>
+  <text x="672" y="84" text-anchor="middle" font-size="11" font-weight="700" fill="white">Val Acc</text>
+
+  <!-- Baseline row -->
+  <rect x="20" y="98" width="700" height="50" rx="0" fill="#EFF6FF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="20" y="98" width="8" height="50" fill="#3B82F6" rx="2"/>
+  <text x="148" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#1D4ED8">A — Baseline</text>
+  <text x="148" y="136" text-anchor="middle" font-size="9" fill="#6B7280">(titik acuan semua kondisi)</text>
+  <text x="320" y="127" text-anchor="middle" font-size="11" fill="#374151">CrossEntropy</text>
+  <text x="450" y="127" text-anchor="middle" font-size="11" fill="#374151">tidak ada</text>
+  <text x="566" y="127" text-anchor="middle" font-size="11" fill="#374151">1e-3</text>
+  <rect x="620" y="108" width="80" height="24" rx="4" fill="#3B82F6" opacity="0.85"/>
+  <text x="660" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="white">72.4%</text>
+
+  <!-- Variant B: change loss fn -->
+  <rect x="20" y="148" width="700" height="50" rx="0" fill="white" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="20" y="148" width="8" height="50" fill="#10B981" rx="2"/>
+  <text x="148" y="168" text-anchor="middle" font-size="12" font-weight="700" fill="#065F46">B — Focal Loss</text>
+  <text x="148" y="184" text-anchor="middle" font-size="9" fill="#6B7280">(ubah loss fn saja)</text>
+  <rect x="280" y="154" width="80" height="36" rx="4" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5"/>
+  <text x="320" y="171" text-anchor="middle" font-size="11" fill="#065F46" font-weight="600">Focal(γ=2)</text>
+  <text x="320" y="183" text-anchor="middle" font-size="8" fill="#10B981">← berubah</text>
+  <text x="450" y="177" text-anchor="middle" font-size="11" fill="#374151">tidak ada</text>
+  <text x="566" y="177" text-anchor="middle" font-size="11" fill="#374151">1e-3</text>
+  <rect x="620" y="158" width="80" height="24" rx="4" fill="#10B981" opacity="0.85"/>
+  <text x="660" y="174" text-anchor="middle" font-size="11" font-weight="700" fill="white">74.1% ↑</text>
+
+  <!-- Variant C: freeze backbone -->
+  <rect x="20" y="198" width="700" height="50" rx="0" fill="white" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="20" y="198" width="8" height="50" fill="#F59E0B" rx="2"/>
+  <text x="148" y="218" text-anchor="middle" font-size="12" font-weight="700" fill="#92400E">C — Freeze Head</text>
+  <text x="148" y="234" text-anchor="middle" font-size="9" fill="#6B7280">(ubah freeze saja)</text>
+  <text x="320" y="227" text-anchor="middle" font-size="11" fill="#374151">CrossEntropy</text>
+  <rect x="408" y="204" width="84" height="36" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="450" y="221" text-anchor="middle" font-size="11" fill="#92400E" font-weight="600">layer 1-3</text>
+  <text x="450" y="233" text-anchor="middle" font-size="8" fill="#F59E0B">← berubah</text>
+  <text x="566" y="227" text-anchor="middle" font-size="11" fill="#374151">1e-3</text>
+  <rect x="620" y="208" width="80" height="24" rx="4" fill="#F59E0B" opacity="0.85"/>
+  <text x="660" y="224" text-anchor="middle" font-size="11" font-weight="700" fill="white">70.8% ↓</text>
+
+  <!-- Variant D: LR -->
+  <rect x="20" y="248" width="700" height="50" rx="0" fill="white" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="20" y="248" width="8" height="50" fill="#8B5CF6" rx="2"/>
+  <text x="148" y="268" text-anchor="middle" font-size="12" font-weight="700" fill="#4C1D95">D — LR lebih kecil</text>
+  <text x="148" y="284" text-anchor="middle" font-size="9" fill="#6B7280">(ubah LR saja)</text>
+  <text x="320" y="277" text-anchor="middle" font-size="11" fill="#374151">CrossEntropy</text>
+  <text x="450" y="277" text-anchor="middle" font-size="11" fill="#374151">tidak ada</text>
+  <rect x="524" y="254" width="84" height="36" rx="4" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="1.5"/>
+  <text x="566" y="271" text-anchor="middle" font-size="11" fill="#4C1D95" font-weight="600">1e-4</text>
+  <text x="566" y="283" text-anchor="middle" font-size="8" fill="#8B5CF6">← berubah</text>
+  <rect x="620" y="258" width="80" height="24" rx="4" fill="#8B5CF6" opacity="0.85"/>
+  <text x="660" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="white">73.9% ↑</text>
+
+  <!-- Rule box -->
+  <rect x="20" y="308" width="700" height="24" rx="6" fill="#FEF2F2" stroke="#EF4444" stroke-width="1.5"/>
+  <text x="370" y="324" text-anchor="middle" font-size="10" font-weight="700" fill="#991B1B">Aturan: B vs A → efek loss · C vs A → efek freeze · D vs A → efek LR · Jangan ubah 2 variabel sekaligus</text>
+</svg>

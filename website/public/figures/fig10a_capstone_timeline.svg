@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="900" height="320" fill="#FAFAFA" rx="12"/>
+  <text x="450" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Capstone: Timeline 4 Minggu (W12-W15)</text>
+  <text x="450" y="44" text-anchor="middle" font-size="10" fill="#6B7280">Filter → Rethink → Communicate → Submit</text>
+
+  <!-- Week headers -->
+  <rect x="30" y="58" width="200" height="36" rx="6" fill="#1D4ED8"/>
+  <text x="130" y="76" text-anchor="middle" font-size="11" font-weight="700" fill="white">W12: Filter &amp; Komitmen</text>
+  <text x="130" y="88" text-anchor="middle" font-size="8" fill="#BFDBFE">Framing defense + Eks 1</text>
+
+  <rect x="245" y="58" width="200" height="36" rx="6" fill="#065F46"/>
+  <text x="345" y="76" text-anchor="middle" font-size="11" font-weight="700" fill="white">W13: Tinjau Ulang</text>
+  <text x="345" y="88" text-anchor="middle" font-size="8" fill="#A7F3D0">Revisi + Eksperimen 2</text>
+
+  <rect x="460" y="58" width="200" height="36" rx="6" fill="#92400E"/>
+  <text x="560" y="76" text-anchor="middle" font-size="11" font-weight="700" fill="white">W14: Komunikasikan</text>
+  <text x="560" y="88" text-anchor="middle" font-size="8" fill="#FDE68A">Presentasi final 20 mnt</text>
+
+  <rect x="675" y="58" width="200" height="36" rx="6" fill="#4C1D95"/>
+  <text x="775" y="76" text-anchor="middle" font-size="11" font-weight="700" fill="white">W15: Kumpulkan</text>
+  <text x="775" y="88" text-anchor="middle" font-size="8" fill="#DDD6FE">Poles luaran + submit</text>
+
+  <!-- W12 tasks -->
+  <rect x="30" y="102" width="200" height="32" rx="4" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+  <text x="130" y="116" text-anchor="middle" font-size="9" font-weight="600" fill="#1D4ED8">Presentasi framing</text>
+  <text x="130" y="128" text-anchor="middle" font-size="7" fill="#6B7280">pertahanan + persetujuan</text>
+
+  <rect x="30" y="138" width="200" height="32" rx="4" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+  <text x="130" y="152" text-anchor="middle" font-size="9" font-weight="600" fill="#1D4ED8">Pre-reg Eksperimen 1</text>
+  <text x="130" y="164" text-anchor="middle" font-size="7" fill="#6B7280">hipotesis + metrik + baseline</text>
+
+  <rect x="30" y="174" width="200" height="26" rx="4" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1"/>
+  <text x="130" y="191" text-anchor="middle" font-size="8" fill="#374151">📦 pre-reg + hasil Eks 1</text>
+
+  <!-- W13 tasks -->
+  <rect x="245" y="102" width="200" height="32" rx="4" fill="#D1FAE5" stroke="#10B981" stroke-width="1"/>
+  <text x="345" y="116" text-anchor="middle" font-size="9" font-weight="600" fill="#065F46">Presentasi hasil Eks 1</text>
+  <text x="345" y="128" text-anchor="middle" font-size="7" fill="#6B7280">tinjau ulang hipotesis</text>
+
+  <rect x="245" y="138" width="200" height="32" rx="4" fill="#D1FAE5" stroke="#10B981" stroke-width="1"/>
+  <text x="345" y="152" text-anchor="middle" font-size="9" font-weight="600" fill="#065F46">Pre-reg Eksperimen 2</text>
+  <text x="345" y="164" text-anchor="middle" font-size="7" fill="#6B7280">desain ulang + jalankan</text>
+
+  <rect x="245" y="174" width="200" height="26" rx="4" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1"/>
+  <text x="345" y="191" text-anchor="middle" font-size="8" fill="#374151">📦 hasil Eks 2 + revisi</text>
+
+  <!-- W14 tasks -->
+  <rect x="460" y="102" width="200" height="32" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+  <text x="560" y="116" text-anchor="middle" font-size="9" font-weight="600" fill="#92400E">Presentasi final (20 mnt)</text>
+  <text x="560" y="128" text-anchor="middle" font-size="7" fill="#6B7280">problem → method → result</text>
+
+  <rect x="460" y="138" width="200" height="32" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+  <text x="560" y="152" text-anchor="middle" font-size="9" font-weight="600" fill="#92400E">Finalisasi demo</text>
+  <text x="560" y="164" text-anchor="middle" font-size="7" fill="#6B7280">Streamlit / Gradio</text>
+
+  <rect x="460" y="174" width="200" height="26" rx="4" fill="#FFF7ED" stroke="#FCD34D" stroke-width="1"/>
+  <text x="560" y="191" text-anchor="middle" font-size="8" fill="#374151">📦 draft laporan + slide</text>
+
+  <!-- W15 tasks -->
+  <rect x="675" y="102" width="200" height="32" rx="4" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="775" y="116" text-anchor="middle" font-size="9" font-weight="600" fill="#4C1D95">Poles luaran</text>
+  <text x="775" y="128" text-anchor="middle" font-size="7" fill="#6B7280">revisi berdasarkan umpan balik</text>
+
+  <rect x="675" y="138" width="200" height="32" rx="4" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="775" y="152" text-anchor="middle" font-size="9" font-weight="600" fill="#4C1D95">Kumpulkan semua luaran</text>
+  <text x="775" y="164" text-anchor="middle" font-size="7" fill="#6B7280">laporan + repo + demo</text>
+
+  <rect x="675" y="174" width="200" height="26" rx="4" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1"/>
+  <text x="775" y="191" text-anchor="middle" font-size="8" fill="#374151">📦 tanpa sesi tatap muka</text>
+
+  <!-- Progress bar -->
+  <rect x="30" y="212" width="845" height="10" rx="5" fill="#E5E7EB"/>
+  <rect x="30" y="212" width="211" height="10" rx="5" fill="#3B82F6"/>
+  <rect x="241" y="212" width="211" height="10" rx="0" fill="#10B981"/>
+  <rect x="452" y="212" width="211" height="10" rx="0" fill="#F59E0B"/>
+  <rect x="663" y="212" width="212" height="10" rx="5" fill="#8B5CF6"/>
+  <text x="450" y="234" text-anchor="middle" font-size="8" fill="#6B7280">Progress Capstone</text>
+
+  <!-- Deliverables -->
+  <rect x="30" y="242" width="845" height="60" rx="6" fill="#F9FAFB" stroke="#E5E7EB"/>
+  <text x="450" y="258" text-anchor="middle" font-size="9" font-weight="700" fill="#374151">Luaran Capstone:</text>
+  <text x="200" y="274" text-anchor="middle" font-size="8" fill="#3B82F6">W12: pre-reg + hasil Eks 1</text>
+  <text x="400" y="274" text-anchor="middle" font-size="8" fill="#10B981">W13: hasil Eks 2 + revisi</text>
+  <text x="600" y="274" text-anchor="middle" font-size="8" fill="#F59E0B">W14: draft laporan + slide</text>
+  <text x="800" y="274" text-anchor="middle" font-size="8" fill="#8B5CF6">W15: final (repo+laporan+demo)</text>
+  <text x="450" y="294" text-anchor="middle" font-size="7" fill="#6B7280">W15 = submission week tanpa sesi tatap muka. Kumpulkan via repositori.</text>
+</svg>

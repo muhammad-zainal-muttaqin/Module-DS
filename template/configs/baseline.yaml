@@ -1,0 +1,45 @@
+# Baseline configuration - SimpleCNN + CrossEntropy on CIFAR-10
+# Referenced by Bab 01-03 of the learning module.
+
+experiment_name: baseline
+
+seed: 42
+
+data:
+  name: cifar10
+  root: ./data
+  image_size: 32
+  num_classes: 10
+  batch_size: 128
+  num_workers: 2
+  val_split: 0.1
+  augment: true
+
+model:
+  name: simple_cnn
+  num_classes: 10
+  freeze_until: null  # no freezing
+
+loss:
+  name: cross_entropy
+  label_smoothing: 0.0
+
+optim:
+  name: sgd
+  lr: 0.05
+  momentum: 0.9
+  weight_decay: 5.0e-4
+  nesterov: true
+
+scheduler:
+  name: cosine
+  warmup_epochs: 2
+
+train:
+  epochs: 30
+  grad_clip: 1.0
+  log_every: 50
+  save_every: 5
+
+output:
+  root: ./experiments

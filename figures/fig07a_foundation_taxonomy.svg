@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="900" height="520" fill="#F9FAFB" rx="12"/>
+  <text x="450" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Taksonomi Foundation Model: Modalitas × Keluarga × Adaptasi</text>
+  <text x="450" y="46" text-anchor="middle" font-size="10" fill="#6B7280">Tiga dimensi yang menentukan pilihan model dan strategi adaptasi untuk tugas Anda</text>
+
+  <!-- === Row headers (Modalitas) === -->
+  <g transform="translate(20, 70)">
+    <rect x="0" y="0" width="100" height="40" rx="6" fill="#1D4ED8"/>
+    <text x="50" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="white">Modalitas</text>
+
+    <rect x="0" y="50" width="100" height="50" rx="4" fill="#DBEAFE"/>
+    <text x="50" y="75" text-anchor="middle" font-size="10" font-weight="600" fill="#1D4ED8">Teks</text>
+
+    <rect x="0" y="110" width="100" height="50" rx="4" fill="#D1FAE5"/>
+    <text x="50" y="135" text-anchor="middle" font-size="10" font-weight="600" fill="#065F46">Gambar</text>
+
+    <rect x="0" y="170" width="100" height="50" rx="4" fill="#EDE9FE"/>
+    <text x="50" y="195" text-anchor="middle" font-size="10" font-weight="600" fill="#4C1D95">Vision-Language</text>
+
+    <rect x="0" y="230" width="100" height="50" rx="4" fill="#FEF3C7"/>
+    <text x="50" y="255" text-anchor="middle" font-size="10" font-weight="600" fill="#92400E">Audio</text>
+
+    <rect x="0" y="290" width="100" height="50" rx="4" fill="#FFF1F2"/>
+    <text x="50" y="315" text-anchor="middle" font-size="10" font-weight="600" fill="#991B1B">Time Series</text>
+
+    <rect x="0" y="350" width="100" height="50" rx="4" fill="#F3F4F6"/>
+    <text x="50" y="375" text-anchor="middle" font-size="10" font-weight="600" fill="#374151">Domain-Specific</text>
+  </g>
+
+  <!-- === Column headers (Keluarga) === -->
+  <g transform="translate(130, 70)">
+    <rect x="0" y="0" width="540" height="40" rx="6" fill="#1D4ED8"/>
+    <text x="90" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="white">Encoder-only</text>
+    <text x="270" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="white">Decoder-only</text>
+    <text x="450" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="white">Encoder-decoder</text>
+  </g>
+
+  <!-- === Teks row === -->
+  <g transform="translate(130, 120)">
+    <rect x="0" y="0" width="180" height="50" rx="4" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+    <text x="90" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#1D4ED8">BERT, RoBERTa</text>
+    <text x="90" y="32" text-anchor="middle" font-size="8" fill="#6B7280">IndoBERT, BioBERT</text>
+    <text x="90" y="44" text-anchor="middle" font-size="7" fill="#3B82F6">MLM pretraining</text>
+
+    <rect x="190" y="0" width="180" height="50" rx="4" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+    <text x="280" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#1D4ED8">GPT-2/3, LLaMA</text>
+    <text x="280" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Causal LM</text>
+    <text x="280" y="44" text-anchor="middle" font-size="7" fill="#3B82F6">Text generation</text>
+
+    <rect x="380" y="0" width="160" height="50" rx="4" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+    <text x="460" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#1D4ED8">T5, FLAN-T5</text>
+    <text x="460" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Text-to-text</text>
+    <text x="460" y="44" text-anchor="middle" font-size="7" fill="#3B82F6">QA, summarization</text>
+  </g>
+
+  <!-- === Gambar row === -->
+  <g transform="translate(130, 180)">
+    <rect x="0" y="0" width="180" height="50" rx="4" fill="#D1FAE5" stroke="#10B981" stroke-width="1"/>
+    <text x="90" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#065F46">ResNet, ViT</text>
+    <text x="90" y="32" text-anchor="middle" font-size="8" fill="#6B7280">DINO, DINOv2</text>
+    <text x="90" y="44" text-anchor="middle" font-size="7" fill="#10B981">ImageNet supervised</text>
+
+    <rect x="190" y="0" width="180" height="50" rx="4" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="4"/>
+    <text x="280" y="25" text-anchor="middle" font-size="9" fill="#9CA3AF">Tidak umum</text>
+
+    <rect x="380" y="0" width="160" height="50" rx="4" fill="#D1FAE5" stroke="#10B981" stroke-width="1"/>
+    <text x="460" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#065F46">Swin Transformer</text>
+    <text x="460" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Detection, segmentation</text>
+    <text x="460" y="44" text-anchor="middle" font-size="7" fill="#10B981">Hierarchical features</text>
+  </g>
+
+  <!-- === Vision-Language row === -->
+  <g transform="translate(130, 240)">
+    <rect x="0" y="0" width="180" height="50" rx="4" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="1"/>
+    <text x="90" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#4C1D95">CLIP</text>
+    <text x="90" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Image-text contrastive</text>
+    <text x="90" y="44" text-anchor="middle" font-size="7" fill="#8B5CF6">Zero-shot classification</text>
+
+    <rect x="190" y="0" width="180" height="50" rx="4" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="1"/>
+    <text x="280" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#4C1D95">BLIP-2, Flamingo</text>
+    <text x="280" y="32" text-anchor="middle" font-size="8" fill="#6B7280">VQA, captioning</text>
+    <text x="280" y="44" text-anchor="middle" font-size="7" fill="#8B5CF6">Cross-attention fusion</text>
+
+    <rect x="380" y="0" width="160" height="50" rx="4" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="1"/>
+    <text x="460" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#4C1D95">Florence-2</text>
+    <text x="460" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Multi-task vision</text>
+    <text x="460" y="44" text-anchor="middle" font-size="7" fill="#8B5CF6">Unified architecture</text>
+  </g>
+
+  <!-- === Audio row === -->
+  <g transform="translate(130, 300)">
+    <rect x="0" y="0" width="180" height="50" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+    <text x="90" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#92400E">Wav2Vec 2.0</text>
+    <text x="90" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Self-supervised audio</text>
+    <text x="90" y="44" text-anchor="middle" font-size="7" fill="#F59E0B">Speech features</text>
+
+    <rect x="190" y="0" width="180" height="50" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+    <text x="280" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#92400E">AudioLM</text>
+    <text x="280" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Audio generation</text>
+    <text x="280" y="44" text-anchor="middle" font-size="7" fill="#F59E0B">Autoregressive</text>
+
+    <rect x="380" y="0" width="160" height="50" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+    <text x="460" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#92400E">Whisper</text>
+    <text x="460" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Multilingual ASR</text>
+    <text x="460" y="44" text-anchor="middle" font-size="7" fill="#F59E0B">Encoder-decoder</text>
+  </g>
+
+  <!-- === Time Series row === -->
+  <g transform="translate(130, 360)">
+    <rect x="0" y="0" width="540" height="50" rx="4" fill="#FFF1F2" stroke="#EF4444" stroke-width="1"/>
+    <text x="90" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#991B1B">Chronos</text>
+    <text x="90" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Large-scale TS</text>
+    <text x="90" y="44" text-anchor="middle" font-size="7" fill="#EF4444">Probabilistic forecasting</text>
+
+    <text x="280" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#991B1B">TimeGPT-1</text>
+    <text x="280" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Zero-shot forecasting</text>
+    <text x="280" y="44" text-anchor="middle" font-size="7" fill="#EF4444">Commercial</text>
+
+    <text x="460" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#991B1B">TimesFM</text>
+    <text x="460" y="32" text-anchor="middle" font-size="8" fill="#6B7280">General forecasting</text>
+    <text x="460" y="44" text-anchor="middle" font-size="7" fill="#EF4444">Decoder-only</text>
+  </g>
+
+  <!-- === Domain-Specific row === -->
+  <g transform="translate(130, 420)">
+    <rect x="0" y="0" width="180" height="50" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1"/>
+    <text x="90" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#374151">BioBERT</text>
+    <text x="90" y="32" text-anchor="middle" font-size="8" fill="#6B7280">PubMed corpus</text>
+    <text x="90" y="44" text-anchor="middle" font-size="7" fill="#6B7280">Medical NLP</text>
+
+    <rect x="190" y="0" width="180" height="50" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1"/>
+    <text x="280" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#374151">ChemBERTa</text>
+    <text x="280" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Molecular data</text>
+    <text x="280" y="44" text-anchor="middle" font-size="7" fill="#6B7280">Drug discovery</text>
+
+    <rect x="380" y="0" width="160" height="50" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1"/>
+    <text x="460" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#374151">ESM-2</text>
+    <text x="460" y="32" text-anchor="middle" font-size="8" fill="#6B7280">Protein sequences</text>
+    <text x="460" y="44" text-anchor="middle" font-size="7" fill="#6B7280">Structure prediction</text>
+  </g>
+
+  <!-- === Adaptasi panel === -->
+  <g transform="translate(680, 70)">
+    <rect x="0" y="0" width="200" height="400" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="100" y="25" text-anchor="middle" font-size="12" font-weight="700" fill="#1D4ED8">Mode Adaptasi</text>
+
+    <!-- Frozen -->
+    <rect x="15" y="45" width="170" height="55" rx="6" fill="#DBEAFE"/>
+    <text x="100" y="62" text-anchor="middle" font-size="10" font-weight="700" fill="#1D4ED8">Frozen</text>
+    <text x="100" y="76" text-anchor="middle" font-size="8" fill="#6B7280">Bobot pretrained dikunci</text>
+    <text x="100" y="88" text-anchor="middle" font-size="8" fill="#6B7280">Hanya head dilatih</text>
+
+    <!-- LoRA -->
+    <rect x="15" y="110" width="170" height="55" rx="6" fill="#D1FAE5"/>
+    <text x="100" y="127" text-anchor="middle" font-size="10" font-weight="700" fill="#065F46">LoRA</text>
+    <text x="100" y="141" text-anchor="middle" font-size="8" fill="#6B7280">Matriks low-rank parallel</text>
+    <text x="100" y="153" text-anchor="middle" font-size="8" fill="#6B7280">~0.5-2% parameter dilatih</text>
+
+    <!-- Full FT -->
+    <rect x="15" y="175" width="170" height="55" rx="6" fill="#FEF3C7"/>
+    <text x="100" y="192" text-anchor="middle" font-size="10" font-weight="700" fill="#92400E">Full Fine-Tuning</text>
+    <text x="100" y="206" text-anchor="middle" font-size="8" fill="#6B7280">Semua parameter dilatih</text>
+    <text x="100" y="218" text-anchor="middle" font-size="8" fill="#6B7280">Paling fleksibel, paling mahal</text>
+
+    <!-- Prompt -->
+    <rect x="15" y="240" width="170" height="55" rx="6" fill="#EDE9FE"/>
+    <text x="100" y="257" text-anchor="middle" font-size="10" font-weight="700" fill="#4C1D95">Prompt Engineering</text>
+    <text x="100" y="271" text-anchor="middle" font-size="8" fill="#6B7280">Tidak ada training</text>
+    <text x="100" y="283" text-anchor="middle" font-size="8" fill="#6B7280">In-context learning</text>
+
+    <!-- Decision hint -->
+    <rect x="15" y="310" width="170" height="75" rx="6" fill="#FFF1F2" stroke="#EF4444" stroke-width="1"/>
+    <text x="100" y="328" text-anchor="middle" font-size="9" font-weight="600" fill="#991B1B">Pohon Keputusan:</text>
+    <text x="100" y="342" text-anchor="middle" font-size="8" fill="#6B7280">Data kecil → Frozen/LoRA</text>
+    <text x="100" y="354" text-anchor="middle" font-size="8" fill="#6B7280">Data sedang → LoRA</text>
+    <text x="100" y="366" text-anchor="middle" font-size="8" fill="#6B7280">Data besar → Full FT</text>
+  </g>
+</svg>

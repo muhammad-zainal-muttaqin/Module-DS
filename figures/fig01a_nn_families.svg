@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="960" height="340" fill="#F9FAFB" rx="12"/>
+  <text x="480" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Lima Keluarga Arsitektur Neural Network</text>
+  <text x="480" y="46" text-anchor="middle" font-size="10" fill="#6B7280">Setiap keluarga memiliki inductive bias berbeda yang menentukan domain penggunaannya</text>
+
+  <!-- === MLP === -->
+  <rect x="12" y="60" width="176" height="260" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  <rect x="12" y="60" width="176" height="36" rx="8" fill="#1D4ED8"/>
+  <rect x="12" y="84" width="176" height="12" fill="#1D4ED8"/>
+  <text x="100" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="white">MLP</text>
+  <!-- neurons -->
+  <g stroke="#93C5FD" stroke-width="0.8">
+    <line x1="48" y1="130" x2="100" y2="150"/><line x1="48" y1="155" x2="100" y2="150"/><line x1="48" y1="180" x2="100" y2="150"/>
+    <line x1="48" y1="130" x2="100" y2="175"/><line x1="48" y1="155" x2="100" y2="175"/><line x1="48" y1="180" x2="100" y2="175"/>
+    <line x1="48" y1="130" x2="100" y2="200"/><line x1="48" y1="155" x2="100" y2="200"/><line x1="48" y1="180" x2="100" y2="200"/>
+    <line x1="100" y1="150" x2="152" y2="162"/><line x1="100" y1="175" x2="152" y2="162"/><line x1="100" y1="200" x2="152" y2="162"/>
+    <line x1="100" y1="150" x2="152" y2="188"/><line x1="100" y1="175" x2="152" y2="188"/><line x1="100" y1="200" x2="152" y2="188"/>
+  </g>
+  <circle cx="48" cy="130" r="9" fill="#3B82F6"/><circle cx="48" cy="155" r="9" fill="#3B82F6"/><circle cx="48" cy="180" r="9" fill="#3B82F6"/>
+  <circle cx="100" cy="150" r="9" fill="#60A5FA"/><circle cx="100" cy="175" r="9" fill="#60A5FA"/><circle cx="100" cy="200" r="9" fill="#60A5FA"/>
+  <circle cx="152" cy="162" r="9" fill="#93C5FD"/><circle cx="152" cy="188" r="9" fill="#93C5FD"/>
+  <line x1="12" y1="222" x2="188" y2="222" stroke="#BFDBFE" stroke-width="1"/>
+  <text x="100" y="238" text-anchor="middle" font-size="9" fill="#374151" font-style="italic">Inductive bias: none</text>
+  <text x="100" y="254" text-anchor="middle" font-size="9" fill="#374151">Tabular, klasifikasi umum</text>
+  <rect x="24" y="266" width="152" height="20" rx="4" fill="#DBEAFE"/>
+  <text x="100" y="280" text-anchor="middle" font-size="8" font-weight="600" fill="#1D4ED8">fully-connected layers</text>
+  <text x="100" y="308" text-anchor="middle" font-size="9" fill="#6B7280">Lab: lab_w1_mlp_numpy</text>
+
+  <!-- === CNN === -->
+  <rect x="200" y="60" width="176" height="260" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+  <rect x="200" y="60" width="176" height="36" rx="8" fill="#065F46"/>
+  <rect x="200" y="84" width="176" height="12" fill="#065F46"/>
+  <text x="288" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="white">CNN</text>
+  <!-- feature maps shrinking -->
+  <rect x="218" y="108" width="40" height="40" rx="3" fill="#34D399" opacity="0.9"/>
+  <rect x="266" y="114" width="30" height="30" rx="3" fill="#34D399" opacity="0.7"/>
+  <rect x="304" y="120" width="22" height="22" rx="3" fill="#34D399" opacity="0.5"/>
+  <!-- filter outline -->
+  <rect x="218" y="108" width="14" height="14" fill="none" stroke="#065F46" stroke-width="2" stroke-dasharray="2"/>
+  <text x="225" y="120" text-anchor="middle" font-size="8" font-weight="700" fill="#065F46">f</text>
+  <path d="M258 128 L264 128" stroke="#065F46" stroke-width="1.5" marker-end="url(#arrowG)"/>
+  <path d="M296 131 L302 131" stroke="#065F46" stroke-width="1.5" marker-end="url(#arrowG)"/>
+  <!-- FC arrow -->
+  <rect x="222" y="162" width="132" height="18" rx="3" fill="#D1FAE5"/>
+  <text x="288" y="175" text-anchor="middle" font-size="9" fill="#065F46">flatten → FC → output</text>
+  <line x1="200" y1="196" x2="376" y2="196" stroke="#A7F3D0" stroke-width="1"/>
+  <text x="288" y="212" text-anchor="middle" font-size="9" fill="#374151" font-style="italic">Inductive bias: locality</text>
+  <text x="288" y="228" text-anchor="middle" font-size="9" fill="#374151">spatial equivariance</text>
+  <text x="288" y="244" text-anchor="middle" font-size="9" fill="#374151">Gambar, sinyal spatial</text>
+  <rect x="212" y="258" width="152" height="20" rx="4" fill="#D1FAE5"/>
+  <text x="288" y="272" text-anchor="middle" font-size="8" font-weight="600" fill="#065F46">weight sharing + pooling</text>
+  <text x="288" y="300" text-anchor="middle" font-size="9" fill="#6B7280">Lab: lab_w2_cnn_baseline</text>
+
+  <!-- === RNN/LSTM === -->
+  <rect x="388" y="60" width="176" height="260" rx="8" fill="#FFF7ED" stroke="#F59E0B" stroke-width="2"/>
+  <rect x="388" y="60" width="176" height="36" rx="8" fill="#92400E"/>
+  <rect x="388" y="84" width="176" height="12" fill="#92400E"/>
+  <text x="476" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="white">RNN / LSTM</text>
+  <!-- unrolled cells -->
+  <rect x="404" y="118" width="34" height="34" rx="5" fill="#FCD34D"/>
+  <rect x="448" y="118" width="34" height="34" rx="5" fill="#FCD34D"/>
+  <rect x="492" y="118" width="34" height="34" rx="5" fill="#FCD34D"/>
+  <text x="421" y="139" text-anchor="middle" font-size="10" font-weight="700" fill="#78350F">h₁</text>
+  <text x="465" y="139" text-anchor="middle" font-size="10" font-weight="700" fill="#78350F">h₂</text>
+  <text x="509" y="139" text-anchor="middle" font-size="10" font-weight="700" fill="#78350F">h₃</text>
+  <path d="M438 135 L446 135" stroke="#92400E" stroke-width="1.5" marker-end="url(#arrowA)"/>
+  <path d="M482 135 L490 135" stroke="#92400E" stroke-width="1.5" marker-end="url(#arrowA)"/>
+  <path d="M482 118 C482 104 448 104 448 118" stroke="#D97706" stroke-width="1.2" stroke-dasharray="3" fill="none" marker-end="url(#arrowA)"/>
+  <text x="421" y="170" text-anchor="middle" font-size="9" fill="#92400E">x₁</text>
+  <text x="465" y="170" text-anchor="middle" font-size="9" fill="#92400E">x₂</text>
+  <text x="509" y="170" text-anchor="middle" font-size="9" fill="#92400E">x₃</text>
+  <line x1="421" y1="163" x2="421" y2="152" stroke="#D97706" stroke-width="1.2" marker-end="url(#arrowA)"/>
+  <line x1="465" y1="163" x2="465" y2="152" stroke="#D97706" stroke-width="1.2" marker-end="url(#arrowA)"/>
+  <line x1="509" y1="163" x2="509" y2="152" stroke="#D97706" stroke-width="1.2" marker-end="url(#arrowA)"/>
+  <line x1="388" y1="192" x2="564" y2="192" stroke="#FDE68A" stroke-width="1"/>
+  <text x="476" y="208" text-anchor="middle" font-size="9" fill="#374151" font-style="italic">Inductive bias: sequentiality</text>
+  <text x="476" y="224" text-anchor="middle" font-size="9" fill="#374151">Teks, time-series, audio</text>
+  <text x="476" y="240" text-anchor="middle" font-size="9" fill="#374151">hidden state + cell gate</text>
+  <rect x="400" y="252" width="152" height="20" rx="4" fill="#FEF3C7"/>
+  <text x="476" y="266" text-anchor="middle" font-size="8" font-weight="600" fill="#92400E">BPTT — vanishing gradient</text>
+  <text x="476" y="294" text-anchor="middle" font-size="9" fill="#6B7280">Lab: lab_w5_lstm_sequence</text>
+
+  <!-- === Transformer === -->
+  <rect x="576" y="60" width="176" height="260" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2"/>
+  <rect x="576" y="60" width="176" height="36" rx="8" fill="#4C1D95"/>
+  <rect x="576" y="84" width="176" height="12" fill="#4C1D95"/>
+  <text x="664" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="white">Transformer</text>
+  <!-- multi-head attention -->
+  <rect x="594" y="106" width="44" height="22" rx="3" fill="#C4B5FD"/>
+  <rect x="644" y="106" width="44" height="22" rx="3" fill="#C4B5FD"/>
+  <rect x="694" y="106" width="44" height="22" rx="3" fill="#A78BFA"/>
+  <text x="616" y="121" text-anchor="middle" font-size="8" font-weight="600" fill="#4C1D95">head 1</text>
+  <text x="666" y="121" text-anchor="middle" font-size="8" font-weight="600" fill="#4C1D95">head 2</text>
+  <text x="716" y="121" text-anchor="middle" font-size="8" font-weight="600" fill="#4C1D95">head h</text>
+  <!-- attention fan -->
+  <path d="M616 128 L616 144 L666 154 L716 144 L716 128" fill="none" stroke="#8B5CF6" stroke-width="0.8" stroke-dasharray="2"/>
+  <path d="M666 128 L666 154" fill="none" stroke="#8B5CF6" stroke-width="1.2"/>
+  <rect x="614" y="160" width="100" height="18" rx="3" fill="#EDE9FE"/>
+  <text x="664" y="173" text-anchor="middle" font-size="9" fill="#4C1D95" font-weight="600">concat → Linear</text>
+  <text x="664" y="192" text-anchor="middle" font-size="8" fill="#7C3AED">+ Positional Encoding</text>
+  <line x1="576" y1="202" x2="752" y2="202" stroke="#DDD6FE" stroke-width="1"/>
+  <text x="664" y="218" text-anchor="middle" font-size="9" fill="#374151" font-style="italic">Inductive bias: none (global)</text>
+  <text x="664" y="234" text-anchor="middle" font-size="9" fill="#374151">NLP, visi, multimodal</text>
+  <text x="664" y="250" text-anchor="middle" font-size="9" fill="#374151">Q·K·V attention + FFN</text>
+  <rect x="588" y="262" width="152" height="20" rx="4" fill="#EDE9FE"/>
+  <text x="664" y="276" text-anchor="middle" font-size="8" font-weight="600" fill="#4C1D95">O(n²) attention — paralel</text>
+  <text x="664" y="304" text-anchor="middle" font-size="9" fill="#6B7280">Lab: lab_w7_transformer_mini</text>
+
+  <!-- === Autoencoder === -->
+  <rect x="764" y="60" width="184" height="260" rx="8" fill="#FFF1F2" stroke="#EF4444" stroke-width="2"/>
+  <rect x="764" y="60" width="184" height="36" rx="8" fill="#991B1B"/>
+  <rect x="764" y="84" width="184" height="12" fill="#991B1B"/>
+  <text x="856" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="white">Autoencoder</text>
+  <!-- encoder-bottleneck-decoder shape -->
+  <polygon points="784,112 824,112 804,170" fill="#FCA5A5" opacity="0.8"/>
+  <rect x="798" y="165" width="12" height="28" rx="3" fill="#EF4444"/>
+  <polygon points="808,170 848,112 888,112 848,170" fill="#FCA5A5" opacity="0.6"/>
+  <text x="793" y="188" font-size="9" fill="#991B1B" font-weight="600">Encoder</text>
+  <text x="804" y="154" text-anchor="middle" font-size="9" fill="#991B1B" font-weight="700">z</text>
+  <text x="845" y="188" font-size="9" fill="#991B1B" font-weight="600">Decoder</text>
+  <!-- x → x̂ -->
+  <text x="784" y="206" font-size="11" fill="#374151">x</text>
+  <path d="M793 203 L896 203" stroke="#EF4444" stroke-width="1.2" stroke-dasharray="3" marker-end="url(#arrowR)"/>
+  <text x="900" y="207" font-size="11" fill="#374151">x̂</text>
+  <line x1="764" y1="218" x2="948" y2="218" stroke="#FCA5A5" stroke-width="1"/>
+  <text x="856" y="234" text-anchor="middle" font-size="9" fill="#374151" font-style="italic">Inductive bias: bottleneck</text>
+  <text x="856" y="250" text-anchor="middle" font-size="9" fill="#374151">Repr. learning, generatif</text>
+  <text x="856" y="266" text-anchor="middle" font-size="9" fill="#374151">reconstruction loss</text>
+  <rect x="776" y="278" width="160" height="20" rx="4" fill="#FEE2E2"/>
+  <text x="856" y="292" text-anchor="middle" font-size="8" font-weight="600" fill="#991B1B">latent z (bottleneck dim)</text>
+  <text x="856" y="312" text-anchor="middle" font-size="9" fill="#6B7280">Lab: lab_breadth_autoencoder</text>
+
+  <defs>
+    <marker id="arrowG" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#065F46"/>
+    </marker>
+    <marker id="arrowA" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#92400E"/>
+    </marker>
+    <marker id="arrowR" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#EF4444"/>
+    </marker>
+  </defs>
+</svg>

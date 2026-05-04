@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="900" height="520" fill="#F9FAFB" rx="12"/>
+  <text x="450" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Backpropagation 7 Langkah: MLP 2-Layer dengan MSE Loss</text>
+  <text x="450" y="46" text-anchor="middle" font-size="10" fill="#6B7280">Chain rule dari loss mundur ke setiap parameter - warna menunjukkan urutan perhitungan</text>
+
+  <!-- === Forward Pass (top) === -->
+  <g transform="translate(40, 65)">
+    <text x="410" y="0" text-anchor="middle" font-size="12" font-weight="700" fill="#065F46">Forward Pass →</text>
+
+    <!-- x -->
+    <rect x="0" y="15" width="80" height="40" rx="6" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5"/>
+    <text x="40" y="35" text-anchor="middle" font-size="11" font-weight="700" fill="#065F46">x</text>
+    <text x="40" y="48" text-anchor="middle" font-size="7" fill="#6B7280">input (d_in,)</text>
+
+    <!-- W1, b1 -->
+    <path d="M80 35 L120 35" stroke="#374151" stroke-width="1.5" marker-end="url(#arrowDark)"/>
+    <rect x="120" y="15" width="90" height="40" rx="6" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="165" y="33" text-anchor="middle" font-size="10" font-weight="600" fill="#1D4ED8">W1, b1</text>
+    <text x="165" y="48" text-anchor="middle" font-size="7" fill="#6B7280">z1 = W1·x + b1</text>
+
+    <!-- σ -->
+    <path d="M210 35 L250 35" stroke="#374151" stroke-width="1.5" marker-end="url(#arrowDark)"/>
+    <rect x="250" y="15" width="70" height="40" rx="6" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="285" y="33" text-anchor="middle" font-size="11" font-weight="700" fill="#92400E">σ</text>
+    <text x="285" y="48" text-anchor="middle" font-size="7" fill="#6B7280">h = σ(z1)</text>
+
+    <!-- W2, b2 -->
+    <path d="M320 35 L360 35" stroke="#374151" stroke-width="1.5" marker-end="url(#arrowDark)"/>
+    <rect x="360" y="15" width="90" height="40" rx="6" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="405" y="33" text-anchor="middle" font-size="10" font-weight="600" fill="#1D4ED8">W2, b2</text>
+    <text x="405" y="48" text-anchor="middle" font-size="7" fill="#6B7280">z2 = W2·h + b2</text>
+
+    <!-- y_hat -->
+    <path d="M450 35 L490 35" stroke="#374151" stroke-width="1.5" marker-end="url(#arrowDark)"/>
+    <rect x="490" y="15" width="80" height="40" rx="6" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.5"/>
+    <text x="530" y="33" text-anchor="middle" font-size="11" font-weight="700" fill="#4C1D95">ŷ</text>
+    <text x="530" y="48" text-anchor="middle" font-size="7" fill="#6B7280">prediksi</text>
+
+    <!-- Loss -->
+    <path d="M570 35 L610 35" stroke="#374151" stroke-width="1.5" marker-end="url(#arrowDark)"/>
+    <rect x="610" y="15" width="100" height="40" rx="6" fill="#FFF1F2" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="660" y="33" text-anchor="middle" font-size="10" font-weight="700" fill="#991B1B">L = ½(ŷ-y)²</text>
+    <text x="660" y="48" text-anchor="middle" font-size="7" fill="#6B7280">MSE loss</text>
+
+    <!-- y target -->
+    <text x="660" y="72" text-anchor="middle" font-size="9" fill="#6B7280">target: y</text>
+  </g>
+
+  <!-- === Backward Pass (7 steps) === -->
+  <g transform="translate(40, 160)">
+    <text x="410" y="0" text-anchor="middle" font-size="12" font-weight="700" fill="#991B1B">← Backward Pass (7 Langkah)</text>
+
+    <!-- Step 1 -->
+    <g transform="translate(0, 20)">
+      <rect x="0" y="0" width="820" height="38" rx="6" fill="#FEE2E2" stroke="#EF4444" stroke-width="1.5"/>
+      <rect x="0" y="0" width="30" height="38" rx="6" fill="#DC2626"/>
+      <rect x="0" y="24" width="30" height="14" fill="#DC2626"/>
+      <text x="15" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="white">1</text>
+      <text x="45" y="16" font-size="10" font-weight="600" fill="#991B1B">∂L/∂z2 = ŷ - y</text>
+      <text x="45" y="30" font-size="8" fill="#6B7280">Turunan MSE terhadap output pre-activation</text>
+      <text x="780" y="22" text-anchor="end" font-size="8" fill="#EF4444" font-weight="600">Langkah 1: gradient loss</text>
+    </g>
+
+    <!-- Step 2 -->
+    <g transform="translate(0, 65)">
+      <rect x="0" y="0" width="820" height="38" rx="6" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+      <rect x="0" y="0" width="30" height="38" rx="6" fill="#D97706"/>
+      <rect x="0" y="24" width="30" height="14" fill="#D97706"/>
+      <text x="15" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="white">2</text>
+      <text x="45" y="16" font-size="10" font-weight="600" fill="#92400E">∂L/∂W2 = (∂L/∂z2) · h^T</text>
+      <text x="45" y="30" font-size="8" fill="#6B7280">Gradient bobot layer 2 - shape (d_out, d_h)</text>
+      <text x="780" y="22" text-anchor="end" font-size="8" fill="#D97706" font-weight="600">Langkah 2: gradient W2</text>
+    </g>
+
+    <!-- Step 3 -->
+    <g transform="translate(0, 110)">
+      <rect x="0" y="0" width="820" height="38" rx="6" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+      <rect x="0" y="0" width="30" height="38" rx="6" fill="#D97706"/>
+      <rect x="0" y="24" width="30" height="14" fill="#D97706"/>
+      <text x="15" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="white">3</text>
+      <text x="45" y="16" font-size="10" font-weight="600" fill="#92400E">∂L/∂b2 = ∂L/∂z2</text>
+      <text x="45" y="30" font-size="8" fill="#6B7280">Gradient bias layer 2 - sama dengan gradient pre-activation</text>
+      <text x="780" y="22" text-anchor="end" font-size="8" fill="#D97706" font-weight="600">Langkah 3: gradient b2</text>
+    </g>
+
+    <!-- Step 4 -->
+    <g transform="translate(0, 155)">
+      <rect x="0" y="0" width="820" height="38" rx="6" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/>
+      <rect x="0" y="0" width="30" height="38" rx="6" fill="#1D4ED8"/>
+      <rect x="0" y="24" width="30" height="14" fill="#1D4ED8"/>
+      <text x="15" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="white">4</text>
+      <text x="45" y="16" font-size="10" font-weight="600" fill="#1D4ED8">∂L/∂h = W2^T · (∂L/∂z2)</text>
+      <text x="45" y="30" font-size="8" fill="#6B7280">Rambat gradient ke hidden state - operasi matriks transpos</text>
+      <text x="780" y="22" text-anchor="end" font-size="8" fill="#3B82F6" font-weight="600">Langkah 4: rambat ke hidden</text>
+    </g>
+
+    <!-- Step 5 -->
+    <g transform="translate(0, 200)">
+      <rect x="0" y="0" width="820" height="38" rx="6" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="1.5"/>
+      <rect x="0" y="0" width="30" height="38" rx="6" fill="#7C3AED"/>
+      <rect x="0" y="24" width="30" height="14" fill="#7C3AED"/>
+      <text x="15" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="white">5</text>
+      <text x="45" y="16" font-size="10" font-weight="600" fill="#4C1D95">∂L/∂z1 = (∂L/∂h) ⊙ σ'(z1)</text>
+      <text x="45" y="30" font-size="8" fill="#6B7280">Terapkan turunan aktivasi - Hadamard product (element-wise)</text>
+      <text x="780" y="22" text-anchor="end" font-size="8" fill="#8B5CF6" font-weight="600">Langkah 5: turunan aktivasi</text>
+    </g>
+
+    <!-- Step 6 -->
+    <g transform="translate(0, 245)">
+      <rect x="0" y="0" width="820" height="38" rx="6" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5"/>
+      <rect x="0" y="0" width="30" height="38" rx="6" fill="#059669"/>
+      <rect x="0" y="24" width="30" height="14" fill="#059669"/>
+      <text x="15" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="white">6</text>
+      <text x="45" y="16" font-size="10" font-weight="600" fill="#065F46">∂L/∂W1 = (∂L/∂z1) · x^T</text>
+      <text x="45" y="30" font-size="8" fill="#6B7280">Gradient bobot layer 1 - shape (d_h, d_in)</text>
+      <text x="780" y="22" text-anchor="end" font-size="8" fill="#10B981" font-weight="600">Langkah 6: gradient W1</text>
+    </g>
+
+    <!-- Step 7 -->
+    <g transform="translate(0, 290)">
+      <rect x="0" y="0" width="820" height="38" rx="6" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5"/>
+      <rect x="0" y="0" width="30" height="38" rx="6" fill="#059669"/>
+      <rect x="0" y="24" width="30" height="14" fill="#059669"/>
+      <text x="15" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="white">7</text>
+      <text x="45" y="16" font-size="10" font-weight="600" fill="#065F46">∂L/∂b1 = ∂L/∂z1</text>
+      <text x="45" y="30" font-size="8" fill="#6B7280">Gradient bias layer 1 - sama dengan gradient pre-activation</text>
+      <text x="780" y="22" text-anchor="end" font-size="8" fill="#10B981" font-weight="600">Langkah 7: gradient b1</text>
+    </g>
+
+    <!-- Update rule -->
+    <g transform="translate(0, 340)">
+      <rect x="0" y="0" width="820" height="35" rx="6" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+      <text x="410" y="15" text-anchor="middle" font-size="10" font-weight="600" fill="#374151">Update (SGD):</text>
+      <text x="410" y="28" text-anchor="middle" font-size="9" fill="#6B7280">W1 -= lr × dW1 | b1 -= lr × db1 | W2 -= lr × dW2 | b2 -= lr × db2</text>
+    </g>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(40, 500)">
+    <rect x="0" y="-5" width="200" height="15" rx="3" fill="#FEE2E2"/>
+    <text x="5" y="7" font-size="8" fill="#991B1B">Merah: gradient loss</text>
+    <rect x="210" y="-5" width="200" height="15" rx="3" fill="#FEF3C7"/>
+    <text x="215" y="7" font-size="8" fill="#92400E">Kuning: gradient layer 2</text>
+    <rect x="420" y="-5" width="200" height="15" rx="3" fill="#DBEAFE"/>
+    <text x="425" y="7" font-size="8" fill="#1D4ED8">Biru: rambat ke hidden</text>
+    <rect x="630" y="-5" width="200" height="15" rx="3" fill="#D1FAE5"/>
+    <text x="635" y="7" font-size="8" fill="#065F46">Hijau: gradient layer 1</text>
+  </g>
+
+  <defs>
+    <marker id="arrowDark" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#374151"/>
+    </marker>
+  </defs>
+</svg>

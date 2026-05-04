@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 280" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="940" height="280" fill="#F9FAFB" rx="12"/>
+  <text x="470" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">5 Pola Loss Curve untuk Diagnosis</text>
+  <text x="470" y="44" text-anchor="middle" font-size="10" fill="#6B7280">Sumbu x: epoch · Sumbu y: loss · Biru = train · Merah putus-putus = val</text>
+
+  <!-- PLOT 1: Underfitting -->
+  <g transform="translate(16,58)">
+    <rect width="168" height="158" rx="8" fill="#FFF7ED" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="84" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#92400E">1. Underfitting</text>
+    <line x1="20" y1="126" x2="152" y2="126" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="20" y1="30" x2="20" y2="126" stroke="#9CA3AF" stroke-width="1"/>
+    <polyline points="20,58 45,61 72,64 100,66 128,67 150,68" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+    <polyline points="20,68 45,71 72,73 100,75 128,76 150,77" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="84" y="142" text-anchor="middle" font-size="9" fill="#92400E" font-weight="600">Kedua loss stagnan tinggi</text>
+    <text x="84" y="155" text-anchor="middle" font-size="8" fill="#374151">→ tambah kapasitas model</text>
+  </g>
+
+  <!-- PLOT 2: Overfitting -->
+  <g transform="translate(200,58)">
+    <rect width="168" height="158" rx="8" fill="#FEF2F2" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="84" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#991B1B">2. Overfitting</text>
+    <line x1="20" y1="126" x2="152" y2="126" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="20" y1="30" x2="20" y2="126" stroke="#9CA3AF" stroke-width="1"/>
+    <polyline points="20,88 45,70 72,52 100,36 128,26 150,20" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+    <polyline points="20,90 45,73 72,62 100,68 128,82 150,98" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="84" y="142" text-anchor="middle" font-size="9" fill="#991B1B" font-weight="600">Val naik saat train turun</text>
+    <text x="84" y="155" text-anchor="middle" font-size="8" fill="#374151">→ regularisasi / data augmentasi</text>
+  </g>
+
+  <!-- PLOT 3: Early Divergence -->
+  <g transform="translate(384,58)">
+    <rect width="168" height="158" rx="8" fill="#FFF1F2" stroke="#F43F5E" stroke-width="1.5"/>
+    <text x="84" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#9F1239">3. Early Divergence</text>
+    <line x1="20" y1="126" x2="152" y2="126" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="20" y1="30" x2="20" y2="126" stroke="#9CA3AF" stroke-width="1"/>
+    <polyline points="20,88 32,110 38,34 45,120 50,22" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+    <text x="86" y="75" font-size="22" fill="#F43F5E" opacity="0.5" text-anchor="middle">∞</text>
+    <line x1="50" y1="22" x2="152" y2="22" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4"/>
+    <line x1="50" y1="26" x2="152" y2="26" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4"/>
+    <text x="84" y="142" text-anchor="middle" font-size="9" fill="#9F1239" font-weight="600">Loss meledak di awal</text>
+    <text x="84" y="155" text-anchor="middle" font-size="8" fill="#374151">→ kurangi LR / clip gradient</text>
+  </g>
+
+  <!-- PLOT 4: Val < Train -->
+  <g transform="translate(568,58)">
+    <rect width="168" height="158" rx="8" fill="#F0FDF4" stroke="#10B981" stroke-width="1.5"/>
+    <text x="84" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#065F46">4. Val &lt; Train</text>
+    <line x1="20" y1="126" x2="152" y2="126" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="20" y1="30" x2="20" y2="126" stroke="#9CA3AF" stroke-width="1"/>
+    <polyline points="20,90 45,76 72,64 100,54 128,48 150,44" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+    <polyline points="20,80 45,64 72,52 100,43 128,37 150,34" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="84" y="142" text-anchor="middle" font-size="9" fill="#065F46" font-weight="600">Val lebih rendah dari train</text>
+    <text x="84" y="155" text-anchor="middle" font-size="8" fill="#374151">→ cek dropout / augmentasi aktif</text>
+  </g>
+
+  <!-- PLOT 5: Normal Convergence -->
+  <g transform="translate(752,58)">
+    <rect width="172" height="158" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="86" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#1D4ED8">5. Konvergen Normal</text>
+    <line x1="20" y1="126" x2="156" y2="126" stroke="#9CA3AF" stroke-width="1"/>
+    <line x1="20" y1="30" x2="20" y2="126" stroke="#9CA3AF" stroke-width="1"/>
+    <polyline points="20,104 45,88 72,70 100,52 128,40 152,32" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+    <polyline points="20,106 45,92 72,76 100,60 128,48 152,42" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="5,3"/>
+    <polygon points="20,104 45,88 72,70 100,52 128,40 152,32 152,42 128,48 100,60 72,76 45,92 20,106" fill="#DBEAFE" opacity="0.35"/>
+    <text x="86" y="142" text-anchor="middle" font-size="9" fill="#1D4ED8" font-weight="600">Gap kecil, keduanya turun</text>
+    <text x="86" y="155" text-anchor="middle" font-size="8" fill="#374151">→ pola yang diinginkan ✓</text>
+  </g>
+
+  <!-- Legend -->
+  <line x1="340" y1="252" x2="368" y2="252" stroke="#3B82F6" stroke-width="2.5"/>
+  <text x="374" y="256" font-size="10" fill="#374151" font-weight="600">train loss</text>
+  <line x1="450" y1="252" x2="478" y2="252" stroke="#EF4444" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="484" y="256" font-size="10" fill="#374151" font-weight="600">val loss</text>
+  <text x="600" y="256" font-size="9" fill="#6B7280">Ideal: gap kecil, keduanya menurun smooth</text>
+</svg>

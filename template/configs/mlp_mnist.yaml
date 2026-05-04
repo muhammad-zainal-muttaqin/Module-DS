@@ -1,0 +1,49 @@
+# MLP + MNIST configuration - Lab W1 companion run
+# After students implement the numpy-from-scratch MLP in Lab W1, they can
+# rerun the same architecture through the framework training loop using
+# this config, as a sanity check that their manual gradients matched.
+
+experiment_name: mlp_mnist
+
+seed: 42
+
+data:
+  name: mnist
+  root: ./data
+  image_size: 28
+  num_classes: 10
+  batch_size: 128
+  num_workers: 2
+  val_split: 0.1
+  augment: false   # MNIST does not benefit much from standard augmentation
+
+model:
+  name: simple_mlp
+  input_dim: 784
+  hidden_sizes: [256, 128]
+  num_classes: 10
+  dropout: 0.1
+  activation: relu
+  freeze_until: null
+
+loss:
+  name: cross_entropy
+  label_smoothing: 0.0
+
+optim:
+  name: adamw
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+
+scheduler:
+  name: cosine
+  warmup_epochs: 1
+
+train:
+  epochs: 10
+  grad_clip: 1.0
+  log_every: 50
+  save_every: 5
+
+output:
+  root: ./experiments

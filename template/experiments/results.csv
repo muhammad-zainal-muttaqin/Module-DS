@@ -1,0 +1,5 @@
+experiment_name,seed,commit,dirty,epochs,best_val_acc,best_epoch,test_acc,duration_sec
+baseline_dryrun,42,nogit,1,1,0.0938,1,0.0938,0.2
+baseline_dryrun,42,nogit,1,1,0.0938,1,0.0312,0.3
+focal_freeze_dryrun,42,nogit,1,1,0.0938,1,0.0312,0.2
+baseline_dryrun,42,nogit,1,1,0.0938,1,0.0312,0.2

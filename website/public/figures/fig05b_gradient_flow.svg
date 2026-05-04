@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="880" height="380" fill="#F9FAFB" rx="12"/>
+  <text x="440" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Vanishing Gradient: RNN vs LSTM</text>
+  <text x="440" y="46" text-anchor="middle" font-size="10" fill="#6B7280">Gradient norm per timestep saat backprop - RNN menyusut eksponensial, LSTM tetap stabil</text>
+
+  <!-- === Chart Area === -->
+  <g transform="translate(80, 70)">
+    <!-- Axes -->
+    <line x1="0" y1="0" x2="0" y2="250" stroke="#374151" stroke-width="1.5"/>
+    <line x1="0" y1="250" x2="700" y2="250" stroke="#374151" stroke-width="1.5"/>
+
+    <!-- Y-axis labels (log scale) -->
+    <text x="-10" y="10" text-anchor="end" font-size="9" fill="#6B7280">10⁰</text>
+    <text x="-10" y="60" text-anchor="end" font-size="9" fill="#6B7280">10⁻¹</text>
+    <text x="-10" y="110" text-anchor="end" font-size="9" fill="#6B7280">10⁻²</text>
+    <text x="-10" y="160" text-anchor="end" font-size="9" fill="#6B7280">10⁻³</text>
+    <text x="-10" y="210" text-anchor="end" font-size="9" fill="#6B7280">10⁻⁴</text>
+    <text x="-10" y="250" text-anchor="end" font-size="9" fill="#6B7280">10⁻⁵</text>
+
+    <!-- Y-axis title -->
+    <text x="-50" y="125" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" transform="rotate(-90,-50,125)">Gradient norm (log)</text>
+
+    <!-- X-axis labels -->
+    <text x="0" y="270" text-anchor="middle" font-size="9" fill="#6B7280">t=1</text>
+    <text x="140" y="270" text-anchor="middle" font-size="9" fill="#6B7280">t=10</text>
+    <text x="280" y="270" text-anchor="middle" font-size="9" fill="#6B7280">t=20</text>
+    <text x="420" y="270" text-anchor="middle" font-size="9" fill="#6B7280">t=30</text>
+    <text x="560" y="270" text-anchor="middle" font-size="9" fill="#6B7280">t=40</text>
+    <text x="700" y="270" text-anchor="middle" font-size="9" fill="#6B7280">t=50</text>
+
+    <!-- X-axis title -->
+    <text x="350" y="295" text-anchor="middle" font-size="10" font-weight="600" fill="#374151">Timestep (mundur dari t=T)</text>
+
+    <!-- Grid lines -->
+    <line x1="0" y1="50" x2="700" y2="50" stroke="#E5E7EB" stroke-width="0.5" stroke-dasharray="4"/>
+    <line x1="0" y1="100" x2="700" y2="100" stroke="#E5E7EB" stroke-width="0.5" stroke-dasharray="4"/>
+    <line x1="0" y1="150" x2="700" y2="150" stroke="#E5E7EB" stroke-width="0.5" stroke-dasharray="4"/>
+    <line x1="0" y1="200" x2="700" y2="200" stroke="#E5E7EB" stroke-width="0.5" stroke-dasharray="4"/>
+
+    <!-- RNN curve (vanishing) - exponential decay -->
+    <path d="M0 10 Q70 30 140 70 Q210 110 280 150 Q350 185 420 210 Q490 230 560 240 Q630 247 700 248" 
+          fill="none" stroke="#DC2626" stroke-width="3"/>
+    
+    <!-- RNN data points -->
+    <circle cx="0" cy="10" r="4" fill="#DC2626"/>
+    <circle cx="140" cy="70" r="4" fill="#DC2626"/>
+    <circle cx="280" cy="150" r="4" fill="#DC2626"/>
+    <circle cx="420" cy="210" r="4" fill="#DC2626"/>
+    <circle cx="560" cy="240" r="4" fill="#DC2626"/>
+    <circle cx="700" cy="248" r="4" fill="#DC2626"/>
+
+    <!-- LSTM curve (stable) -->
+    <path d="M0 15 Q70 18 140 20 Q210 22 280 24 Q350 25 420 26 Q490 27 560 28 Q630 28 700 29" 
+          fill="none" stroke="#059669" stroke-width="3"/>
+    
+    <!-- LSTM data points -->
+    <circle cx="0" cy="15" r="4" fill="#059669"/>
+    <circle cx="140" cy="20" r="4" fill="#059669"/>
+    <circle cx="280" cy="24" r="4" fill="#059669"/>
+    <circle cx="420" cy="26" r="4" fill="#059669"/>
+    <circle cx="560" cy="28" r="4" fill="#059669"/>
+    <circle cx="700" cy="29" r="4" fill="#059669"/>
+
+    <!-- Legend -->
+    <rect x="500" y="10" width="180" height="50" rx="6" fill="white" stroke="#E5E7EB" stroke-width="1"/>
+    <line x1="510" y1="30" x2="540" y2="30" stroke="#DC2626" stroke-width="3"/>
+    <text x="545" y="34" font-size="9" fill="#374151">RNN vanilla (|W_h|=0.5)</text>
+    <line x1="510" y1="48" x2="540" y2="48" stroke="#059669" stroke-width="3"/>
+    <text x="545" y="52" font-size="9" fill="#374151">LSTM (forget gate ≈ 1)</text>
+
+    <!-- Annotation: vanishing zone -->
+    <rect x="280" y="140" width="120" height="30" rx="4" fill="#FEE2E2" stroke="#DC2626" stroke-width="1" opacity="0.8"/>
+    <text x="340" y="158" text-anchor="middle" font-size="8" font-weight="600" fill="#DC2626">gradient ≈ 0</text>
+    <text x="340" y="168" text-anchor="middle" font-size="7" fill="#DC2626">model tidak belajar</text>
+  </g>
+
+  <!-- === Bottom panel: formula comparison === -->
+  <g transform="translate(80, 330)">
+    <rect x="0" y="0" width="340" height="35" rx="6" fill="#FEE2E2" stroke="#DC2626" stroke-width="1"/>
+    <text x="170" y="15" text-anchor="middle" font-size="9" font-weight="600" fill="#DC2626">RNN: ∂h_t/∂h_{t-1} = W_h · tanh'(...)</text>
+    <text x="170" y="28" text-anchor="middle" font-size="8" fill="#6B7280">Perkalian matriks berulang → menyusut eksponensial</text>
+
+    <rect x="380" y="0" width="340" height="35" rx="6" fill="#D1FAE5" stroke="#059669" stroke-width="1"/>
+    <text x="550" y="15" text-anchor="middle" font-size="9" font-weight="600" fill="#059669">LSTM: ∂c_t/∂c_{t-1} = f_t (gate)</text>
+    <text x="550" y="28" text-anchor="middle" font-size="8" fill="#6B7280">Gate ≈ 1 → gradient mengalir tanpa menyusut</text>
+  </g>
+</svg>

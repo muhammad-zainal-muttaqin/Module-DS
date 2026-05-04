@@ -1,0 +1,43 @@
+# Autoencoder + CIFAR-10 configuration - lab_breadth_autoencoder companion run
+# Train an unsupervised autoencoder on CIFAR-10 images (no labels used),
+# then visualize the bottleneck with t-SNE/UMAP in the notebook.
+
+experiment_name: ae_cifar
+
+seed: 42
+
+data:
+  name: cifar10_unlabeled
+  root: ./data
+  image_size: 32
+  batch_size: 128
+  num_workers: 2
+  val_split: 0.1
+  augment: false   # augmentation can confound reconstruction targets
+
+model:
+  name: simple_ae
+  image_channels: 3
+  bottleneck_dim: 32
+  freeze_until: null
+
+loss:
+  name: mse        # reconstruction loss; NOTE: Sigmoid output [0,1] vs normalized input
+
+optim:
+  name: adamw
+  lr: 1.0e-3
+  weight_decay: 1.0e-5
+
+scheduler:
+  name: cosine
+  warmup_epochs: 1
+
+train:
+  epochs: 20
+  grad_clip: 1.0
+  log_every: 50
+  save_every: 5
+
+output:
+  root: ./experiments

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 220" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="840" height="220" fill="#F9FAFB" rx="12"/>
+  <text x="420" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Alur Kerja LLM-Assisted: 5 Tahap</text>
+
+  <!-- Stage 1: Pseudocode -->
+  <rect x="16" y="44" width="144" height="130" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  <rect x="16" y="44" width="144" height="36" rx="8" fill="#3B82F6"/>
+  <rect x="16" y="68" width="144" height="12" fill="#3B82F6"/>
+  <text x="88" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="white">1. Pseudocode</text>
+  <text x="88" y="100" text-anchor="middle" font-size="9" fill="#374151">Tulis ide dalam</text>
+  <text x="88" y="114" text-anchor="middle" font-size="9" fill="#374151">bahasa natural /</text>
+  <text x="88" y="128" text-anchor="middle" font-size="9" fill="#374151">pseudocode dulu</text>
+  <text x="88" y="150" text-anchor="middle" font-size="20">✏</text>
+  <text x="88" y="168" text-anchor="middle" font-size="8" fill="#6B7280">tulis sendiri dahulu</text>
+
+  <path d="M160 109 L176 109" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- Stage 2: Prompt -->
+  <rect x="178" y="44" width="144" height="130" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2"/>
+  <rect x="178" y="44" width="144" height="36" rx="8" fill="#8B5CF6"/>
+  <rect x="178" y="68" width="144" height="12" fill="#8B5CF6"/>
+  <text x="250" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="white">2. Prompt ke LLM</text>
+  <text x="250" y="100" text-anchor="middle" font-size="9" fill="#374151">Beri konteks lengkap:</text>
+  <text x="250" y="114" text-anchor="middle" font-size="9" fill="#374151">tujuan, shape, library,</text>
+  <text x="250" y="128" text-anchor="middle" font-size="9" fill="#374151">constraint &amp; versi</text>
+  <text x="250" y="150" text-anchor="middle" font-size="20">💬</text>
+  <text x="250" y="168" text-anchor="middle" font-size="8" fill="#6B7280">konteks spesifik</text>
+
+  <path d="M322 109 L338 109" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- Stage 3: Read -->
+  <rect x="340" y="44" width="144" height="130" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+  <rect x="340" y="44" width="144" height="36" rx="8" fill="#10B981"/>
+  <rect x="340" y="68" width="144" height="12" fill="#10B981"/>
+  <text x="412" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="white">3. Baca Output</text>
+  <text x="412" y="100" text-anchor="middle" font-size="9" fill="#374151">Baca baris per baris.</text>
+  <text x="412" y="114" text-anchor="middle" font-size="9" fill="#374151">Pahami sebelum copy.</text>
+  <text x="412" y="128" text-anchor="middle" font-size="9" fill="#374151">Tandai yang tidak jelas</text>
+  <text x="412" y="150" text-anchor="middle" font-size="20">👁</text>
+  <text x="412" y="168" text-anchor="middle" font-size="8" fill="#6B7280">jangan buta-copy</text>
+
+  <path d="M484 109 L500 109" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- Stage 4: Modify -->
+  <rect x="502" y="44" width="144" height="130" rx="8" fill="#FFF7ED" stroke="#F59E0B" stroke-width="2"/>
+  <rect x="502" y="44" width="144" height="36" rx="8" fill="#F59E0B"/>
+  <rect x="502" y="68" width="144" height="12" fill="#F59E0B"/>
+  <text x="574" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="white">4. Modifikasi</text>
+  <text x="574" y="100" text-anchor="middle" font-size="9" fill="#374151">Sesuaikan ke repo.</text>
+  <text x="574" y="114" text-anchor="middle" font-size="9" fill="#374151">Ubah nama variabel,</text>
+  <text x="574" y="128" text-anchor="middle" font-size="9" fill="#374151">path, dan interface</text>
+  <text x="574" y="150" text-anchor="middle" font-size="20">✂</text>
+  <text x="574" y="168" text-anchor="middle" font-size="8" fill="#6B7280">adaptasi ke konteks</text>
+
+  <path d="M646 109 L662 109" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- Stage 5: Verify -->
+  <rect x="664" y="44" width="160" height="130" rx="8" fill="#FEF2F2" stroke="#EF4444" stroke-width="2"/>
+  <rect x="664" y="44" width="160" height="36" rx="8" fill="#EF4444"/>
+  <rect x="664" y="68" width="160" height="12" fill="#EF4444"/>
+  <text x="744" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="white">5. Verifikasi</text>
+  <text x="744" y="100" text-anchor="middle" font-size="9" fill="#374151">Unit test + shape check.</text>
+  <text x="744" y="114" text-anchor="middle" font-size="9" fill="#374151">Jalankan data nyata.</text>
+  <text x="744" y="128" text-anchor="middle" font-size="9" fill="#374151">Cek edge case.</text>
+  <text x="744" y="150" text-anchor="middle" font-size="20">✓</text>
+  <text x="744" y="168" text-anchor="middle" font-size="8" fill="#6B7280">tanggung jawabmu</text>
+
+  <!-- Bottom rule -->
+  <rect x="16" y="184" width="808" height="24" rx="4" fill="#1F2937"/>
+  <text x="420" y="200" text-anchor="middle" font-size="9" fill="#D1FAE5" font-weight="600">Aturan emas: LLM mengusulkan, kamu yang memutuskan. Kebenaran kode adalah tanggung jawabmu sepenuhnya.</text>
+
+  <defs>
+    <marker id="arrowGray" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6B7280"/>
+    </marker>
+  </defs>
+</svg>

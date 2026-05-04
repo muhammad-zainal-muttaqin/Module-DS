@@ -1,0 +1,8 @@
+{
+  "experiment_name": "focal_freeze_dryrun",
+  "seed": 42,
+  "commit": "nogit",
+  "best_val_acc": 0.09375,
+  "test_acc": 0.03125,
+  "duration_sec": 0.22139883041381836
+}

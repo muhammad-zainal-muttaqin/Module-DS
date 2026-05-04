@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="560" height="360" fill="#F9FAFB" rx="12"/>
+  <text x="280" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Fungsi Aktivasi: ReLU, GELU, SiLU</text>
+  <text x="280" y="44" text-anchor="middle" font-size="10" fill="#6B7280">Rentang x: [-3, 3] · Skala y: [-0.5, 3]</text>
+
+  <!-- Plot area: x=70..500, y=60..280 -->
+  <rect x="70" y="60" width="430" height="220" fill="white" stroke="#E5E7EB" stroke-width="1.5" rx="4"/>
+
+  <!-- Grid lines -->
+  <line x1="70" y1="170" x2="500" y2="170" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="70" y1="115" x2="500" y2="115" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="70" y1="225" x2="500" y2="225" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="70" y1="60"  x2="70" y2="280"  stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="143" y1="60" x2="143" y2="280" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="285" y1="60" x2="285" y2="280" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="428" y1="60" x2="428" y2="280" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="500" y1="60" x2="500" y2="280" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Axes -->
+  <line x1="70" y1="170" x2="502" y2="170" stroke="#374151" stroke-width="1.5" marker-end="url(#axArrow)"/>
+  <line x1="285" y1="282" x2="285" y2="58" stroke="#374151" stroke-width="1.5" marker-end="url(#axArrow)"/>
+  <text x="506" y="174" font-size="10" fill="#374151">x</text>
+  <text x="281" y="54" font-size="10" fill="#374151">f(x)</text>
+
+  <!-- Tick labels: scale x: 285 + x*71.67 = 285+72x; y: 170 - y*55 -->
+  <text x="143" y="184" text-anchor="middle" font-size="9" fill="#6B7280">-2</text>
+  <text x="214" y="184" text-anchor="middle" font-size="9" fill="#6B7280">-1</text>
+  <text x="285" y="184" text-anchor="middle" font-size="9" fill="#6B7280">0</text>
+  <text x="357" y="184" text-anchor="middle" font-size="9" fill="#6B7280">1</text>
+  <text x="428" y="184" text-anchor="middle" font-size="9" fill="#6B7280">2</text>
+  <text x="500" y="184" text-anchor="middle" font-size="9" fill="#6B7280">3</text>
+  <text x="62" y="173" text-anchor="end" font-size="9" fill="#6B7280">0</text>
+  <text x="62" y="118" text-anchor="end" font-size="9" fill="#6B7280">1</text>
+  <text x="62" y="63"  text-anchor="end" font-size="9" fill="#6B7280">2</text>
+  <text x="62" y="228" text-anchor="end" font-size="9" fill="#6B7280">-1</text>
+
+  <!-- scale: x_px = 285 + x*71.67, y_px = 170 - y*55 -->
+  <!-- x=-3→70, x=-2→143, x=-1→214, x=0→285, x=1→357, x=2→428, x=3→500 -->
+
+  <!-- ReLU: f(x)=max(0,x) -->
+  <!-- x=-3→0, 0→0, x=0→0, x=1→1(y=115), x=2→2(y=60), x=2.73→3(y=~16, clip at 60) -->
+  <polyline points="70,170 285,170 357,115 428,60" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- GELU: pre-computed x_px, y_px -->
+  <!-- GELU(-3)≈-0.004 → y=170.2; GELU(-2)≈-0.045 → y=172.5; GELU(-1)≈-0.159 → y=178.7 -->
+  <!-- GELU(-0.5)≈-0.154 → y=178.5; GELU(0)=0 → y=170; GELU(0.5)≈0.346 → y=151 -->
+  <!-- GELU(1)≈0.841 → y=124; GELU(1.5)≈1.399 → y=93; GELU(2)≈1.955 → y=63; GELU(2.5)≈2.5→y=32 -->
+  <polyline
+    points="70,170.2 143,172.5 214,178.7 249,178.5 285,170 321,151 357,124 393,93 428,63 464,32"
+    fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- SiLU: f(x)=x·sigmoid(x) -->
+  <!-- SiLU(-3)≈-0.143→y=178; (-2)≈-0.238→y=183; (-1)≈-0.269→y=185; (-0.5)≈-0.185→y=180 -->
+  <!-- SiLU(0)=0→170; (0.5)≈0.311→y=153; (1)≈0.731→y=130; (1.5)≈1.216→y=103; (2)≈1.762→y=73 -->
+  <polyline
+    points="70,177.9 143,183.1 214,184.8 249,180.2 285,170 321,152.9 357,129.8 393,103 428,73 464,33"
+    fill="none" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8,4"/>
+
+  <!-- Legend box -->
+  <rect x="80" y="70" width="148" height="100" rx="6" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <line x1="92" y1="90" x2="120" y2="90" stroke="#EF4444" stroke-width="2.5"/>
+  <text x="128" y="94" font-size="11" font-weight="700" fill="#374151">ReLU</text>
+  <text x="128" y="108" font-size="8" fill="#6B7280">max(0, x)</text>
+  <line x1="92" y1="120" x2="120" y2="120" stroke="#3B82F6" stroke-width="2.5"/>
+  <text x="128" y="124" font-size="11" font-weight="700" fill="#374151">GELU</text>
+  <text x="128" y="138" font-size="8" fill="#6B7280">x · Φ(x)</text>
+  <line x1="92" y1="152" x2="120" y2="152" stroke="#10B981" stroke-width="2.5" stroke-dasharray="8,4"/>
+  <text x="128" y="156" font-size="11" font-weight="700" fill="#374151">SiLU/Swish</text>
+  <text x="128" y="166" font-size="8" fill="#6B7280">x · σ(x)</text>
+
+  <!-- Annotation -->
+  <text x="180" y="220" font-size="9" fill="#3B82F6" font-style="italic">↓ GELU &amp; SiLU turun ringan</text>
+  <text x="180" y="233" font-size="9" fill="#3B82F6" font-style="italic">di region negatif (smooth zero)</text>
+
+  <!-- Caption -->
+  <rect x="20" y="298" width="520" height="48" rx="6" fill="#F1F5F9" stroke="#E2E8F0"/>
+  <text x="280" y="316" text-anchor="middle" font-size="9" font-weight="600" fill="#374151">Pilih:</text>
+  <text x="280" y="330" text-anchor="middle" font-size="9" fill="#374151">ReLU → cepat, sparse gradient. GELU → Transformer (BERT, GPT). SiLU → ResNet modern, EfficientNet.</text>
+  <text x="280" y="344" text-anchor="middle" font-size="9" fill="#6B7280">GELU dan SiLU lebih smooth di sekitar 0 — gradient mengalir di semua region kecuali sangat negatif.</text>
+
+  <defs>
+    <marker id="axArrow" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#374151"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,2 @@
+- Membuat Module Pembelajaran untuk menjadi Assisten Dosen yang baik dan tak lekang oleh zaman yang bergerak cepat di era AI ini. hal-hal kecil, sikap dan dasar di tanamkan secara tidak langsung kedalam tulisan dan module, kemudian dibuatkan/dirumuskan serta di praktekkan, semuanya sudah ada didalam file @EXPECTED_OUTCOME
+- Sedikit pesan dari dosen saya "👆🏻Ini ya sebenarnya harapannya, memang muluk 😂 tapi sedikit-sedikit diarahkan ke sana. Utk kegiatannya banyaki hands on, bisa gabungan antara bootcamp/project/tugas"

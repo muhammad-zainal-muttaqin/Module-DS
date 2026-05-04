@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 320" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="840" height="320" fill="#F9FAFB" rx="12"/>
+  <text x="420" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Tiga Strategi Representasi Fitur</text>
+  <text x="420" y="46" text-anchor="middle" font-size="10" fill="#6B7280">Setiap strategi berbeda dalam siapa yang menentukan "fitur apa yang penting"</text>
+
+  <!-- Column 1: Engineered -->
+  <rect x="16" y="60" width="260" height="244" rx="8" fill="#FFF7ED" stroke="#F59E0B" stroke-width="2"/>
+  <rect x="16" y="60" width="260" height="40" rx="8" fill="#F59E0B"/>
+  <rect x="16" y="88" width="260" height="12" fill="#F59E0B"/>
+  <text x="146" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="white">Engineered Features</text>
+  <text x="146" y="114" text-anchor="middle" font-size="10" fill="#92400E">Dirancang manual oleh domain expert</text>
+  <!-- flow -->
+  <rect x="36" y="126" width="220" height="28" rx="5" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+  <text x="146" y="144" text-anchor="middle" font-size="10" fill="#92400E">Raw Data (gambar / teks / angka)</text>
+  <path d="M146 154 L146 170" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowA)"/>
+  <rect x="36" y="172" width="220" height="28" rx="5" fill="#FCD34D" stroke="#F59E0B" stroke-width="1"/>
+  <text x="146" y="190" text-anchor="middle" font-size="10" fill="#78350F" font-weight="600">Manual Rules / Domain Expert</text>
+  <path d="M146 200 L146 216" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowA)"/>
+  <rect x="36" y="218" width="220" height="28" rx="5" fill="#FDE68A" stroke="#F59E0B" stroke-width="1"/>
+  <text x="146" y="236" text-anchor="middle" font-size="10" fill="#78350F">SIFT, MFCC, TF-IDF, HOG</text>
+  <path d="M146 246 L146 262" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrowA)"/>
+  <rect x="36" y="264" width="220" height="26" rx="5" fill="#FEF9C3"/>
+  <text x="146" y="277" text-anchor="middle" font-size="10" fill="#78350F">Model klasik (SVM, RF)</text>
+  <text x="146" y="291" text-anchor="middle" font-size="9" fill="#92400E" font-style="italic">+ Interpretable · - Bottleneck desain</text>
+
+  <!-- Column 2: Extracted -->
+  <rect x="290" y="60" width="260" height="244" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+  <rect x="290" y="60" width="260" height="40" rx="8" fill="#10B981"/>
+  <rect x="290" y="88" width="260" height="12" fill="#10B981"/>
+  <text x="420" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="white">Extracted Features</text>
+  <text x="420" y="114" text-anchor="middle" font-size="10" fill="#065F46">Dari model pretrained (frozen encoder)</text>
+  <rect x="310" y="126" width="220" height="28" rx="5" fill="#D1FAE5" stroke="#10B981" stroke-width="1"/>
+  <text x="420" y="144" text-anchor="middle" font-size="10" fill="#065F46">Raw Data</text>
+  <path d="M420 154 L420 170" stroke="#10B981" stroke-width="2" marker-end="url(#arrowG)"/>
+  <rect x="310" y="172" width="220" height="36" rx="5" fill="#6EE7B7" stroke="#10B981" stroke-width="1"/>
+  <text x="420" y="190" text-anchor="middle" font-size="10" fill="#065F46" font-weight="600">Pretrained Model (frozen)</text>
+  <text x="420" y="204" text-anchor="middle" font-size="9" fill="#065F46">ResNet, BERT, CLIP</text>
+  <path d="M420 208 L420 224" stroke="#10B981" stroke-width="2" marker-end="url(#arrowG)"/>
+  <rect x="310" y="226" width="220" height="26" rx="5" fill="#A7F3D0" stroke="#10B981" stroke-width="1"/>
+  <text x="420" y="243" text-anchor="middle" font-size="10" fill="#065F46">Embedding vektor (fixed)</text>
+  <path d="M420 252 L420 268" stroke="#10B981" stroke-width="2" marker-end="url(#arrowG)"/>
+  <rect x="310" y="270" width="220" height="20" rx="5" fill="#D1FAE5"/>
+  <text x="420" y="284" text-anchor="middle" font-size="10" fill="#065F46">Linear probe / shallow head</text>
+  <text x="420" y="296" text-anchor="middle" font-size="9" fill="#065F46" font-style="italic">+ Cepat + Transfer · - Less flexible</text>
+
+  <!-- Column 3: Learned -->
+  <rect x="564" y="60" width="260" height="244" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2"/>
+  <rect x="564" y="60" width="260" height="40" rx="8" fill="#8B5CF6"/>
+  <rect x="564" y="88" width="260" height="12" fill="#8B5CF6"/>
+  <text x="694" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="white">Learned Features</text>
+  <text x="694" y="114" text-anchor="middle" font-size="10" fill="#4C1D95">End-to-end, fitur dioptimasi bersama</text>
+  <rect x="584" y="126" width="220" height="28" rx="5" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="694" y="144" text-anchor="middle" font-size="10" fill="#4C1D95">Raw Data + Label</text>
+  <path d="M694 154 L694 170" stroke="#8B5CF6" stroke-width="2" marker-end="url(#arrowP)"/>
+  <rect x="584" y="172" width="220" height="36" rx="5" fill="#C4B5FD" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="694" y="190" text-anchor="middle" font-size="10" fill="#4C1D95" font-weight="600">Deep Network (trainable)</text>
+  <text x="694" y="204" text-anchor="middle" font-size="9" fill="#4C1D95">backprop optimalkan semua layer</text>
+  <path d="M694 208 L694 224" stroke="#8B5CF6" stroke-width="2" marker-end="url(#arrowP)"/>
+  <rect x="584" y="226" width="220" height="26" rx="5" fill="#DDD6FE" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="694" y="243" text-anchor="middle" font-size="10" fill="#4C1D95">Representasi disesuaikan tugas</text>
+  <path d="M694 252 L694 268" stroke="#8B5CF6" stroke-width="2" marker-end="url(#arrowP)"/>
+  <rect x="584" y="270" width="220" height="20" rx="5" fill="#EDE9FE"/>
+  <text x="694" y="284" text-anchor="middle" font-size="10" fill="#4C1D95">Output (klasifikasi, deteksi, dll.)</text>
+  <text x="694" y="296" text-anchor="middle" font-size="9" fill="#4C1D95" font-style="italic">+ Optimal + Fleksibel · - Butuh data</text>
+
+  <defs>
+    <marker id="arrowA" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#F59E0B"/>
+    </marker>
+    <marker id="arrowG" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#10B981"/>
+    </marker>
+    <marker id="arrowP" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#8B5CF6"/>
+    </marker>
+  </defs>
+</svg>

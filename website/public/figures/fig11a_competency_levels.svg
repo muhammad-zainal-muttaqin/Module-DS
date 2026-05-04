@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="720" height="360" fill="#FAFAFA" rx="12"/>
+  <text x="360" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">4 Level Penguasaan (Mastery)</text>
+  <text x="360" y="44" text-anchor="middle" font-size="10" fill="#6B7280">Penilaian komprehensif mencakup 10 kompetensi selama 14 minggu</text>
+
+  <!-- Staircase structure -->
+  <!-- Level 1: Novice (lowest step) -->
+  <rect x="40" y="270" width="620" height="68" rx="8" fill="#F9FAFB" stroke="#D1D5DB" stroke-width="2"/>
+  <rect x="40" y="270" width="8" height="68" rx="4" fill="#9CA3AF"/>
+  <!-- Score badge -->
+  <rect x="590" y="278" width="62" height="28" rx="6" fill="#9CA3AF"/>
+  <text x="621" y="297" text-anchor="middle" font-size="14" font-weight="700" fill="white">50</text>
+  <text x="640" y="286" font-size="8" fill="#9CA3AF">poin</text>
+  <text x="68" y="292" font-size="14" font-weight="700" fill="#374151">Novice</text>
+  <text x="68" y="308" font-size="10" fill="#6B7280">Mengikuti instruksi tanpa memahami mengapa. Menjalankan kode tanpa bisa menjelaskan</text>
+  <text x="68" y="322" font-size="10" fill="#6B7280">hasil. Belum bisa mengidentifikasi error atau varian konfigurasi.</text>
+  <rect x="68" y="330" width="80" height="16" rx="4" fill="#F3F4F6"/>
+  <text x="108" y="342" text-anchor="middle" font-size="8" fill="#6B7280">Run bisa, tapi tidak tahu kenapa</text>
+
+  <!-- Level 2: Developing -->
+  <rect x="40" y="194" width="560" height="70" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+  <rect x="40" y="194" width="8" height="70" rx="4" fill="#10B981"/>
+  <rect x="536" y="202" width="62" height="28" rx="6" fill="#10B981"/>
+  <text x="567" y="221" text-anchor="middle" font-size="14" font-weight="700" fill="white">70</text>
+  <text x="580" y="210" font-size="8" fill="#10B981">poin</text>
+  <text x="68" y="216" font-size="14" font-weight="700" fill="#065F46">Developing</text>
+  <text x="68" y="232" font-size="10" fill="#374151">Memahami konsep inti dan bisa menjelaskan keputusan eksperimen dasar. Mampu debug</text>
+  <text x="68" y="246" font-size="10" fill="#374151">error sederhana. Reproduksi eksperimen orang lain dengan panduan.</text>
+  <rect x="68" y="255" width="120" height="16" rx="4" fill="#D1FAE5"/>
+  <text x="128" y="267" text-anchor="middle" font-size="8" fill="#065F46">Paham + bisa jelaskan keputusan</text>
+
+  <!-- Level 3: Proficient -->
+  <rect x="40" y="112" width="500" height="76" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  <rect x="40" y="112" width="8" height="76" rx="4" fill="#3B82F6"/>
+  <rect x="472" y="120" width="62" height="28" rx="6" fill="#3B82F6"/>
+  <text x="503" y="139" text-anchor="middle" font-size="14" font-weight="700" fill="white">85</text>
+  <text x="516" y="128" font-size="8" fill="#3B82F6">poin</text>
+  <text x="68" y="134" font-size="14" font-weight="700" fill="#1D4ED8">Proficient</text>
+  <text x="68" y="150" font-size="10" fill="#374151">Merancang eksperimen mandiri dengan hipotesis yang falsifiable. Mengidentifikasi dan</text>
+  <text x="68" y="164" font-size="10" fill="#374151">menjelaskan sumber error. Memilih metrik sesuai konteks. Menulis laporan yang jelas.</text>
+  <text x="68" y="178" font-size="10" fill="#374151">Mampu mereplikasi paper dengan modifikasi minor.</text>
+  <rect x="68" y="184" width="140" height="16" rx="4" fill="#DBEAFE"/>
+  <text x="138" y="196" text-anchor="middle" font-size="8" fill="#1D4ED8">Desain eksperimen mandiri</text>
+
+  <!-- Level 4: Masterpiece (highest step) -->
+  <rect x="40" y="62" width="440" height="44" rx="8" fill="#FFF7ED" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="40" y="62" width="8" height="44" rx="4" fill="#F59E0B"/>
+  <rect x="410" y="70" width="62" height="28" rx="6" fill="#F59E0B"/>
+  <text x="441" y="89" text-anchor="middle" font-size="14" font-weight="700" fill="white">95</text>
+  <text x="454" y="78" font-size="8" fill="#F59E0B">poin</text>
+  <!-- Stars -->
+  <text x="62" y="90" font-size="16">⭐</text>
+  <text x="80" y="90" font-size="14" font-weight="700" fill="#92400E">Masterpiece</text>
+  <text x="170" y="90" font-size="10" fill="#92400E">Riset orisinal, temuan mengejutkan, komunikasi yang meyakinkan</text>
+
+  <!-- Right side score axis -->
+  <line x1="674" y1="62" x2="674" y2="338" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="690" y="97" font-size="10" fill="#F59E0B" font-weight="700">95</text>
+  <text x="690" y="167" font-size="10" fill="#3B82F6" font-weight="700">85</text>
+  <text x="690" y="247" font-size="10" fill="#10B981" font-weight="700">70</text>
+  <text x="690" y="317" font-size="10" fill="#9CA3AF" font-weight="700">50</text>
+  <text x="690" y="340" font-size="8" fill="#9CA3AF">min</text>
+  <!-- Tick lines -->
+  <line x1="670" y1="92" x2="678" y2="92" stroke="#F59E0B" stroke-width="2"/>
+  <line x1="670" y1="162" x2="678" y2="162" stroke="#3B82F6" stroke-width="2"/>
+  <line x1="670" y1="242" x2="678" y2="242" stroke="#10B981" stroke-width="2"/>
+  <line x1="670" y1="312" x2="678" y2="312" stroke="#9CA3AF" stroke-width="2"/>
+</svg>

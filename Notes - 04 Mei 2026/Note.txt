@@ -1,0 +1,7 @@
+Coba cek yang ini:
+
+- lab_w1_tabular_heads.ipynb — root bug:
+In train_tabular's evaluation block, the binary task branch uses (logits.squeeze() > 0).long(). But since num_classes=2, logits are (B, 2) — .squeeze() does nothing. This yields a (B, 2) long tensor instead of (B,) class indices. The    "Fix:" band-aids in cells §4 and §6 (argmax(axis=1) on binary 0/1 values) partly compensate but are wrong when both logits are positive (e.g., [1, 1] always resolves to class 0). The correct fix: use logits.argmax(dim=1) in the eval block.
+
+- lab_w1_mlp_numpy.ipynb — cell ordering bug:  
+The Refleksi §8 cell (9e6c979d) appears before the PyTorch parity check code (cell-18), even though §8's self-check includes "Plot parity numpy vs PyTorch tumpang tindih dalam toleransi 0.05." The code for §7 must run before §8.

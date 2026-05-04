@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" fill="#F8FAFC" rx="12"/>
+
+  <!-- Column backgrounds -->
+  <rect x="16"  y="16" width="190" height="450" fill="#EFF6FF" rx="8" stroke="#BFDBFE" stroke-width="1.5"/>
+  <rect x="226" y="16" width="348" height="450" fill="#F9FAFB" rx="8" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="594" y="16" width="190" height="450" fill="#ECFDF5" rx="8" stroke="#A7F3D0" stroke-width="1.5"/>
+
+  <!-- Column headers -->
+  <text x="111" y="44" text-anchor="middle" font-size="14" font-weight="700" font-family="system-ui,sans-serif" fill="#1E40AF">INPUT</text>
+  <text x="111" y="60" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#3B82F6">you frame this</text>
+
+  <text x="400" y="44" text-anchor="middle" font-size="14" font-weight="700" font-family="system-ui,sans-serif" fill="#374151">MIDDLE</text>
+  <text x="400" y="60" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#9CA3AF">constrained by input + output</text>
+
+  <text x="689" y="44" text-anchor="middle" font-size="14" font-weight="700" font-family="system-ui,sans-serif" fill="#065F46">OUTPUT</text>
+  <text x="689" y="60" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#059669">you frame this</text>
+
+  <!-- Arrows (vertically centred on the standard-components zone ~y=200) -->
+  <line x1="207" y1="200" x2="224" y2="200" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="575" y1="200" x2="592" y2="200" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- ── INPUT BRICKS ───────────────────────────────────────────────────── -->
+  <rect x="28" y="76"  width="166" height="44" rx="6" fill="#3B82F6" stroke="#2563EB" stroke-width="1"/>
+  <text x="111" y="94"  text-anchor="middle" font-size="13" font-weight="700" font-family="'Courier New',monospace" fill="white">(F,)</text>
+  <text x="111" y="110" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#BFDBFE">tabular</text>
+
+  <rect x="28" y="128" width="166" height="44" rx="6" fill="#3B82F6" stroke="#2563EB" stroke-width="1"/>
+  <text x="111" y="146" text-anchor="middle" font-size="13" font-weight="700" font-family="'Courier New',monospace" fill="white">(C, H, W)</text>
+  <text x="111" y="162" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#BFDBFE">image</text>
+
+  <rect x="28" y="180" width="166" height="44" rx="6" fill="#3B82F6" stroke="#2563EB" stroke-width="1"/>
+  <text x="111" y="198" text-anchor="middle" font-size="13" font-weight="700" font-family="'Courier New',monospace" fill="white">(T, F)</text>
+  <text x="111" y="214" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#BFDBFE">sequence</text>
+
+  <rect x="28" y="232" width="166" height="44" rx="6" fill="#3B82F6" stroke="#2563EB" stroke-width="1"/>
+  <text x="111" y="250" text-anchor="middle" font-size="13" font-weight="700" font-family="'Courier New',monospace" fill="white">(T,)</text>
+  <text x="111" y="266" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#BFDBFE">text / tokens</text>
+
+  <rect x="28" y="284" width="166" height="44" rx="6" fill="#3B82F6" stroke="#2563EB" stroke-width="1"/>
+  <text x="111" y="302" text-anchor="middle" font-size="13" font-weight="700" font-family="'Courier New',monospace" fill="white">[A] + [B] + …</text>
+  <text x="111" y="318" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#BFDBFE">multimodal</text>
+
+
+  <!-- ── MIDDLE: STANDARD ZONE ─────────────────────────────────────────── -->
+  <text x="310" y="82" text-anchor="middle" font-size="9" font-weight="600" font-family="system-ui,sans-serif" fill="#9CA3AF" letter-spacing="0.08em">STANDARD COMPONENTS</text>
+
+  <rect x="246" y="90"  width="128" height="36" rx="5" fill="#9CA3AF" stroke="#6B7280" stroke-width="1"/>
+  <text x="310" y="113" text-anchor="middle" font-size="12" font-weight="700" font-family="system-ui,sans-serif" fill="white">MLP</text>
+
+  <rect x="246" y="134" width="128" height="36" rx="5" fill="#9CA3AF" stroke="#6B7280" stroke-width="1"/>
+  <text x="310" y="157" text-anchor="middle" font-size="12" font-weight="700" font-family="system-ui,sans-serif" fill="white">CNN</text>
+
+  <rect x="246" y="178" width="128" height="36" rx="5" fill="#9CA3AF" stroke="#6B7280" stroke-width="1"/>
+  <text x="310" y="201" text-anchor="middle" font-size="12" font-weight="700" font-family="system-ui,sans-serif" fill="white">RNN / LSTM</text>
+
+  <rect x="246" y="222" width="128" height="36" rx="5" fill="#9CA3AF" stroke="#6B7280" stroke-width="1"/>
+  <text x="310" y="245" text-anchor="middle" font-size="12" font-weight="700" font-family="system-ui,sans-serif" fill="white">Transformer</text>
+
+  <rect x="246" y="266" width="128" height="36" rx="5" fill="#9CA3AF" stroke="#6B7280" stroke-width="1"/>
+  <text x="310" y="289" text-anchor="middle" font-size="12" font-weight="700" font-family="system-ui,sans-serif" fill="white">Pretrained FM</text>
+
+  <!-- Annotation: standard follows from both ends -->
+  <text x="462" y="175" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#9CA3AF" font-style="italic">these follow from</text>
+  <text x="462" y="190" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#9CA3AF" font-style="italic">your input + output</text>
+  <text x="462" y="205" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#9CA3AF" font-style="italic">combination</text>
+
+  <!-- ── DIVIDER (full width) ─────────────────────────────────────────── -->
+  <line x1="28" y1="318" x2="772" y2="318" stroke="#D1D5DB" stroke-width="1" stroke-dasharray="5,4"/>
+
+  <!-- ── GAP ZONE (spans all three columns) ───────────────────────────── -->
+  <text x="400" y="334" text-anchor="middle" font-size="9" font-weight="700" font-family="system-ui,sans-serif" fill="#D97706" letter-spacing="0.08em">RESEARCH LIVES IN REFRAMING ANY PART OF THIS CHAIN</text>
+
+  <rect x="28" y="342" width="744" height="108" rx="8" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2" stroke-dasharray="7,4"/>
+
+  <!-- Left: new input type -->
+  <text x="111" y="366" text-anchor="middle" font-size="18" font-weight="700" font-family="system-ui,sans-serif" fill="#D97706">?</text>
+  <text x="111" y="385" text-anchor="middle" font-size="9" font-family="system-ui,sans-serif" fill="#92400E">new input type</text>
+  <text x="111" y="399" text-anchor="middle" font-size="9" font-style="italic" font-family="system-ui,sans-serif" fill="#B45309">e.g. unique modality</text>
+
+  <!-- Middle: no standard architecture -->
+  <text x="400" y="374" text-anchor="middle" font-size="26" font-weight="700" font-family="system-ui,sans-serif" fill="#D97706">?</text>
+  <text x="400" y="397" text-anchor="middle" font-size="9" font-family="system-ui,sans-serif" fill="#92400E">no standard architecture</text>
+  <text x="400" y="411" text-anchor="middle" font-size="9" font-style="italic" font-family="system-ui,sans-serif" fill="#B45309">for this input+output pair</text>
+
+  <!-- Right: new output formulation -->
+  <text x="689" y="366" text-anchor="middle" font-size="18" font-weight="700" font-family="system-ui,sans-serif" fill="#D97706">?</text>
+  <text x="689" y="385" text-anchor="middle" font-size="9" font-family="system-ui,sans-serif" fill="#92400E">new output formulation</text>
+  <text x="689" y="399" text-anchor="middle" font-size="9" font-style="italic" font-family="system-ui,sans-serif" fill="#B45309">e.g. new task type</text>
+
+  <!-- ── OUTPUT BRICKS ──────────────────────────────────────────────────── -->
+  <rect x="606" y="76"  width="166" height="44" rx="6" fill="#059669" stroke="#047857" stroke-width="1"/>
+  <text x="689" y="94"  text-anchor="middle" font-size="13" font-weight="700" font-family="'Courier New',monospace" fill="white">(1,)</text>
+  <text x="689" y="110" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#A7F3D0">regression</text>
+
+  <rect x="606" y="128" width="166" height="44" rx="6" fill="#059669" stroke="#047857" stroke-width="1"/>
+  <text x="689" y="146" text-anchor="middle" font-size="13" font-weight="700" font-family="'Courier New',monospace" fill="white">(1,)</text>
+  <text x="689" y="162" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#A7F3D0">binary classification</text>
+
+  <rect x="606" y="180" width="166" height="44" rx="6" fill="#059669" stroke="#047857" stroke-width="1"/>
+  <text x="689" y="198" text-anchor="middle" font-size="13" font-weight="700" font-family="'Courier New',monospace" fill="white">(N,)</text>
+  <text x="689" y="214" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#A7F3D0">multiclass</text>
+
+  <rect x="606" y="232" width="166" height="44" rx="6" fill="#059669" stroke="#047857" stroke-width="1"/>
+  <text x="689" y="250" text-anchor="middle" font-size="13" font-weight="700" font-family="'Courier New',monospace" fill="white">(T, N)</text>
+  <text x="689" y="266" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#A7F3D0">sequence output</text>
+
+  <rect x="606" y="284" width="166" height="44" rx="6" fill="#059669" stroke="#047857" stroke-width="1"/>
+  <text x="689" y="302" text-anchor="middle" font-size="13" font-weight="700" font-family="'Courier New',monospace" fill="white">(H, W)</text>
+  <text x="689" y="318" text-anchor="middle" font-size="10" font-family="system-ui,sans-serif" fill="#A7F3D0">segmentation</text>
+
+</svg>

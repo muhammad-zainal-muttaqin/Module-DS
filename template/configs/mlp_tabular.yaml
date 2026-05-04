@@ -1,0 +1,53 @@
+# MLP + Tabular configuration - Lab W1 companion run
+# Lab W1 trains the same MLP on a shared synthetic tabular dataset under three
+# task formulations. To switch tasks, change `data.task` and `loss.name`:
+#   regression  -> mse
+#   binary      -> bce (BCEWithLogitsLoss, gunakan num_classes=1)
+#   multiclass  -> cross_entropy
+# Trainees should observe how the SAME input features can support different
+# output heads, and how loss-head mismatches lead to nonsense training.
+
+experiment_name: mlp_tabular_binary
+
+seed: 42
+
+data:
+  name: tabular_shared
+  task: binary           # one of: regression, binary, multiclass
+  n_features: 10
+  n_train: 4000
+  n_val: 500
+  n_test: 500
+  batch_size: 128
+  num_workers: 0
+
+model:
+  name: simple_mlp
+  input_dim: 10
+  hidden_sizes: [64, 32]
+  num_classes: 2         # 1 for regression/bce; 2 for binary CE; 3 for multiclass
+  dropout: 0.0
+  activation: relu
+  freeze_until: null
+
+loss:
+  name: cross_entropy    # mse | bce | bce_with_logits | cross_entropy
+  label_smoothing: 0.0
+
+optim:
+  name: adamw
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+
+scheduler:
+  name: cosine
+  warmup_epochs: 1
+
+train:
+  epochs: 20
+  grad_clip: 1.0
+  log_every: 20
+  save_every: 5
+
+output:
+  root: ./experiments

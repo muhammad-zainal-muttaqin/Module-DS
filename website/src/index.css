@@ -1,0 +1,283 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "cv02", "cv11", "ss01";
+  }
+
+  h1, h2, h3, h4 {
+    font-family: "Fraunces", ui-serif, Georgia, serif;
+    font-feature-settings: "ss01";
+  }
+
+  code, pre, kbd {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+    font-feature-settings: "calt", "liga";
+  }
+
+  ::selection {
+    background: rgba(245, 158, 11, 0.25);
+    color: inherit;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  [role="button"]:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid theme("colors.rigor.DEFAULT");
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .dark a:focus-visible,
+  .dark button:focus-visible,
+  .dark summary:focus-visible,
+  .dark [role="button"]:focus-visible,
+  .dark input:focus-visible,
+  .dark textarea:focus-visible,
+  .dark select:focus-visible {
+    outline-color: theme("colors.curiosity.DEFAULT");
+  }
+}
+
+@layer components {
+  .page {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16;
+  }
+  .page-narrow {
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16;
+  }
+  .page-header {
+    @apply mb-10 md:mb-12 max-w-3xl;
+  }
+  .page-title {
+    @apply font-serif text-display font-semibold tracking-tight mb-3;
+  }
+  .page-lead {
+    @apply text-lg text-ink/75 dark:text-parchment/80 leading-relaxed;
+  }
+  .eyebrow {
+    @apply text-sm font-mono text-rigor dark:text-curiosity mb-2;
+  }
+  .section-title {
+    @apply font-serif text-heading-1 font-semibold mb-4;
+  }
+  .card-title {
+    @apply font-serif text-heading-2 font-semibold;
+  }
+  .card {
+    @apply rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-white/[0.03];
+  }
+  .card-link {
+    @apply block rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-white/[0.03] hover:border-rigor/40 dark:hover:border-curiosity/40 transition-colors;
+  }
+  .section-gap {
+    @apply mb-12;
+  }
+
+  .prose-modul {
+    @apply max-w-prose text-[17px] leading-[1.75];
+  }
+  .prose-modul h1 {
+    @apply text-heading-1 font-semibold mt-10 mb-6;
+  }
+  .prose-modul h2 {
+    @apply text-heading-2 font-semibold mt-12 mb-5 pt-8 scroll-mt-24 border-t border-black/5 dark:border-white/5;
+  }
+  .prose-modul h2:first-child {
+    @apply mt-0 pt-0 border-t-0;
+  }
+  .prose-modul h3 {
+    @apply text-heading-3 font-semibold mt-10 mb-3 scroll-mt-24;
+  }
+  .prose-modul h4 {
+    @apply text-heading-4 font-semibold mt-7 mb-2 scroll-mt-24;
+  }
+  .prose-modul p {
+    @apply my-4;
+  }
+  .prose-modul h2 + p,
+  .prose-modul h3 + p,
+  .prose-modul h4 + p {
+    @apply text-[1.0625em] text-ink dark:text-parchment mt-3;
+    font-weight: 450;
+  }
+  .prose-modul ul {
+    @apply list-disc pl-6 my-4 space-y-1.5;
+  }
+  .prose-modul ol {
+    @apply list-decimal pl-6 my-4 space-y-1.5;
+  }
+  .prose-modul li > ul, .prose-modul li > ol {
+    @apply my-1;
+  }
+  .prose-modul blockquote {
+    @apply border-l-4 border-curiosity bg-curiosity-soft/40 dark:bg-curiosity/10 px-5 py-3 my-5 italic rounded-r-md;
+  }
+  .prose-modul a {
+    @apply text-rigor dark:text-curiosity underline underline-offset-2 decoration-from-font hover:decoration-2;
+  }
+  .prose-modul strong {
+    @apply font-semibold text-ink dark:text-parchment;
+  }
+  .prose-modul code:not(pre code) {
+    @apply bg-parchment dark:bg-white/10 px-1.5 py-0.5 rounded text-[0.9em] font-medium;
+  }
+  .prose-modul pre {
+    @apply rounded-lg overflow-x-auto text-sm my-5 p-4 border border-black/5 dark:border-white/10;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .prose-modul pre::-webkit-scrollbar {
+    display: none;
+  }
+  .prose-modul table {
+    @apply w-full border-collapse my-6 text-sm;
+  }
+  .prose-modul th {
+    @apply text-left bg-parchment dark:bg-white/5 font-semibold px-3 py-2 border border-black/10 dark:border-white/10;
+  }
+  .prose-modul td {
+    @apply px-3 py-2 border border-black/10 dark:border-white/10 align-top;
+  }
+  .prose-modul details {
+    @apply my-5 border border-black/10 dark:border-white/10 rounded-lg bg-parchment/50 dark:bg-white/5;
+  }
+  .prose-modul summary {
+    @apply cursor-pointer select-none px-4 py-3 font-medium;
+  }
+  .prose-modul details > *:not(summary) {
+    @apply px-4 pb-4;
+  }
+  .prose-modul hr {
+    @apply my-10 border-black/10 dark:border-white/10;
+  }
+  .prose-modul img {
+    @apply my-6 rounded-lg;
+  }
+  .prose-modul .anchor-link {
+    @apply opacity-0 ml-2 text-rigor dark:text-curiosity no-underline transition-opacity;
+  }
+  .prose-modul h2:hover .anchor-link,
+  .prose-modul h3:hover .anchor-link,
+  .prose-modul h4:hover .anchor-link {
+    @apply opacity-100;
+  }
+
+  .admonition {
+    @apply my-6 rounded-lg border-l-4 px-5 py-4 not-italic;
+  }
+  .admonition-title {
+    @apply flex items-center gap-2 font-semibold text-[0.95em] mb-2 mt-0 font-sans;
+    font-style: normal;
+  }
+  .admonition-icon {
+    @apply inline-flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold flex-shrink-0;
+  }
+  .admonition > *:last-child {
+    @apply mb-0;
+  }
+  .admonition p {
+    @apply my-2 not-italic;
+  }
+  .admonition p + p {
+    text-indent: 0;
+  }
+  .admonition.note {
+    @apply border-rigor bg-rigor-soft/50 dark:bg-rigor/10;
+  }
+  .admonition.note .admonition-icon {
+    @apply bg-rigor text-white;
+  }
+  .admonition.note .admonition-title {
+    @apply text-rigor-deep dark:text-rigor-soft;
+  }
+  .admonition.tip {
+    @apply border-ownership bg-ownership-soft/50 dark:bg-ownership/10;
+  }
+  .admonition.tip .admonition-icon {
+    @apply bg-ownership text-white;
+  }
+  .admonition.tip .admonition-title {
+    @apply text-ownership-deep dark:text-ownership-soft;
+  }
+  .admonition.warning {
+    @apply border-curiosity bg-curiosity-soft/50 dark:bg-curiosity/10;
+  }
+  .admonition.warning .admonition-icon {
+    @apply bg-curiosity text-white;
+  }
+  .admonition.warning .admonition-title {
+    @apply text-curiosity-deep dark:text-curiosity-soft;
+  }
+  .admonition.important {
+    @apply border-skepticism bg-skepticism-soft/50 dark:bg-skepticism/10;
+  }
+  .admonition.important .admonition-icon {
+    @apply bg-skepticism text-white;
+  }
+  .admonition.important .admonition-title {
+    @apply text-skepticism-deep dark:text-skepticism-soft;
+  }
+  .admonition.caution {
+    @apply border-skepticism bg-skepticism-soft/50 dark:bg-skepticism/10;
+  }
+  .admonition.caution .admonition-icon {
+    @apply bg-skepticism text-white;
+  }
+  .admonition.caution .admonition-title {
+    @apply text-skepticism-deep dark:text-skepticism-soft;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rigor disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn bg-rigor text-white hover:bg-rigor-deep;
+  }
+  .btn-secondary {
+    @apply btn bg-parchment hover:bg-parchment/70 text-ink dark:bg-white/10 dark:hover:bg-white/20 dark:text-parchment;
+  }
+  .btn-ghost {
+    @apply btn hover:bg-parchment dark:hover:bg-white/10;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .split-cell {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  @media print {
+    nav, aside, .no-print { display: none !important; }
+    .prose-modul { max-width: none !important; }
+    a { color: inherit !important; text-decoration: none !important; }
+    pre, table { page-break-inside: avoid; }
+  }
+}

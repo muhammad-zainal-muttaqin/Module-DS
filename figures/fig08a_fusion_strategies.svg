@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="900" height="480" fill="#F9FAFB" rx="12"/>
+  <text x="450" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Tiga Strategi Fusion Multimodal</text>
+  <text x="450" y="46" text-anchor="middle" font-size="10" fill="#6B7280">Kapan menggabungkan modalitas menentukan apa yang bisa dipelajari model</text>
+
+  <!-- === Late Fusion === -->
+  <g transform="translate(20, 70)">
+    <rect x="0" y="0" width="270" height="390" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+    <rect x="0" y="0" width="270" height="36" rx="8" fill="#1D4ED8"/>
+    <rect x="0" y="24" width="270" height="12" fill="#1D4ED8"/>
+    <text x="135" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="white">Late Fusion</text>
+
+    <!-- Image encoder -->
+    <rect x="20" y="55" width="100" height="50" rx="6" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+    <text x="70" y="75" text-anchor="middle" font-size="10" font-weight="600" fill="#1D4ED8">CNN</text>
+    <text x="70" y="90" text-anchor="middle" font-size="8" fill="#6B7280">Image encoder</text>
+
+    <!-- Text encoder -->
+    <rect x="150" y="55" width="100" height="50" rx="6" fill="#D1FAE5" stroke="#10B981" stroke-width="1"/>
+    <text x="200" y="75" text-anchor="middle" font-size="10" font-weight="600" fill="#065F46">BERT</text>
+    <text x="200" y="90" text-anchor="middle" font-size="8" fill="#6B7280">Text encoder</text>
+
+    <!-- Embeddings -->
+    <path d="M70 105 L70 130" stroke="#3B82F6" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+    <path d="M200 105 L200 130" stroke="#10B981" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+    <text x="70" y="145" text-anchor="middle" font-size="9" fill="#374151">emb_v</text>
+    <text x="200" y="145" text-anchor="middle" font-size="9" fill="#374151">emb_t</text>
+
+    <!-- Concat -->
+    <rect x="50" y="160" width="170" height="35" rx="6" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="135" y="182" text-anchor="middle" font-size="10" font-weight="600" fill="#92400E">concat / average</text>
+
+    <!-- Arrow down -->
+    <path d="M135 195 L135 220" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#arrowYellow)"/>
+
+    <!-- Classifier -->
+    <rect x="50" y="220" width="170" height="35" rx="6" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.5"/>
+    <text x="135" y="242" text-anchor="middle" font-size="10" font-weight="600" fill="#4C1D95">Linear → prediction</text>
+
+    <!-- Info -->
+    <line x1="20" y1="275" x2="250" y2="275" stroke="#BFDBFE" stroke-width="1"/>
+    <text x="135" y="295" text-anchor="middle" font-size="9" fill="#374151" font-weight="600">Kelebihan:</text>
+    <text x="135" y="310" text-anchor="middle" font-size="8" fill="#6B7280">Encoder terpisah, mudah diimplementasi</text>
+    <text x="135" y="325" text-anchor="middle" font-size="8" fill="#6B7280">Modalitas hilang → pakai encoder lain</text>
+    <text x="135" y="345" text-anchor="middle" font-size="9" fill="#374151" font-weight="600">Kelemahan:</text>
+    <text x="135" y="360" text-anchor="middle" font-size="8" fill="#DC2626">Tidak ada interaksi antar modalitas</text>
+    <text x="135" y="375" text-anchor="middle" font-size="8" fill="#DC2626">Sering → modalitas terabaikan</text>
+  </g>
+
+  <!-- === Early Fusion === -->
+  <g transform="translate(310, 70)">
+    <rect x="0" y="0" width="270" height="390" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+    <rect x="0" y="0" width="270" height="36" rx="8" fill="#065F46"/>
+    <rect x="0" y="24" width="270" height="12" fill="#065F46"/>
+    <text x="135" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="white">Early Fusion</text>
+
+    <!-- Raw inputs -->
+    <rect x="20" y="55" width="100" height="40" rx="6" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+    <text x="70" y="75" text-anchor="middle" font-size="9" font-weight="600" fill="#1D4ED8">Image pixels</text>
+
+    <rect x="150" y="55" width="100" height="40" rx="6" fill="#D1FAE5" stroke="#10B981" stroke-width="1"/>
+    <text x="200" y="75" text-anchor="middle" font-size="9" font-weight="600" fill="#065F46">Text tokens</text>
+
+    <!-- Concat raw -->
+    <path d="M70 95 L70 115" stroke="#3B82F6" stroke-width="1.5"/>
+    <path d="M200 95 L200 115" stroke="#10B981" stroke-width="1.5"/>
+    <path d="M70 115 L135 130" stroke="#3B82F6" stroke-width="1.2"/>
+    <path d="M200 115 L135 130" stroke="#10B981" stroke-width="1.2"/>
+
+    <rect x="50" y="130" width="170" height="35" rx="6" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="135" y="152" text-anchor="middle" font-size="10" font-weight="600" fill="#92400E">concat + project</text>
+
+    <!-- Shared model -->
+    <path d="M135 165 L135 185" stroke="#F59E0B" stroke-width="1.5" marker-end="url(#arrowYellow)"/>
+
+    <rect x="30" y="185" width="210" height="50" rx="6" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="1.5"/>
+    <text x="135" y="207" text-anchor="middle" font-size="11" font-weight="600" fill="#4C1D95">Shared Transformer</text>
+    <text x="135" y="222" text-anchor="middle" font-size="8" fill="#6B7280">Proses bersama dari awal</text>
+
+    <!-- Output -->
+    <path d="M135 235 L135 260" stroke="#8B5CF6" stroke-width="1.5" marker-end="url(#arrowPurple)"/>
+
+    <rect x="50" y="260" width="170" height="35" rx="6" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.5"/>
+    <text x="135" y="282" text-anchor="middle" font-size="10" font-weight="600" fill="#4C1D95">prediction</text>
+
+    <!-- Info -->
+    <line x1="20" y1="315" x2="250" y2="315" stroke="#A7F3D0" stroke-width="1"/>
+    <text x="135" y="335" text-anchor="middle" font-size="9" fill="#374151" font-weight="600">Kelebihan:</text>
+    <text x="135" y="350" text-anchor="middle" font-size="8" fill="#6B7280">Interaksi antar modalitas dari awal</text>
+    <text x="135" y="370" text-anchor="middle" font-size="9" fill="#374151" font-weight="600">Kelemahan:</text>
+    <text x="135" y="385" text-anchor="middle" font-size="8" fill="#DC2626">Shape berbeda → project cermat</text>
+    <text x="135" y="400" text-anchor="middle" font-size="8" fill="#DC2626">Modalitas hilang → sulit ditangani</text>
+  </g>
+
+  <!-- === Cross-Attention Fusion === -->
+  <g transform="translate(600, 70)">
+    <rect x="0" y="0" width="280" height="390" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2"/>
+    <rect x="0" y="0" width="280" height="36" rx="8" fill="#4C1D95"/>
+    <rect x="0" y="24" width="280" height="12" fill="#4C1D95"/>
+    <text x="140" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="white">Cross-Attention Fusion</text>
+
+    <!-- Encoders -->
+    <rect x="20" y="55" width="110" height="40" rx="6" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+    <text x="75" y="75" text-anchor="middle" font-size="9" font-weight="600" fill="#1D4ED8">Image encoder</text>
+
+    <rect x="150" y="55" width="110" height="40" rx="6" fill="#D1FAE5" stroke="#10B981" stroke-width="1"/>
+    <text x="205" y="75" text-anchor="middle" font-size="9" font-weight="600" fill="#065F46">Text encoder</text>
+
+    <!-- Q, K, V labels -->
+    <path d="M75 95 L75 120" stroke="#3B82F6" stroke-width="1.5"/>
+    <path d="M205 95 L205 120" stroke="#10B981" stroke-width="1.5"/>
+
+    <rect x="20" y="120" width="50" height="30" rx="4" fill="#DBEAFE"/>
+    <text x="45" y="140" text-anchor="middle" font-size="10" font-weight="700" fill="#1D4ED8">Q</text>
+    <text x="45" y="155" text-anchor="middle" font-size="7" fill="#6B7280">from text</text>
+
+    <rect x="80" y="120" width="50" height="30" rx="4" fill="#D1FAE5"/>
+    <text x="105" y="140" text-anchor="middle" font-size="10" font-weight="700" fill="#065F46">K</text>
+    <text x="105" y="155" text-anchor="middle" font-size="7" fill="#6B7280">from image</text>
+
+    <rect x="140" y="120" width="50" height="30" rx="4" fill="#D1FAE5"/>
+    <text x="165" y="140" text-anchor="middle" font-size="10" font-weight="700" fill="#065F46">V</text>
+    <text x="165" y="155" text-anchor="middle" font-size="7" fill="#6B7280">from image</text>
+
+    <!-- Attention computation -->
+    <rect x="20" y="165" width="240" height="45" rx="6" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="1.5"/>
+    <text x="140" y="183" text-anchor="middle" font-size="9" font-weight="600" fill="#4C1D95">softmax(Q·K^T / √d) · V</text>
+    <text x="140" y="198" text-anchor="middle" font-size="8" fill="#6B7280">Token teks "merah" attend ke region merah di gambar</text>
+
+    <!-- Output -->
+    <path d="M140 210 L140 235" stroke="#8B5CF6" stroke-width="1.5" marker-end="url(#arrowPurple)"/>
+
+    <rect x="50" y="235" width="180" height="35" rx="6" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.5"/>
+    <text x="140" y="257" text-anchor="middle" font-size="10" font-weight="600" fill="#4C1D95">cross_attn_output → pred</text>
+
+    <!-- Info -->
+    <line x1="20" y1="290" x2="260" y2="290" stroke="#DDD6FE" stroke-width="1"/>
+    <text x="140" y="310" text-anchor="middle" font-size="9" fill="#374151" font-weight="600">Kelebihan:</text>
+    <text x="140" y="325" text-anchor="middle" font-size="8" fill="#6B7280">Interaksi kaya: token attend ke region</text>
+    <text x="140" y="340" text-anchor="middle" font-size="8" fill="#6B7280">Sering unggul pada VQA kompleks</text>
+    <text x="140" y="360" text-anchor="middle" font-size="9" fill="#374151" font-weight="600">Kelemahan:</text>
+    <text x="140" y="375" text-anchor="middle" font-size="8" fill="#DC2626">Kompleksitas dan biaya komputasi tinggi</text>
+    <text x="140" y="390" text-anchor="middle" font-size="8" fill="#DC2626">Butuh pretrained model kompatibel</text>
+  </g>
+
+  <!-- Warning box -->
+  <rect x="20" y="470" width="860" height="0" fill="none"/>
+
+  <defs>
+    <marker id="arrowBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#3B82F6"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#10B981"/>
+    </marker>
+    <marker id="arrowYellow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#F59E0B"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#8B5CF6"/>
+    </marker>
+  </defs>
+</svg>

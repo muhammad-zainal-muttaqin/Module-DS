@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="880" height="300" fill="#0F172A" rx="12"/>
+  <text x="440" y="26" text-anchor="middle" font-size="14" font-weight="700" fill="#E2E8F0">RunPod: Pod Lifecycle + SSH Tunnel</text>
+
+  <!-- POD LIFECYCLE -->
+  <text x="60" y="50" font-size="10" font-weight="700" fill="#64748B">POD LIFECYCLE</text>
+
+  <!-- 6 step boxes, each 116px wide, gap 14px, total: 6*116 + 5*14 = 696+70 = 766, start 57 -->
+  <!-- 1. Create -->
+  <rect x="24" y="58" width="116" height="62" rx="6" fill="#1E293B" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="82" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#60A5FA">① Buat Pod</text>
+  <text x="82" y="94" text-anchor="middle" font-size="8" fill="#94A3B8">Pilih GPU tier</text>
+  <text x="82" y="108" text-anchor="middle" font-size="8" fill="#94A3B8">A100 / 4090</text>
+  <path d="M140 89 L154 89" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+
+  <!-- 2. Setup -->
+  <rect x="156" y="58" width="116" height="62" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
+  <text x="214" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#34D399">② Setup</text>
+  <text x="214" y="94" text-anchor="middle" font-size="8" fill="#94A3B8">pip install -r</text>
+  <text x="214" y="108" text-anchor="middle" font-size="8" fill="#94A3B8">upload dataset</text>
+  <path d="M272 89 L286 89" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+
+  <!-- 3. Train -->
+  <rect x="288" y="58" width="116" height="62" rx="6" fill="#312E81" stroke="#6366F1" stroke-width="1.5"/>
+  <text x="346" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#A5B4FC">③ Training</text>
+  <text x="346" y="94" text-anchor="middle" font-size="8" fill="#C7D2FE">python -m src.train</text>
+  <text x="346" y="108" text-anchor="middle" font-size="8" fill="#F87171">GPU aktif - berbayar!</text>
+  <path d="M404 89 L418 89" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+
+  <!-- 4. Monitor -->
+  <rect x="420" y="58" width="116" height="62" rx="6" fill="#1E293B" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="478" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#FCD34D">④ Monitor</text>
+  <text x="478" y="94" text-anchor="middle" font-size="8" fill="#94A3B8">TensorBoard via</text>
+  <text x="478" y="108" text-anchor="middle" font-size="8" fill="#94A3B8">SSH tunnel ↓</text>
+  <path d="M536 89 L550 89" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+
+  <!-- 5. Pull -->
+  <rect x="552" y="58" width="116" height="62" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
+  <text x="610" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#34D399">⑤ Pull Results</text>
+  <text x="610" y="94" text-anchor="middle" font-size="8" fill="#94A3B8">rsync / scp</text>
+  <text x="610" y="108" text-anchor="middle" font-size="8" fill="#94A3B8">checkpoint + logs</text>
+  <path d="M668 89 L682 89" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowSlate)"/>
+
+  <!-- 6. Stop -->
+  <rect x="684" y="58" width="172" height="62" rx="6" fill="#1E293B" stroke="#EF4444" stroke-width="2"/>
+  <text x="770" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#F87171">⑥ Stop Pod</text>
+  <text x="770" y="94" text-anchor="middle" font-size="8" fill="#94A3B8">SEGERA setelah selesai</text>
+  <text x="770" y="108" text-anchor="middle" font-size="9" fill="#FCD34D" font-weight="600">💰 hemat biaya!</text>
+
+  <!-- Warning banner -->
+  <rect x="24" y="130" width="832" height="22" rx="4" fill="#7F1D1D" opacity="0.7"/>
+  <text x="440" y="145" text-anchor="middle" font-size="9" fill="#FCA5A5" font-weight="600">⚠ Biaya GPU berjalan selama pod RUNNING. Pasang budget alert. Stop segera setelah training selesai.</text>
+
+  <!-- SSH TUNNEL SECTION -->
+  <text x="60" y="175" font-size="10" font-weight="700" fill="#64748B">SSH TUNNEL: TensorBoard dari Laptop ke Cloud</text>
+
+  <!-- Laptop -->
+  <rect x="24" y="186" width="154" height="88" rx="8" fill="#1E293B" stroke="#475569" stroke-width="1.5"/>
+  <text x="101" y="208" text-anchor="middle" font-size="10" font-weight="700" fill="#E2E8F0">💻 Laptop</text>
+  <text x="101" y="226" text-anchor="middle" font-size="9" fill="#94A3B8">localhost:6006</text>
+  <text x="101" y="242" text-anchor="middle" font-size="8" fill="#64748B">buka di browser</text>
+  <text x="101" y="256" text-anchor="middle" font-size="8" fill="#64748B">localhost:6006</text>
+
+  <!-- SSH command box -->
+  <rect x="196" y="196" width="310" height="68" rx="6" fill="#0D1117" stroke="#30363D" stroke-width="1.5"/>
+  <text x="351" y="218" text-anchor="middle" font-size="9" font-weight="700" fill="#58A6FF" font-family="ui-monospace,monospace">ssh -L 6006:localhost:6006</text>
+  <text x="351" y="234" text-anchor="middle" font-size="9" fill="#58A6FF" font-family="ui-monospace,monospace">    -p PORT user@pod_ip</text>
+  <line x1="206" y1="252" x2="496" y2="252" stroke="#1D4ED8" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="351" y="264" text-anchor="middle" font-size="8" fill="#3B82F6">encrypted SSH tunnel</text>
+
+  <!-- RunPod cloud -->
+  <rect x="524" y="186" width="154" height="88" rx="8" fill="#1E293B" stroke="#6366F1" stroke-width="1.5"/>
+  <text x="601" y="208" text-anchor="middle" font-size="10" font-weight="700" fill="#E2E8F0">☁ RunPod</text>
+  <text x="601" y="226" text-anchor="middle" font-size="9" fill="#A5B4FC">TensorBoard :6006</text>
+  <text x="601" y="242" text-anchor="middle" font-size="8" fill="#64748B">tensorboard --logdir</text>
+  <text x="601" y="256" text-anchor="middle" font-size="8" fill="#64748B">experiments/</text>
+
+  <!-- Arrows connecting -->
+  <path d="M178 230 L194 230" stroke="#10B981" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <path d="M522 230 L508 230" stroke="#10B981" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+  <!-- rsync tip -->
+  <rect x="696" y="186" width="160" height="88" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
+  <text x="776" y="208" text-anchor="middle" font-size="9" font-weight="700" fill="#34D399">Pull checkpoint:</text>
+  <text x="776" y="226" text-anchor="middle" font-size="8" fill="#94A3B8" font-family="ui-monospace,monospace">rsync -avz \</text>
+  <text x="776" y="242" text-anchor="middle" font-size="8" fill="#94A3B8" font-family="ui-monospace,monospace">user@pod:/exp/ \</text>
+  <text x="776" y="258" text-anchor="middle" font-size="8" fill="#94A3B8" font-family="ui-monospace,monospace">./experiments/</text>
+  <text x="776" y="274" text-anchor="middle" font-size="8" fill="#64748B" font-style="italic">lakukan sebelum stop!</text>
+
+  <defs>
+    <marker id="arrowSlate" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#10B981"/>
+    </marker>
+  </defs>
+</svg>

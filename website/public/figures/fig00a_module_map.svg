@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="920" height="480" fill="#FAFAFA" rx="12"/>
+  <text x="460" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Peta Modul Pembelajaran: 11 Minggu Bootcamp + 4 Minggu Capstone</text>
+  <text x="460" y="44" text-anchor="middle" font-size="10" fill="#6B7280">Urutan linier W1 → W11, lalu Capstone W12-W15. Panah = prereq.</text>
+
+  <!-- ROW 1: W1 → W2 → W3 → W4 -->
+  <rect x="30" y="62" width="170" height="70" rx="8" fill="#1E293B" stroke="#475569" stroke-width="2"/>
+  <text x="115" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="#F8FAFC">W1</text>
+  <text x="115" y="98" text-anchor="middle" font-size="8" fill="#94A3B8">Tabular &amp; Output Heads</text>
+  <text x="115" y="112" text-anchor="middle" font-size="7" fill="#64748B">MLP, loss matching</text>
+  <text x="115" y="124" text-anchor="middle" font-size="7" fill="#64748B">observasi sebelum kesimpulan</text>
+
+  <path d="M200 97 L218 97" stroke="#475569" stroke-width="2" marker-end="url(#arrGray)"/>
+
+  <rect x="218" y="62" width="170" height="70" rx="8" fill="#1E293B" stroke="#475569" stroke-width="2"/>
+  <text x="303" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="#F8FAFC">W2</text>
+  <text x="303" y="98" text-anchor="middle" font-size="8" fill="#94A3B8">Images, CNN &amp; Smoke Test</text>
+  <text x="303" y="112" text-anchor="middle" font-size="7" fill="#64748B">tensor citra, CNN</text>
+  <text x="303" y="124" text-anchor="middle" font-size="7" fill="#64748B">smoke test tiga level</text>
+
+  <path d="M388 97 L406 97" stroke="#475569" stroke-width="2" marker-end="url(#arrGray)"/>
+
+  <rect x="406" y="62" width="170" height="70" rx="8" fill="#065F46" stroke="#10B981" stroke-width="2"/>
+  <text x="491" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="white">W3</text>
+  <text x="491" y="98" text-anchor="middle" font-size="8" fill="#A7F3D0">Loss, Optimizer &amp; Evaluasi</text>
+  <text x="491" y="112" text-anchor="middle" font-size="7" fill="#6EE7B7">galeri 5 run, ablation</text>
+  <text x="491" y="124" text-anchor="middle" font-size="7" fill="#6EE7B7">ubah satu hal pada satu waktu</text>
+
+  <path d="M576 97 L594 97" stroke="#10B981" stroke-width="2" marker-end="url(#arrGreen)"/>
+
+  <rect x="594" y="62" width="170" height="70" rx="8" fill="#065F46" stroke="#10B981" stroke-width="2"/>
+  <text x="679" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="white">W4</text>
+  <text x="679" y="98" text-anchor="middle" font-size="8" fill="#A7F3D0">Reproducibility</text>
+  <text x="679" y="112" text-anchor="middle" font-size="7" fill="#6EE7B7">YAML, seed, checkpoint</text>
+  <text x="679" y="124" text-anchor="middle" font-size="7" fill="#6EE7B7">matriks eksperimen</text>
+
+  <!-- ROW 2: W5 → W6 → W7 → W8 -->
+  <rect x="30" y="158" width="170" height="70" rx="8" fill="#92400E" stroke="#F59E0B" stroke-width="2"/>
+  <text x="115" y="178" text-anchor="middle" font-size="11" font-weight="700" fill="white">W5</text>
+  <text x="115" y="194" text-anchor="middle" font-size="8" fill="#FDE68A">Sequences: RNN &amp; LSTM</text>
+  <text x="115" y="208" text-anchor="middle" font-size="7" fill="#FCD34D">BPTT, vanishing gradient</text>
+  <text x="115" y="220" text-anchor="middle" font-size="7" fill="#FCD34D">justifikasi arsitektur</text>
+
+  <path d="M200 193 L218 193" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrAmber)"/>
+
+  <rect x="218" y="158" width="170" height="70" rx="8" fill="#92400E" stroke="#F59E0B" stroke-width="2"/>
+  <text x="303" y="178" text-anchor="middle" font-size="11" font-weight="700" fill="white">W6</text>
+  <text x="303" y="194" text-anchor="middle" font-size="8" fill="#FDE68A">Representations &amp; Leakage</text>
+  <text x="303" y="208" text-anchor="middle" font-size="7" fill="#FCD34D">representasi fitur</text>
+  <text x="303" y="220" text-anchor="middle" font-size="7" fill="#FCD34D">temporal leakage demo</text>
+
+  <path d="M388 193 L406 193" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrAmber)"/>
+
+  <rect x="406" y="158" width="170" height="70" rx="8" fill="#4C1D95" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="491" y="178" text-anchor="middle" font-size="11" font-weight="700" fill="white">W7</text>
+  <text x="491" y="194" text-anchor="middle" font-size="8" fill="#DDD6FE">Text &amp; Transformers</text>
+  <text x="491" y="208" text-anchor="middle" font-size="7" fill="#C4B5FD">BERT, fine-tune, AI tools</text>
+  <text x="491" y="220" text-anchor="middle" font-size="7" fill="#C4B5FD">adopsi repo riset</text>
+
+  <path d="M576 193 L594 193" stroke="#8B5CF6" stroke-width="2" marker-end="url(#arrPurple)"/>
+
+  <rect x="594" y="158" width="170" height="70" rx="8" fill="#4C1D95" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="679" y="178" text-anchor="middle" font-size="11" font-weight="700" fill="white">W8</text>
+  <text x="679" y="194" text-anchor="middle" font-size="8" fill="#DDD6FE">Foundation Models</text>
+  <text x="679" y="208" text-anchor="middle" font-size="7" fill="#C4B5FD">taksonomi modalitas</text>
+  <text x="679" y="220" text-anchor="middle" font-size="7" fill="#C4B5FD">adaptasi: frozen/LoRA/FT</text>
+
+  <!-- ROW 3: W9 → W10 → W11 → (gap) -->
+  <rect x="30" y="254" width="170" height="70" rx="8" fill="#4C1D95" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="115" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="white">W9</text>
+  <text x="115" y="290" text-anchor="middle" font-size="8" fill="#DDD6FE">Multimodal Reasoning</text>
+  <text x="115" y="304" text-anchor="middle" font-size="7" fill="#C4B5FD">fusion strategies</text>
+  <text x="115" y="316" text-anchor="middle" font-size="7" fill="#C4B5FD">ablation per modalitas</text>
+
+  <path d="M200 289 L218 289" stroke="#8B5CF6" stroke-width="2" marker-end="url(#arrPurple)"/>
+
+  <rect x="218" y="254" width="170" height="70" rx="8" fill="#7F1D1D" stroke="#EF4444" stroke-width="2"/>
+  <text x="303" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="white">W10</text>
+  <text x="303" y="290" text-anchor="middle" font-size="8" fill="#FCA5A5">Paper Reading</text>
+  <text x="303" y="304" text-anchor="middle" font-size="7" fill="#F87171">3-pass reading</text>
+  <text x="303" y="316" text-anchor="middle" font-size="7" fill="#F87171">paper-to-code workflow</text>
+
+  <path d="M388 289 L406 289" stroke="#EF4444" stroke-width="2" marker-end="url(#arrRed)"/>
+
+  <rect x="406" y="254" width="170" height="70" rx="8" fill="#1C1917" stroke="#78716C" stroke-width="2"/>
+  <text x="491" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="white">W11</text>
+  <text x="491" y="290" text-anchor="middle" font-size="8" fill="#D6D3D1">Research Framing</text>
+  <text x="491" y="304" text-anchor="middle" font-size="7" fill="#A8A29E">Input→Middle→Output</text>
+  <text x="491" y="316" text-anchor="middle" font-size="7" fill="#A8A29E">framing menu, literatur triage</text>
+
+  <!-- ROW 4: Capstone W12-W15 (spanning) -->
+  <rect x="30" y="350" width="734" height="70" rx="8" fill="#312E81" stroke="#6366F1" stroke-width="2"/>
+  <text x="397" y="370" text-anchor="middle" font-size="12" font-weight="700" fill="white">Capstone W12-W15</text>
+  <text x="397" y="386" text-anchor="middle" font-size="9" fill="#C7D2FE">Filter → Rethink → Communicate → Submit</text>
+  <text x="160" y="402" text-anchor="middle" font-size="8" fill="#A5B4FC">W12: framing defense + Eks 1</text>
+  <text x="370" y="402" text-anchor="middle" font-size="8" fill="#A5B4FC">W13: revisi + Eks 2</text>
+  <text x="560" y="402" text-anchor="middle" font-size="8" fill="#A5B4FC">W14: presentasi final 20 mnt</text>
+  <text x="700" y="402" text-anchor="middle" font-size="8" fill="#A5B4FC">W15: kumpulkan luaran</text>
+
+  <!-- W11 → Capstone -->
+  <path d="M491 324 L491 348" stroke="#6366F1" stroke-width="2" marker-end="url(#arrIndigo)"/>
+
+  <!-- Refrensi boxes -->
+  <rect x="790" y="62" width="110" height="50" rx="6" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="4"/>
+  <text x="845" y="82" text-anchor="middle" font-size="9" font-weight="600" fill="#6B7280">13_Rubrik</text>
+  <text x="845" y="96" text-anchor="middle" font-size="7" fill="#9CA3AF">referensi kapanpun</text>
+
+  <rect x="790" y="118" width="110" height="50" rx="6" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="4"/>
+  <text x="845" y="138" text-anchor="middle" font-size="9" font-weight="600" fill="#6B7280">14_Lampiran</text>
+  <text x="845" y="152" text-anchor="middle" font-size="7" fill="#9CA3AF">referensi kapanpun</text>
+
+  <rect x="790" y="174" width="110" height="50" rx="6" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="4"/>
+  <text x="845" y="194" text-anchor="middle" font-size="9" font-weight="600" fill="#6B7280">15_Panduan</text>
+  <text x="845" y="208" text-anchor="middle" font-size="7" fill="#9CA3AF">instruktur</text>
+
+  <!-- Legend -->
+  <rect x="30" y="440" width="734" height="28" rx="6" fill="#F1F5F9" stroke="#E2E8F0"/>
+  <text x="44" y="458" font-size="8" font-weight="600" fill="#374151">Jalur:</text>
+  <rect x="80" y="451" width="12" height="7" rx="2" fill="#1E293B"/>
+  <text x="98" y="459" font-size="7" fill="#374151">Fondasi</text>
+  <rect x="148" y="451" width="12" height="7" rx="2" fill="#065F46"/>
+  <text x="166" y="459" font-size="7" fill="#374151">Eksperimen</text>
+  <rect x="226" y="451" width="12" height="7" rx="2" fill="#92400E"/>
+  <text x="244" y="459" font-size="7" fill="#374151">Sequence</text>
+  <rect x="296" y="451" width="12" height="7" rx="2" fill="#4C1D95"/>
+  <text x="314" y="459" font-size="7" fill="#374151">Advanced</text>
+  <rect x="366" y="451" width="12" height="7" rx="2" fill="#7F1D1D"/>
+  <text x="384" y="459" font-size="7" fill="#374151">Paper</text>
+  <rect x="424" y="451" width="12" height="7" rx="2" fill="#312E81"/>
+  <text x="442" y="459" font-size="7" fill="#374151">Capstone</text>
+  <text x="520" y="459" font-size="7" fill="#6B7280">15_Panduan_Instruktur</text>
+
+  <defs>
+    <marker id="arrGray" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arrGreen" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#10B981"/>
+    </marker>
+    <marker id="arrAmber" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#F59E0B"/>
+    </marker>
+    <marker id="arrPurple" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#8B5CF6"/>
+    </marker>
+    <marker id="arrRed" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#EF4444"/>
+    </marker>
+    <marker id="arrStone" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#78716C"/>
+    </marker>
+    <marker id="arrIndigo" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6366F1"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+desktop.ini
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & misc
+*.log
+Note 17 April 2026.txt
+Notes - 17 April 2026/Note 17 April 2026.txt
+Notes - 17 April 2026/Note 18 April 2026.txt
+Notes - 27 April 2026/
+Notes - 30 April 2026/
+Notes - 03 Mei 2026/
+
+# Website (Vite + React SPA)
+website/node_modules/
+website/dist/
+website/.vite/
+website/src/content/
+
+# Override Python `lib/` rule for website source
+!website/src/lib/
+!website/src/lib/**
+website/src/lib/desktop.ini

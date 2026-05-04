@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="640" height="400" fill="#F9FAFB" rx="12"/>
+  <text x="320" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">4 Kategori Error dalam Riset DL</text>
+  <text x="320" y="44" text-anchor="middle" font-size="10" fill="#6B7280">Identifikasi kategori dulu → tentukan cara debug yang tepat</text>
+
+  <!-- Axis labels -->
+  <text x="320" y="72" text-anchor="middle" font-size="10" font-weight="600" fill="#374151">Infrastruktur / Lingkungan</text>
+  <text x="320" y="388" text-anchor="middle" font-size="10" font-weight="600" fill="#374151">Algorithmic / Model</text>
+  <text x="50" y="234" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" transform="rotate(-90,50,234)">Mudah Direproduksi</text>
+  <text x="590" y="234" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" transform="rotate(90,590,234)">Sulit Direproduksi</text>
+
+  <!-- Divider lines -->
+  <line x1="316" y1="82" x2="316" y2="374" stroke="#D1D5DB" stroke-width="1.5"/>
+  <line x1="70" y1="228" x2="570" y2="228" stroke="#D1D5DB" stroke-width="1.5"/>
+
+  <!-- Q1: Setup Error (top-left) -->
+  <rect x="72" y="84" width="236" height="136" rx="8" fill="#FEF2F2" stroke="#EF4444" stroke-width="2"/>
+  <rect x="72" y="84" width="236" height="36" rx="8" fill="#EF4444"/>
+  <rect x="72" y="108" width="236" height="12" fill="#EF4444"/>
+  <text x="190" y="107" text-anchor="middle" font-size="13" font-weight="700" fill="white">Setup Error</text>
+  <text x="190" y="134" text-anchor="middle" font-size="10" fill="#374151">Masalah lingkungan / instalasi</text>
+  <text x="84" y="152" font-size="9" fill="#374151">• Import error, ModuleNotFound</text>
+  <text x="84" y="166" font-size="9" fill="#374151">• CUDA version mismatch</text>
+  <text x="84" y="180" font-size="9" fill="#374151">• Path salah, file tidak ada</text>
+  <text x="84" y="194" font-size="9" fill="#374151">• Dependensi konflik</text>
+  <text x="190" y="212" text-anchor="middle" font-size="9" font-weight="600" fill="#EF4444">Debug: cek pip list, env, path</text>
+
+  <!-- Q2: Data Error (top-right) -->
+  <rect x="320" y="84" width="248" height="136" rx="8" fill="#FFF7ED" stroke="#F59E0B" stroke-width="2"/>
+  <rect x="320" y="84" width="248" height="36" rx="8" fill="#F59E0B"/>
+  <rect x="320" y="108" width="248" height="12" fill="#F59E0B"/>
+  <text x="444" y="107" text-anchor="middle" font-size="13" font-weight="700" fill="white">Data Error</text>
+  <text x="444" y="134" text-anchor="middle" font-size="10" fill="#374151">Masalah di pipeline data</text>
+  <text x="332" y="152" font-size="9" fill="#374151">• Label salah / noise tinggi</text>
+  <text x="332" y="166" font-size="9" fill="#374151">• Leakage (lihat fig04a)</text>
+  <text x="332" y="180" font-size="9" fill="#374151">• Distribusi train ≠ test</text>
+  <text x="332" y="194" font-size="9" fill="#374151">• Preprocessing tidak konsisten</text>
+  <text x="444" y="212" text-anchor="middle" font-size="9" font-weight="600" fill="#F59E0B">Debug: EDA, plot sampel, cek shape</text>
+
+  <!-- Q3: Algorithmic Error (bottom-left) -->
+  <rect x="72" y="230" width="236" height="136" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  <rect x="72" y="230" width="236" height="36" rx="8" fill="#3B82F6"/>
+  <rect x="72" y="254" width="236" height="12" fill="#3B82F6"/>
+  <text x="190" y="253" text-anchor="middle" font-size="13" font-weight="700" fill="white">Algorithmic Error</text>
+  <text x="190" y="280" text-anchor="middle" font-size="10" fill="#374151">Bug di model / training loop</text>
+  <text x="84" y="298" font-size="9" fill="#374151">• Loss tidak turun sama sekali</text>
+  <text x="84" y="312" font-size="9" fill="#374151">• Gradient vanish / explode</text>
+  <text x="84" y="326" font-size="9" fill="#374151">• Prediksi selalu kelas yang sama</text>
+  <text x="84" y="340" font-size="9" fill="#374151">• NaN loss dari awal</text>
+  <text x="190" y="358" text-anchor="middle" font-size="9" font-weight="600" fill="#3B82F6">Debug: overfit 1 batch, grad norm</text>
+
+  <!-- Q4: Experiment Error (bottom-right) -->
+  <rect x="320" y="230" width="248" height="136" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+  <rect x="320" y="230" width="248" height="36" rx="8" fill="#10B981"/>
+  <rect x="320" y="254" width="248" height="12" fill="#10B981"/>
+  <text x="444" y="253" text-anchor="middle" font-size="13" font-weight="700" fill="white">Experiment Error</text>
+  <text x="444" y="280" text-anchor="middle" font-size="10" fill="#374151">Konfigurasi tidak sesuai rencana</text>
+  <text x="332" y="298" font-size="9" fill="#374151">• Config berbeda antar run</text>
+  <text x="332" y="312" font-size="9" fill="#374151">• Seed tidak terkunci</text>
+  <text x="332" y="326" font-size="9" fill="#374151">• Metrik dihitung tidak konsisten</text>
+  <text x="332" y="340" font-size="9" fill="#374151">• Pre-reg vs config berbeda</text>
+  <text x="444" y="358" text-anchor="middle" font-size="9" font-weight="600" fill="#065F46">Debug: audit config, seed, log</text>
+</svg>

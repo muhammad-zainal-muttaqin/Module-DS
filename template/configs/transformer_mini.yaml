@@ -1,0 +1,53 @@
+# TransformerMini configuration - Lab W7 companion run
+# Short-sequence classification; pairs with the from-scratch attention
+# walkthrough in lab_w7_transformer_mini. Vocab size is small because
+# the lab uses a toy sentiment subset or a synthetic arithmetic task.
+
+experiment_name: transformer_mini
+
+seed: 42
+
+data:
+  name: toy_sequence
+  root: ./data
+  vocab_size: 1000
+  max_len: 64
+  n_train: 4000
+  n_val: 500
+  num_classes: 3
+  batch_size: 32
+  num_workers: 2
+
+model:
+  name: transformer_mini
+  vocab_size: 1000
+  d_model: 64
+  nhead: 4
+  num_layers: 2
+  dim_feedforward: 128
+  max_len: 64
+  num_classes: 3
+  dropout: 0.1
+  freeze_until: null
+
+loss:
+  name: cross_entropy
+  label_smoothing: 0.0
+
+optim:
+  name: adamw
+  lr: 3.0e-4
+  weight_decay: 1.0e-2   # AdamW weight decay; not applied to LN/bias in production
+
+scheduler:
+  name: cosine
+  warmup_epochs: 1
+
+train:
+  epochs: 15
+  grad_clip: 1.0
+  log_every: 50
+  save_every: 5
+
+output:
+  root: ./experiments

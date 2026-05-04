@@ -1,0 +1,36 @@
+experiment_name: focal_freeze
+seed: 42
+data:
+  name: cifar10
+  root: ./data
+  image_size: 32
+  num_classes: 10
+  batch_size: 128
+  num_workers: 2
+  val_split: 0.1
+  augment: true
+model:
+  name: simple_cnn
+  num_classes: 10
+  freeze_until: block1
+loss:
+  name: focal
+  gamma: 2.0
+  alpha: null
+  label_smoothing: 0.0
+optim:
+  name: sgd
+  lr: 0.05
+  momentum: 0.9
+  weight_decay: 0.0005
+  nesterov: true
+scheduler:
+  name: cosine
+  warmup_epochs: 2
+train:
+  epochs: 1
+  grad_clip: 1.0
+  log_every: 50
+  save_every: 5
+output:
+  root: ./experiments

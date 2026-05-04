@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 490" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="500" height="490" fill="#FAFAFA" rx="12"/>
+  <text x="250" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">Funnel Seleksi Paper</text>
+  <text x="250" y="46" text-anchor="middle" font-size="10" fill="#6B7280">Strategi membaca paper secara efisien</text>
+
+  <!-- arXiv badge -->
+  <rect x="20" y="62" width="40" height="16" rx="3" fill="#EF4444"/>
+  <text x="40" y="74" text-anchor="middle" font-size="8" fill="white" font-weight="600">arXiv</text>
+
+  <!-- Level 1: ~500 papers (widest) -->
+  <polygon points="60,72 440,72 396,122 104,122" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2"/>
+  <text x="250" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#1D4ED8">~500 Paper</text>
+  <text x="404" y="100" font-size="9" fill="#6B7280">cari di arXiv, Google Scholar</text>
+
+  <!-- Level 2: ~50 titles -->
+  <polygon points="104,126 396,126 354,176 146,176" fill="#C7D2FE" stroke="#6366F1" stroke-width="2"/>
+  <text x="250" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#4338CA">~50 Judul Relevan</text>
+  <text x="362" y="154" font-size="9" fill="#6B7280">filter: judul + keyword</text>
+
+  <!-- Level 3: ~15 abstracts -->
+  <polygon points="146,180 354,180 312,230 188,230" fill="#A5B4FC" stroke="#6366F1" stroke-width="2"/>
+  <text x="250" y="208" text-anchor="middle" font-size="12" font-weight="700" fill="#312E81">~15 Abstract</text>
+  <text x="320" y="208" font-size="9" fill="#6B7280">abstract + conclusion</text>
+
+  <!-- Level 4: ~5 skim -->
+  <polygon points="188,234 312,234 278,284 222,284" fill="#818CF8" stroke="#4F46E5" stroke-width="2"/>
+  <text x="250" y="262" text-anchor="middle" font-size="11" font-weight="700" fill="white">~5 Skim</text>
+  <text x="286" y="262" font-size="9" fill="#E0E7FF">intro+fig+tabel</text>
+
+  <!-- Level 5: 1-2 full read -->
+  <polygon points="222,288 278,288 258,338 242,338" fill="#4F46E5" stroke="#3730A3" stroke-width="2"/>
+  <text x="250" y="317" text-anchor="middle" font-size="10" font-weight="700" fill="white">1-2</text>
+
+  <!-- Bottom label -->
+  <rect x="196" y="344" width="108" height="28" rx="6" fill="#1E1B4B"/>
+  <text x="250" y="362" text-anchor="middle" font-size="10" font-weight="700" fill="white">Baca Full</text>
+
+  <!-- 3-Round Reading Method box -->
+  <rect x="20" y="384" width="460" height="84" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="250" y="402" text-anchor="middle" font-size="11" font-weight="700" fill="#111827">3-Round Reading Method</text>
+  <text x="32" y="420" font-size="9" font-weight="600" fill="#374151">Round 1 (5 min):</text>
+  <text x="126" y="420" font-size="9" fill="#6B7280">Judul, abstract, figure/tabel, conclusion</text>
+  <text x="32" y="437" font-size="9" font-weight="600" fill="#374151">Round 2 (1 jam):</text>
+  <text x="126" y="437" font-size="9" fill="#6B7280">Baca penuh, skip bukti matematis, catat pertanyaan</text>
+  <text x="32" y="454" font-size="9" font-weight="600" fill="#374151">Round 3 (1-3 jam):</text>
+  <text x="130" y="454" font-size="9" fill="#6B7280">Pahami bukti, coba reproduksi, tulis catatan kritis</text>
+</svg>

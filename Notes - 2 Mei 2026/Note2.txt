@@ -1,0 +1,43 @@
+Pendahuluan masih terlalu panjang
+Saran perbaikan
+
+#1
+0.Peta bab nanti saja di section lain
+
+#2
+Prasyarat modul buat dokumen terpisah saja (beri link).
+
+#3
+Target Hasil, tidak usah menyebut 60-70% karena ini catatan mental saya.
+
+Mending buat seperti ini:
+
+Target Hasil
+Di akhir bootcamp ini, Anda diharapkan mampu menguasai dua pilar utama riset: mengeksekusi eksperimen dengan presisi tinggi sesuai standar industri, sekaligus merumuskan pertanyaan riset dari sebuah permasalahan umum.
+
+1. Ketajaman Teknis & Rigor Eksperimen
+Anda akan mampu memetakan tipe data ke arsitektur model yang tepat, merancang eksperimen terkontrol yang reproducible, memilih loss function berdasarkan karakteristik output, hingga melakukan fine-tuning serta adaptasi pretrained model maupun repositori eksternal.
+
+2. Diagnosis & Kemandirian
+Anda dibekali kemampuan untuk membaca sinyal selama proses training, melakukan audit data guna mendeteksi leakage, serta mampu mengadopsi dan mempelajari repositori baru secara mandiri.
+
+3. Perancangan Riset (Research Framing)
+Anda akan mahir menguraikan masalah kompleks menjadi beberapa kandidat hipotesis penelitian, melakukan validasi temporal maupun kausal, menyisir literatur untuk menemukan celah (gap) riset yang nyata, hingga merumuskan argumen yang kuat untuk mempertahankan ide tersebut dalam diskusi ilmiah.
+
+Mengapa ini penting?
+Keterampilan ini jarang diajarkan secara eksplisit. Dengan menguasai fondasi ini sekarang, Anda akan lebih maju 3-5 tahun dibandingkan tanpa arahan terstruktur.
+
+
+#4
+
+Big map, alur praktik riset, representation choice, lab inti dan lab breadth, peta bab, peta dependensi konsep
+- diringkas saja jadi satu subsection "Cara Membaca Modul Ini" (atau ada yang dibuang)
+
+
+#5
+
+Pitfall hapus dan/masukkan ke Kontrak Belajar saja
+
+#6
+Ritme Sesi Mingguan, hapus, atau pindah ke bagian Instruktur saja. Mahasiswa cukup diberitahu di kontrak untuk menyelesaikan tugas mingguan sebelum pertemuan berikutnya
+Intinya ada beda antara catatan pribadi pengembang/instruktur, dengan yang dikomunikasikan ke peserta

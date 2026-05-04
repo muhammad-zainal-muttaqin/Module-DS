@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" font-family="ui-sans-serif,system-ui,sans-serif">
+  <rect width="860" height="300" fill="#F9FAFB" rx="12"/>
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">4 Sumber Non-Determinisme dalam Eksperimen DL</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#6B7280">Setiap sumber punya kontrol spesifik — semua harus dikunci untuk reproduksibilitas penuh</text>
+
+  <!-- Box 1: Weight Init -->
+  <rect x="16" y="60" width="198" height="224" rx="8" fill="#FEF2F2" stroke="#EF4444" stroke-width="2"/>
+  <rect x="16" y="60" width="198" height="38" rx="8" fill="#EF4444"/>
+  <rect x="16" y="86" width="198" height="12" fill="#EF4444"/>
+  <text x="115" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="white">⚠ 1. Inisialisasi Weight</text>
+  <!-- dice icon -->
+  <rect x="75" y="110" width="80" height="58" rx="8" fill="white" stroke="#EF4444" stroke-width="2"/>
+  <circle cx="96" cy="126" r="6" fill="#EF4444"/>
+  <circle cx="135" cy="126" r="6" fill="#EF4444"/>
+  <circle cx="115" cy="143" r="6" fill="#EF4444"/>
+  <text x="115" y="184" text-anchor="middle" font-size="9" fill="#374151">torch.manual_seed(42)</text>
+  <text x="115" y="198" text-anchor="middle" font-size="9" fill="#374151">numpy.random.seed(42)</text>
+  <line x1="26" y1="210" x2="204" y2="210" stroke="#FCA5A5" stroke-width="1"/>
+  <text x="115" y="224" text-anchor="middle" font-size="9" font-weight="600" fill="#EF4444">Solusi:</text>
+  <text x="115" y="238" text-anchor="middle" font-size="9" fill="#374151">Kunci seed sebelum build</text>
+  <text x="115" y="252" text-anchor="middle" font-size="9" fill="#374151">model + simpan di config</text>
+  <text x="115" y="270" text-anchor="middle" font-size="8" fill="#6B7280" font-style="italic">random.seed, np, torch</text>
+
+  <!-- Box 2: Data Shuffling -->
+  <rect x="224" y="60" width="198" height="224" rx="8" fill="#FFF7ED" stroke="#F59E0B" stroke-width="2"/>
+  <rect x="224" y="60" width="198" height="38" rx="8" fill="#F59E0B"/>
+  <rect x="224" y="86" width="198" height="12" fill="#F59E0B"/>
+  <text x="323" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="white">⚠ 2. Data Shuffling</text>
+  <!-- shuffle icon -->
+  <g transform="translate(283,108)">
+    <path d="M0,22 C22,0 44,44 66,22" fill="none" stroke="#F59E0B" stroke-width="2.5" marker-end="url(#arrowAmb)"/>
+    <path d="M66,33 C44,55 22,11 0,33" fill="none" stroke="#F59E0B" stroke-width="2.5" marker-end="url(#arrowAmb)"/>
+  </g>
+  <text x="323" y="176" text-anchor="middle" font-size="9" fill="#374151">DataLoader(shuffle=True,</text>
+  <text x="323" y="190" text-anchor="middle" font-size="9" fill="#374151">generator=torch.Generator</text>
+  <text x="323" y="204" text-anchor="middle" font-size="9" fill="#374151">.manual_seed(42))</text>
+  <line x1="234" y1="216" x2="412" y2="216" stroke="#FDE68A" stroke-width="1"/>
+  <text x="323" y="230" text-anchor="middle" font-size="9" font-weight="600" fill="#F59E0B">Solusi:</text>
+  <text x="323" y="244" text-anchor="middle" font-size="9" fill="#374151">Generator seed + worker</text>
+  <text x="323" y="258" text-anchor="middle" font-size="9" fill="#374151">init_fn per DataLoader</text>
+  <text x="323" y="276" text-anchor="middle" font-size="8" fill="#6B7280" font-style="italic">urutan batch = deterministik</text>
+
+  <!-- Box 3: CUDA Non-det -->
+  <rect x="432" y="60" width="198" height="224" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="2"/>
+  <rect x="432" y="60" width="198" height="38" rx="8" fill="#8B5CF6"/>
+  <rect x="432" y="86" width="198" height="12" fill="#8B5CF6"/>
+  <text x="531" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="white">⚠ 3. CUDA Non-det.</text>
+  <!-- GPU icon -->
+  <rect x="471" y="108" width="120" height="60" rx="6" fill="white" stroke="#8B5CF6" stroke-width="2"/>
+  <text x="531" y="134" text-anchor="middle" font-size="14" font-weight="700" fill="#4C1D95">GPU</text>
+  <text x="531" y="152" text-anchor="middle" font-size="9" fill="#6B7280">parallel kernel ops</text>
+  <text x="531" y="180" text-anchor="middle" font-size="8" fill="#374151">cudnn.deterministic=True</text>
+  <text x="531" y="194" text-anchor="middle" font-size="8" fill="#374151">cudnn.benchmark=False</text>
+  <line x1="442" y1="206" x2="620" y2="206" stroke="#DDD6FE" stroke-width="1"/>
+  <text x="531" y="220" text-anchor="middle" font-size="9" font-weight="600" fill="#8B5CF6">Solusi:</text>
+  <text x="531" y="234" text-anchor="middle" font-size="9" fill="#374151">use_deterministic_</text>
+  <text x="531" y="248" text-anchor="middle" font-size="9" fill="#374151">algorithms(True)</text>
+  <text x="531" y="276" text-anchor="middle" font-size="8" fill="#6B7280" font-style="italic">tradeoff: sedikit lebih lambat</text>
+
+  <!-- Box 4: Parallelism -->
+  <rect x="640" y="60" width="204" height="224" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+  <rect x="640" y="60" width="204" height="38" rx="8" fill="#065F46"/>
+  <rect x="640" y="86" width="204" height="12" fill="#065F46"/>
+  <text x="742" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="white">⚠ 4. Paralelisme</text>
+  <!-- parallel bars icon -->
+  <g transform="translate(682,108)">
+    <rect x="0"  y="0" width="18" height="52" rx="3" fill="#34D399" opacity="0.8"/>
+    <rect x="26" y="0" width="18" height="52" rx="3" fill="#34D399" opacity="0.6"/>
+    <rect x="52" y="0" width="18" height="52" rx="3" fill="#34D399" opacity="0.4"/>
+    <rect x="78" y="0" width="18" height="52" rx="3" fill="#34D399" opacity="0.2"/>
+  </g>
+  <text x="742" y="176" text-anchor="middle" font-size="9" fill="#374151">num_workers → urutan</text>
+  <text x="742" y="190" text-anchor="middle" font-size="9" fill="#374151">load beda antar OS/versi</text>
+  <line x1="650" y1="204" x2="834" y2="204" stroke="#A7F3D0" stroke-width="1"/>
+  <text x="742" y="220" text-anchor="middle" font-size="9" font-weight="600" fill="#065F46">Solusi:</text>
+  <text x="742" y="234" text-anchor="middle" font-size="9" fill="#374151">num_workers=0 (debug)</text>
+  <text x="742" y="248" text-anchor="middle" font-size="9" fill="#374151">+ worker_init_fn seed</text>
+  <text x="742" y="276" text-anchor="middle" font-size="8" fill="#6B7280" font-style="italic">seed tiap worker berbeda</text>
+
+  <defs>
+    <marker id="arrowAmb" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#F59E0B"/>
+    </marker>
+  </defs>
+</svg>
