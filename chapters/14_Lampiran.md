@@ -1111,11 +1111,12 @@ Daftar berikut menguraikan sepuluh kompetensi inti yang dilatih sepanjang bootca
 | K7 | Membuat alat pendukung riset ringan | W12–W15 |
 | K8 | Mengadopsi platform dan tool baru | W8, Capstone |
 | K9 | Berkembang mandiri | W10, W11, Capstone |
+| K10 | Eksplorasi Mandiri & Komunikasi | W4–W11 |
 
 Catatan: satu kompetensi umumnya dilatih di beberapa minggu, bukan satu bab tunggal. K1 (pemahaman sistem) berlanjut sepanjang bootcamp karena setiap arsitektur baru menambah satu lapisan pemahaman.
 
 > [!TIP]
-> Pengelompokan tiga gelombang: **W1–W4** melatih K1–K3 (sistem, desain eksperimen, reproduksibilitas), **W6–W9** melatih K4–K6 (data, AI tools, repo, multimodal), **W10–W11 + Capstone** melatih K7–K9 (alat pendukung, platform baru, pengembangan mandiri). Bahkan dosen pun mengasah K9 sepanjang karier.
+> Pengelompokan tiga gelombang: **W1–W4** melatih K1–K3 (sistem, desain eksperimen, reproduksibilitas), **W6–W9** melatih K4–K6 (data, AI tools, repo, multimodal), **W10–W11 + Capstone** melatih K7–K9 (alat pendukung, platform baru, pengembangan mandiri). K10 (Eksplorasi Mandiri & Komunikasi) berjalan paralel mulai W4 sebagai kebiasaan reflektif mingguan. Bahkan dosen pun mengasah K9 sepanjang karier.
 
 ---
 
