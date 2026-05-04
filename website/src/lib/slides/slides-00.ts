@@ -25,7 +25,7 @@ export const slides00: SlideSection[] = [
     bullets: [
       "\"Coba uji **focal loss** sebagai alternatif cross-entropy pada dataset kita\"",
       "\"Freeze blok awal backbone, bandingkan dengan yang tidak di-freeze\"",
-      "\"Pastikan **baseline yang adil** - konfigurasi yang sama kecuali komponen yang diuji\"",
+      "\"Pastikan **perbandingan yang setara** - konfigurasi yang sama kecuali komponen yang diuji\"",
       "\"Kirim laporan singkat dalam **3 hari**\"",
       "Email selesai. Tidak ada penjelasan lebih lanjut.",
     ],
@@ -52,7 +52,7 @@ export const slides00: SlideSection[] = [
     title: "Sebelum Lanjut: Tonton 19 Menit Ini",
     videoUrl: "https://www.youtube.com/embed/aircAruvnKk",
     caption: "3Blue1Brown - \"But what is a Neural Network?\" - fondasi visual yang dipakai sepanjang bootcamp",
-    footnote: "Bisa lanjut ke slide berikutnya dulu, kembali ke video setelah membaca modul.",
+    footnote: "Silakan lanjut dulu ke slide berikutnya, kembali ke video setelah membaca modul.",
   },
 
   // ── Slide 6: 3 Pilar target ──
@@ -97,13 +97,13 @@ export const slides00: SlideSection[] = [
     title: "Pilar 2: Diagnosis & Kemandirian",
     left: {
       title: "Artinya",
-      body: "Bisa membaca training signal dan tahu apa artinya. Bisa mengaudit data untuk leakage sebelum melatih model. Bisa mengadopsi repository baru tanpa panduan tangan.",
+      body: "Bisa membaca training signal dan tahu apa artinya. Bisa mengaudit data untuk leakage sebelum melatih model. Bisa mengadopsi repository baru tanpa bimbingan.",
     },
     right: {
       title: "Wujud Konkretnya",
       bullets: [
         "Audit temporal leakage dalam pipeline data",
-        "Debug dari log dan kurva, bukan Stack Overflow dulu",
+        "Debug dari log dan kurva, bukan bertanya ke internet atau LLM dulu",
         "Adopsi repo baru: smoke test dalam 1 hari pertama",
       ],
     },
@@ -161,10 +161,10 @@ export const slides00: SlideSection[] = [
       },
       {
         title: "Pilihan Representasi",
-        body: "Setiap bab memperlihatkan satu pertanyaan representasi: fitur apa yang dipakai? hand-crafted, pre-trained, atau learned jointly?",
+        body: "Setiap bab mengangkat satu pertanyaan tentang representasi: fitur apa yang dipakai? hand-crafted, pre-trained, atau learned jointly?",
       },
     ],
-    footnote: "Ketiga thread ini tidak perlu dipahami sepenuhnya sekarang. Akan jelas seiring berjalan.",
+    footnote: "Ketiga thread ini tidak perlu dipahami sepenuhnya sekarang. Akan semakin jelas seiring berjalannya waktu.",
   },
 
   // ── Slide 12: Wave 1 Kompetensi ──
@@ -186,7 +186,7 @@ export const slides00: SlideSection[] = [
       },
       {
         title: "K4: Leakage Dasar",
-        body: "Statistik normalisasi dari train saja. Train/val/test tidak campur. Split sebelum preprocessing.",
+        body: "Statistik normalisasi dari train saja. Train/val/test jangan dicampur. Split sebelum preprocessing.",
       },
     ],
     footnote: "Wave 1 selesai = kamu bisa menjalankan eksperimen ML yang benar dan terdokumentasi.",
@@ -262,10 +262,10 @@ export const slides00: SlideSection[] = [
     bullets: [
       "**Komponen Mandiri:** mulai W4, satu topik bebas dipresentasikan 10 menit per sesi",
       "**Negative Results:** hasil negatif wajib dilaporkan - itu data, bukan kegagalan",
-      "**Refleksi:** tiap bab ditutup 3 pertanyaan terbuka - jawab jujur, bukan dengan template",
+      "**Refleksi:** tiap bab ditutup 3 pertanyaan terbuka - jawab dengan jujur, bukan dengan template",
       "**Git workflow:** setiap eksperimen punya commit - bukan karena protokol, tapi karena reproduksibilitas",
     ],
-    footnote: "4 klausul ini sering dilanggar karena terlihat \"tidak teknis\" - padahal menentukan keberlanjutan.",
+    footnote: "4 klausul ini sering dilanggar karena terlihat \"tidak teknis\" - padahal menentukan keberlanjutan kompetensi.",
   },
 
   // ── Slide 16: 4 Perangkap ──

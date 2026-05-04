@@ -47,7 +47,7 @@ export const slides01: SlideSection[] = [
   {
     layout: "section",
     title: "Mengapa Tabular Lebih Dulu?",
-    body: "Empat alasan praktis: pipeline paling pendek (tidak ada augmentasi, tidak ada tokenizer), tiga perumusan tugas bisa diuji pada dataset yang sama, bug loss-head terlihat jelas dari output shape, dan tidak ada distraksi domain yang perlu dipelajari dulu.",
+    body: "Empat alasan praktis: pipeline paling pendek (tidak ada augmentasi, tidak ada tokenizer), tiga perumusan tugas bisa diuji pada dataset yang sama, bug loss-head terlihat jelas dari output shape, dan tidak ada domain baru yang perlu dipelajari.",
     footnote: "Mulai dari tabular karena kompleksitasnya paling rendah, bukan karena tabular lebih penting dari domain lain.",
   },
 
@@ -56,8 +56,8 @@ export const slides01: SlideSection[] = [
     layout: "image",
     title: "Satu Dataset, Tiga Tugas",
     imageUrl: "/figures/fig01g_tiga_tugas.png",
-    caption: "MLP badan bersama menghasilkan representasi, lalu tiga head berbeda menyesuaikan task",
-    footnote: "Badan (body) sama - hanya head yang berbeda. Ini yang memungkinkan perbandingan yang adil.",
+    caption: "Badan MLP bersama menghasilkan representasi, lalu tiga head berbeda menyesuaikan task",
+    footnote: "Badan (body) sama - hanya head yang berbeda. Ini yang memungkinkan perbandingan yang setara.",
   },
 
   // ── Slide 4: MLP sebagai pengubah bentuk ──
@@ -122,7 +122,7 @@ print(z.shape)                # torch.Size([32, 64])`,
     title: "Body dan Head: Struktur Dua Bagian",
     left: {
       title: "Badan Bersama (Shared Body)",
-      body: "Rangkaian Linear+ReLU yang mengekstrak representasi dari data mentah. Sama untuk semua task.\n\nOutput badan: tensor **(B, H)** tempat H adalah ukuran hidden layer terakhir.",
+      body: "Rangkaian Linear+ReLU yang mengekstrak representasi dari data mentah. Sama untuk semua task.\n\nOutput badan: tensor **(B, H)** dengan H sebagai ukuran hidden layer terakhir.",
     },
     right: {
       title: "Head Berbeda per Task",
@@ -141,7 +141,7 @@ print(z.shape)                # torch.Size([32, 64])`,
     layout: "section",
     title: "Output Head + Loss: Harus Dipasangkan",
     body: "Ini bukan pilihan bebas. Task menentukan head, head menentukan loss. Menukar pasangan ini menghasilkan bug yang sulit didiagnosis - loss masih bisa turun, tapi model tidak belajar yang benar.",
-    footnote: "Tiga perempat bug di W1 berasal dari loss-head mismatch. Lab W1 meminta mengalaminya secara sengaja.",
+    footnote: "Tiga perempat bug di W1 berasal dari loss-head mismatch. Lab W1 meminta untuk mengalaminya secara sengaja.",
   },
 
   // ── Slide 9: Regresi ──
@@ -212,8 +212,8 @@ print(z.shape)                # torch.Size([32, 64])`,
     layout: "video",
     title: "Cross-Entropy Loss: Tonton ~15 Menit",
     videoUrl: "https://www.youtube.com/embed/6ArSys5qHAU",
-    caption: "StatQuest - \"Neural Networks Part 6: Cross Entropy\" - penjelasan intuitif CE dari Josh Starmer",
-    footnote: "Dianjurkan setelah melihat tabel 5 konfigurasi. StatQuest terkenal karena penjelasannya yang sabar dan langkah-per-langkah.",
+    caption: "StatQuest - \"Neural Networks Part 6: Cross Entropy\" - penjelasan yang mudah dipahami dari Josh Starmer",
+    footnote: "Dianjurkan setelah melihat tabel 5 konfigurasi. StatQuest terkenal karena penjelasannya yang sabar dan langkah demi langkah.",
   },
 
   // ── Slide 15: Backpropagation overview ──
@@ -224,7 +224,7 @@ print(z.shape)                # torch.Size([32, 64])`,
       "Backprop = **chain rule yang berjalan mundur** dari loss menuju layer pertama",
       "Setiap parameter menerima satu nilai gradient: kalau parameter ini naik sedikit, loss naik atau turun berapa?",
       "Optimizer memakai gradient itu untuk update: `θ ← θ - lr × ∂L/∂θ`",
-      "PyTorch mengurus semua gradient lewat Autograd - cukup panggil `loss.backward()`",
+      "PyTorch menangani semua gradient lewat Autograd - cukup panggil `loss.backward()`",
       "Detail 7-langkah derivasi manual ada di Lampiran A.1 - baca setelah Lab W1 selesai",
     ],
     footnote: "Lab 1b meminta mengerjakan backprop manual 7-langkah. Slide ini hanya gambaran sebelum masuk ke lab.",
@@ -295,7 +295,7 @@ for batch_x, batch_y in dataloader:
     title: "4 Pitfalls Paling Sering di W1",
     bullets: [
       "**Loss-head mismatch:** MSE untuk multikelas, atau Softmax+CrossEntropy - loss masih turun tapi hasil tidak bermakna",
-      "**Softmax sebelum CrossEntropyLoss:** CrossEntropyLoss sudah memasukkan log-softmax - jangan dobel, distribusi jadi salah",
+      "**Softmax sebelum CrossEntropyLoss:** CrossEntropyLoss sudah memasukkan log-softmax - jangan dua kali, distribusi jadi salah",
       "**Accuracy stuck di 1/K:** model tidak belajar lebih baik dari tebakan acak - cek loss-head, cek learning rate, cek data",
       "**Kesimpulan sebelum observasi:** angka akurasi bagus → langsung klaim model berhasil, padahal confusion matrix belum dilihat",
     ],
@@ -312,7 +312,7 @@ for batch_x, batch_y in dataloader:
       "**Langkah 3:** Biner (task=binary, loss=cross_entropy, num_classes=2) - cek confusion matrix",
       "**Langkah 4:** Multikelas (task=multiclass, loss=cross_entropy, num_classes=3) - bandingkan ketiga kurva",
       "**Langkah 5:** Eksperimen mismatch yang disengaja - dokumentasikan perilaku loss dan akurasi",
-      "**Langkah 6:** Tulis observasi vs interpretasi di notebook (dua bagian terpisah, tidak campur)",
+      "**Langkah 6:** Tulis observasi vs interpretasi di notebook (dua bagian terpisah, jangan dicampur)",
     ],
     footnote: "Lab 1b (MLP numpy) dikerjakan paralel atau setelah Lab 1a. Estimasi total: 3-4 jam.",
   },

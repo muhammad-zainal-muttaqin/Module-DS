@@ -6,7 +6,7 @@ export const slides00a: SlideSection[] = [
     layout: "title",
     title: "Prasyarat: Fondasi Sebelum W1",
     subtitle: "Shape tensor, konvensi huruf, kalkulus mini, PyTorch primer.",
-    body: "Baca dalam 20 menit. Lewati jika sudah nyaman, pakai sebagai referensi jika ragu.",
+    body: "Baca dalam 20 menit. Lewati jika sudah paham, pakai sebagai referensi jika ragu.",
     footnote: "Bab 00a - Prasyarat",
   },
 
@@ -135,11 +135,11 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
     layout: "bullets",
     title: "Arti `→` dalam Shape Map",
     bullets: [
-      "`(B, F) → (B, H)` artinya: **tensor mengalami transformasi** - bukan data yang berubah, tapi dimensinya",
+      "`(B, F) → (B, H)` artinya: **tensor berubah bentuk** - bukan data yang berubah, tapi dimensinya",
       "Satu `→` biasanya satu operasi: satu Linear layer, satu Conv layer, atau satu pooling",
       "Shape Map W1: **(B, 10) → (B, 64) → (B, 32) → (B, 1)** untuk regresi dengan dua hidden layer",
       "Jika shape tidak cocok, PyTorch lempar `RuntimeError: mat1 and mat2 shapes cannot be multiplied`",
-      "Baca error-nya dan telusuri shape - jangan langsung Stack Overflow",
+      "Baca error-nya dan telusuri shape - jangan langsung bertanya ke internet atau LLM",
     ],
     footnote: "Shape Map adalah ringkasan arsitektur yang lebih cepat dibaca daripada kode model lengkap.",
   },
@@ -197,8 +197,8 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
   // ── Slide 9: PyTorch Primer ──
   {
     layout: "code",
-    title: "PyTorch: 3 Operasi yang Harus Nyaman",
-    body: "Tiga ini muncul di setiap bab. Kalau sudah hafal, lanjut ke W1.",
+    title: "PyTorch: 3 Operasi yang Wajib Dikuasai",
+    body: "Tiga ini muncul di setiap bab. Kalau sudah paham, lanjut ke W1.",
     code: `import torch
 
 # 1. Cek shape
@@ -229,7 +229,7 @@ loss = criterion(logits, y)  # CrossEntropyLoss
 # Versi C
 loss = criterion(logits.squeeze() > 0, y)  # binary`,
     lang: "python",
-    footnote: "Satu versi benar, dua salah. Identifikasi masalahnya sebelum lihat slide berikutnya.",
+    footnote: "Satu versi benar, dua salah. Identifikasi masalahnya sebelum ke slide berikutnya.",
   },
 
   // ── Slide 9c: Jawaban kode ──
@@ -283,7 +283,7 @@ loss = criterion(logits.squeeze() > 0, y)  # binary`,
   {
     layout: "cta",
     title: "Bekal Sudah Cukup?",
-    body: "Jika shape tensor dan autograd masih belum jelas, luangkan 20 menit membaca bab 00a penuh sebelum masuk W1.\n\nJika sudah nyaman, langsung ke W1.",
+    body: "Jika shape tensor dan autograd masih belum jelas, luangkan 20 menit membaca bab 00a penuh sebelum masuk W1.\n\nJika sudah paham, langsung ke W1.",
     ctaText: "Baca Modul 00a Penuh",
     ctaTarget: "00a",
   },

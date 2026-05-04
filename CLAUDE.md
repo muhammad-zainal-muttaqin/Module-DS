@@ -198,6 +198,8 @@ Prinsip:
 | `secara praktis` | `dalam praktiknya` | |
 | `bekerja ampuh / bekerja kuat` | `sangat efektif` / `sangat ampuh` | |
 | `ada untuk` | `dirancang untuk` | |
+| `adil` untuk perbandingan eksperimen | `setara`, `seimbang` | Eksperimen tidak punya rasa keadilan |
+| `baseline yang adil` | `perbandingan yang setara` | Varian khusus `adil` untuk eksperimen |
 | `menunjuk ke` | `mengacu pada` | Kecuali spasial/matematis literal |
 | `Ketika Anda` (awal kalimat) | `Saat Anda` | "Ketika" boleh jika butuh formalitas tinggi |
 | `yang asing` | `yang belum dikenal` | |
@@ -220,13 +222,19 @@ Prinsip:
 | `dengan asumsi minimum` | `dengan prasyarat seminimal mungkin` | |
 | `ubah loss jadi focal`, `freeze conv1` sbg instruksi naratif | `uji focal loss dan freeze blok awal` | Detail layer di protokol |
 | `kabur` untuk konsep abstrak | `belum jelas`, `belum dikuasai` | `kabur` hanya untuk foto/penglihatan, bukan pemahaman |
-| `nyaman` untuk kompetensi | `lancar`, `terbiasa`, `dikuasai` | Calque "comfortable with" |
+| `langkah-per-langkah` | `langkah demi langkah` | Hyphen calque dari Inggris |
+| `mengalami` untuk benda mati | `berubah`, `ditransformasi`, `mengandung` | Personifikasi abstrak: tensor tidak "mengalami transformasi" |
+| `mengurus` untuk teknis | `menangani` | "mengurus" terlalu administratif |
+| `nyaman` untuk kompetensi | `paham`, `lancar`, `terbiasa`, `dikuasai` | Calque "comfortable with" |
+| `hafal` untuk pemahaman | `paham`, `lancar` | hafal = rote/memorized, bukan mengerti |
+| `intuitif` untuk penjelasan | `mudah dipahami` | Calque "intuitive explanation", bukan insting bawaan |
 | `intuisi` (= abstrak concept) | `pemahaman` / `gambaran` / `cara kerja` / `prinsip` | Pengecualian: "validasi intuisi" (dugaan/tebakan) |
 | `secara umum` pada data tunggal | `cenderung` / `pada umumnya` / hapus | |
 | `X bukan berarti Y` kalimat mandiri | gabung: `..., tetapi bukan berarti Y` | |
 | `urutan tangga` / `tangga linier` | `urutan bertahap` / `urutan linier` | |
 | `modul ini ada` | `modul ini disusun` / `tujuan modul ini` | |
 | `by design`, `density terlalu cepat` | `memang disengaja`, `terlalu padat` | |
+| `campur` untuk data/komponen | `tercampur`, `dicampur` | "tidak campur" ambigu, perlu bentuk pasif |
 | `Bacanya setelah...` | `Baca setelah...` | |
 | `menurunkan backprop` | `menerapkan backprop` / `menjabarkan backprop` | |
 | `Anda dan modul menyepakati` | `Anda mengikuti kesepakatan` / `kontrak belajar` | |
@@ -236,6 +244,7 @@ Prinsip:
 | `Ia adalah versi Anda sebelum hasil` | `Dokumen ini merekam rencana sebelum hasil` | |
 | `sistem yang berputar sendiri` | `alur kerja yang mulai mandiri` | |
 | `kerja nyata dimulai` | `pelaksanaan dimulai` / `fase kerja dimulai` | |
+| `Stack Overflow` sebagai solusi debugging | `internet`, `LLM`, `sumber lain` | Nama platform usang; ganti ke metode generik |
 | `ini mengalahkan tujuan` | `ini merusak tujuan` / `bertentangan dengan tujuan` | |
 | `bukti mengalahkan kesan` | `bukti lebih penting daripada kesan` | |
 | `tanggal lebih tua dari commit` | `tanggal lebih awal dari commit` | |
@@ -250,6 +259,7 @@ Prinsip:
 | `curve interpretation` | `interpretasi kurva` | |
 | `capstone project` | `proyek capstone` | |
 | `portfolio` | `portofolio` | |
+| `panduan tangan` | `bimbingan`, `arahan` | Calque "hand guide" / "hand-holding" |
 | `trajektori belajar` | `perjalanan belajar` | |
 | `Big Map row` | `Baris Big Map` | |
 | `shape transformer` | `pengubah bentuk tensor` | |
@@ -262,6 +272,8 @@ Prinsip:
 | `peta navigasi cepat` untuk diagnosis | `peta diagnosis cepat` | |
 | `data inspection` | `pemeriksaan data` | |
 | `deliverable(s)` | `luaran` | |
+| `distraksi domain` | `domain baru`, `kompleksitas domain` | Calque "domain distraction" |
+| `dobel` sebagai kata kerja | `dua kali` | "jangan dobel" informal, "jangan dua kali" baku |
 | `skope minimal` | `cakupan minimal` | |
 | `modality` dalam prosa umum | `modalitas` | |
 | `workflow discipline` | `disiplin alur kerja` | |
