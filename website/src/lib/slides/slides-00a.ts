@@ -14,7 +14,7 @@ export const slides00a: SlideSection[] = [
   {
     layout: "section",
     title: "Mengapa Prasyarat Ini?",
-    body: "Bukan ujian masuk. Ini kosakata bersama yang dipakai di setiap bab - shape tensor, konvensi huruf, dan tiga operasi PyTorch. Tanpa kosakata ini, penjelasan di W1 akan membutuhkan banyak catatan kaki yang mengganggu alur bacaan.",
+    body: "Prasyarat ini bukan ujian masuk, melainkan kosakata bersama yang dipakai di setiap bab - mulai dari shape tensor, konvensi huruf, hingga tiga operasi PyTorch. Tanpa kosakata ini, penjelasan di W1 akan membutuhkan banyak catatan kaki yang mengganggu alur bacaan.",
     footnote: "Jika sudah pernah memakai PyTorch dan paham shape (B, C, H, W), slide ini bisa di-skip.",
   },
 
@@ -22,11 +22,12 @@ export const slides00a: SlideSection[] = [
   {
     layout: "bullets",
     title: "Shape Tensor: 4 Pola Paling Sering Muncul",
+    body: "Berikut adalah empat pola shape tensor yang paling sering muncul dalam modul ini:",
     bullets: [
-      "**(D,)** - vektor satu dimensi: satu baris fitur, atau satu embedding",
-      "**(B, D)** - batch data tabular: B sampel, D fitur per sampel",
-      "**(B, C, H, W)** - batch citra: B gambar, C channel (RGB=3), H×W piksel",
-      "**(B, T, D)** - batch sequence: B urutan, T timestep, D dimensi embedding",
+      "**(D,)** adalah vektor satu dimensi yang berisi satu baris fitur atau satu embedding.",
+      "**(B, D)** adalah batch data tabular yang terdiri dari B sampel dengan D fitur per sampel.",
+      "**(B, C, H, W)** adalah batch citra yang terdiri dari B gambar, C channel (RGB=3), dan H×W piksel.",
+      "**(B, T, D)** adalah batch sequence yang terdiri dari B urutan, T timestep, dan D dimensi embedding.",
     ],
     footnote: "Huruf kapital = dimensi variabel. Baca shape sebelum baca kode - itu kebiasaan yang akan terus dipakai.",
   },
@@ -35,6 +36,7 @@ export const slides00a: SlideSection[] = [
   {
     layout: "bullets",
     title: "Kuis: Baca Shape Ini",
+    body: "Coba baca shape tensor berikut dan pilih jawaban yang benar:",
     bullets: [
       "`x = torch.randn(32, 3, 64, 64)` — apa arti setiap angka?",
       "A) B=3, C=32, H=64, W=64",
@@ -51,14 +53,14 @@ export const slides00a: SlideSection[] = [
     title: "Jawaban: Shape (32, 3, 64, 64)",
     left: {
       title: "Jawaban: B",
-      body: "B=32 (batch), C=3 (channel RGB), H=64, W=64.\n\nKonvensi PyTorch: NCHW. Dimensi selalu dari kiri ke kanan: batch, channel, tinggi, lebar.",
+      body: "Jawaban yang benar adalah B: B=32 (batch), C=3 (channel RGB), H=64, W=64.\n\nKonvensi PyTorch menggunakan NCHW. Dimensi selalu dibaca dari kiri ke kanan: batch, channel, tinggi, lebar.",
     },
     right: {
       title: "Kenapa Bukan yang Lain?",
       bullets: [
-        "**A:** C=32 tidak mungkin - channel citra hanya 1 (grayscale) atau 3-4 (RGB/RGBA)",
-        "**C:** H=3 tidak mungkin - itu ukuran piksel, bukan channel",
-        "**D:** urutan NCHW adalah standar PyTorch, konsisten di semua fungsi dan dokumentasi",
+        "**A salah** karena C=32 tidak mungkin - channel citra hanya 1 (grayscale) atau 3-4 (RGB/RGBA).",
+        "**C salah** karena H=3 tidak mungkin - angka 3 adalah channel, bukan ukuran piksel.",
+        "**D salah** karena urutan NCHW adalah standar PyTorch yang konsisten di semua fungsi dan dokumentasi.",
       ],
     },
     footnote: "Shape adalah gerbang pertama debugging. Baca sebelum bertanya ke internet atau LLM.",
@@ -100,30 +102,31 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
   {
     layout: "grid",
     title: "Konvensi Huruf yang Dipakai di Seluruh Modul",
+    body: "Modul ini menggunakan konvensi huruf berikut secara konsisten:",
     gridItems: [
       {
         title: "B (Batch Size)",
-        body: "Jumlah sampel dalam satu mini-batch. Biasanya 16-512 tergantung memori GPU.",
+        body: "B menyatakan jumlah sampel dalam satu mini-batch. Nilainya biasanya 16-512 tergantung memori GPU.",
       },
       {
         title: "F atau D (Fitur / Dimensi)",
-        body: "Jumlah fitur per sampel (tabular) atau ukuran embedding (NLP). F lebih umum di ML klasik, D di deep learning.",
+        body: "F atau D menyatakan jumlah fitur per sampel (tabular) atau ukuran embedding (NLP). F lebih umum di ML klasik, sementara D lebih umum di deep learning.",
       },
       {
         title: "C (Channel)",
-        body: "Jumlah saluran citra (RGB=3, grayscale=1). Juga dipakai untuk jumlah filter di CNN.",
+        body: "C menyatakan jumlah saluran citra (RGB=3, grayscale=1). Huruf ini juga dipakai untuk jumlah filter di CNN.",
       },
       {
         title: "H, W (Height, Width)",
-        body: "Dimensi spasial citra dalam piksel. CIFAR-10: H=W=32. ImageNet: H=W=224.",
+        body: "H dan W menyatakan dimensi spasial citra dalam piksel. Contohnya: CIFAR-10 memiliki H=W=32, sedangkan ImageNet memiliki H=W=224.",
       },
       {
         title: "T (Timestep)",
-        body: "Panjang sequence input: jumlah kata dalam kalimat, jumlah langkah waktu sensor, dll.",
+        body: "T menyatakan panjang sequence input, seperti jumlah kata dalam kalimat atau jumlah langkah waktu sensor.",
       },
       {
         title: "K atau N (Kelas)",
-        body: "Jumlah kelas dalam klasifikasi. K dipakai di K-means, N atau num_classes di kode PyTorch.",
+        body: "K atau N menyatakan jumlah kelas dalam klasifikasi. K dipakai di K-means, sementara N atau num_classes dipakai di kode PyTorch.",
       },
     ],
     footnote: "Konvensi ini konsisten di semua bab. Jika ada notasi asing, cek Lampiran A.11.",
@@ -133,12 +136,13 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
   {
     layout: "bullets",
     title: "Arti `→` dalam Shape Map",
+    body: "Simbol panah `→` dalam Shape Map memiliki makna khusus yang harus kamu pahami:",
     bullets: [
-      "`(B, F) → (B, H)` artinya: **tensor berubah bentuk** - bukan data yang berubah, tapi dimensinya",
-      "Satu `→` biasanya satu operasi: satu Linear layer, satu Conv layer, atau satu pooling",
-      "Shape Map W1: **(B, 10) → (B, 64) → (B, 32) → (B, 1)** untuk regresi dengan dua hidden layer",
-      "Jika shape tidak cocok, PyTorch lempar `RuntimeError: mat1 and mat2 shapes cannot be multiplied`",
-      "Baca error-nya dan telusuri shape - jangan langsung bertanya ke internet atau LLM",
+      "`(B, F) → (B, H)` artinya tensor **berubah bentuk** - bukan datanya yang berubah, tapi dimensinya.",
+      "Satu `→` biasanya merepresentasikan satu operasi: satu Linear layer, satu Conv layer, atau satu pooling.",
+      "Shape Map W1 menunjukkan alur **(B, 10) → (B, 64) → (B, 32) → (B, 1)** untuk regresi dengan dua hidden layer.",
+      "Jika shape tidak cocok, PyTorch akan melemparkan `RuntimeError: mat1 and mat2 shapes cannot be multiplied`.",
+      "Kamu harus membaca error tersebut dan menelusuri shape-nya, bukan langsung bertanya ke internet atau LLM.",
     ],
     footnote: "Shape Map adalah ringkasan arsitektur yang lebih cepat dibaca daripada kode model lengkap.",
   },
@@ -147,13 +151,14 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
   {
     layout: "split",
     title: "Kalkulus Mini: Dua Konsep yang Cukup",
+    body: "Untuk mengikuti modul ini, kamu hanya perlu memahami dua konsep kalkulus berikut:",
     left: {
       title: "Turunan (Gradient)",
-      body: "f'(x) adalah laju perubahan f terhadap x. Dalam deep learning, kita cari: kalau weight naik sedikit, loss naik atau turun berapa?\n\nGradient menunjuk ke arah kenaikan tercepat. Kita melangkah ke arah berlawanan supaya loss turun.",
+      body: "f'(x) adalah laju perubahan f terhadap x. Dalam deep learning, kita mencari jawaban atas pertanyaan: kalau weight naik sedikit, loss naik atau turun berapa?\n\nGradient menunjuk ke arah kenaikan tercepat, dan kita melangkah ke arah berlawanan supaya loss turun.",
     },
     right: {
       title: "Chain Rule",
-      body: "Jika z = f(g(x)), maka dz/dx = (dz/dg) × (dg/dx). Ini dasar backpropagation.\n\nGradient mengalir mundur dari loss ke layer pertama, dikalikan satu demi satu lewat aturan rantai. PyTorch mengurus semua ini lewat Autograd.",
+      body: "Jika z = f(g(x)), maka dz/dx = (dz/dg) × (dg/dx). Konsep ini adalah dasar dari backpropagation.\n\nGradient mengalir mundur dari loss ke layer pertama, dikalikan satu demi satu lewat aturan rantai. PyTorch menangani semua ini lewat Autograd.",
     },
     footnote: "Tidak perlu hafal rumus. Cukup paham apa yang dihitung dan mengapa arahnya berlawanan.",
   },
@@ -162,6 +167,7 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
   {
     layout: "bullets",
     title: "Kuis: Pasangkan Task dan Loss",
+    body: "Coba pasangkan setiap task dengan fungsi loss yang sesuai:",
     bullets: [
       "**Task A:** Prediksi harga rumah (bilangan kontinu)",
       "**Task B:** Deteksi spam (ya/tidak)",
@@ -176,18 +182,19 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
   {
     layout: "grid",
     title: "Jawaban: Task → Loss",
+    body: "Berikut adalah penjelasan untuk setiap pasangan task dan loss:",
     gridItems: [
       {
         title: "Task A → MSELoss",
-        body: "Regresi. Output head: Linear(D,1) tanpa aktivasi. Target: float.",
+        body: "Task A adalah regresi, sehingga output head-nya adalah Linear(D,1) tanpa aktivasi dan target-nya bertipe float.",
       },
       {
         title: "Task B → BCEWithLogitsLoss",
-        body: "Biner. Output head: Linear(D,1) logit. Target: float 0/1. Alternatif: Linear(D,2)+CrossEntropyLoss.",
+        body: "Task B adalah klasifikasi biner, sehingga output head-nya adalah Linear(D,1) logit dengan target float 0/1. Alternatifnya adalah Linear(D,2)+CrossEntropyLoss.",
       },
       {
         title: "Task C → CrossEntropyLoss",
-        body: "Multiclass. Output head: Linear(D,3) logit. Target: int 0/1/2. Bukan one-hot.",
+        body: "Task C adalah klasifikasi multikelas, sehingga output head-nya adalah Linear(D,3) logit dengan target int 0/1/2. Target ini bukan one-hot.",
       },
     ],
     footnote: "Pola ini sama persis dengan Tabel 5 Konfigurasi di W1 - berlaku di semua bab.",
@@ -197,11 +204,11 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
   {
     layout: "code",
     title: "PyTorch: 3 Operasi yang Wajib Dikuasai",
-    body: "Tiga ini muncul di setiap bab. Kalau sudah paham, lanjut ke W1.",
+    body: "Tiga operasi berikut muncul di setiap bab. Kalau kamu sudah paham, kamu bisa lanjut ke W1.",
     code: `import torch
 
 # 1. Cek shape
-x = torch.randn(4, 3, 32, 32)
+x = torch.randn(4, 3, 32, 32, requires_grad=True)
 print(x.shape)               # torch.Size([4, 3, 32, 32])
 
 # 2. Pindah ke device
@@ -212,13 +219,14 @@ x = x.to(device)
 y = (x ** 2).mean()
 y.backward()                 # x.grad berisi gradient`,
     lang: "python",
-    footnote: "x.requires_grad=True biasanya tidak perlu di-set manual - nn.Parameter sudah mengaktifkannya.",
+    footnote: "requires_grad=True wajib untuk tensor bukan parameter agar .backward() bisa dijalankan.",
   },
 
   // ── Slide 9b: Kuis 3 operasi ──
   {
     layout: "bullets",
     title: "Kuis: 3 Operasi Wajib",
+    body: "Coba jawab tiga pertanyaan berikut untuk menguji pemahamanmu:",
     bullets: [
       "**Soal 1:** `torch.randn(4, 3, 32, 32).shape` menghasilkan apa?",
       "**Soal 2:** Kapan kita menulis `device = 'cuda'` vs `device = 'cpu'`?",
@@ -231,10 +239,11 @@ y.backward()                 # x.grad berisi gradient`,
   {
     layout: "bullets",
     title: "Jawaban: 3 Operasi Wajib",
+    body: "Berikut adalah jawaban untuk tiga soal sebelumnya:",
     bullets: [
-      "**Soal 1:** `torch.Size([4, 3, 32, 32])` — N=4, C=3, H=32, W=32",
-      "**Soal 2:** `'cuda'` jika `torch.cuda.is_available()`, `'cpu'` jika tidak. Cek dulu, jangan asumsi GPU selalu tersedia.",
-      "**Soal 3:** Gradient dihitung mundur dari loss ke semua parameter — disimpan di `.grad` setiap parameter. Parameter belum berubah sampai `optimizer.step()`.",
+      "**Soal 1:** Hasilnya adalah `torch.Size([4, 3, 32, 32])`, yang berarti N=4, C=3, H=32, W=32.",
+      "**Soal 2:** Kamu menulis `'cuda'` jika `torch.cuda.is_available()` mengembalikan True, dan `'cpu'` jika tidak. Selalu cek dulu, jangan asumsi GPU selalu tersedia.",
+      "**Soal 3:** `loss.backward()` menghitung gradient mundur dari loss ke semua parameter, dan hasilnya disimpan di atribut `.grad` setiap parameter. Parameter belum berubah sampai kamu memanggil `optimizer.step()`.",
     ],
     footnote: "Jika ketiganya langsung benar: lanjut ke W1. Jika ragu: baca ulang bab 00a, cukup 10 menit.",
   },
@@ -243,18 +252,19 @@ y.backward()                 # x.grad berisi gradient`,
   {
     layout: "grid",
     title: "19 Istilah yang Paling Sering Muncul",
+    body: "Berikut adalah glosarium singkat untuk 19 istilah yang paling sering muncul:",
     gridItems: [
       {
         title: "Model & Arsitektur",
-        body: "**loss** - ukuran kesalahan model. **gradient** - arah turunan loss. **optimizer** - algoritma update weight. **baseline** - model pembanding sederhana. **freeze** - parameter tidak diupdate. **fine-tune** - lanjut training dari pretrained.",
+        body: "**loss** adalah ukuran kesalahan model. **gradient** adalah arah turunan loss. **optimizer** adalah algoritma update weight. **baseline** adalah model pembanding sederhana. **freeze** berarti parameter tidak diupdate. **fine-tune** berarti melanjutkan training dari pretrained.",
       },
       {
         title: "Proses Training",
-        body: "**ablation** - uji satu komponen dimatikan. **epoch** - satu putaran seluruh dataset. **batch** - subset data per update. **seed** - bilangan acak awal untuk reproduksibilitas. **checkpoint** - snapshot model tersimpan. **augmentation** - variasi data artifisial.",
+        body: "**ablation** adalah uji dengan satu komponen dimatikan. **epoch** adalah satu putaran seluruh dataset. **batch** adalah subset data per update. **seed** adalah bilangan acak awal untuk reproduksibilitas. **checkpoint** adalah snapshot model yang tersimpan. **augmentation** adalah variasi data artifisial.",
       },
       {
         title: "Evaluasi & Validasi",
-        body: "**leakage** - info masa depan bocor ke training. **pre-registration** - rencana eksperimen dicatat sebelum training. **hyperparameter** - konfigurasi training, bukan parameter model. **overfitting** - performa train >> val. **dropout** - regularisasi dengan mematikan neuron acak. **regularization** - hukuman untuk kompleksitas.",
+        body: "**leakage** adalah kebocoran info masa depan ke training. **pre-registration** adalah pencatatan rencana eksperimen sebelum training. **hyperparameter** adalah konfigurasi training, bukan parameter model. **overfitting** adalah kondisi performa train jauh lebih tinggi dari val. **dropout** adalah regularisasi dengan mematikan neuron acak. **regularization** adalah hukuman untuk kompleksitas.",
       },
     ],
     footnote: "Definisi lengkap + worked example ada di Lampiran A.11 dan A.12.",
@@ -264,12 +274,13 @@ y.backward()                 # x.grad berisi gradient`,
   {
     layout: "bullets",
     title: "Checklist: Siap ke W1?",
+    body: "Cek apakah kamu sudah siap memasuki W1 dengan daftar berikut:",
     bullets: [
-      "Bisa membaca shape `(B, C, H, W)` dan jelaskan arti setiap huruf",
-      "Paham bedanya forward pass (input → output) dan backward pass (gradient mengalir mundur)",
-      "Bisa buat tensor PyTorch, cetak shape-nya, dan jalankan `.backward()`",
-      "Tahu apa itu loss, gradient, optimizer, dan epoch",
-      "Sudah baca minimal enam istilah: loss, gradient, optimizer, seed, checkpoint, leakage",
+      "Kamu bisa membaca shape `(B, C, H, W)` dan menjelaskan arti setiap huruf.",
+      "Kamu paham bedanya forward pass (input → output) dan backward pass (gradient mengalir mundur).",
+      "Kamu bisa membuat tensor PyTorch, mencetak shape-nya, dan menjalankan `.backward()`.",
+      "Kamu tahu apa itu loss, gradient, optimizer, dan epoch.",
+      "Kamu sudah membaca minimal enam istilah: loss, gradient, optimizer, seed, checkpoint, leakage.",
     ],
     footnote: "Jika semua terjawab - langsung ke W1. Jika ada yang belum - baca bab 00a penuh, cukup 20 menit.",
   },

@@ -14,7 +14,7 @@ export const slides00: SlideSection[] = [
   {
     layout: "section",
     title: "Bayangkan: Kamu Baru Masuk Lab",
-    body: "Hari pertama jadi asisten riset. Dosen mengirim email pendek - tidak ada template, tidak ada petunjuk langkah demi langkah. Hanya sebuah permintaan riset.",
+    body: "Bayangkan hari pertama kamu sebagai asisten riset: dosen mengirim email pendek tanpa template maupun petunjuk langkah demi langkah. Email itu hanya berisi sebuah permintaan riset, dan kamu harus memutuskan langkah berikutnya sendiri.",
     footnote: "Modul ini menyiapkan kamu untuk situasi persis seperti ini.",
   },
 
@@ -22,12 +22,13 @@ export const slides00: SlideSection[] = [
   {
     layout: "bullets",
     title: "Isi Email dari Dosen Pembimbing",
+    body: "Berikut adalah contoh isi email yang mungkin kamu terima dari dosen pembimbing:",
     bullets: [
       "\"Coba uji **focal loss** sebagai alternatif cross-entropy pada dataset kita\"",
       "\"Freeze blok awal backbone, bandingkan dengan yang tidak di-freeze\"",
       "\"Pastikan **perbandingan yang setara** - konfigurasi yang sama kecuali komponen yang diuji\"",
       "\"Kirim laporan singkat dalam **3 hari**\"",
-      "Email selesai. Tidak ada penjelasan lebih lanjut.",
+      "Email berakhir di sini, dan tidak ada penjelasan lebih lanjut.",
     ],
     footnote: "Email seperti ini normal di lingkungan riset. Bukan tanda dosen tidak peduli - justru tanda kepercayaan.",
   },
@@ -36,12 +37,13 @@ export const slides00: SlideSection[] = [
   {
     layout: "bullets",
     title: "Reaksi Pertama yang Wajar",
+    body: "Ketika menerima email seperti itu, reaksi berikut adalah hal yang wajar:",
     bullets: [
-      "Focal loss? Baru pertama kali dengar istilah ini",
-      "Freeze blok mana? conv1? layer1? Seluruh backbone?",
-      "Baseline 'adil' artinya apa - learning rate sama? Batch size sama? Augmentasi sama?",
-      "3 hari, dan tidak tahu mulai dari mana",
-      "Bootcamp ini menjawab semua pertanyaan itu - satu minggu per topik",
+      "Kamu mungkin bertanya-tanya: focal loss itu apa? Baru pertama kali dengar istilah ini.",
+      "Freeze blok mana yang dimaksud? conv1? layer1? Seluruh backbone?",
+      "Baseline yang 'adil' itu artinya apa - learning rate harus sama? Batch size sama? Augmentasi sama?",
+      "Waktunya hanya 3 hari, dan kamu belum tahu harus mulai dari mana.",
+      "Bootcamp ini menjawab semua pertanyaan itu - satu minggu per topik.",
     ],
     footnote: "Ketidaktahuan awal bukan masalah. Yang bermasalah adalah tidak tahu cara mencari jawabannya.",
   },
@@ -59,7 +61,7 @@ export const slides00: SlideSection[] = [
   {
     layout: "section",
     title: "Target Akhir: 3 Pilar Kompetensi",
-    body: "Bootcamp ini bukan tentang menguasai framework sebanyak mungkin. Tujuannya lebih sempit dan lebih dalam: tiga pilar yang membuat seorang asisten riset bisa bekerja secara mandiri.",
+    body: "Bootcamp ini bukan tentang menguasai framework sebanyak mungkin. Tujuannya lebih sempit dan lebih dalam: kita membangun tiga pilar yang membuat seorang asisten riset bisa bekerja secara mandiri.",
     footnote: "Semua lab, breadth check, dan capstone diarahkan ke ketiga pilar ini.",
   },
 
@@ -68,7 +70,7 @@ export const slides00: SlideSection[] = [
     layout: "image",
     title: "Big Map: Kerangka 11 Minggu",
     imageUrl: "/figures/fig00_big_map.svg",
-    caption: "Input → Middle → Output. Kerangka berpikir ini dipakai dari W1 sampai W11 dan capstone.",
+    caption: "Gambar ini menunjukkan kerangka berpikir Input → Middle → Output yang dipakai dari W1 sampai W11 dan capstone.",
     footnote: "Tidak perlu dipahami sepenuhnya sekarang - akan diperkenalkan secara bertahap tiap minggu.",
   },
 
@@ -78,14 +80,14 @@ export const slides00: SlideSection[] = [
     title: "Pilar 1: Ketajaman Teknis & Rigor Eksperimen",
     left: {
       title: "Artinya",
-      body: "Membaca shape tensor sebelum membaca kode. Memilih arsitektur dari bentuk data, bukan dari nama paper yang sedang tren. Mendiagnosis training dari kurva loss, bukan dari feeling.",
+      body: "Pilar ini melatih ketajaman teknis: kamu akan membaca shape tensor terlebih dahulu sebelum membaca kode, memilih arsitektur dari bentuk data (bukan dari nama paper yang sedang tren), dan mendiagnosis training dari kurva loss (bukan dari feeling).",
     },
     right: {
       title: "Wujud Konkretnya",
       bullets: [
-        "Peta data → arsitektur → loss yang konsisten",
-        "Eksperimen reproduksibel dari config + commit hash",
-        "Diagnosis overfitting/underfitting dari kurva tanpa bantuan forum",
+        "Kamu membangun peta data → arsitektur → loss yang konsisten.",
+        "Kamu menjalankan eksperimen yang reproduksibel dari config + commit hash.",
+        "Kamu bisa mendiagnosis overfitting/underfitting dari kurva tanpa bantuan forum.",
       ],
     },
     footnote: "Kompetensi 1-4 (W1-W4) membangun pilar ini.",
@@ -97,14 +99,14 @@ export const slides00: SlideSection[] = [
     title: "Pilar 2: Diagnosis & Kemandirian",
     left: {
       title: "Artinya",
-      body: "Bisa membaca training signal dan tahu apa artinya. Bisa mengaudit data untuk leakage sebelum melatih model. Bisa mengadopsi repository baru tanpa bimbingan.",
+      body: "Pilar ini melatih kemandirian diagnosis: kamu bisa membaca training signal dan tahu apa artinya, bisa mengaudit data untuk leakage sebelum melatih model, dan bisa mengadopsi repository baru tanpa bimbingan.",
     },
     right: {
       title: "Wujud Konkretnya",
       bullets: [
-        "Audit temporal leakage dalam pipeline data",
-        "Debug dari log dan kurva, bukan bertanya ke internet atau LLM dulu",
-        "Adopsi repo baru: smoke test dalam 1 hari pertama",
+        "Kamu melakukan audit temporal leakage dalam pipeline data.",
+        "Kamu melakukan debug dari log dan kurva, bukan bertanya ke internet atau LLM dulu.",
+        "Kamu bisa mengadopsi repo baru dengan smoke test dalam 1 hari pertama.",
       ],
     },
     footnote: "Kompetensi 5-7 (W5-W8) membangun pilar ini.",
@@ -116,14 +118,14 @@ export const slides00: SlideSection[] = [
     title: "Pilar 3: Perancangan Riset",
     left: {
       title: "Artinya",
-      body: "Menyusun pertanyaan riset yang bisa difalsifikasi. Menemukan gap di literatur secara sistematis. Mengkomunikasikan temuan dengan bukti, bukan kesan.",
+      body: "Pilar ini melatih perancangan riset: kamu akan menyusun pertanyaan riset yang bisa difalsifikasi, menemukan gap di literatur secara sistematis, dan mengkomunikasikan temuan dengan bukti (bukan kesan).",
     },
     right: {
       title: "Wujud Konkretnya",
       bullets: [
-        "Dekomposisi masalah dengan kerangka Input→Middle→Output",
-        "Literature triage: baca paper dengan tujuan, bukan baca semua",
-        "Pre-registrasi eksperimen sebelum training dimulai",
+        "Kamu melakukan dekomposisi masalah dengan kerangka Input→Middle→Output.",
+        "Kamu melakukan literature triage: membaca paper dengan tujuan, bukan membaca semua.",
+        "Kamu membuat pre-registrasi eksperimen sebelum training dimulai.",
       ],
     },
     footnote: "Kompetensi 8-10 (W9-W11) membangun pilar ini.",
@@ -133,7 +135,7 @@ export const slides00: SlideSection[] = [
   {
     layout: "section",
     title: "Cara Membaca Modul: Struktur 11+4",
-    body: "Sebelas minggu bootcamp dengan satu bab per minggu, diikuti empat minggu capstone. Setiap minggu ada satu tema besar, satu lab wajib, dan satu entri portofolio.",
+    body: "Modul ini tersusun dari sebelas minggu bootcamp dengan satu bab per minggu, yang diikuti oleh empat minggu capstone. Setiap minggu menyajikan satu tema besar, satu lab wajib, dan satu entri portofolio.",
     footnote: "Bab 00 ini adalah peta - bukan materi yang perlu dihafal.",
   },
 
@@ -142,7 +144,7 @@ export const slides00: SlideSection[] = [
     layout: "image",
     title: "Peta Dependensi Modul",
     imageUrl: "/figures/fig00a_module_map.svg",
-    caption: "W1-W4 bisa dikerjakan linier. W5+ ada dependensi antar bab. Pendalaman opsional bisa dilompat.",
+    caption: "Peta ini menunjukkan bahwa W1-W4 bisa dikerjakan secara linier, sementara W5 ke atas memiliki dependensi antar bab. Pendalaman opsional bisa dilompati jika diperlukan.",
     footnote: "Jika ada minggu yang terasa berat, cek peta ini - mana yang wajib, mana yang opsional.",
   },
 
@@ -150,18 +152,19 @@ export const slides00: SlideSection[] = [
   {
     layout: "grid",
     title: "Tiga Thread Belajar yang Berjalan Paralel",
+    body: "Sepanjang bootcamp, kamu akan mengikuti tiga thread belajar yang berjalan secara paralel:",
     gridItems: [
       {
         title: "Big Map (Input→Middle→Output)",
-        body: "Kerangka berpikir untuk setiap dataset riset. Siapa entitasnya, apa outputnya, informasi apa yang tersedia. Diperkenalkan W11, dipakai di capstone.",
+        body: "Thread ini memperkenalkan kerangka berpikir untuk setiap dataset riset: siapa entitasnya, apa outputnya, dan informasi apa yang tersedia. Konsep ini diperkenalkan di W11 dan dipakai di capstone.",
       },
       {
         title: "Kebiasaan Riset",
-        body: "Satu kebiasaan baru per minggu: smoke test (W2), matriks eksperimen (W4), pre-reg (W4), peer review (W6), literature triage (W11).",
+        body: "Thread ini menanamkan satu kebiasaan baru per minggu: smoke test (W2), matriks eksperimen (W4), pre-reg (W4), peer review (W6), dan literature triage (W11).",
       },
       {
         title: "Pilihan Representasi",
-        body: "Setiap bab mengangkat satu pertanyaan tentang representasi: fitur apa yang dipakai? hand-crafted, pre-trained, atau learned jointly?",
+        body: "Thread ini mengangkat pertanyaan tentang representasi di setiap bab: fitur apa yang dipakai? Apakah hand-crafted, pre-trained, atau learned jointly?",
       },
     ],
     footnote: "Ketiga thread ini tidak perlu dipahami sepenuhnya sekarang. Akan semakin jelas seiring berjalannya waktu.",
@@ -171,22 +174,23 @@ export const slides00: SlideSection[] = [
   {
     layout: "grid",
     title: "10 Kompetensi Inti - Wave 1 (W1-W4)",
+    body: "Wave pertama membangun fondasi teknis melalui empat kompetensi berikut:",
     gridItems: [
       {
         title: "K1: Arsitektur NN",
-        body: "Forward pass 4 dari 5 keluarga: MLP, CNN, RNN/LSTM, Transformer, Autoencoder. Breadth, bukan depth.",
+        body: "Kamu menguasai forward pass 4 dari 5 keluarga arsitektur: MLP, CNN, RNN/LSTM, Transformer, dan Autoencoder. Fokusnya adalah breadth, bukan depth.",
       },
       {
         title: "K2: Loss & Optimizer",
-        body: "Pilih loss dari task. Diagnosa underfitting/overfitting dari kurva. Ablation satu variabel.",
+        body: "Kamu bisa memilih loss dari task yang diberikan, mendiagnosa underfitting/overfitting dari kurva, dan melakukan ablation satu variabel.",
       },
       {
         title: "K3: Reproduksibilitas",
-        body: "Seed dikunci, config di YAML, checkpoint menyertakan git hash. Eksperimen bisa direproduksi.",
+        body: "Kamu mengunci seed, menyimpan config di YAML, dan menyertakan git hash di checkpoint sehingga eksperimen bisa direproduksi.",
       },
       {
         title: "K4: Leakage Dasar",
-        body: "Statistik normalisasi dari train saja. Train/val/test jangan dicampur. Split sebelum preprocessing.",
+        body: "Kamu menghitung statistik normalisasi dari train saja, memastikan train/val/test tidak tercampur, dan melakukan split sebelum preprocessing.",
       },
     ],
     footnote: "Wave 1 selesai = kamu bisa menjalankan eksperimen ML yang benar dan terdokumentasi.",
@@ -196,22 +200,23 @@ export const slides00: SlideSection[] = [
   {
     layout: "grid",
     title: "10 Kompetensi Inti - Wave 2 & 3 (W5-W11)",
+    body: "Wave kedua dan ketiga memperdalam kemampuan diagnosis dan perancangan riset:",
     gridItems: [
       {
         title: "K5: Representasi",
-        body: "Tiga strategi: hand-crafted, pre-trained features, learned jointly. Kapan pakai mana.",
+        body: "Kamu memahami tiga strategi representasi: hand-crafted, pre-trained features, dan learned jointly, serta tahu kapan harus memakai mana.",
       },
       {
         title: "K6: Temporal Leakage",
-        body: "Data time-series punya kausalitas. Chronological split wajib. Demo delta dramatik (0.92 → 0.63).",
+        body: "Kamu memahami bahwa data time-series punya kausalitas, sehingga chronological split wajib dilakukan. Demo menunjukkan delta dramatik (0.92 → 0.63) saat leakage diperbaiki.",
       },
       {
         title: "K7: Paper Reading",
-        body: "3-pass reading: judul+abstrak, kerangka, detail. Paper-to-code workflow.",
+        body: "Kamu menguasai 3-pass reading: membaca judul+abstrak, kerangka, dan detail, serta bisa menerapkan paper-to-code workflow.",
       },
       {
         title: "K8-K10: Lanjutan",
-        body: "Foundation models, multimodal fusion, framing riset Input→Middle→Output, literature triage.",
+        body: "Kamu mempelajari foundation models, multimodal fusion, framing riset Input→Middle→Output, dan literature triage.",
       },
     ],
     footnote: "Wave 2-3 selesai = kamu bisa membaca paper, mengadopsi model baru, dan merancang riset sendiri.",
@@ -221,22 +226,23 @@ export const slides00: SlideSection[] = [
   {
     layout: "grid",
     title: "4 Sikap Riset yang Ditanamkan Sepanjang Modul",
+    body: "Sepanjang modul, kamu akan menanamkan empat sikap riset berikut:",
     gridItems: [
       {
         title: "Curiosity",
-        body: "Bertanya \"mengapa\" sebelum menerima hasil. Tidak puas dengan \"pokoknya jalan\". Angka baik di hari pertama justru mencurigakan.",
+        body: "Sikap Curiosity berarti kamu bertanya 'mengapa' sebelum menerima hasil, tidak puas dengan 'pokoknya jalan', dan justru mencurigai angka yang terlalu baik di hari pertama.",
       },
       {
         title: "Rigor",
-        body: "Satu variabel berubah per run. Seed dikunci. Jejak eksperimen tersimpan. Catatan dibuat saat eksperimen berlangsung, bukan sesudahnya.",
+        body: "Sikap Rigor berarti kamu hanya mengubah satu variabel per run, mengunci seed, menyimpan jejak eksperimen, dan mencatat observasi saat eksperimen berlangsung (bukan sesudahnya).",
       },
       {
         title: "Skepticism",
-        body: "Tidak percaya pada angka sendiri. Akurasi 99% hari pertama = lampu merah. Selalu cek apakah data leakage, apakah evaluasi sudah benar.",
+        body: "Sikap Skepticism berarti kamu tidak langsung percaya pada angka sendiri. Akurasi 99% di hari pertama adalah lampu merah, dan kamu selalu mengecek apakah ada data leakage atau kesalahan evaluasi.",
       },
       {
         title: "Ownership",
-        body: "Tanggung jawab tetap di tangan kamu, walaupun kode ditulis oleh LLM. Kamu yang menjelaskan, kamu yang mempertahankan.",
+        body: "Sikap Ownership berarti tanggung jawab tetap berada di tangan kamu, walaupun kode ditulis oleh LLM. Kamu yang menjelaskan hasilnya, dan kamu yang mempertahankan keputusannya.",
       },
     ],
     footnote: "Sikap ini ditanamkan lewat pitfall, pertanyaan refleksi, dan lab - bukan ceramah.",
@@ -246,11 +252,12 @@ export const slides00: SlideSection[] = [
   {
     layout: "bullets",
     title: "Kontrak Belajar: Klausul 1–4",
+    body: "Kontrak belajar berisi kesepakatan yang harus kamu ikuti selama bootcamp. Berikut adalah empat klausul pertama:",
     bullets: [
-      "**Timing:** lab dikerjakan di minggu yang sama dengan bacaan - menunda akan memutus alur pemahaman",
-      "**Akuntabilitas pikiran:** tulis observasi sebelum interpretasi - bedakan dua hal ini",
-      "**Breadth Check:** forward pass minimal 4 dari 5 keluarga arsitektur sebelum capstone",
-      "**Portofolio:** catatan berjalan di `portofolio_mandiri.ipynb` - untuk dibaca ulang, bukan untuk dinilai akhir",
+      "**Timing:** Lab harus dikerjakan di minggu yang sama dengan bacaan, karena menunda akan memutus alur pemahaman.",
+      "**Akuntabilitas pikiran:** Kamu harus menulis observasi sebelum interpretasi, dan membedakan kedua hal ini dengan jelas.",
+      "**Breadth Check:** Kamu wajib menguasai forward pass minimal 4 dari 5 keluarga arsitektur sebelum memasuki capstone.",
+      "**Portofolio:** Kamu menyusun catatan berjalan di `portofolio_mandiri.ipynb` untuk dibaca ulang, bukan untuk dinilai akhir.",
     ],
     footnote: "Checklist klausul lengkap ada di Lampiran D.5.",
   },
@@ -259,24 +266,26 @@ export const slides00: SlideSection[] = [
   {
     layout: "bullets",
     title: "Kontrak Belajar: Klausul 5–8",
+    body: "Berikut adalah empat klausul lanjutan dalam kontrak belajar:",
     bullets: [
-      "**Komponen Mandiri:** mulai W4, satu topik bebas dipresentasikan 10 menit per sesi",
-      "**Negative Results:** hasil negatif wajib dilaporkan - itu data, bukan kegagalan",
-      "**Refleksi:** tiap bab ditutup 3 pertanyaan terbuka - jawab dengan jujur, bukan dengan template",
-      "**Git workflow:** setiap eksperimen punya commit - bukan karena protokol, tapi karena reproduksibilitas",
+      "**Komponen Mandiri:** Mulai W4, kamu akan mempresentasikan satu topik bebas selama 10 menit di setiap sesi.",
+      "**Negative Results:** Kamu wajib melaporkan hasil negatif, karena itu adalah data yang berharga, bukan kegagalan.",
+      "**Refleksi:** Tiap bab ditutup dengan 3 pertanyaan terbuka yang harus kamu jawab dengan jujur, bukan dengan template.",
+      "**Git workflow:** Setiap eksperimen harus memiliki commit - bukan karena protokol semata, tapi karena reproduksibilitas.",
     ],
-    footnote: "4 klausul ini sering dilanggar karena terlihat \"tidak teknis\" - padahal menentukan keberlanjutan kompetensi.",
+    footnote: "4 klausul ini sering dilanggar karena terlihat 'tidak teknis' - padahal menentukan keberlanjutan kompetensi.",
   },
 
   // ── Slide 16: 4 Perangkap ──
   {
     layout: "bullets",
     title: "4 Kebiasaan yang Memblokir Kemajuan",
+    body: "Ada empat kebiasaan yang sering memblokir kemajuan belajar. Hindari kebiasaan berikut:",
     bullets: [
-      "**Lab sampai kode jalan** - berhenti di titik itu, tanpa membaca apa yang terjadi di dalam",
-      "**LLM tanpa verifikasi** - copy kode dari AI, tidak membaca, tidak menguji, tidak memahami",
-      "**Tunda catatan eksperimen** - \"nanti saya tulis\" berakhir dengan tidak pernah ditulis",
-      "**Langsung training tanpa EDA** - model dilatih sebelum data dipahami; leakage tidak terdeteksi",
+      "**Berhenti begitu lab sampai kode jalan** - Kamu berhenti di titik itu tanpa membaca apa yang sebenarnya terjadi di dalam kode.",
+      "**Menggunakan LLM tanpa verifikasi** - Kamu menyalin kode dari AI tanpa membaca, tanpa menguji, dan tanpa memahami cara kerjanya.",
+      "**Menunda catatan eksperimen** - Kalimat 'nanti saya tulis' sering berakhir dengan catatan yang tidak pernah ditulis.",
+      "**Langsung training tanpa EDA** - Kamu melatih model sebelum memahami data, sehingga leakage tidak terdeteksi.",
     ],
     footnote: "Kebiasaan ini tidak membuat kamu gagal di lab - tapi membuat kamu tidak siap untuk riset nyata.",
   },

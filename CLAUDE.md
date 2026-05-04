@@ -450,6 +450,64 @@ export const SLIDE_DECKS: Record<string, SlideDeckData> = {
 - `layout: "code"` untuk snippet max 8-10 baris.
 - `footnote` untuk konteks, bukan konten utama.
 
+### Gaya Penulisan Slide Deck
+
+Slide deck adalah **trailer**, bukan pengganti modul. Setiap slide harus bisa dibaca sebagai prosa utuh dengan SPOK lengkap. Pembaca slide tidak boleh merasa seperti membaca fragment atau daftar tanpa konteks.
+
+**Lead sentence wajib (setiap slide non-title):**
+
+Setiap slide dengan `layout` selain `"title"` wajib memiliki `body` sebagai lead sentence yang memberikan konteks sebelum bullet points, grid items, atau kode muncul.
+
+Contoh:
+- **Salah (fragment):** bullets langsung tanpa pengantar.
+- **Benar:** `"Ada empat alasan praktis mengapa kita memulai dari tabular: pertama..."` → baru bullets.
+
+**Bullet points = kalimat utuh:**
+
+Setiap bullet harus memiliki subjek dan predikat yang jelas, bukan definisi kamus atau label.
+
+- **Salah:** `"**(D,)** - vektor satu dimensi"` (definisi kamus, tidak ada kata kerja)
+- **Benar:** `"Bentuk (D,) adalah vektor satu dimensi yang berisi satu baris fitur."` (ada subjek "Bentuk (D,)", predikat "adalah", dan keterangan)
+
+**Grid items = narasi, bukan label:**
+
+Setiap `gridItem.body` harus kalimat narasi yang menjelaskan apa yang dilakukan kompetensi/sikap/thread tersebut.
+
+- **Salah:** `"Forward pass 4 dari 5 keluarga: MLP, CNN, RNN/LSTM, Transformer, Autoencoder."` (tidak ada subjek/predikat)
+- **Benar:** `"Kamu menguasai forward pass 4 dari 5 keluarga arsitektur: MLP, CNN, RNN/LSTM, Transformer, dan Autoencoder. Fokusnya adalah breadth, bukan depth."`
+
+**Caption gambar/video = kalimat utuh:**
+
+`caption` pada `layout: "image"` atau `layout: "video"` harus berupa kalimat lengkap, bukan frasa deskriptif.
+
+- **Salah:** `"Input → Middle → Output. Kerangka berpikir ini dipakai dari W1 sampai capstone."` (fragment di awal)
+- **Benar:** `"Gambar ini menunjukkan kerangka berpikir Input → Middle → Output yang dipakai dari W1 sampai capstone."`
+
+**Contoh Before / After lengkap:**
+
+```typescript
+// SALAH - fragment, tanpa lead sentence, bullets tanpa subjek
+{
+  layout: "bullets",
+  title: "Shape Tensor",
+  bullets: [
+    "**(D,)** - vektor satu dimensi",
+    "**(B, D)** - batch data tabular",
+  ],
+}
+
+// BENAR - lead sentence + bullets kalimat utuh
+{
+  layout: "bullets",
+  title: "Shape Tensor: 4 Pola Paling Sering Muncul",
+  body: "Berikut adalah empat pola shape tensor yang paling sering muncul:",
+  bullets: [
+    "**(D,)** adalah vektor satu dimensi yang berisi satu baris fitur.",
+    "**(B, D)** adalah batch data tabular yang terdiri dari B sampel dengan D fitur.",
+  ],
+}
+```
+
 **Build & test:**
 
 ```bash
