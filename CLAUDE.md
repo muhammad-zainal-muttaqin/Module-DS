@@ -219,6 +219,8 @@ Prinsip:
 | `Apa yang Anda akan [V]` | `Apa yang akan Anda [V]` | Urutan baku ID |
 | `dengan asumsi minimum` | `dengan prasyarat seminimal mungkin` | |
 | `ubah loss jadi focal`, `freeze conv1` sbg instruksi naratif | `uji focal loss dan freeze blok awal` | Detail layer di protokol |
+| `kabur` untuk konsep abstrak | `belum jelas`, `belum dikuasai` | `kabur` hanya untuk foto/penglihatan, bukan pemahaman |
+| `nyaman` untuk kompetensi | `lancar`, `terbiasa`, `dikuasai` | Calque "comfortable with" |
 | `intuisi` (= abstrak concept) | `pemahaman` / `gambaran` / `cara kerja` / `prinsip` | Pengecualian: "validasi intuisi" (dugaan/tebakan) |
 | `secara umum` pada data tunggal | `cenderung` / `pada umumnya` / hapus | |
 | `X bukan berarti Y` kalimat mandiri | gabung: `..., tetapi bukan berarti Y` | |

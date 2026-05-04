@@ -59,7 +59,7 @@ export const slides00: SlideSection[] = [
   {
     layout: "section",
     title: "Target Akhir: 3 Pilar Kompetensi",
-    body: "Bootcamp ini bukan tentang menguasai sebanyak mungkin framework. Tujuannya lebih sempit dan lebih dalam: tiga pilar yang membuat seorang asisten riset bisa bekerja secara mandiri.",
+    body: "Bootcamp ini bukan tentang menguasai framework sebanyak mungkin. Tujuannya lebih sempit dan lebih dalam: tiga pilar yang membuat seorang asisten riset bisa bekerja secara mandiri.",
     footnote: "Semua lab, breadth check, dan capstone diarahkan ke ketiga pilar ini.",
   },
 
@@ -232,11 +232,11 @@ export const slides00: SlideSection[] = [
       },
       {
         title: "Skepticism",
-        body: "Tidak percaya angka sendiri. Akurasi 99% hari pertama = lampu merah. Selalu cek apakah data leakage, apakah evaluasi sudah benar.",
+        body: "Tidak percaya pada angka sendiri. Akurasi 99% hari pertama = lampu merah. Selalu cek apakah data leakage, apakah evaluasi sudah benar.",
       },
       {
         title: "Ownership",
-        body: "Tanggung jawab tetap di tangan kamu, walaupun LLM yang menulis kodenya. Kamu yang menjelaskan, kamu yang mempertahankan.",
+        body: "Tanggung jawab tetap di tangan kamu, walaupun kode ditulis oleh LLM. Kamu yang menjelaskan, kamu yang mempertahankan.",
       },
     ],
     footnote: "Sikap ini ditanamkan lewat pitfall, pertanyaan refleksi, dan lab - bukan ceramah.",
@@ -247,7 +247,7 @@ export const slides00: SlideSection[] = [
     layout: "bullets",
     title: "Kontrak Belajar: Klausul 1–4",
     bullets: [
-      "**Timing:** lab dikerjakan di minggu yang sama dengan bacaan - menunda memutus pemahaman",
+      "**Timing:** lab dikerjakan di minggu yang sama dengan bacaan - menunda akan memutus alur pemahaman",
       "**Akuntabilitas pikiran:** tulis observasi sebelum interpretasi - bedakan dua hal ini",
       "**Breadth Check:** forward pass minimal 4 dari 5 keluarga arsitektur sebelum capstone",
       "**Portofolio:** catatan berjalan di `portofolio_mandiri.ipynb` - untuk dibaca ulang, bukan untuk dinilai akhir",
@@ -278,7 +278,7 @@ export const slides00: SlideSection[] = [
       "**Tunda catatan eksperimen** - \"nanti saya tulis\" berakhir dengan tidak pernah ditulis",
       "**Langsung training tanpa EDA** - model dilatih sebelum data dipahami; leakage tidak terdeteksi",
     ],
-    footnote: "Kebiasaan ini tidak membuat kamu gagal di lab - tapi membuat kamu tidak siap di riset nyata.",
+    footnote: "Kebiasaan ini tidak membuat kamu gagal di lab - tapi membuat kamu tidak siap untuk riset nyata.",
   },
 
   // ── Slide 17: Refleksi awal ──
@@ -294,7 +294,7 @@ export const slides00: SlideSection[] = [
   {
     layout: "cta",
     title: "Mulai dari W1",
-    body: "Slide ini hanya peta. Detail, contoh angka, pitfall, dan lab ada di modul penuh.\n\nBaca Bab 00a (Prasyarat) dulu jika shape tensor dan PyTorch dasar belum nyaman - cukup 20 menit.",
+    body: "Slide ini hanya peta. Detail, contoh angka, pitfall, dan lab ada di modul penuh.\n\nBaca Bab 00a (Prasyarat) dulu jika shape tensor dan PyTorch dasar belum lancar - cukup 20 menit.",
     ctaText: "Baca Modul 00 Penuh",
     ctaTarget: "00",
   },

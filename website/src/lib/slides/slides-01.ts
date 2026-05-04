@@ -48,7 +48,7 @@ export const slides01: SlideSection[] = [
     layout: "section",
     title: "Mengapa Tabular Lebih Dulu?",
     body: "Empat alasan praktis: pipeline paling pendek (tidak ada augmentasi, tidak ada tokenizer), tiga perumusan tugas bisa diuji pada dataset yang sama, bug loss-head terlihat jelas dari output shape, dan tidak ada distraksi domain yang perlu dipelajari dulu.",
-    footnote: "Mulai dari tabular bukan berarti tabular penting - melainkan karena kompleksitasnya paling rendah.",
+    footnote: "Mulai dari tabular karena kompleksitasnya paling rendah, bukan karena tabular lebih penting dari domain lain.",
   },
 
   // ── Slide 3: Gambar satu dataset tiga tugas ──
@@ -156,7 +156,7 @@ print(z.shape)                # torch.Size([32, 64])`,
       title: "Loss: MSELoss",
       body: "`MSELoss` menghitung rata-rata kuadrat selisih:\n\n(1/N) × Σ (ŷ - y)²\n\nSensitif terhadap outlier karena dikuadratkan. Untuk data dengan outlier banyak, pertimbangkan `L1Loss` (MAE) sebagai alternatif.",
     },
-    footnote: "MSE selalu positif dan nol hanya jika prediksi sempurna. Unitnya dikuadratkan - ingat saat menginterpretasikan.",
+    footnote: "MSE selalu positif dan nol hanya jika prediksi sempurna. Unitnya dikuadratkan - perhatikan hal ini saat membaca hasil.",
   },
 
   // ── Slide 10: Binary ──
@@ -236,7 +236,7 @@ print(z.shape)                # torch.Size([32, 64])`,
     title: "Backpropagation: Visualisasi (Tonton ~20 Menit)",
     videoUrl: "https://www.youtube.com/embed/Ilg3gGewQ5U",
     caption: "3Blue1Brown - \"What is backpropagation really doing?\" - visualisasi chain rule yang mengalir mundur",
-    footnote: "Video ini menjelaskan konsep yang sama dengan Lampiran A.1 - pilih cara yang cocok gaya belajar Anda.",
+    footnote: "Video ini menjelaskan konsep yang sama dengan Lampiran A.1 - pilih cara yang cocok dengan gaya belajar Anda.",
   },
 
   // ── Slide 17: Training loop 8 baris ──

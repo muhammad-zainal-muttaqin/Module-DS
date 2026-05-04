@@ -283,7 +283,7 @@ loss = criterion(logits.squeeze() > 0, y)  # binary`,
   {
     layout: "cta",
     title: "Bekal Sudah Cukup?",
-    body: "Jika shape tensor dan autograd masih kabur, luangkan 20 menit membaca bab 00a penuh sebelum masuk W1.\n\nJika sudah nyaman, langsung ke W1.",
+    body: "Jika shape tensor dan autograd masih belum jelas, luangkan 20 menit membaca bab 00a penuh sebelum masuk W1.\n\nJika sudah nyaman, langsung ke W1.",
     ctaText: "Baca Modul 00a Penuh",
     ctaTarget: "00a",
   },
