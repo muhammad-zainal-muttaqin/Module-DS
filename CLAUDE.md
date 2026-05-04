@@ -345,14 +345,44 @@ Tiap `.md` baru/rename, update:
 
 Slide ringkasan per bab via **Reveal.js**. Trailer (bukan pengganti modul) - max 8-10 slide.
 
-### Aesthetic Assessment
+### Design System
 
-Sudah match: warna cream/ink, font Fraunces/Inter, dark mode, layout variatif. Enhancement opsional:
-1. Background terlalu flat - bisa tambah gradient/texture.
-2. Transisi masih default Reveal.js.
-3. Code block belum syntax highlighting (Shiki bisa di-integrasikan).
-4. Bullet shapes masih default.
-5. Title slide teks-centric.
+**Tipografi:**
+- Body/UI: `Outfit` (Google Fonts, `wght@300;400;500;600;700`) - hanya di slide, bukan main website
+- Heading: `Fraunces` (serif, editorial) - konsisten dengan brand modul
+- Code/mono: `JetBrains Mono`
+- Main website tetap `Inter` - jangan ubah
+
+**Warna:**
+- Accent light mode: `#059669` (emerald = warna `ownership` di tailwind config)
+- Accent dark mode: `#F59E0B` (amber = warna `curiosity`)
+- Latar: `#FAF8F3` light / `#0F1115` dark
+- Jangan pakai `#4338CA` (indigo/rigor) sebagai accent slide - terlalu "AI purple"
+
+**Layout rules:**
+- Title slide: left-aligned (`text-align: left`), bukan centered. Ada accent rule `::before` (lebar 2.5rem, tinggi 3px, warna emerald) di atas eyebrow text.
+- Grid heading: center-aligned (pengecualian). Grid items: 3 kolom, spotlight hover.
+- CTA layout: center-aligned.
+
+**Animasi:**
+- Stagger in: `@keyframes slide-stagger-in` (opacity 0→1, translateY 14px→0, easing `cubic-bezier(0.16,1,0.3,1)`)
+- Trigger: `.reveal .slides > section.present .slide-stagger`
+- Delay: `calc(var(--frag-index, 0) * 85ms + 60ms)` - cascade per item, delay awal 60ms
+- `--frag-index` diset via `staggerStyle()` di `SlideDeck.tsx` → tidak perlu ubah TSX
+
+**Spotlight grid cards:**
+- JS di `SlideDeck.tsx` sudah track `--mouse-x`/`--mouse-y` via `rAF` pada `.slide-grid-item`
+- CSS `::before` pakai `radial-gradient(180px circle at var(--mouse-x) var(--mouse-y), rgba(5,150,105,0.1), transparent 70%)`
+- `opacity: 0` default → `opacity: 1` on `:hover`
+- `::after` inner refraction: `box-shadow: inset 0 1px 0 rgba(255,255,255,0.1)`
+
+**CTA button:**
+- `border-radius: 100px` (pill)
+- 3-layer shadow: ambient + elevation + inner refraction
+- Arrow (`.slide-cta-arrow`) slide `translateX(3px)` on hover
+- Warna emerald light / amber dark
+
+**Progress bar:** `linear-gradient(90deg, #059669, #10B981)` light / `#D97706→#F59E0B` dark
 
 ### Panduan Menambah Slide Baru
 
