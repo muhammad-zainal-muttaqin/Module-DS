@@ -315,7 +315,7 @@ Pilih satu pertanyaan dari materi W10 yang ingin Anda jelajahi lebih dalam. Ini 
 - Berapa besar gap reproduksi ketika menjalankan konfigurasi terkecil paper dengan kode resmi - apa penyebab paling mungkin?
 - Ada arsitektur dari paper yang belum dibahas di modul yang menarik untuk diimplementasikan forward pass-nya?
 
-Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasikan sorotan portofolio 10 menit di awal W11. Format dan kriteria: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
+Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb), dan presentasikan sorotan portofolio 10 menit di awal W11. Format dan kriteria: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
 
 ---
 

@@ -863,7 +863,7 @@ Jika sebagian terjawab: ubah arah ke:
 
 - **Template dekomposisi** (§13 bab ini) - simpan dan gunakan untuk setiap paper yang dibaca.
 - **Checklist sebelum W12** (§12 bab ini) - verifikasi kesiapan framing.
-- **`template/docs/prereg_template.md`** - template pre-registration; akan diisi setelah framing disetujui di W12.
+- **[`template/docs/prereg_template.md`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/docs/prereg_template.md)** - template pre-registration; akan diisi setelah framing disetujui di W12.
 - **Schwartz - *The Importance of Stupidity in Scientific Research*** (2008, 2 halaman). Tentang mengapa merasa "bingung" di depan pertanyaan yang sulit adalah tanda kemajuan, bukan kegagalan.
 
 ---

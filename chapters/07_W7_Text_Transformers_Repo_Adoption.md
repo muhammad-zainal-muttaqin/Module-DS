@@ -889,7 +889,7 @@ Pilih satu pertanyaan dari tema Repo Adoption yang ingin Anda jelajahi lebih dal
 - Apa perbedaan struktural antara repo Lab 6 dan `template` - mana yang lebih baik untuk tujuan apa?
 - Bagaimana Anda menyiapkan repo asing agar bisa dipakai tim selama tiga bulan - perubahan apa yang paling mendesak?
 
-Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasikan 10 menit pada sesi review berikutnya. Format dan kriteria: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
+Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb), dan presentasikan 10 menit pada sesi review berikutnya. Format dan kriteria: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
 
 ---
 

@@ -411,7 +411,7 @@ Pilih satu pertanyaan dari materi W9 yang ingin Anda jelajahi lebih dalam. Boleh
 - Bagaimana cara merancang sistem yang bisa mendeteksi modalitas hilang secara otomatis saat inference?
 - Apakah *modality dropout* saat training meningkatkan robustness - seberapa besar perbedaannya di 7 kondisi ablation?
 
-Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasikan 10 menit di awal W10. Format: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
+Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb), dan presentasikan 10 menit di awal W10. Format: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
 
 ---
 

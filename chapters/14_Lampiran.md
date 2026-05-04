@@ -687,7 +687,7 @@ Salin ke `docs/papers/<short_title>.md`. Format Bab 9.
 
 ### C.6 Template Entri Portofolio Mandiri {#c6-template-entri-portofolio}
 
-Salin satu blok ini ke sel markdown di `notebooks/portofolio_mandiri.ipynb` untuk setiap pekan. Isi tiap bagian dengan kalimat lengkap - hindari poin-poin kosong.
+Salin satu blok ini ke sel markdown di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb) untuk setiap pekan. Isi tiap bagian dengan kalimat lengkap - hindari poin-poin kosong.
 
 ```markdown
 ## Entri Pekan <N> - Bab <XX>

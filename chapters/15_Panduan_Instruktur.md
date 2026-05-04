@@ -279,7 +279,7 @@ Jika pada titik tinjauan seorang mahasiswa masih Novice di lebih dari setengah k
 
 ### Struktur Portofolio
 
-Portofolio mahasiswa ada di `notebooks/portofolio_mandiri.ipynb` - 7 entri (W4-W10), satu per minggu Komponen Mandiri. Setiap entri berisi:
+Portofolio mahasiswa ada di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb) - 7 entri (W4-W10), satu per minggu Komponen Mandiri. Setiap entri berisi:
 
 - **Setup:** Konteks dan pertanyaan yang mendorong eksplorasi.
 - **Temuan:** Apa yang ditemukan (dengan bukti: kode, plot, tabel).

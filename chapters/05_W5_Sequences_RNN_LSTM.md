@@ -392,7 +392,7 @@ Pilih satu pertanyaan dari materi W5 yang ingin Anda jelajahi lebih dalam. Boleh
 - Bagaimana temporal CNN (1D Conv + MaxPool) bersaing dengan LSTM untuk forecasting jangka pendek vs panjang?
 - Jika Anda harus merancang eksperimen perbandingan LSTM vs Transformer nantinya, hipotesis apa yang perlu ditest terlebih dahulu?
 
-Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasikan 10 menit di awal Pekan 6. Format: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
+Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb), dan presentasikan 10 menit di awal Pekan 6. Format: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
 
 ---
 

@@ -498,7 +498,7 @@ Pilih satu pertanyaan dari materi W4 yang ingin Anda jelajahi lebih dalam. Boleh
 - Bagaimana cara merancang protokol eksperimen untuk pertanyaan riset yang belum pernah Anda jalankan?
 - Apa yang terjadi jika checkpoint dari satu eksperimen dilanjutkan dengan config yang berbeda?
 
-Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb` (entri pertama portofolio), dan presentasikan 10 menit di awal Pekan 5.
+Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb) (entri pertama portofolio), dan presentasikan 10 menit di awal Pekan 5.
 
 > [!TIP]
 > Kriteria penilaian dan panduan presentasi tersedia di [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri) dan [Lampiran D.6](14_Lampiran.md#d6-indeks-lab).
