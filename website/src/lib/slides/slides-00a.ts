@@ -84,6 +84,15 @@ export const slides00a: SlideSection[] = [
     footnote: "Huruf kapital = dimensi variabel. Baca shape sebelum baca kode - itu kebiasaan yang akan terus dipakai.",
   },
 
+  // ── Slide 3d: Visualisasi Tensor 4D ──
+  {
+    layout: "image",
+    title: "Visualisasi Tensor (B, C, H, W)",
+    imageUrl: "/figures/fig00a_tensor_nchw.jpeg",
+    caption: "Gambar ini menunjukkan representasi volumetrik dari satu citra dengan tiga dimensi (Channel, Height, Width); batch berarti menumpuk B volume serupa di sumbu paling depan.",
+    footnote: "Sumber: Stanford CS231n (cs231n.github.io). Bayangkan (32, 3, 224, 224) sebagai 32 lembar volume RGB beresolusi 224x224.",
+  },
+
   // ── Slide 3b: Quiz shape reading ──
   {
     layout: "bullets",
@@ -213,6 +222,15 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
       body: "Jika z = f(g(x)), maka dz/dx = (dz/dg) × (dg/dx). Konsep ini adalah dasar dari backpropagation.\n\nGradient mengalir mundur dari loss ke layer pertama, dikalikan satu demi satu lewat aturan rantai. PyTorch menangani semua ini lewat Autograd.",
     },
     footnote: "Tidak perlu hafal rumus. Cukup paham apa yang dihitung dan mengapa arahnya berlawanan.",
+  },
+
+  // ── Slide 8d: Chain Rule Visual ──
+  {
+    layout: "image",
+    title: "Chain Rule: Gradient Mengalir Mundur",
+    imageUrl: "/figures/fig00a_chain_rule.svg",
+    caption: "Gambar ini menunjukkan computation graph saat backward pass: gradient dimulai dari output di bawah, dikalikan turunan lokal di tiap node, lalu mengalir mundur ke variabel input di atas.",
+    footnote: "Sumber: Dive into Deep Learning (d2l.ai), Apache 2.0. Konsep ini menjadi dasar dari `loss.backward()` di PyTorch.",
   },
 
   // ── Slide 8b: Quiz task→loss ──

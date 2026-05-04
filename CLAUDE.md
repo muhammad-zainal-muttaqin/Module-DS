@@ -44,6 +44,7 @@ ModulePembelajaran/
 - `notes/Notes - 04 Mei 2026/siklus training pytorch.png` → `figures/fig03c_training_cycle.png` (W3 §1)
 - `notes/Notes - 04 Mei 2026/train-val-test dan leakage.png` → `figures/fig06c_train_val_leakage.png` (W6 §0.6)
 - `notes/Notes - 04 Mei 2026/Note.txt` → bug fix `lab_w1_tabular_heads.ipynb` (eval binary: `(logits.squeeze() > 0).long()` → `logits.argmax(dim=1)`; band-aid §4+§6 dihapus) + `lab_w1_mlp_numpy.ipynb` (§7 dipindah sebelum §8) (4 Mei)
+- (5 Mei 2026) Sumber gambar slide 00a: `website/public/figures/fig00a_tensor_nchw.jpeg` dari Stanford CS231n (`cs231n.github.io/assets/cnn/cnn.jpeg`) untuk visualisasi tensor (C,H,W); `website/public/figures/fig00a_chain_rule.svg` dari d2l-en Apache 2.0 (`raw.githubusercontent.com/d2l-ai/d2l-en/master/img/computegraph.svg`) untuk computation graph chain rule. Hanya dipakai di slide deck Bab 00a, bukan chapter `.md`.
 
 **Perubahan struktural besar:**
 - **(27 Apr 2026)** 10-bab format-topik → 11-minggu bootcamp W1-W11 + 3-minggu capstone W12-W14
