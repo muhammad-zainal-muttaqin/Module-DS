@@ -63,6 +63,15 @@ export const slides00: SlideSection[] = [
     footnote: "Semua lab, breadth check, dan capstone diarahkan ke ketiga pilar ini.",
   },
 
+  // ── Slide 6b: Big Map visual ──
+  {
+    layout: "image",
+    title: "Big Map: Kerangka 11 Minggu",
+    imageUrl: "/figures/fig00_big_map.svg",
+    caption: "Input → Middle → Output. Kerangka berpikir ini dipakai dari W1 sampai W11 dan capstone.",
+    footnote: "Tidak perlu dipahami sepenuhnya sekarang - akan diperkenalkan secara bertahap tiap minggu.",
+  },
+
   // ── Slide 7: Pilar 1 ──
   {
     layout: "split",
@@ -126,6 +135,15 @@ export const slides00: SlideSection[] = [
     title: "Cara Membaca Modul: Struktur 11+4",
     body: "Sebelas minggu bootcamp dengan satu bab per minggu, diikuti empat minggu capstone. Setiap minggu ada satu tema besar, satu lab wajib, dan satu entri portofolio.",
     footnote: "Bab 00 ini adalah peta - bukan materi yang perlu dihafal.",
+  },
+
+  // ── Slide 10b: Peta dependensi modul ──
+  {
+    layout: "image",
+    title: "Peta Dependensi Modul",
+    imageUrl: "/figures/fig00a_module_map.svg",
+    caption: "W1-W4 bisa dikerjakan linier. W5+ ada dependensi antar bab. Pendalaman opsional bisa dilompat.",
+    footnote: "Jika ada minggu yang terasa berat, cek peta ini - mana yang wajib, mana yang opsional.",
   },
 
   // ── Slide 11: 3 Thread paralel ──

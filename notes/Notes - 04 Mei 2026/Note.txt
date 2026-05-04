@@ -5,3 +5,9 @@ In train_tabular's evaluation block, the binary task branch uses (logits.squeeze
 
 - lab_w1_mlp_numpy.ipynb — cell ordering bug:  
 The Refleksi §8 cell (9e6c979d) appears before the PyTorch parity check code (cell-18), even though §8's self-check includes "Plot parity numpy vs PyTorch tumpang tindih dalam toleransi 0.05." The code for §7 must run before §8.
+
+untuk slide bisa tambahkan quiz prasyarat - jadi bahas bersama sambil masuk perlahan ke materi 
+
+banyakin gambar dan video 
+
+pastikan notebook jalan

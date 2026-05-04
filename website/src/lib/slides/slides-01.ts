@@ -10,6 +10,39 @@ export const slides01: SlideSection[] = [
     footnote: "Bab 01 - Minggu 1",
   },
 
+  // ── Slide 1b: Kuis Pembuka ──
+  {
+    layout: "bullets",
+    title: "Kuis Pembuka: Sebelum Kita Mulai",
+    bullets: [
+      "**Soal 1:** Dataset harga rumah (angka kontinu). Task apa? Loss apa?",
+      "**Soal 2:** Deteksi email spam. Output head: `Linear(D,1)` atau `Linear(D,2)`?",
+      "**Soal 3:** Prediksi 3 kategori cuaca. Target y bertipe `int` atau `float`?",
+    ],
+    footnote: "Tiga soal, 3 menit. Tidak dinilai - untuk memetakan titik awal sebelum masuk materi.",
+  },
+
+  // ── Slide 1c: Jawaban Kuis Pembuka ──
+  {
+    layout: "grid",
+    title: "Jawaban Kuis Pembuka",
+    gridItems: [
+      {
+        title: "Soal 1: Regresi + MSELoss",
+        body: "Nilai kontinu → regresi. MSELoss untuk rata-rata kuadrat selisih. Head: Linear(D,1) tanpa aktivasi.",
+      },
+      {
+        title: "Soal 2: Dua pilihan valid",
+        body: "Linear(D,1)+BCEWithLogitsLoss atau Linear(D,2)+CrossEntropyLoss. Pilih satu dan konsisten di seluruh eksperimen.",
+      },
+      {
+        title: "Soal 3: int64",
+        body: "CrossEntropyLoss butuh target integer 0..N-1, bukan one-hot float. `y = torch.tensor([0,1,2], dtype=torch.long)`.",
+      },
+    ],
+    footnote: "Jika ketiga jawaban langsung benar - slide berikutnya adalah konfirmasi. Jika ada yang ragu - W1 menjelaskan semuanya.",
+  },
+
   // ── Slide 2: Mengapa tabular lebih dulu ──
   {
     layout: "section",
@@ -225,6 +258,15 @@ for batch_x, batch_y in dataloader:
     footnote: "Jika zero_grad() dilewati, gradient terakumulasi dari batch sebelumnya - hasilnya tidak terduga.",
   },
 
+  // ── Slide 17b: Gambar siklus training ──
+  {
+    layout: "image",
+    title: "Siklus Training PyTorch",
+    imageUrl: "/figures/fig03c_training_cycle.png",
+    caption: "Lima langkah dalam satu iterasi: forward → loss → zero_grad → backward → step. Urutan tidak bisa ditukar.",
+    footnote: "zero_grad() sebelum backward() - selalu. Jika dilewati, gradient terakumulasi dari batch sebelumnya.",
+  },
+
   // ── Slide 18: Pipeline praktis ──
   {
     layout: "bullets",
@@ -236,6 +278,15 @@ for batch_x, batch_y in dataloader:
       "Melanggar aturan ini = data leakage - topik utama W6 dengan demo delta dramatik (0.92 → 0.63)",
     ],
     footnote: "Test set yang pernah dilihat selama development tidak bisa lagi disebut test set - itu sudah menjadi val set.",
+  },
+
+  // ── Slide 18b: Gambar train/val/test ──
+  {
+    layout: "image",
+    title: "Train / Val / Test: Tidak Boleh Bocor",
+    imageUrl: "/figures/fig06c_train_val_leakage.png",
+    caption: "Statistik normalisasi (mean, std) dihitung dari train saja. Diterapkan ke val dan test. Melanggar ini = data leakage.",
+    footnote: "Demo leakage di W6: akurasi turun dari 0.92 ke 0.63 saat split diperbaiki.",
   },
 
   // ── Slide 19: Pitfalls ──

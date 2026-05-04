@@ -31,6 +31,40 @@ export const slides00a: SlideSection[] = [
     footnote: "Huruf kapital = dimensi variabel. Baca shape sebelum baca kode - itu kebiasaan yang akan terus dipakai.",
   },
 
+  // ── Slide 3b: Quiz shape reading ──
+  {
+    layout: "bullets",
+    title: "Kuis: Baca Shape Ini",
+    bullets: [
+      "`x = torch.randn(32, 3, 64, 64)` — apa arti setiap angka?",
+      "A) B=3, C=32, H=64, W=64",
+      "B) B=32, C=3, H=64, W=64",
+      "C) B=32, C=64, H=3, W=64",
+      "D) Tidak bisa tahu tanpa melihat konteks kode",
+    ],
+    footnote: "Diskusi 1-2 menit. Jawaban di slide berikutnya.",
+  },
+
+  // ── Slide 3c: Jawaban shape ──
+  {
+    layout: "split",
+    title: "Jawaban: Shape (32, 3, 64, 64)",
+    left: {
+      title: "Jawaban: B",
+      body: "B=32 (batch size), C=3 (channel RGB), H=64, W=64. Urutan NCHW adalah konvensi PyTorch.",
+    },
+    right: {
+      title: "Cara Memastikan",
+      bullets: [
+        "`x.shape` → `torch.Size([32, 3, 64, 64])`",
+        "`x.shape[0]` → 32 (batch)",
+        "`x.shape[1]` → 3 (channel)",
+        "Baca dari kiri ke kanan: N, C, H, W",
+      ],
+    },
+    footnote: "Shape adalah hal pertama yang dilihat saat debugging - bukan error message.",
+  },
+
   // ── Slide 4: Video deeplizard ──
   {
     layout: "video",
@@ -125,6 +159,41 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
     footnote: "Tidak perlu hafal rumus. Cukup paham apa yang dihitung dan mengapa arahnya berlawanan.",
   },
 
+  // ── Slide 8b: Quiz task→loss ──
+  {
+    layout: "bullets",
+    title: "Kuis: Pasangkan Task dan Loss",
+    bullets: [
+      "**Task A:** Prediksi harga rumah (bilangan kontinu)",
+      "**Task B:** Deteksi spam (ya/tidak)",
+      "**Task C:** Klasifikasi 3 kategori cuaca: Cerah/Mendung/Hujan",
+      "---",
+      "1. CrossEntropyLoss &nbsp; 2. MSELoss &nbsp; 3. BCEWithLogitsLoss",
+    ],
+    footnote: "Satu pasangan untuk setiap task. Diskusi 2 menit.",
+  },
+
+  // ── Slide 8c: Jawaban task→loss ──
+  {
+    layout: "grid",
+    title: "Jawaban: Task → Loss",
+    gridItems: [
+      {
+        title: "Task A → MSELoss",
+        body: "Regresi. Output head: Linear(D,1) tanpa aktivasi. Target: float.",
+      },
+      {
+        title: "Task B → BCEWithLogitsLoss",
+        body: "Biner. Output head: Linear(D,1) logit. Target: float 0/1. Alternatif: Linear(D,2)+CrossEntropyLoss.",
+      },
+      {
+        title: "Task C → CrossEntropyLoss",
+        body: "Multiclass. Output head: Linear(D,3) logit. Target: int 0/1/2. Bukan one-hot.",
+      },
+    ],
+    footnote: "Pola ini sama persis dengan Tabel 5 Konfigurasi di W1 - berlaku di semua bab.",
+  },
+
   // ── Slide 9: PyTorch Primer ──
   {
     layout: "code",
@@ -145,6 +214,34 @@ y = (x ** 2).mean()
 y.backward()                 # x.grad berisi gradient`,
     lang: "python",
     footnote: "x.requires_grad=True biasanya tidak perlu di-set manual - nn.Parameter sudah mengaktifkannya.",
+  },
+
+  // ── Slide 9b: Quiz kode PyTorch ──
+  {
+    layout: "code",
+    title: "Kuis: Ada yang Salah di Sini?",
+    code: `# Versi A
+loss = criterion(torch.softmax(logits, dim=1), y)
+
+# Versi B
+loss = criterion(logits, y)  # CrossEntropyLoss
+
+# Versi C
+loss = criterion(logits.squeeze() > 0, y)  # binary`,
+    lang: "python",
+    footnote: "Satu versi benar, dua salah. Identifikasi masalahnya sebelum lihat slide berikutnya.",
+  },
+
+  // ── Slide 9c: Jawaban kode ──
+  {
+    layout: "bullets",
+    title: "Jawaban: Versi B yang Benar",
+    bullets: [
+      "**Versi A salah:** CrossEntropyLoss sudah memasukkan log-softmax. Menambah softmax lagi = dobel = distribusi jadi salah.",
+      "**Versi C salah:** `logits.squeeze() > 0` menghasilkan bool tensor, bukan logit. Loss tidak bisa menghitung gradient dengan benar.",
+      "**Versi B benar:** Masukkan logit mentah ke CrossEntropyLoss. Tidak perlu aktivasi apapun sebelumnya.",
+    ],
+    footnote: "Bug versi A umum terjadi. Loss masih turun - tapi model tidak belajar distribusi yang benar.",
   },
 
   // ── Slide 10: Glosarium 19 istilah ──
