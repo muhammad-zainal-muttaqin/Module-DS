@@ -109,7 +109,7 @@ Tentukan *sebelum* Anda melihat hasil. Urutkan: metrik utama, metrik sekunder, m
 - Sekunder: recall kelas minor, confusion matrix.
 - Pengaman: akurasi keseluruhan tidak turun > 1%; train/val gap tidak meningkat drastis.
 
-**5. Bentuk hasil apa yang Anda harapkan, dan apa yang mengejutkan?**  
+**5. Bentuk hasil apa yang Anda harapkan, dan apa yang tidak terduga?**  
 Pikirkan dua kemungkinan sebelum menjalankan eksperimen: hipotesis benar, atau hipotesis salah. Apa yang akan terlihat di log? Apa yang akan Anda simpulkan? Jika Anda tidak bisa membayangkan keduanya, rancangan eksperimen belum cukup jelas.
 
 ### 2.2 Protokol Eksperimen Satu Halaman

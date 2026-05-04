@@ -128,7 +128,7 @@ Modul ini paling efektif jika tiga komitmen berikut dipegang sepanjang bootcamp.
 
 > [!WARNING]
 > Empat kebiasaan yang paling sering menghambat kemajuan:
-> - **Lab hanya sampai kode jalan** - selesai bukan saat tidak error, tetapi saat hasilnya bisa dijelaskan. Jika hasil mengejutkan, itu sinyal untuk berhenti dan menyelidiki.
+> - **Lab hanya sampai kode jalan** - selesai bukan saat tidak error, tetapi saat hasilnya bisa dijelaskan. Jika hasil di luar dugaan, itu sinyal untuk berhenti dan menyelidiki.
 > - **Kode LLM tanpa dibaca** - ketika kodenya benar, Anda melewatkan pemahaman; ketika salah nanti, Anda tidak tahu cara mencarinya. Protokol verifikasi LLM dibahas di W7.
 > - **Catatan eksperimen ditunda** - memori tidak bisa merekam dua puluh run ablation yang serupa. Jika ditunda, Anda terpaksa menjalankan ulang eksperimen hanya untuk mengingat hasilnya.
 > - **Data langsung di-train tanpa diperiksa** - W6 menunjukkan contoh konkret ketika kelalaian seperti ini memaksa pengulangan berbulan-bulan.

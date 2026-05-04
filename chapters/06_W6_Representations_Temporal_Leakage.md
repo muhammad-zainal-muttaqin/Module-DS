@@ -251,7 +251,7 @@ for idx in indices:
     print(f"true: {targets[idx]}, predicted: {preds[idx]}, conf: {confs[idx]:.3f}")
 ```
 
-Proses ini sering mengejutkan. Saya pernah menemukan 15% label pada dataset publik "kucing vs anjing" salah karena ditandai oleh *crowd worker* yang tergesa-gesa.
+Proses ini sering menghadirkan kejutan. Saya pernah menemukan 15% label pada dataset publik "kucing vs anjing" salah karena ditandai oleh *crowd worker* yang tergesa-gesa.
 
 ### 2.4 Verifikasi Pipeline: Pemisahan yang Ketat
 
@@ -616,7 +616,7 @@ Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasi
 
 1. Anda mewarisi proyek dari senior yang sudah pindah. Dataset siap, kode siap, akurasi test terlaporkan 91%. Apa tiga pemeriksaan pertama yang akan Anda lakukan sebelum *memakai ulang* angka 91% tersebut di laporan Anda sendiri?
 
-2. Model Anda mencapai 99% akurasi pada val set di hari pertama. Apa lima hipotesis paling mungkin tentang penyebabnya, diurutkan dari yang paling membosankan ke yang paling mengejutkan? Untuk tiga hipotesis teratas, bagaimana Anda menguji masing-masing dalam waktu satu jam?
+2. Model Anda mencapai 99% akurasi pada val set di hari pertama. Apa lima hipotesis paling mungkin tentang penyebabnya, diurutkan dari yang paling membosankan ke yang paling tidak terduga? Untuk tiga hipotesis teratas, bagaimana Anda menguji masing-masing dalam waktu satu jam?
 
 3. Dataset PathMNIST yang Anda pakai di Lab 4 tidak memiliki informasi pasien - setiap sampel dianggap independen. Bagaimana Anda akan menangani ini jika dataset memiliki ID pasien dan setiap pasien memiliki beberapa slide? Jelaskan protokol split yang benar dan mengapa random split biasa akan gagal.
 

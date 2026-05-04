@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="ui-sans-serif,system-ui,sans-serif">
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="ui-sans-serif,system-ui,sans-serif">
   <rect width="720" height="360" fill="#FAFAFA" rx="12"/>
   <text x="360" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#111827">4 Level Penguasaan (Mastery)</text>
   <text x="360" y="44" text-anchor="middle" font-size="10" fill="#6B7280">Penilaian komprehensif mencakup 10 kompetensi selama 14 minggu</text>
@@ -51,7 +51,7 @@
   <!-- Stars -->
   <text x="62" y="90" font-size="16">⭐</text>
   <text x="80" y="90" font-size="14" font-weight="700" fill="#92400E">Masterpiece</text>
-  <text x="170" y="90" font-size="10" fill="#92400E">Riset orisinal, temuan mengejutkan, komunikasi yang meyakinkan</text>
+  <text x="170" y="90" font-size="10" fill="#92400E">Riset orisinal, temuan tak terduga, komunikasi yang meyakinkan</text>
 
   <!-- Right side score axis -->
   <line x1="674" y1="62" x2="674" y2="338" stroke="#E5E7EB" stroke-width="1.5"/>

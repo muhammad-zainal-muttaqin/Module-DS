@@ -486,7 +486,7 @@ Salin checklist ini di bagian atas setiap folder eksperimen baru (`experiments/<
 - Test set *benar-benar* belum pernah dilihat dalam proses tuning (bukan validasi yang dinamai test).
 - Perbedaan antar varian > 2× std (kalau tidak: panggil "tidak konklusif", bukan "lebih baik").
 - Error analysis: minimal 20 sampel salah klasifikasi diperiksa manual.
-- Bila hasil mengejutkan positif: cari *kemungkinan bug yang menguntungkan* sebelum merayakan.
+- Bila hasil positif di luar dugaan: cari *kemungkinan bug yang menguntungkan* sebelum merayakan.
 
 ---
 
@@ -782,7 +782,7 @@ Tanyakan pada diri sendiri: *"Apa yang ingin saya buktikan, pahami, atau buat da
 | Dimensi | Pertanyaan panduan |
 | --- | --- |
 | **Implementasi** | Apa yang saya bangun atau ubah? Apa hasilnya dibanding sebelum? |
-| **Analisis** | Apa yang saya amati? Apa yang mengejutkan? Hipotesis apa yang muncul? |
+| **Analisis** | Apa yang saya amati? Apa yang tak terduga? Hipotesis apa yang muncul? |
 | **Desain** | Keputusan apa yang saya buat dan mengapa? Apa yang akan saya ubah jika mengulangi? |
 | **Eksplorasi arsitektur** | Apakah ada keluarga arsitektur baru yang relevan untuk dijelajahi? (opsional) |
 
@@ -1202,7 +1202,7 @@ Lab-lab modul memakai basis kode dan dataset yang sama, lalu bertambah kompleks 
 
 Mulai W4, setiap minggu Anda memilih satu pertanyaan atau topik dari materi minggu itu, mengerjakannya secara mandiri di luar sesi tatap muka, dan mempresentasikan 10 menit di awal sesi berikutnya. Portofolio berisi 8 entri (W4-W11) ditutup dengan refleksi perjalanan belajar. Template entri: [C.6](#c6-template-entri-portofolio); panduan presentasi: [C.7](#c7-panduan-slot-presentasi-komponen-mandiri-10-menit); format dan kriteria umum: [C.9](#c9-template-komponen-mandiri).
 
-Pertanyaan yang baik untuk Komponen Mandiri bersifat spesifik, terhubung ke materi minggu itu, dan cukup terbuka untuk menghasilkan temuan yang mengejutkan. Dalam mengerjakan, seorang peneliti secara alami akan mengimplementasikan sesuatu, menganalisis hasilnya, membuat keputusan desain, dan sesekali menjelajahi arsitektur baru - keempat dimensi ini tidak perlu dipilih salah satu, melainkan muncul sesuai kebutuhan pertanyaan.
+Pertanyaan yang baik untuk Komponen Mandiri bersifat spesifik, terhubung ke materi minggu itu, dan cukup terbuka untuk menghasilkan temuan tak terduga. Dalam mengerjakan, seorang peneliti secara alami akan mengimplementasikan sesuatu, menganalisis hasilnya, membuat keputusan desain, dan sesekali menjelajahi arsitektur baru - keempat dimensi ini tidak perlu dipilih salah satu, melainkan muncul sesuai kebutuhan pertanyaan.
 
 **Empat dimensi riset dalam satu mini-proyek:**
 

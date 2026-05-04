@@ -27,7 +27,7 @@
 
 # 09 · W9 - Multimodal Reasoning
 
-> *Ketika dua aliran data tersedia, apakah model benar-benar menggunakan keduanya? Pertanyaan ini paling sering diabaikan dalam riset multimodal - dan jawabannya sering mengejutkan.*
+> *Ketika dua aliran data tersedia, apakah model benar-benar menggunakan keduanya? Pertanyaan ini paling sering diabaikan dalam riset multimodal - dan jawabannya sering di luar dugaan.*
 
 **Baris peta besar:** beberapa tensor -> prediksi bersama
 **Kebiasaan riset:** Ablasi per modalitas dan analisis kegagalan multimodal

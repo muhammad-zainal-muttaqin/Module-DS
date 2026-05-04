@@ -78,7 +78,7 @@ Sebelum masuk ke "apa itu foundation model", mari kita lihat bagaimana kita samp
 
 **Fase 3: Pretraining self-supervised pada teks (2018–2020).** BERT (Devlin et al., 2018) dan GPT (Radford et al., 2018) memindahkan paradigma ini ke NLP, dengan dua perbedaan penting. Pertama, pretraining dilakukan secara *self-supervised*: model belajar dari teks tanpa label, cukup dengan memprediksi token yang disembunyikan (masked language modeling) atau token berikutnya (causal language modeling). Kedua, skala data melonjak drastis: BERT dilatih di 3,3 miliar token dari BooksCorpus + Wikipedia; GPT-2 di 8 juta halaman web.
 
-Hasilnya mengejutkan: satu model pretrained bisa di-fine-tune ke puluhan tugas hilir (klasifikasi teks, NER, question answering, summarization) tanpa mengubah arsitektur. Inilah momen di mana istilah *pretrained language model* mulai bergeser menjadi *foundation*.
+Hasilnya di luar dugaan: satu model pretrained bisa di-fine-tune ke puluhan tugas hilir (klasifikasi teks, NER, question answering, summarization) tanpa mengubah arsitektur. Inilah momen di mana istilah *pretrained language model* mulai bergeser menjadi *foundation*.
 
 **Fase 4: Multimodal dan general-purpose (2020–sekarang).** CLIP (Radford et al., 2021) membuktikan bahwa pretraining kontrastif pada pasangan gambar-teks 400M menghasilkan representasi yang bisa melakukan zero-shot klasifikasi gambar tanpa pernah dilatih khusus untuk ImageNet. Whisper (2022) melakukan hal serupa untuk audio ke teks. Model-model ini bukan lagi spesialis per domain; mereka adalah infrastruktur yang bisa diadaptasi ke banyak tugas.
 

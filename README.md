@@ -25,7 +25,7 @@ Jika dua prasyarat pertama belum solid, kerjakan lebih dulu *primer* pada [Lampi
 ### Bootcamp (Minggu 1-11)
 
 | Minggu | Topik | Bab | Lab utama | Rigor Habit |
-|---|---|---|---|---|---|
+|---|---|---|---|
 | 1 | Tabular, output heads, observasi pertama | [01](chapters/01_W1_Tabular_Output_Heads.md) | Lab 0 | Observation before conclusion |
 | 2 | Images, CNN, smoke test tiga level | [02](chapters/02_W2_Images_CNN_Smoke_Test.md) | Lab 1 | Three-level smoke test |
 | 3 | Loss, optimizer, galeri run (example-first) | [03](chapters/03_W3_Loss_Optimizer_Evaluasi.md) | Lab 1 + Lab 2 | Change one thing at a time |
@@ -41,7 +41,7 @@ Jika dua prasyarat pertama belum solid, kerjakan lebih dulu *primer* pada [Lampi
 ### Capstone (Minggu 12-15)
 
 | Minggu | Fase | Bab | Required outputs |
-|---|---|---|---|---|
+|---|---|---|---|
 | 12 | Filter dan komitmen framing; Eksperimen 1 | [12](chapters/12_Capstone.md) | Framing disetujui; pre-reg Eks 1 di-commit; Eks 1 mulai |
 | 13 | Rethink dan iterasi; Eksperimen 2 | [12](chapters/12_Capstone.md) | Dokumen rethink; pre-reg Eks 2 di-commit |
 | 14 | Presentasi final (research talks 20 mnt) | [12](chapters/12_Capstone.md) | Laporan draft; demo; feedback Q&A |
