@@ -248,26 +248,66 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
     footnote: "Satu pasangan untuk setiap task. Diskusi 2 menit.",
   },
 
-  // ── Slide 8c: Jawaban task→loss ──
+  // ── Slide 8c: Jawaban Task A ──
   {
-    layout: "grid",
-    title: "Jawaban: Task → Loss",
-    body: "Berikut adalah penjelasan untuk setiap pasangan task dan loss:",
-    gridItems: [
-      {
-        title: "Task A → MSELoss",
-        body: "Task A adalah regresi, sehingga output head-nya adalah Linear(D,1) tanpa aktivasi dan target-nya bertipe float.",
-      },
-      {
-        title: "Task B → BCEWithLogitsLoss",
-        body: "Task B adalah klasifikasi biner, sehingga output head-nya adalah Linear(D,1) logit dengan target float 0/1. Alternatifnya adalah Linear(D,2)+CrossEntropyLoss.",
-      },
-      {
-        title: "Task C → CrossEntropyLoss",
-        body: "Task C adalah klasifikasi multikelas, sehingga output head-nya adalah Linear(D,3) logit dengan target int 0/1/2. Target ini bukan one-hot.",
-      },
-    ],
-    footnote: "Pola ini sama persis dengan Tabel 5 Konfigurasi di W1 - berlaku di semua bab.",
+    layout: "split",
+    title: "Jawaban Task A: Prediksi Harga Rumah → MSELoss",
+    body: "Task A meminta prediksi harga rumah berupa angka kontinu (misalnya 150 juta atau 300 juta). Karena output bukan kategori, task ini adalah regresi.",
+    left: {
+      title: "Model dan Target",
+      bullets: [
+        "Output head-nya adalah `nn.Linear(D, 1)` tanpa aktivasi.",
+        "Bentuk output adalah **(B, 1)** - satu angka prediksi per sampel.",
+        "Target `y` bertipe float, misalnya `250.0` (juta rupiah).",
+      ],
+    },
+    right: {
+      title: "Loss: MSELoss",
+      body: "MSELoss mengukur seberapa jauh angka prediksi dari angka asli, dihitung sebagai rata-rata kuadrat selisih.\n\nContoh: prediksi 200, target 250, selisih 50, lalu dikuadratkan menjadi 2500. Loss ini sensitif terhadap outlier karena selisih besar dihukum lebih berat.",
+    },
+    footnote: "Intinya: regresi pakai MSE. Output Linear(D,1) tanpa aktivasi, target float kontinu.",
+  },
+
+  // ── Slide 8c2: Jawaban Task B ──
+  {
+    layout: "split",
+    title: "Jawaban Task B: Deteksi Spam → BCEWithLogitsLoss",
+    body: "Task B hanya punya dua kemungkinan: spam (1) atau bukan spam (0). Ini klasifikasi biner dengan dua varian arsitektur yang sama-sama valid.",
+    left: {
+      title: "Varian 1 Logit (Direkomendasikan)",
+      bullets: [
+        "Output head-nya adalah `nn.Linear(D, 1)` yang menghasilkan satu logit.",
+        "Bentuk output adalah **(B, 1)** - satu angka logit per sampel.",
+        "Target `y` bertipe float dengan nilai 0 atau 1.",
+        "Contoh: logit 2.0 berarti probabilitas tinggi (spam), logit -1.5 berarti probabilitas rendah (bukan spam).",
+      ],
+    },
+    right: {
+      title: "Loss: BCEWithLogitsLoss",
+      body: "BCEWithLogitsLoss menggabungkan sigmoid dengan binary cross entropy dalam satu fungsi, sehingga kamu cukup memasukkan logit mentah.\n\nAlternatifnya adalah `Linear(D, 2)` plus CrossEntropyLoss - dua-duanya valid, pilih satu dan pakai konsisten sampai akhir eksperimen.",
+    },
+    footnote: "Intinya: biner pakai BCEWithLogits (1 output) atau CrossEntropy (2 output). Jangan campur dalam satu eksperimen.",
+  },
+
+  // ── Slide 8c3: Jawaban Task C ──
+  {
+    layout: "split",
+    title: "Jawaban Task C: 3 Kategori Cuaca → CrossEntropyLoss",
+    body: "Task C punya tiga kelas: Cerah, Mendung, Hujan. Karena lebih dari dua kelas dan saling eksklusif, ini adalah klasifikasi multikelas.",
+    left: {
+      title: "Model dan Target",
+      bullets: [
+        "Output head-nya adalah `nn.Linear(D, 3)` yang menghasilkan tiga logit.",
+        "Bentuk output adalah **(B, 3)** - satu logit per kelas per sampel.",
+        "Contoh output `[2.1, 0.5, -1.0]` berarti model paling yakin kelas pertama (Cerah).",
+        "Target bukan one-hot, tetapi indeks integer: Cerah=0, Mendung=1, Hujan=2.",
+      ],
+    },
+    right: {
+      title: "Loss: CrossEntropyLoss",
+      body: "CrossEntropyLoss mengukur apakah model memberi probabilitas tinggi ke kelas yang benar dengan menggabungkan log-softmax dan negative log likelihood.\n\nTarget bertipe `torch.long` (integer), bukan float dan bukan one-hot. Contoh: `y = torch.tensor([0, 2, 1], dtype=torch.long)` untuk batch tiga sampel dengan label Cerah, Hujan, Mendung.",
+    },
+    footnote: "Intinya: multikelas pakai CrossEntropy. Output Linear(D, K) logit mentah, target integer 0..K-1, jangan tambah Softmax sebelum loss.",
   },
 
   // ── Slide 9: PyTorch Primer ──
