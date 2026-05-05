@@ -114,17 +114,17 @@ export const slides00a: SlideSection[] = [
     title: "Jawaban: Shape (32, 3, 64, 64)",
     left: {
       title: "Jawaban: B",
-      body: "Jawaban yang benar adalah B: B=32 (batch), C=3 (channel RGB), H=64, W=64.\n\nKonvensi PyTorch menggunakan NCHW. Dimensi selalu dibaca dari kiri ke kanan: batch, channel, tinggi, lebar.",
+      body: "Jawaban yang benar adalah B: B=32 (batch), C=3 (channel RGB), H=64, W=64.\n\nDokumentasi PyTorch menyebut tata letak ini sebagai **NCHW**, sedangkan di modul kita menulis **BCHW** karena huruf B sudah dipakai untuk batch dan N kita pakai untuk jumlah kelas. Dua istilah ini menunjuk hal yang sama - dimensi pertama selalu batch, lalu channel, lalu tinggi, lalu lebar.",
     },
     right: {
       title: "Kenapa Bukan yang Lain?",
       bullets: [
         "**A salah** karena C=32 tidak mungkin - channel citra hanya 1 (grayscale) atau 3-4 (RGB/RGBA).",
         "**C salah** karena H=3 tidak mungkin - angka 3 adalah channel, bukan ukuran piksel.",
-        "**D salah** karena urutan NCHW adalah standar PyTorch yang konsisten di semua fungsi dan dokumentasi.",
+        "**D salah** karena urutan B-C-H-W (alias NCHW di dokumentasi PyTorch) adalah standar yang konsisten di semua fungsi dan tutorial resmi.",
       ],
     },
-    footnote: "Shape adalah gerbang pertama debugging. Baca sebelum bertanya ke internet atau LLM.",
+    footnote: "Shape adalah gerbang pertama debugging. Baca sebelum bertanya ke internet atau LLM. Catatan: NCHW di PyTorch = BCHW di modul ini, beda nama saja.",
   },
 
   // ── Slide 4: Video deeplizard ──
