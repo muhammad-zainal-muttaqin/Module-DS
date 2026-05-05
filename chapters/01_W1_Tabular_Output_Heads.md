@@ -200,10 +200,7 @@ MLP belajar lewat **backpropagation**: setelah loss dihitung di output, gradient
 
 Bayangkan jaringan sebagai rantai operasi: `x → Linear₁ → ReLU₁ → Linear₂ → ReLU₂ → Linear₃ → loss`. Saat `loss.backward()` dipanggil, PyTorch berjalan mundur lewat rantai ini, menghitung kontribusi setiap parameter terhadap loss melalui chain rule (rantai turunan; lihat §4 di [Prasyarat Modul](00a_Prasyarat.md)). Setiap layer memiliki turunan untuk operasinya sendiri; library autograd menggabungkannya menjadi gradient utuh untuk seluruh model. Setelah gradient siap, `optimizer.step()` menggeser parameter sedikit ke arah `-gradient` (penurunan loss).
 
-Itu sudah cukup sebagai gambaran W1. Anda **tidak perlu** menurunkan chain rule manual minggu ini. Derivasi 7-langkah yang ketat (`MSE loss + sigmoid` pada dua-layer MLP) tersedia di [Lampiran A.1](14_Lampiran.md#a1-backpropagation-derivasi-manual) untuk dibaca setelah Anda sudah punya gambaran training dari beberapa run sukses. Lab 1c (MLP numpy from-scratch) juga tersedia sebagai breadth lab opsional kapan saja, dan menerapkan backprop secara konkret pada MNIST.
-
-> [!NOTE]
-> Modul lama menempatkan derivasi backprop di awal, sebelum lab pertama. Revisi ini menggesernya ke lampiran karena banyak trainee menerima materi yang terlalu padat dalam waktu singkat. Jika Anda sudah merasa nyaman dengan kalkulus chain rule, baca Lampiran A.1 paralel dengan W1; jika belum, biarkan dulu, dan kembali setelah W3 ketika Anda sudah punya beberapa loss curve untuk diinterpretasi.
+Itu sudah cukup sebagai gambaran W1. Anda **tidak perlu** menurunkan chain rule manual minggu ini. Derivasi 7-langkah yang ketat (`MSE loss + sigmoid` pada dua-layer MLP) tersedia di [Lampiran A.13](14_Lampiran.md#a13-backpropagation-derivasi-manual) untuk dibaca setelah Anda sudah punya gambaran training dari beberapa run sukses. Lab 1c (MLP numpy from-scratch) juga tersedia sebagai breadth lab opsional kapan saja, dan menerapkan backprop secara konkret pada MNIST.
 
 ### 2.4 Pipeline Praktis: Tensor, Batch, Dataloader, Split
 
