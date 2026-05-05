@@ -36,13 +36,14 @@ Halaman ini memuat kosakata dasar yang perlu dikenali sebelum membuka W1. Prasya
 "Shape" sebuah tensor adalah daftar berapa banyak elemen di tiap sumbu, ditulis sebagai tuple Python:
 
 
-| Tuple shape    | Arti                                   | Contoh data             |
-| -------------- | -------------------------------------- | ----------------------- |
-| `(3,)`         | satu sumbu, 3 elemen                   | satu vektor `[a, b, c]` |
-| `(3, 4)`       | dua sumbu, 3 baris × 4 kolom           | matriks 3×4             |
-| `(3, 4, 5)`    | tiga sumbu                             | "kubus" 3×4×5           |
-| `(B, F)`       | B sampel, masing-masing F fitur        | satu batch tabular      |
-| `(B, C, H, W)` | B gambar, C channel, tinggi H, lebar W | satu batch citra        |
+| Tuple shape    | Arti                                            | Contoh data                          |
+| -------------- | ----------------------------------------------- | ------------------------------------ |
+| `(3,)`         | satu sumbu, 3 elemen                            | satu vektor `[a, b, c]`              |
+| `(3, 4)`       | dua sumbu, 3 baris × 4 kolom                    | matriks 3×4                          |
+| `(3, 4, 5)`    | tiga sumbu                                      | "kubus" 3×4×5                        |
+| `(B, F)`       | B sampel, masing-masing F fitur                 | satu batch tabular                   |
+| `(B, C, H, W)` | B gambar, C channel, tinggi H, lebar W          | satu batch citra                     |
+| `(B, T, D)`    | B urutan, T timestep, D dimensi embedding/hidden | satu batch sequence (teks, time-series) |
 
 
 **Koma akhir.** `(3,)` dengan koma di belakang adalah tuple dengan satu elemen; `(3)` tanpa koma adalah angka biasa di Python. Karena shape selalu tuple, koma akhir wajib saat tensor hanya punya satu sumbu.
@@ -61,11 +62,14 @@ Modul memakai huruf-huruf berikut secara konsisten. Hafalkan sekali; semua bab p
 | Huruf    | Singkatan dari                                                     | Contoh konteks                                   |
 | -------- | ------------------------------------------------------------------ | ------------------------------------------------ |
 | `N`      | jumlah kelas (number of classes) atau jumlah sampel sesuai konteks | klasifikasi 10 kelas → output `(N,)` dengan N=10 |
-| `F`      | jumlah fitur (features)                                            | data tabular 5 kolom → input `(F,)` dengan F=5   |
+| `F`      | jumlah fitur tabular (features)                                    | data tabular 5 kolom → input `(F,)` dengan F=5   |
+| `D`      | dimensi embedding atau hidden state                                | embedding kata 768-dim → `(T, D)` dengan D=768   |
 | `B`      | ukuran batch (batch size)                                          | 32 sampel sekaligus → batch `(B, F)` dengan B=32 |
 | `C`      | jumlah channel (channels)                                          | RGB → C=3, grayscale → C=1                       |
 | `H`, `W` | tinggi (height) dan lebar (width) gambar                           | foto 224×224 → H=W=224                           |
 | `T`      | panjang sequence atau timestep                                     | kalimat 50 token → T=50                          |
+
+`F` dan `D` sama-sama menyatakan ukuran dimensi terakhir sebuah vektor, tetapi konteksnya berbeda. `F` dipakai untuk fitur input tabular (kolom CSV, atribut), sedangkan `D` dipakai untuk dimensi representasi internal seperti embedding kata atau hidden state RNN/Transformer. Saat data tabular dilewatkan ke MLP, `F` di input bisa berubah menjadi `D` di hidden layer.
 
 
 ## 3. Arti Panah `->` di Shape Map
