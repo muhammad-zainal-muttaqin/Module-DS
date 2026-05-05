@@ -133,6 +133,36 @@ input  ──►  Linear(F, 64) ──► ReLU ──► Linear(64, 32) ──�
 
 ![Arsitektur body-head: satu badan MLP bersama menghasilkan tiga keluaran berbeda sesuai tugas (regresi, klasifikasi biner, multikelas)](../figures/fig01g_tiga_tugas.png)
 
+Diagram di atas dapat dirangkai langsung dalam PyTorch: satu body bersama, tiga head paralel, satu forward pass menghasilkan tiga output sekaligus.
+
+```python
+import torch
+import torch.nn as nn
+
+class ArsitekturMultiTugas(nn.Module):
+    def __init__(self, jumlah_fitur=10, jumlah_kelas=3):
+        super().__init__()
+        self.badan_mlp = nn.Sequential(
+            nn.Linear(jumlah_fitur, 64), nn.ReLU(),
+            nn.Linear(64, 32), nn.ReLU(),
+        )
+        self.kepala_regresi = nn.Linear(32, 1)
+        self.kepala_biner = nn.Linear(32, 1)
+        self.kepala_multikelas = nn.Linear(32, jumlah_kelas)
+
+    def forward(self, x):
+        fitur = self.badan_mlp(x)
+        return self.kepala_regresi(fitur), self.kepala_biner(fitur), self.kepala_multikelas(fitur)
+
+model = ArsitekturMultiTugas()
+data_input_x = torch.randn(1, 10)
+hasil_regresi, hasil_biner, hasil_multikelas = model(data_input_x)
+
+print("1. Output Regresi (1 nilai):", hasil_regresi.item())
+print("2. Output Logit Biner (1 nilai):", hasil_biner.item())
+print("3. Output Logits Multikelas (3 nilai):", hasil_multikelas.detach().numpy())
+```
+
 Pada model pretrained (W7-W8), prinsip ini lebih jelas: backbone CNN/Transformer pretrained menjadi body yang di-freeze, dan hanya head kecil yang dilatih untuk tugas baru. Memisahkan body dan head sejak W1 memudahkan transisi ke pola adaptasi tersebut.
 
 ### 2.2 Output Head + Loss Matching

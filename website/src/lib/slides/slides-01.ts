@@ -190,6 +190,31 @@ print(z.shape)                # torch.Size([32, 64])`,
     footnote: "Badan = representasi umum. Head = spesialisasi per task. Kesalahan di head lebih mudah didiagnosis.",
   },
 
+  // ── Slide 7b: Body + 3 Head dalam PyTorch ──
+  {
+    layout: "code",
+    title: "Body + 3 Head dalam PyTorch",
+    body: "Diagram body-head dapat dirangkai langsung: satu badan bersama, tiga head paralel, satu forward menghasilkan tiga output.",
+    code: `class ArsitekturMultiTugas(nn.Module):
+    def __init__(self, jumlah_fitur=10, jumlah_kelas=3):
+        super().__init__()
+        self.badan_mlp = nn.Sequential(
+            nn.Linear(jumlah_fitur, 64), nn.ReLU(),
+            nn.Linear(64, 32), nn.ReLU(),
+        )
+        self.kepala_regresi = nn.Linear(32, 1)
+        self.kepala_biner = nn.Linear(32, 1)
+        self.kepala_multikelas = nn.Linear(32, jumlah_kelas)
+
+    def forward(self, x):
+        fitur = self.badan_mlp(x)
+        return (self.kepala_regresi(fitur),
+                self.kepala_biner(fitur),
+                self.kepala_multikelas(fitur))`,
+    lang: "python",
+    footnote: "Tiga head berbagi badan yang sama. Pretrained model (W7-W8) memakai pola identik: backbone bersama + head per-task.",
+  },
+
   // ── Slide 8: Harus dipasangkan ──
   {
     layout: "section",
