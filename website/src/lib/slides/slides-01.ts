@@ -31,7 +31,7 @@ export const slides01: SlideSection[] = [
     gridItems: [
       {
         title: "Soal 1: MSELoss",
-        body: "Soal 1 meminta prediksi angka kontinu, sehingga task-nya adalah regresi dan loss yang dipakai adalah MSELoss. Head-nya adalah Linear(D,1) dan target-nya adalah float biasa, bukan kelas.",
+        body: "Soal 1 meminta prediksi angka kontinu, sehingga tugasnya adalah regresi dan loss yang dipakai adalah MSELoss. Head-nya adalah Linear(D,1) dan target-nya adalah float biasa, bukan kelas.",
       },
       {
         title: "Soal 2: Dua-duanya boleh",
@@ -100,7 +100,7 @@ export const slides01: SlideSection[] = [
   {
     layout: "section",
     title: "Mengapa Tabular Lebih Dulu?",
-    body: "Ada empat alasan praktis mengapa kita memulai dari tabular: pertama, pipeline-nya paling pendek karena tidak ada augmentasi dan tidak ada tokenizer; kedua, tiga perumusan tugas bisa diuji pada dataset yang sama; ketiga, bug loss-head terlihat jelas dari output shape; dan keempat, tidak ada domain baru yang perlu dipelajari.",
+    body: "Ada empat alasan mengapa kita memulai dari tabular: pertama, pipeline-nya paling pendek karena tidak ada augmentasi dan tidak ada tokenizer; kedua, tiga perumusan tugas bisa diuji pada dataset yang sama; ketiga, bug loss-head terlihat jelas dari output shape; dan keempat, tidak ada domain baru yang perlu dipelajari.",
     footnote: "Mulai dari tabular karena kompleksitasnya paling rendah, bukan karena tabular lebih penting dari domain lain.",
   },
 
@@ -123,7 +123,7 @@ export const slides01: SlideSection[] = [
         "Input berbentuk **(B, F)**, yang berarti B sampel tabular dengan F fitur.",
         "Layer 1 mengubah (B,F) → (B,64) dengan Linear+ReLU.",
         "Layer 2 mengubah (B,64) → (B,32) dengan Linear+ReLU.",
-        "Head mengubah (B,32) → **(B, 1 atau 2 atau K)** sesuai dengan task.",
+        "Head mengubah (B,32) → **(B, 1 atau 2 atau K)** sesuai dengan tugas.",
       ],
     },
     right: {
@@ -175,11 +175,11 @@ print(z.shape)                # torch.Size([32, 64])`,
     layout: "split",
     title: "Body dan Head: Struktur Dua Bagian",
     left: {
-      title: "Badan Bersama (Shared Body)",
-      body: "Badan bersama adalah rangkaian Linear+ReLU yang mengekstrak representasi dari data mentah. Struktur ini sama untuk semua task.\n\nOutput badan menghasilkan tensor **(B, H)** dengan H sebagai ukuran hidden layer terakhir.",
+      title: "Badan Bersama",
+      body: "Badan bersama adalah rangkaian Linear+ReLU yang mengekstrak fitur dari input. Struktur ini sama untuk semua tugas.\n\nOutput badan menghasilkan tensor **(B, H)** dengan H sebagai ukuran hidden layer terakhir.",
     },
     right: {
-      title: "Head Berbeda per Task",
+      title: "Head Berbeda per Tugas",
       bullets: [
         "**Regresi** memakai head `Linear(H, 1)` tanpa aktivasi.",
         "**Biner** memakai head `Linear(H, 2)` dengan CrossEntropyLoss.",
@@ -187,14 +187,14 @@ print(z.shape)                # torch.Size([32, 64])`,
         "Head yang salah menyebabkan loss tidak bisa turun dengan benar.",
       ],
     },
-    footnote: "Badan = representasi umum. Head = spesialisasi per task. Kesalahan di head lebih mudah didiagnosis.",
+    footnote: "Badan = fitur umum. Head = spesialisasi per tugas. Kesalahan di head lebih mudah didiagnosis.",
   },
 
   // ── Slide 7b: Body + 3 Head dalam PyTorch ──
   {
     layout: "code",
     title: "Body + 3 Head dalam PyTorch",
-    body: "Diagram body-head dapat dirangkai langsung: satu badan bersama, tiga head paralel, satu forward menghasilkan tiga output.",
+    body: "Diagram body-head dapat ditulis langsung dalam PyTorch: satu badan bersama, tiga head paralel, satu forward menghasilkan tiga output.",
     code: `class ArsitekturMultiTugas(nn.Module):
     def __init__(self, jumlah_fitur=10, jumlah_kelas=3):
         super().__init__()
@@ -219,7 +219,7 @@ print(z.shape)                # torch.Size([32, 64])`,
   {
     layout: "section",
     title: "Output Head + Loss: Harus Dipasangkan",
-    body: "Pasangan output head dan loss bukan pilihan bebas. Task menentukan bentuk head, dan head menentukan fungsi loss yang dipakai. Menukar pasangan ini menghasilkan bug yang sulit didiagnosis: loss masih bisa turun, tapi model tidak belajar hal yang benar.",
+    body: "Pasangan output head dan loss bukan pilihan bebas. Tugas menentukan bentuk head, dan head menentukan fungsi loss yang dipakai. Menukar pasangan ini menghasilkan bug yang sulit didiagnosis: loss masih bisa turun, tapi model tidak belajar hal yang benar.",
     footnote: "Tiga perempat bug di W1 berasal dari loss-head mismatch. Lab W1 meminta untuk mengalaminya secara sengaja.",
   },
 
@@ -318,7 +318,7 @@ print(z.shape)                # torch.Size([32, 64])`,
     layout: "video",
     title: "Backpropagation: Visualisasi (Tonton ~20 Menit)",
     videoUrl: "https://www.youtube.com/embed/Ilg3gGewQ5U",
-    caption: "3Blue1Brown - \"What is backpropagation really doing?\" - visualisasi chain rule yang mengalir mundur",
+    caption: "3Blue1Brown - \"What is backpropagation really doing?\" - visualisasi chain rule yang dihitung mundur dari loss ke parameter",
     footnote: "Video ini menjelaskan konsep yang sama dengan Lampiran A.1 - pilih cara yang cocok dengan gaya belajar Anda.",
   },
 
@@ -354,7 +354,7 @@ for batch_x, batch_y in dataloader:
   {
     layout: "cta",
     title: "Sesi Live Coding (Mulai 20 Menit)",
-    body: "Tutup slide ini. Buka Google Colab kosong. Kita akan merangkai 15 baris kode PyTorch dari nol bersama-sama sebelum masuk ke Lab utama. Mahasiswa ikut mengetik.",
+    body: "Tutup slide ini. Buka Google Colab kosong. Kita akan menulis 15 baris kode PyTorch dari nol bersama-sama sebelum masuk ke Lab utama. Mahasiswa ikut mengetik.",
     ctaText: "Buka Google Colab",
     ctaTarget: "https://colab.research.google.com/",
     footnote: "Ini adalah sesi interaktif. Jangan lanjut ke slide berikutnya sampai loop 5 baris sudah dicoba mahasiswa.",
