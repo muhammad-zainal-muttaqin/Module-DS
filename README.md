@@ -2,7 +2,7 @@
 
 Modul ini dirancang untuk mahasiswa S1 yang ingin belajar *riset* machine learning dan deep learning - bukan sekadar menjalankan model, tetapi memahami mengapa eksperimen dirancang seperti itu, bagaimana hasilnya dipercaya, dan apa yang harus dilakukan ketika instruksi dari dosen pembimbing masih terbuka.
 
-**Versi web interaktif:** [muhammad-zainal-muttaqin.github.io/Module-DS](https://muhammad-zainal-muttaqin.github.io/Module-DS/) - SPA untuk membaca 15 bab (termasuk Panduan Instruktur), mengisi jurnal refleksi, melacak progres 14 minggu, self-assess 10 kompetensi, dan menghasilkan protokol eksperimen. Sumber website di [`website/`](website/).
+**Versi web interaktif:** [module-ds.pages.dev](https://module-ds.pages.dev/#/) - SPA untuk membaca 15 bab (termasuk Panduan Instruktur), mengisi jurnal refleksi, melacak progres 14 minggu, self-assess 10 kompetensi, dan menghasilkan protokol eksperimen. Sumber website di [`website/`](website/).
 
 Satu semester berjalan **11 minggu bootcamp + 4 minggu capstone**. Setiap minggu membawa satu *rigor habit* baru yang dibangun di atas yang sebelumnya, satu atau lebih lab, dan satu thread yang menghubungkan ke Big Map keseluruhan. Di akhir bootcamp, mahasiswa mempertahankan framing riset di W12 sebelum 4 minggu eksekusi capstone dimulai.
 
