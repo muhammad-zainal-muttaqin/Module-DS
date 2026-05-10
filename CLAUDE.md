@@ -188,7 +188,7 @@ Prosa ditulis langsung dalam Indonesia, bukan terjemahan dari English academic p
 
 Prinsip:
 1. Utamakan maksud, bukan padanan kata. Struktur Inggris → restrukturisasi.
-2. Jangan paksa metafora. Urutan → `urutan`, `alur`, `bertahap`.
+2. Jangan pakai kiasan atau metafora untuk hal teknis. Sebut nama atau operasi teknisnya secara langsung. Contoh: layer bukan "meja kerja", model bukan "pabrik", data bukan "bahan baku", gradient bukan "sinyal error yang mengalir", fungsi aktivasi bukan "gerbang". Kalau ragu: tanya "apakah istilah ini nama teknis yang dipakai di paper/dokumentasi?" - kalau tidak, ganti dengan nama teknisnya.
 3. Jangan personifikasi abstrak. Modul boleh "memuat"/"menjelaskan", bukan "menyepakati".
 4. Hindari `Anda akan + V` sebagai pembuka section deskriptif.
 5. Pertahankan istilah teknis Inggris. Frasa umum non-teknis → Indonesia.
@@ -289,8 +289,18 @@ Prinsip:
 | `poin kritis` / `hal kritis` | `poin penting` / `hal penting` | Kecuali `titik kritis` matematis |
 | `kebiasaan paling kritis` | `kebiasaan paling penting` | |
 | `mengejutkan` sebagai intensifier generik | `sangat`, `di luar dugaan`, `tak terduga`, `mencolok` / restrukturisasi | Untuk refleksi: `hal paling menarik` / `hal tak terduga` |
+| `bahan baku` untuk data/input | nama teknis langsung: `data`, `dataset`, `input` | Kiasan fisik untuk konsep abstrak |
+| `meja kerja` untuk layer/modul | nama teknis langsung: `layer`, `nn.Linear`, `nn.Module` | Kiasan fisik untuk konsep abstrak |
+| `pabrik` untuk model/arsitektur | nama teknis langsung: `model`, `MLP`, `nn.Sequential` | Kiasan fisik untuk konsep abstrak |
+| `gerbang` untuk fungsi aktivasi | nama teknis langsung: `ReLU`, `fungsi aktivasi` | Kiasan fisik untuk konsep abstrak |
+| `sinyal error mengalir / merambat` | `gradient dihitung` / `backward pass` / nama operasi langsung | Kiasan fisik untuk operasi matematika |
+| `data mengalir ke depan / ke kiri / ke kanan` | `forward pass menghitung output dari input` / nama operasi langsung | Arah spasial untuk operasi non-spasial |
+| `misi X` untuk eksperimen atau latihan | `eksperimen X` / `percobaan X` / `latihan X` | Dramatisasi tidak perlu |
+| `mengekspos mesin` / `X sakti` / `X ajaib` | nama langsung sesuai isi section | Kiasan dramatis tidak deskriptif |
+| `berkenalan dengan X` sebagai judul section | `Memuat X` / `Memeriksa X` / tindakan langsung | Kiasan sosial untuk operasi teknis |
+| `merangkai X` untuk "membuat/mendefinisikan X" | `Membuat X` / `Mendefinisikan X` | Kecuali benar-benar ada perakitan komponen |
 
-Pola wajib dihindari: spasial-metaforis ("berada X menuju Y", "di jalur untuk Z"), post-nominal calque ("topik lab nyata"), adjective calque pada abstrak ("representasi yang kaya/informatif"), personifikasi abstrak, frasa Inggris untuk hal umum ("by design", "shared dataset", "shape transformer", "task formulation"), label metadata Inggris, `Anda akan + V` sebagai default opener, overuse `kritis`, overuse `mengejutkan`.
+Pola wajib dihindari: kiasan fisik/sosial untuk konsep teknis ("bahan baku", "meja kerja", "pabrik", "gerbang"), arah spasial untuk operasi matematika ("mengalir ke depan/kiri/kanan"), dramatisasi tidak perlu ("misi sabotase", "sakti", "ajaib"), spasial-metaforis ("berada X menuju Y", "di jalur untuk Z"), post-nominal calque ("topik lab nyata"), adjective calque pada abstrak ("representasi yang kaya/informatif"), personifikasi abstrak, frasa Inggris untuk hal umum ("by design", "shared dataset", "shape transformer", "task formulation"), label metadata Inggris, `Anda akan + V` sebagai default opener, overuse `kritis`, overuse `mengejutkan`.
 
 Pembuka section inklusif: pakai "kita" ("Sebelum **kita** membahas...").
 

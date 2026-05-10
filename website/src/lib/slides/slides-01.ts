@@ -5,7 +5,7 @@ export const slides01: SlideSection[] = [
   {
     layout: "title",
     title: "W1: Tabular, Output Heads & Loss Matching",
-    subtitle: "MLP sebagai pengubah bentuk tensor. Task menentukan head, head menentukan loss.",
+    subtitle: "MLP sebagai pengubah bentuk tensor. Tugas menentukan head, head menentukan loss.",
     body: "Lab 1a: 3 perumusan tugas + eksperimen mismatch. Lab 1b: MLP dari nol dengan NumPy.",
     footnote: "Bab 01 - Minggu 1",
   },
@@ -20,7 +20,7 @@ export const slides01: SlideSection[] = [
       "**Soal 2:** Deteksi spam (ya/tidak). Output head pakai `Linear(D,1)` atau `Linear(D,2)`?",
       "**Soal 3:** 3 kategori cuaca. Target `y` bertipe `int` (0,1,2) atau `float` (0.0, 1.0, 2.0)?",
     ],
-    footnote: "Tiga soal, 2 menit. Bukan ujian - cuma cek apakah prasyarat sudah nyantol.",
+    footnote: "Tiga soal, 2 menit. Bukan ujian - sekadar memeriksa apakah prasyarat sudah dikuasai.",
   },
 
   // ── Slide 1c: Jawaban Kuis Pembuka ──
@@ -64,7 +64,7 @@ export const slides01: SlideSection[] = [
   {
     layout: "bullets",
     title: "Objektif Belajar",
-    body: "Selama mengikuti W1 dan Lab 0, kamu akan:",
+    body: "W1 ini mencakup empat capaian yang harus dikerjakan:",
     bullets: [
       "**Menerapkan tiga tugas berbeda** (regresi, biner, multikelas) pada satu dataset tabular yang sama.",
       "**Memilih output head dan loss** yang cocok dari tabel rujukan §2.2.4 di modul.",
@@ -109,7 +109,7 @@ export const slides01: SlideSection[] = [
     layout: "image",
     title: "Satu Dataset, Tiga Tugas",
     imageUrl: "/figures/fig01g_tiga_tugas.png",
-    caption: "Badan MLP bersama menghasilkan representasi, lalu tiga head berbeda menyesuaikan task",
+    caption: "Gambar ini menunjukkan satu badan MLP bersama menghasilkan representasi, lalu tiga head berbeda menyesuaikan kebutuhan setiap tugas.",
     footnote: "Badan (body) sama - hanya head yang berbeda. Ini yang memungkinkan perbandingan yang setara.",
   },
 
@@ -212,7 +212,7 @@ print(z.shape)                # torch.Size([32, 64])`,
                 self.kepala_biner(fitur),
                 self.kepala_multikelas(fitur))`,
     lang: "python",
-    footnote: "Tiga head berbagi badan yang sama. Pretrained model (W7-W8) memakai pola identik: backbone bersama + head per-task.",
+    footnote: "Tiga head berbagi badan yang sama. Pretrained model (W7-W8) memakai pola identik: backbone bersama + head per tugas.",
   },
 
   // ── Slide 8: Harus dipasangkan ──
@@ -227,7 +227,7 @@ print(z.shape)                # torch.Size([32, 64])`,
   {
     layout: "split",
     title: "Regresi: MSE + Linear Head",
-    body: "Task regresi memerlukan pasangan head dan loss yang spesifik:",
+    body: "Tugas regresi memerlukan pasangan head dan loss yang spesifik:",
     left: {
       title: "Arsitektur",
       body: "Untuk regresi, output head-nya adalah `nn.Linear(H, 1)` tanpa aktivasi apapun. Output shape-nya adalah **(B, 1)**, yang berarti satu nilai kontinu per sampel.\n\nTarget y harus berupa bilangan real, bukan indeks kelas.",
@@ -243,7 +243,7 @@ print(z.shape)                # torch.Size([32, 64])`,
   {
     layout: "split",
     title: "Klasifikasi Biner: CrossEntropy + 2 Output",
-    body: "Task klasifikasi biner juga memiliki pasangan head dan loss yang harus diperhatikan:",
+    body: "Tugas klasifikasi biner juga memiliki pasangan head dan loss yang harus diperhatikan:",
     left: {
       title: "Arsitektur",
       body: "Untuk klasifikasi biner, output head-nya adalah `nn.Linear(H, 2)` yang menghasilkan dua logit (satu per kelas 0 dan kelas 1).\n\nSaat evaluasi, `logits.argmax(dim=1)` menghasilkan prediksi kelas dengan shape **(B,)**.",
@@ -259,7 +259,7 @@ print(z.shape)                # torch.Size([32, 64])`,
   {
     layout: "split",
     title: "Klasifikasi Multikelas: CrossEntropy + K Output",
-    body: "Task klasifikasi multikelas mengikuti pola yang sama dengan biner, tapi dengan jumlah kelas lebih dari dua:",
+    body: "Tugas klasifikasi multikelas mengikuti pola yang sama dengan biner, tapi dengan jumlah kelas lebih dari dua:",
     left: {
       title: "Arsitektur",
       body: "Untuk klasifikasi multikelas, output head-nya adalah `nn.Linear(H, K)` yang menghasilkan K logit untuk K kelas. Untuk 3 kelas, output shape-nya adalah **(B, 3)**.\n\nSaat evaluasi, `logits.argmax(dim=1)` menghasilkan indeks kelas prediksi.",
@@ -348,6 +348,16 @@ for batch_x, batch_y in dataloader:
     imageUrl: "/figures/fig03c_training_cycle.png",
     caption: "Gambar ini menunjukkan lima langkah dalam satu iterasi: forward → loss → zero_grad → backward → step. Urutan langkah ini tidak bisa ditukar.",
     footnote: "zero_grad() harus dipanggil sebelum backward() - selalu. Jika dilewati, gradient terakumulasi dari batch sebelumnya.",
+  },
+
+  // ── Slide 17c: Cue Live Coding ──
+  {
+    layout: "cta",
+    title: "Sesi Live Coding (Mulai 20 Menit)",
+    body: "Tutup slide ini. Buka Google Colab kosong. Kita akan merangkai 15 baris kode PyTorch dari nol bersama-sama sebelum masuk ke Lab utama. Mahasiswa ikut mengetik.",
+    ctaText: "Buka Google Colab",
+    ctaTarget: "https://colab.research.google.com/",
+    footnote: "Ini adalah sesi interaktif. Jangan lanjut ke slide berikutnya sampai loop 5 baris sudah dicoba mahasiswa.",
   },
 
   // ── Slide 18: Pipeline praktis ──
