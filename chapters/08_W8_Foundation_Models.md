@@ -30,7 +30,7 @@
 > *Foundation model bukan sekadar model yang bagus. Ia sudah mempelajari representasi dari jutaan contoh sehingga Anda tidak perlu memulai dari nol. Pertanyaannya bukan "apakah saya boleh memakainya", melainkan "adaptasi apa yang paling masuk akal untuk skenario ini?"*
 
 **Baris peta besar:** input apa pun yang memanfaatkan prior dari pretrained model
-**Kebiasaan riset:** Literasi model card, pilihan adaptasi, baseline yang adil
+**Kebiasaan riset:** Literasi model card, pilihan adaptasi, baseline yang setara
 **Dataset:** Pakai ulang dataset dari minggu sebelumnya untuk perbandingan langsung
 **Lab utama:** Foundation Model Map + selection memo
 
@@ -328,7 +328,7 @@ Pilih satu pertanyaan dari materi W8 yang ingin Anda jelajahi lebih dalam. Boleh
 **Beberapa pertanyaan pemantik** (tidak wajib salah satunya):
 - Seberapa besar perbedaan frozen CLIP vs fine-tuned ResNet sebagai feature extractor - dalam kondisi apa salah satu lebih unggul?
 - Apa yang sebenarnya ada (dan tidak ada) dalam model card HuggingFace - apakah informasi yang tersedia cukup untuk membuat keputusan adaptasi?
-- Kapan domain-specific model benar-benar lebih baik dari general model - bagaimana Anda merancang eksperimen yang adil untuk membuktikannya?
+- Kapan domain-specific model benar-benar lebih baik dari general model - bagaimana Anda merancang eksperimen yang setara untuk membuktikannya?
 - Bagaimana LoRA bekerja secara mekanis - apakah implementasi dari nol menghasilkan parity dengan library PEFT?
 
 Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasikan 10 menit di awal W9. Format: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).

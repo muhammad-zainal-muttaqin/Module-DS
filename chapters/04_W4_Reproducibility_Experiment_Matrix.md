@@ -46,7 +46,7 @@ W4 adalah transisi dari "bisa training" menuju "bisa riset". Minggu ini membangu
 
 Ingat email PI dari Bab 00:
 
-> "Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang adil, lalu kirim ringkasan hasil hari Kamis."
+> "Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang setara, lalu kirim ringkasan hasil hari Kamis."
 
 **Cara A - langsung kerja.** Anda membuka `train.py`, mengganti `CrossEntropyLoss` menjadi `FocalLoss`, menambahkan `for p in model.block1.parameters(): p.requires_grad = False`, menjalankan training 20 epoch, mengirim akurasi ke Slack: *"baseline 78.4%, mod 80.1%, naik 1.7%"*.
 
@@ -96,7 +96,7 @@ Sebelum Anda membuka editor, jawab lima pertanyaan ini. Tulis jawabannya di file
 **1. Variabel apa yang berubah?**  
 Apa yang berbeda antara kondisi A (baseline) dan kondisi B (modifikasi)? Daftar harus spesifik: bukan "loss", tetapi "`CrossEntropyLoss` → `FocalLoss(gamma=2.0)`". Bukan "freeze layer", tetapi "`backbone.layer1.parameters()` dengan `requires_grad=False`". Jika ada lebih dari satu variabel berubah, pisahkan - Anda butuh satu eksperimen per variabel untuk atribusi yang jelas.
 
-**2. Apa baseline yang adil?**  
+**2. Apa baseline yang setara?**  
 Baseline harus identik dengan kondisi modifikasi pada *semua variabel lain*: arsitektur, data, augmentasi, optimizer, learning rate, seed, jumlah epoch. Jika baseline yang tersedia di repo berbeda di salah satu aspek, entah Anda menyesuaikan baseline atau melaporkan perbedaan dengan jujur.
 
 **3. Apa hipotesis yang dapat dipalsukan?**  
@@ -300,7 +300,7 @@ output:
   root: ./experiments
 ```
 
-Setiap hyperparameter dideklarasikan di sini, bukan tersebar di kode Python. Saat menjalankan eksperimen, [`src/train.py`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/src/train.py) membaca YAML ini dan meneruskannya ke seluruh komponen. Untuk ablation, Anda membuat file YAML baru (mis. `focal_freeze.yaml`) yang hanya mengubah bagian yang relevan; arsitektur, data, dan optimizer tetap identik. Dengan begitu, dua hasil bisa dibandingkan secara adil karena perbedaannya diketahui persis.
+Setiap hyperparameter dideklarasikan di sini, bukan tersebar di kode Python. Saat menjalankan eksperimen, [`src/train.py`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/src/train.py) membaca YAML ini dan meneruskannya ke seluruh komponen. Untuk ablation, Anda membuat file YAML baru (mis. `focal_freeze.yaml`) yang hanya mengubah bagian yang relevan; arsitektur, data, dan optimizer tetap identik. Dengan begitu, dua hasil bisa dibandingkan secara setara karena perbedaannya diketahui persis.
 
 > [!NOTE]
 > Reproduksibilitas penuh (empat sumber non-determinisme, Worker seeding, TensorBoard setup, dan konvensi Git untuk riset eksperimental) dibahas di §2.7 di atas. Jika Anda baru di konsep ini, baca §2.2 (Protokol Eksperimen) lalu §2.7 sebelum mengerjakan W4 assignment.
@@ -322,7 +322,7 @@ Mari kita kerjakan email PI langkah demi langkah, membangun protokol yang baru s
 
 ### 3.1 Membaca Instruksi dengan Cermat
 
-Instruksi: *"Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang adil, lalu kirim ringkasan hasil hari Kamis."*
+Instruksi: *"Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang setara, lalu kirim ringkasan hasil hari Kamis."*
 
 Ambiguitas yang harus Anda ajukan ke PI (lewat pesan singkat atau di pertemuan mingguan):
 
@@ -430,7 +430,7 @@ Di luar update rutin, ada tiga alat yang membentuk kebiasaan komunikasi seorang 
 
 **Menjalankan satu seed dan menarik kesimpulan.** Ini paling umum. Satu run adalah satu titik data di distribusi run yang mungkin. Minimal tiga seed.
 
-**Mengubah baseline di tengah jalan.** Anda mulai dengan baseline A, menjalankan modifikasi B, akurasi B ternyata lebih rendah. Lalu Anda "memperbaiki" baseline (mengganti lr, menambah augmentasi) dan ternyata baseline sekarang kompetitif. Masalahnya: Anda tidak lagi punya pembanding yang adil. Jika baseline perlu diubah, ubah dulu, *lalu* jalankan modifikasi.
+**Mengubah baseline di tengah jalan.** Anda mulai dengan baseline A, menjalankan modifikasi B, akurasi B ternyata lebih rendah. Lalu Anda "memperbaiki" baseline (mengganti lr, menambah augmentasi) dan ternyata baseline sekarang kompetitif. Masalahnya: Anda tidak lagi punya pembanding yang setara. Jika baseline perlu diubah, ubah dulu, *lalu* jalankan modifikasi.
 
 **Memilih metrik setelah melihat hasil.** Anda berharap focal loss menaikkan akurasi; akurasi ternyata stagnan, tetapi F1 kelas minor naik. Anda "menyadari" F1 adalah metrik yang tepat. Ini konfirmasi bias. Metrik dipilih di protokol, sebelum run. Boleh menambahkan metrik baru sebagai pengamatan, tetapi metrik utama tetap yang ditulis lebih dulu.
 
@@ -516,7 +516,7 @@ Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://githu
 
 ## 8. Bacaan Lanjutan
 
-- **Sebastian Raschka - *Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning*** (2018). Paper panjang tetapi bagian 1-3 saja sudah cukup untuk memperdalam pemahaman tentang replikasi dan baseline yang adil.
+- **Sebastian Raschka - *Model Evaluation, Model Selection, and Algorithm Selection in Machine Learning*** (2018). Paper panjang tetapi bagian 1-3 saja sudah cukup untuk memperdalam pemahaman tentang replikasi dan baseline yang setara.
 - **Hullman & Gelman - *Designing for Interactive Exploratory Data Analysis Requires Theories of Graphical Inference*** (2021). Relevan untuk poin "hipotesis sebelum melihat data"; argumennya cocok juga ke evaluasi model.
 - **Henderson et al. - *Deep Reinforcement Learning That Matters*** (AAAI 2018). Studi kasus tentang betapa noise-nya laporan RL tanpa replikasi; pelajarannya berlaku luas.
 

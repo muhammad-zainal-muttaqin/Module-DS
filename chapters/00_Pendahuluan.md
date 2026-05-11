@@ -38,9 +38,9 @@
 
 Bayangkan Anda baru bergabung di laboratorium riset sebagai asisten. Pada hari ketiga, Anda menerima pesan singkat:
 
-> "Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang adil, lalu kirim ringkasan hasil hari Kamis."
+> "Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang setara, lalu kirim ringkasan hasil hari Kamis."
 
-Email dua kalimat ini terdengar sederhana, tetapi setiap fragmen menyimpan keputusan yang tidak disebut: focal loss versi apa, nilai `gamma` berapa, blok awal mana yang di-freeze, baseline seperti apa yang adil, metrik mana yang menentukan, bagaimana memastikan dua run tidak berbeda hanya karena seed acak, dan kapan angka layak dilaporkan.
+Email dua kalimat ini terdengar sederhana, tetapi setiap fragmen menyimpan keputusan yang tidak disebut: focal loss versi apa, nilai `gamma` berapa, blok awal mana yang di-freeze, baseline seperti apa yang setara, metrik mana yang menentukan, bagaimana memastikan dua run tidak berbeda hanya karena seed acak, dan kapan angka layak dilaporkan.
 
 Semua keputusan itu ada di tangan Anda. Modul ini dirancang untuk melatih Anda membuat keputusan-keputusan tersebut secara sistematis, sehingga email semacam itu menjadi titik awal eksperimen yang terstruktur, bukan sumber kepanikan.
 
@@ -86,7 +86,7 @@ Lab inti memakai basis kode dan dataset yang sama lalu bertambah kompleks dari W
 
 Email pembuka tadi tidak berdiri sendiri; ia bergantung pada sepuluh kompetensi yang menjadi tulang punggung modul. Sepuluh kompetensi itu mengelompok dalam tiga gelombang yang saling menumpu.
 
-**Gelombang pertama (W1-W4)** melatih cara memahami sistem ML/DL dalam praktiknya, menerjemahkan instruksi terbuka menjadi eksperimen konkret, dan menjalankan eksperimen yang bisa direproduksi orang lain. Tanpa fondasi ini, kompetensi berikutnya kehilangan pijakan - sulit mengaudit data jika belum bisa membaca kurva loss, sulit menilai foundation model jika belum pernah merancang ablation yang adil.
+**Gelombang pertama (W1-W4)** melatih cara memahami sistem ML/DL dalam praktiknya, menerjemahkan instruksi terbuka menjadi eksperimen konkret, dan menjalankan eksperimen yang bisa direproduksi orang lain. Tanpa fondasi ini, kompetensi berikutnya kehilangan pijakan - sulit mengaudit data jika belum bisa membaca kurva loss, sulit menilai foundation model jika belum pernah merancang ablation yang setara.
 
 **Gelombang kedua (W6-W8)** menambahkan kewaspadaan terhadap data dan kemampuan membaca pekerjaan orang lain: validasi data dan deteksi leakage, pemakaian LLM dan coding copilot dengan tanggung jawab, adopsi repositori riset yang belum dikenal, serta literasi foundation model beserta strategi adaptasinya (frozen, LoRA, full fine-tuning).
 
@@ -119,7 +119,7 @@ Modul ini paling efektif jika tiga komitmen berikut dipegang sepanjang bootcamp.
 
 **Komitmen waktu dan ritme.** Lab dikerjakan pada minggu yang sama dengan bacaannya - menundanya berarti menunda pemahaman, dan minggu berikutnya akan terasa seperti deretan istilah yang tidak tersambung. Mulai W4, satu Komponen Mandiri mingguan dikerjakan berdasarkan pertanyaan atau topik bebas dari materi minggu itu, dicatat di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb), lalu dipresentasikan 10 menit di awal sesi berikutnya. Selesaikan tugas mingguan sebelum sesi berikutnya.
 
-**Akuntabilitas pemikiran.** Catatan eksperimen ditulis sendiri, bukan disalin dari output - menjawab apa yang dijalankan, apa yang terjadi, apa arti hasilnya, dan langkah berikutnya. LLM, coding copilot, dan pencarian web boleh dipakai dengan tanggung jawab: kode yang tidak Anda mengerti dibaca baris demi baris sebelum di-commit. Pertanyaan yang dirumuskan dengan cermat adalah kompetensi yang dinilai di rubrik; jika sesuatu terasa kabur setelah dua bacaan, tulis pertanyaan seringkas mungkin dan bawa ke sesi. Eksperimen yang gagal tetapi didokumentasikan dengan baik dinilai setara dengan yang berhasil - yang dievaluasi adalah kualitas pemikiran, bukan apakah hipotesis terkonfirmasi.
+**Akuntabilitas pemikiran.** Catatan eksperimen ditulis sendiri, bukan disalin dari output - menjawab apa yang dijalankan, apa yang terjadi, apa arti hasilnya, dan langkah berikutnya. LLM, coding copilot, dan pencarian web boleh dipakai dengan tanggung jawab: kode yang tidak Anda mengerti dibaca baris demi baris sebelum di-commit. Pertanyaan yang dirumuskan dengan cermat adalah kompetensi yang dinilai di rubrik; jika sesuatu belum jelas setelah dua bacaan, tulis pertanyaan seringkas mungkin dan bawa ke sesi. Eksperimen yang gagal tetapi didokumentasikan dengan baik dinilai setara dengan yang berhasil - yang dievaluasi adalah kualitas pemikiran, bukan apakah hipotesis terkonfirmasi.
 
 **Breadth dan urutan belajar.** Sebelum Capstone, tunjukkan forward pass berjalan dari empat dari lima keluarga arsitektur (MLP, CNN, RNN/LSTM, Transformer, Autoencoder) - ini memastikan Anda lulus sebagai asisten yang bisa mengenali dan memodifikasi keluarga NN yang muncul di paper lintas domain, bukan hanya spesialis CIFAR-10. Modul memperkenalkan ide melalui run konkret terlebih dahulu, baru topangan teori; derivasi berat seperti backprop manual ada di Lampiran A untuk dibaca setelah Anda punya hasil konkret untuk diinterpretasi.
 

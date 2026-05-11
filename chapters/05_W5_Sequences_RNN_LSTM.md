@@ -336,7 +336,7 @@ model:
 
 **"Saya bisa shuffle data time series bebas."** Berbahaya. Untuk forecasting, shuffling antar sequence boleh. Shuffling di dalam sequence atau split data secara acak (bukan temporal) menyebabkan leakage yang akan dibahas di W6.
 
-**Gradient clipping.** RNN/LSTM tanpa gradient clipping sering mengalami exploding gradient. Satu hal yang sering disalahpahami: `clip_grad_norm_` tidak memotong setiap gradient secara independen. Fungsi ini menghitung norma global dari seluruh gradien model, lalu menurunkan skalanya secara proporsional jika norma tersebut melewati `max_norm`. Hasilnya: arah relatif antar parameter dipertahankan, hanya besarannya yang disesuaikan.
+**Gradient clipping.** Pada RNN/LSTM tanpa gradient clipping, exploding gradient sering terjadi. Satu hal yang sering disalahpahami: `clip_grad_norm_` tidak memotong setiap gradient secara independen. Fungsi ini menghitung norma global dari seluruh gradien model, lalu menurunkan skalanya secara proporsional jika norma tersebut melewati `max_norm`. Hasilnya: arah relatif antar parameter dipertahankan, hanya besarannya yang disesuaikan.
 
 Tambahkan sebelum `optimizer.step()`:
 

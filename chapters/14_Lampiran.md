@@ -452,7 +452,7 @@ Salin checklist ini di bagian atas setiap folder eksperimen baru (`experiments/<
 ### B.1 Sebelum Menjalankan (Pre-flight)
 
 - Pertanyaan riset ditulis dalam satu kalimat falsifiable.
-- Baseline jelas dan adil (tanpa "kelemahan" tersembunyi).
+- Baseline jelas dan setara (tanpa "kelemahan" tersembunyi).
 - Satu metrik utama ditetapkan; metrik sekunder (bila ada) dicatat.
 - Minimum 3 seed direncanakan per kondisi.
 - Config YAML lengkap; tidak ada hyperparameter hardcoded di kode.
@@ -1153,7 +1153,7 @@ Setiap minggu memperkenalkan satu kebiasaan riset yang tetap dipakai setelahnya.
 | W5     | Diagnosis sequence panjang dan justifikasi arsitektur      | Saat training LSTM tidak konvergen, plot gradient norm per-layer dulu sebelum tweak hyperparameter.                                                                      |
 | W6     | Validasi preprocessing dan kewaspadaan leakage             | Hitung mean/std HANYA dari train; jangan pernah lihat test sebelum angka final.                                                                                          |
 | W7     | Verifikasi kode AI, inspeksi tokenisasi, repo primer       | Sebelum commit kode dari LLM, baca baris demi baris dan jalankan minimal smoke test sederhana.                                                                           |
-| W8     | Literasi model card, pilihan adaptasi, baseline yang adil  | Sebelum fine-tune, baca model card: dataset asal, lisensi, batas penggunaan, evaluasi yang sudah ada.                                                                    |
+| W8     | Literasi model card, pilihan adaptasi, baseline yang setara  | Sebelum fine-tune, baca model card: dataset asal, lisensi, batas penggunaan, evaluasi yang sudah ada.                                                                    |
 | W9     | Ablation per modalitas dan multimodal failure analysis     | Setelah multimodal model jalan, jalankan run dengan satu modalitas di-zero atau di-acak; jika metric tidak turun, modalitas itu diabaikan.                               |
 | W10    | Membaca paper tiga putaran dan menerjemahkannya ke kode    | Putaran 1 (judul-abstrak-kesimpulan), putaran 2 (figur dan tabel), putaran 3 (rumus). Stop di putaran 1 jika tidak relevan.                                              |
 | W11    | Input→Middle→Output framing, triage literatur, seleksi gap | Tulis hipotesis falsifiable (`Δ ≥ X dengan p < Y`), bukan "saya pikir model A lebih baik". Framing yang baik punya gap yang tidak bisa diisi pipeline standar apa adanya. |
@@ -1167,7 +1167,7 @@ Modul ini paling efektif jika Anda mengikuti delapan kesepakatan berikut. Pendah
 1. **Mengerjakan lab pada minggu yang sama dengan membacanya.** Menunda lab berarti menunda pemahaman, dan minggu berikutnya akan terasa seperti deretan istilah yang tidak tersambung.
 2. **Menulis catatan eksperimen sendiri.** Bukan menyalin output, tetapi menjawab: apa yang aku jalankan, apa yang terjadi, apa arti hasilnya, dan apa yang akan kulakukan selanjutnya. Format catatan ada di [Lampiran C.4](#c4-template-experiment-log-jurnal-eksperimen) atau [C.10](#c10-template-weekly-experiment-log-ringan).
 3. **Memakai LLM, coding copilot, dan pencarian web - dengan tanggung jawab.** Sebelum memasukkan kode yang tidak Anda mengerti, baca baris demi baris dan pastikan Anda bisa menjelaskan fungsinya tanpa bantuan. W7 membahas protokol ini lebih dalam.
-4. **Mengajukan pertanyaan.** Pertanyaan yang dirumuskan dengan cermat adalah salah satu kompetensi yang dinilai di rubrik. Jika sesuatu terasa kabur setelah membaca dua kali, tulis pertanyaan seringkas mungkin dan bawa ke sesi tatap muka.
+4. **Mengajukan pertanyaan.** Pertanyaan yang dirumuskan dengan cermat adalah salah satu kompetensi yang dinilai di rubrik. Jika sesuatu belum jelas setelah membaca dua kali, tulis pertanyaan seringkas mungkin dan bawa ke sesi tatap muka.
 5. **Komponen Mandiri mingguan, mulai W4.** Pilih satu pertanyaan atau topik bebas dari materi minggu itu, kerjakan seperti peneliti, catat di `notebooks/portofolio_mandiri.ipynb`, presentasi 10 menit di awal sesi berikutnya. Format dan kriteria: [Lampiran C.9](#c9-template-komponen-mandiri).
 6. **Breadth Check sebelum Capstone.** Tunjukkan forward pass berjalan dari **empat dari lima keluarga arsitektur**: MLP (Lab 0/1c), CNN (Lab 1), RNN/LSTM (Lab 3b), Transformer (Lab 6b/W7), Autoencoder (Lab 7b). Ini memastikan Anda lulus sebagai asisten yang bisa mengenali dan memodifikasi keluarga NN yang muncul di paper lintas domain, bukan hanya spesialis CIFAR-10.
 7. **Eksperimen yang gagal tetapi didokumentasikan dengan baik dinilai setara dengan yang berhasil.** Yang dievaluasi adalah kualitas pemikiran, analisis, dan dokumentasi Anda, bukan apakah hipotesis terkonfirmasi. Hasil negatif yang dijelaskan dengan jujur lebih bernilai daripada hasil positif yang tidak bisa dipertanggungjawabkan.
@@ -1373,7 +1373,7 @@ Bagian ini adalah *primer* singkat untuk mahasiswa yang belum solid pada tiga pr
 
 ### F.1 Python Tingkat Menengah
 
-Anda perlu nyaman dengan: fungsi (termasuk `*args`, `**kwargs`, default parameter), kelas dan pewarisan, modul dan impor relatif, virtual environment (`venv` atau `conda`), dan membaca traceback.
+Anda perlu terbiasa dengan: fungsi (termasuk `*args`, `**kwargs`, default parameter), kelas dan pewarisan, modul dan impor relatif, virtual environment (`venv` atau `conda`), dan membaca traceback.
 
 **Uji mandiri.** Bisa Anda menulis kelas `Dataset` sederhana dengan `__len__` dan `__getitem__`, lalu mengimpornya dari modul lain di folder yang sama tanpa error `ModuleNotFoundError`? Jika tidak, kerjakan satu tutorial Python OOP (Python docs atau Real Python) sebelum melanjutkan.
 

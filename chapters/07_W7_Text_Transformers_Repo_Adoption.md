@@ -62,7 +62,7 @@ Contextual embeddings (BERT, RoBERTa, IndoBERT) menghasilkan representasi yang b
 
 Pertanyaan yang sering muncul: mengapa model yang dilatih pada miliaran token teks Wikipedia dan Common Crawl bisa membantu klasifikasi sentimen teks Indonesia?
 
-Jawabannya ada pada struktur lapisan. Layer-layer awal Transformer mempelajari pola yang bersifat umum dan berlaku lintas domain - semantik subkata ("##nya" menandai akhiran), pola sintaksis dasar (hubungan subjek-verba), dan cara negasi mengubah makna. Pola-pola ini muncul hampir di semua teks manusia, tidak bergantung pada topik. Layer-layer yang lebih dalam baru belajar hal yang lebih spesifik domain. Ketika Anda memuat bobot pretrained, layer awal sudah "paham bahasa" - tugas Anda tinggal melatih layer akhir agar memetakan pemahaman itu ke label yang diinginkan. Ini juga yang mendasari pilihan freeze vs fine-tune di §1.4: seberapa banyak lapisan yang perlu beradaptasi ke domain Anda?
+Jawabannya ada pada struktur lapisan. Layer-layer awal Transformer mempelajari pola yang bersifat umum dan berlaku lintas domain - semantik subkata ("##nya" menandai akhiran), pola sintaksis dasar (hubungan subjek-verba), dan cara negasi mengubah makna. Pola-pola ini muncul hampir di semua teks manusia, tidak bergantung pada topik. Layer-layer yang lebih dalam baru belajar hal yang lebih spesifik domain. Saat Anda memuat bobot pretrained, layer awal sudah "paham bahasa" - tugas Anda tinggal melatih layer akhir agar memetakan pemahaman itu ke label yang diinginkan. Ini juga yang mendasari pilihan freeze vs fine-tune di §1.4: seberapa banyak lapisan yang perlu beradaptasi ke domain Anda?
 
 ### 1.2 Tokenization: Sebelum Pelatihan Dimulai
 
