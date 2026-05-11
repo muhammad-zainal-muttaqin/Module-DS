@@ -401,7 +401,7 @@ for batch_x, batch_y in dataloader:
     title: "Sesi Live Coding (Mulai 20 Menit)",
     body: "Tutup slide ini. Buka Google Colab kosong. Kita akan menulis 15 baris kode PyTorch dari nol bersama-sama sebelum masuk ke Lab utama. Mahasiswa ikut mengetik.",
     ctaText: "Buka Google Colab",
-    ctaTarget: "https://colab.research.google.com/",
+    ctaTarget: "https://colab.new/",
     footnote: "Ini adalah sesi interaktif. Jangan lanjut ke slide berikutnya sampai loop 5 baris sudah dicoba mahasiswa.",
   },
 
