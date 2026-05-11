@@ -184,10 +184,17 @@ function SlideContent({ section }: { section: SlideSection }) {
             <p className="slide-body" dangerouslySetInnerHTML={{ __html: markdownish(section.body) }} />
           )}
           {section.ctaTarget && (
-            <Link to={`/modul/${section.ctaTarget}`} className="slide-cta-button">
-              <span>{section.ctaText || "Baca Modul Penuh"}</span>
-              <span className="slide-cta-arrow" aria-hidden="true">→</span>
-            </Link>
+            section.ctaTarget.startsWith("http") ? (
+              <a href={section.ctaTarget} target="_blank" rel="noopener noreferrer" className="slide-cta-button">
+                <span>{section.ctaText || "Baca Modul Penuh"}</span>
+                <span className="slide-cta-arrow" aria-hidden="true">→</span>
+              </a>
+            ) : (
+              <Link to={`/modul/${section.ctaTarget}`} className="slide-cta-button">
+                <span>{section.ctaText || "Baca Modul Penuh"}</span>
+                <span className="slide-cta-arrow" aria-hidden="true">→</span>
+              </Link>
+            )
           )}
         </div>
       );
