@@ -442,23 +442,7 @@ for batch_x, batch_y in dataloader:
     footnote: "Lab W1 langkah 5 meminta kamu menjalankan mismatch secara sengaja dan mendokumentasikan apa yang terjadi.",
   },
 
-  // ── Slide 20: Lab W1 ──
-  {
-    layout: "bullets",
-    title: "Lab W1: 6 Langkah",
-    body: "Lab W1 terdiri dari enam langkah yang harus kamu kerjakan secara berurutan:",
-    bullets: [
-      "**Langkah 1:** Jalankan smoke test dengan `--dry-run` untuk memastikan pipeline berjalan kurang dari 1 menit tanpa error.",
-      "**Langkah 2:** Latih model regresi (task=regression, loss=mse, num_classes=1) dan catat loss serta kurvanya.",
-      "**Langkah 3:** Latih model biner (task=binary, loss=cross_entropy, num_classes=2) dan periksa confusion matrix-nya.",
-      "**Langkah 4:** Latih model multikelas (task=multiclass, loss=cross_entropy, num_classes=3) dan bandingkan ketiga kurva.",
-      "**Langkah 5:** Jalankan eksperimen mismatch yang disengaja, lalu dokumentasikan perilaku loss dan akurasi.",
-      "**Langkah 6:** Tulis observasi dan interpretasi di notebook sebagai dua bagian terpisah - jangan dicampur.",
-    ],
-    footnote: "Lab 1b (MLP numpy) dikerjakan paralel atau setelah Lab 1a. Estimasi total waktu pengerjaan kedua lab adalah 3 sampai 4 jam.",
-  },
-
-  // ── Slide 21: CTA ──
+  // ── Slide 20: CTA ──
   {
     layout: "cta",
     title: "Mulai Lab W1",
