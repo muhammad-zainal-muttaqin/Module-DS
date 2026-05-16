@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | ▶ 07 | W7 - Text, Transformers & Repo Adoption | 7 |
@@ -159,7 +159,7 @@ Lab 6b ([lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github
 
 Dua keputusan yang perlu dibandingkan:
 
-**Frozen backbone** - hanya head kecil yang dilatih memakai embedding tetap. Cepat, murah, stabil. Cocok untuk dataset kecil atau ketika domain sangat mirip dengan pretraining.
+**Frozen backbone** - hanya head kecil yang dilatih memakai embedding tetap. Cepat, hemat komputasi, stabil. Cocok untuk dataset kecil atau ketika domain sangat mirip dengan pretraining.
 
 **Fine-tuned** - seluruh model (atau sebagian) dilatih bersama head. Lebih lambat, lebih fleksibel, sering lebih baik pada dataset cukup besar.
 
@@ -798,7 +798,7 @@ Total: ~3 jam dari clone sampai laporan pertama. Bandingkan dengan "dua minggu" 
 
 **"Saya akan jalankan dulu, baru baca kalau error."** Strategi ini membuat Anda terbiasa dengan bentrok permukaan (versi library, path, typo). Anda menghabiskan hari-hari mengatasi masalah yang sebenarnya akan hilang dengan satu jam membaca.
 
-**"Mengedit `train.py` langsung adalah cara tercepat."** Cepat untuk eksperimen sekali, mahal untuk jangka panjang. Setiap perubahan di tengah file besar adalah utang teknis; dalam dua minggu Anda tidak akan ingat mana modifikasi Anda dan mana dari repo asli.
+**"Mengedit `train.py` langsung adalah cara tercepat."** Cepat untuk eksperimen sekali, menambah beban pemeliharaan jangka panjang. Setiap perubahan di tengah file besar adalah utang teknis; dalam dua minggu Anda tidak akan ingat mana modifikasi Anda dan mana dari repo asli.
 
 **"PR tidak diterima berarti pekerjaan saya sia-sia."** Tidak. Anda belajar membaca dan memodifikasi kode, yang merupakan keterampilan jangka panjang. PR yang ditolak sering kali tetap dipakai sebagai basis diskusi; maintainer kadang mengambil ide Anda dan mengimplementasi ulang sesuai standar repo.
 
@@ -887,7 +887,7 @@ Pilih satu pertanyaan dari tema Repo Adoption yang ingin Anda jelajahi lebih dal
 **Beberapa pertanyaan pemantik** (tidak wajib salah satunya):
 - Bisakah Anda mereproduksi satu angka dari paper arXiv dengan repo publik - dan jika ada gap, apa penyebab paling mungkin?
 - Apa perbedaan struktural antara repo Lab 6 dan `template` - mana yang lebih baik untuk tujuan apa?
-- Bagaimana Anda menyiapkan repo asing agar bisa dipakai tim selama tiga bulan - perubahan apa yang paling mendesak?
+- Bagaimana Anda menyiapkan repo eksternal agar bisa dipakai tim selama tiga bulan - perubahan apa yang paling mendesak?
 
 Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb), dan presentasikan 10 menit pada sesi review berikutnya. Format dan kriteria: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
 

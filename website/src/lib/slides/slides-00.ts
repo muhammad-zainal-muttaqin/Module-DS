@@ -41,7 +41,7 @@ export const slides00: SlideSection[] = [
     bullets: [
       "Kamu mungkin bertanya-tanya: focal loss itu apa? Baru pertama kali dengar istilah ini.",
       "Freeze blok mana yang dimaksud? conv1? layer1? Seluruh backbone?",
-      "Baseline yang 'adil' itu artinya apa - learning rate harus sama? Batch size sama? Augmentasi sama?",
+      "Perbandingan baseline yang setara itu artinya apa - learning rate harus sama? Batch size sama? Augmentasi sama?",
       "Waktunya hanya 3 hari, dan kamu belum tahu harus mulai dari mana.",
       "Bootcamp ini menjawab semua pertanyaan itu - satu minggu per topik.",
     ],
@@ -68,17 +68,17 @@ export const slides00: SlideSection[] = [
       "**Sepuluh kompetensi inti** yang dibagi menjadi tiga gelombang sesuai urutan minggu.",
       "**Empat sikap riset dan Kontrak Belajar** yang menjadi komitmen kamu sepanjang bootcamp.",
     ],
-    footnote: "Bab ini tidak menuntut hafalan - peta orientasi yang akan dirujuk berulang sepanjang modul.",
+    footnote: "Bab ini tidak menuntut kamu mengingat semua detail - peta orientasi ini akan dirujuk berulang sepanjang modul.",
   },
 
   // ── Slide 5c: Objektif Belajar ──
   {
     layout: "bullets",
     title: "Objektif Belajar",
-    body: "Selama mengikuti bab pendahuluan ini, kamu akan:",
+    body: "Empat capaian utama bab pendahuluan ini adalah:",
     bullets: [
       "**Mengenali tiga pilar** dan mengaitkannya dengan kompetensi yang dilatih per minggu.",
-      "**Memetakan posisi diri** di sepuluh kompetensi - mana yang sudah dikenal, mana yang masih asing.",
+      "**Memetakan posisi diri** di sepuluh kompetensi - mana yang sudah dikenal, mana yang belum dikenal.",
       "**Menyetujui Kontrak Belajar** dengan tiga komitmen: ritme mingguan, akuntabilitas pemikiran, dan breadth empat dari lima keluarga arsitektur.",
       "**Menulis refleksi awal** yang akan dirujuk kembali di Minggu 14 untuk mengukur perubahan.",
     ],
@@ -186,7 +186,7 @@ export const slides00: SlideSection[] = [
     layout: "section",
     title: "Cara Membaca Modul: Struktur 11+4",
     body: "Modul ini tersusun dari sebelas minggu bootcamp dengan satu bab per minggu, yang diikuti oleh empat minggu capstone. Setiap minggu menyajikan satu tema besar, satu lab wajib, dan satu entri portofolio.",
-    footnote: "Bab 00 ini adalah peta - bukan materi yang perlu dihafal.",
+    footnote: "Bab 00 ini adalah peta - bukan materi yang harus diingat di luar konteks.",
   },
 
   // ── Slide 10b: Peta dependensi modul ──

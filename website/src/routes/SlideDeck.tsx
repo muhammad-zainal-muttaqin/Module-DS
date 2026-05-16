@@ -158,7 +158,7 @@ function SlideContent({ section }: { section: SlideSection }) {
           {section.title && <h2 className="slide-heading">{section.title}</h2>}
           <blockquote className="slide-quote">
             <p>{section.quote}</p>
-            {section.author && <cite>— {section.author}</cite>}
+            {section.author && <cite>- {section.author}</cite>}
           </blockquote>
           {section.body && (
             <p className="slide-body" dangerouslySetInnerHTML={{ __html: markdownish(section.body) }} />

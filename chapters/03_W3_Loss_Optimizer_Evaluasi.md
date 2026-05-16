@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | ▶ 03 | W3 - Loss, Optimizer & Evaluasi | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -110,7 +110,7 @@ Loss menentukan *apa yang dianggap salah oleh model*. Mengganti loss berarti men
 - **MAE** - linear. Lebih robust ke outlier tetapi tidak punya "tarikan" kuat di sekitar nol; konvergensi sering lebih lambat.
 - **Huber loss** - menggabungkan keduanya: kuadratik untuk `|residu| < δ`, linear untuk residu lebih besar. Default δ = 1.0 di PyTorch.
 
-Pertanyaan yang selalu relevan sebelum mengganti loss: *apa jenis kesalahan yang paling mahal di aplikasi Anda?* Jika false negative pada kelas minor lebih mahal, focal loss atau pembobotan kelas langsung membantu. Mengganti loss tanpa alasan jelas menambah satu variabel yang harus dijelaskan di laporan.
+Pertanyaan yang selalu relevan sebelum mengganti loss: *apa jenis kesalahan dengan konsekuensi terbesar di aplikasi Anda?* Jika konsekuensi false negative pada kelas minor lebih besar, focal loss atau pembobotan kelas langsung membantu. Mengganti loss tanpa alasan jelas menambah satu variabel yang harus dijelaskan di laporan.
 
 ### 2.2 Optimizer: Bagaimana Langkah Diputuskan
 
@@ -153,11 +153,11 @@ Di samping metrik, Anda juga perlu strategi validasi:
 
 Salah satu keputusan yang paling sering menentukan performa model bukan pilihan arsitektur, melainkan pilihan representasi. Keputusan ini diambil jauh sebelum training dimulai. Pada modalitas dan tugas yang sama, perbedaan representasi kerap menghasilkan selisih performa lebih besar daripada pergantian arsitektur.
 
-**Engineered.** Fitur dirancang manusia dengan pengetahuan domain - statistik agregat, transformasi matematis, atau fitur klasik. Di gambar: histogram warna, HOG, SIFT. Di sinyal CGM: mean, koefisien variasi, *time-in-range*. Representasi *engineered* murah secara komputasi, mudah diinterpretasi, dan sering menjadi baseline yang sangat kuat ketika data latih terbatas.
+**Engineered.** Fitur dirancang manusia dengan pengetahuan domain - statistik agregat, transformasi matematis, atau fitur klasik. Di gambar: histogram warna, HOG, SIFT. Di sinyal CGM: mean, koefisien variasi, *time-in-range*. Representasi *engineered* memiliki biaya komputasi rendah, mudah diinterpretasi, dan sering menjadi baseline yang sangat kuat ketika data latih terbatas.
 
 **Extracted.** Fitur diambil dari *hidden layer* model *pretrained* yang di-freeze. Di visi: *hidden states* dari CNN atau ViT pretrained pada ImageNet. Di teks: token `[CLS]` atau mean pooling dari BERT. Kompromi menarik: Anda mendapat representasi dari model besar tanpa biaya training penuh, dengan syarat domain target tidak terlalu jauh dari domain pretraining.
 
-**Learned.** Representasi dipelajari langsung dari data melalui training *end-to-end* atau *self-supervised*. Fine-tuning BERT, melatih 1D CNN dari nol pada sinyal ECG, atau fine-tune ResNet pada dataset medis semuanya termasuk kategori ini. Strategi ini biasanya paling kuat ketika data latih memadai, tetapi paling membutuhkan banyak data dan paling mahal dilatih.
+**Learned.** Representasi dipelajari langsung dari data melalui training *end-to-end* atau *self-supervised*. Fine-tuning BERT, melatih 1D CNN dari nol pada sinyal ECG, atau fine-tune ResNet pada dataset medis semuanya termasuk kategori ini. Strategi ini biasanya paling kuat ketika data latih memadai, tetapi paling membutuhkan banyak data dan memiliki biaya training paling tinggi.
 
 
 | Domain | Engineered | Extracted | Learned |
@@ -295,4 +295,4 @@ Pertanyaan yang dijawab setelah lab: Pada dataset terbatas (500 sampel per kelas
 
 Anda sudah memiliki kerangka lengkap untuk memahami dan membangun sistem ML/DL dari tensor input sampai diagnosis loss curve. W4 menggeser fokus dari *memahami sistem* menjadi *merancang eksperimen yang reproduksibel*: YAML config, penguncian seed, struktur folder run, dan matriks eksperimen.
 
-Buka [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) ketika siap.
+Buka [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) ketika siap.

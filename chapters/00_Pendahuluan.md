@@ -8,7 +8,7 @@
 | 01   | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md)                           | 1      |
 | 02   | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md)                        | 2      |
 | 03   | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md)                    | 3      |
-| 04   | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4      |
+| 04   | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4      |
 | 05   | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md)                              | 5      |
 | 06   | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md)   | 6      |
 | 07   | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md)    | 7      |
@@ -52,7 +52,7 @@ Di akhir bootcamp ini, Anda diharapkan mampu menguasai tiga pilar utama riset: m
 
 ### 1. Ketajaman Teknis & Rigor Eksperimen
 
-Anda akan mampu memetakan tipe data ke arsitektur model yang tepat, merancang eksperimen terkontrol yang *reproducible*, memilih *loss function* berdasarkan karakteristik output, hingga melakukan *fine-tuning* serta adaptasi *pretrained model* maupun repositori eksternal.
+Peserta mampu memetakan tipe data ke arsitektur model yang tepat, merancang eksperimen terkontrol yang *reproducible*, memilih *loss function* berdasarkan karakteristik output, hingga melakukan *fine-tuning* serta adaptasi *pretrained model* maupun repositori eksternal.
 
 ### 2. Diagnosis & Kemandirian
 
@@ -60,9 +60,9 @@ Anda dibekali kemampuan untuk membaca sinyal selama proses *training*, melakukan
 
 ### 3. Perancangan Riset (*Research Framing*)
 
-Anda akan mahir menguraikan masalah kompleks menjadi beberapa kandidat hipotesis penelitian, melakukan validasi temporal maupun kausal, menyisir literatur untuk menemukan celah (*gap*) riset, hingga merumuskan argumen yang kuat untuk mempertahankan ide tersebut dalam diskusi ilmiah.
+Peserta mahir menguraikan masalah kompleks menjadi beberapa kandidat hipotesis penelitian, melakukan validasi temporal maupun kausal, menyisir literatur untuk melihat celah (*gap*) riset, hingga merumuskan argumen yang kuat untuk mempertahankan ide tersebut dalam diskusi ilmiah.
 
-**Mengapa ini penting?** Keterampilan ini jarang diajarkan secara eksplisit. Dengan menguasai fondasi ini sekarang, Anda akan lebih maju 3-5 tahun dibandingkan tanpa arahan terstruktur.
+**Mengapa ini penting?** Keterampilan ini jarang diajarkan secara eksplisit. Fondasi ini memberi bekal awal yang biasanya baru terbentuk setelah 3-5 tahun tanpa arahan terstruktur.
 
 ---
 
@@ -72,7 +72,7 @@ Modul ini adalah **bootcamp 11 minggu + capstone 4 minggu** yang disusun sebagai
 
 ![Peta Dependensi Modul: hubungan antar bab dan jalur pembelajaran](../figures/fig00a_module_map.svg)
 
-**Big Map** adalah kerangka berpikir yang mengalir dari W1 sampai W11: setiap minggu menjawab pertanyaan yang sama - *tensor shape apa yang masuk, shape apa yang keluar, dan keluarga model apa yang cocok?* Peta ini bertambah lengkap setiap minggu sehingga deep learning terlihat sebagai satu lanskap, bukan banyak teknik terputus. Tabel rangkuman Big Map ada di [Lampiran D.3](14_Lampiran.md#d3-big-map).
+**Big Map** adalah kerangka berpikir yang dipakai dari W1 sampai W11: setiap minggu menjawab pertanyaan yang sama - *tensor shape apa yang masuk, shape apa yang keluar, dan keluarga model apa yang cocok?* Peta ini bertambah lengkap setiap minggu sehingga deep learning terlihat sebagai satu lanskap, bukan banyak teknik terputus. Tabel rangkuman Big Map ada di [Lampiran D.3](14_Lampiran.md#d3-big-map).
 
 ![Big Map: framework Input → Middle → Output](../figures/fig00_big_map.svg)
 
@@ -155,4 +155,4 @@ Sebelum melangkah ke W1, luangkan waktu sepuluh menit untuk menulis jawaban sing
 
 ## Lanjut ke W1
 
-Setelah menyelesaikan refleksi, buka [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md). Bab tersebut memperkenalkan MLP sebagai pengubah bentuk tensor, output head + loss matching, dan ritme observasi sebelum interpretasi - bukan sebagai daftar definisi, melainkan sebagai keputusan desain yang dimulai dari pertanyaan: data seperti apa yang sedang kita olah, dan struktur apa yang paling cocok untuk data itu?
+Setelah menyelesaikan refleksi, buka [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md). Bab tersebut memperkenalkan MLP sebagai pengubah bentuk tensor, pencocokan output head dan loss, dan ritme observasi sebelum interpretasi - bukan sebagai daftar definisi, melainkan sebagai keputusan desain yang dimulai dari pertanyaan: data seperti apa yang sedang kita olah, dan struktur apa yang paling cocok untuk data itu?

@@ -19,7 +19,7 @@ export default function Home() {
             Kompetensi teknis cepat tumpul kalau tidak dibiasakan bersama sikap riset yang tepat.
           </h2>
           <p className="page-lead">
-            Empat sikap berikut mengalir di seluruh modul - sering tanpa disebut eksplisit - melalui pilihan contoh, pitfall, dan pertanyaan refleksi.
+            Empat sikap berikut ditanamkan di seluruh modul - sering tanpa disebut eksplisit - melalui pilihan contoh, pitfall, dan pertanyaan refleksi.
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">

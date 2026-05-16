@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -73,7 +73,7 @@ Istilah teknis ML/DL sebagian besar berasal dari Bahasa Inggris. Glosarium ini m
 | fine-tuning | - | Adaptasi model pretrained ke tugas spesifik dengan training lanjutan. | Pakai "fine-tune" / "fine-tuning". Hindari "penyesuaian halus". |
 | foundation model | - | Model pretrained pada data besar, transferable ke banyak downstream tasks. | - |
 | freeze / frozen | - | Parameter model tidak diupdate saat training. | Pakai "di-freeze", bukan "dibekukan". |
-| gate mechanism | mekanisme gerbang | Input / forget / output gate pada LSTM. Mengontrol aliran informasi: baca, simpan, lupa. | - |
+| gate mechanism | mekanisme gerbang | Input / forget / output gate pada LSTM. Menentukan proporsi informasi yang dibaca, disimpan, atau dilupakan. | - |
 | generalization | generalisasi | Kemampuan model berfungsi dengan baik pada data yang belum pernah dilihat. Tujuan utama ML. | - |
 | generative adversarial network (GAN) | - | Dua jaringan (generator + discriminator) dilatih saling berlomba. | Nama diri. |
 | GRU (Gated Recurrent Unit) | - | Varian RNN dengan gate, lebih ringkas dari LSTM. | Nama diri. |
@@ -137,7 +137,7 @@ Istilah teknis ML/DL sebagian besar berasal dari Bahasa Inggris. Glosarium ini m
 | early stopping | - | Hentikan training jika validation metric berhenti membaik. Cegah overfitting. | - |
 | epoch | - | Satu putaran penuh data training. | Tidak diterjemahkan. |
 | evaluation loop | siklus evaluasi | Sama seperti training loop, tanpa gradien. Hanya evaluasi di validasi / test. | - |
-| forward pass | - | Input mengalir maju melalui layer: input -> compute -> output. | - |
+| forward pass | - | Forward pass menghitung output dari input melalui layer. | - |
 | gradient | gradien | Turunan loss terhadap weight. Arah dan laju update. | "Gradien" lazim di prosa. |
 | learning rate | - | Step size update weight per iterasi. | Pakai "learning rate". Hindari "laju pelatihan". |
 | loss / loss function | - | Fungsi yang mengukur kesalahan prediksi terhadap target. | Pakai "loss". Hindari "fungsi kerugian". |
@@ -528,7 +528,7 @@ ketika dijalankan pada **<kondisi/protokol>**.
 
 ## 4. Hasil yang Diharapkan (satu paragraf)
 
-<Tebakan awal Anda sebelum melihat hasil. Menjaga kejujuran intuisi.>
+<Tebakan awal Anda sebelum melihat hasil. Menjaga kejujuran dugaan awal.>
 
 ## 5. Kondisi Kegagalan Hipotesis
 
@@ -702,7 +702,7 @@ Salin satu blok ini ke sel markdown di [`notebooks/portofolio_mandiri.ipynb`](ht
 ### Temuan
 *Apa yang ditemukan. Sertakan angka, grafik, atau output kunci. Hindari "saya berhasil" tanpa angka.*
 
-### Kejutan
+### Hal Tak Terduga
 *Apa yang tidak sesuai ekspektasi. Jika semua sesuai ekspektasi, tanyakan pada diri sendiri apakah ekspektasi awalnya cukup spesifik.*
 
 ### Yang Akan Diubah
@@ -1223,7 +1223,7 @@ Modul disusun sebagai urutan linier W1 → W11. Tabel berikut menunjukkan minggu
 | Minggu                           | Prasyarat minimum | Konsep kunci                                              |
 | -------------------------------- | ----------------- | --------------------------------------------------------- |
 | **W1** Tabular                   | - (entry point)   | -                                                         |
-| **W2** Images & CNN              | W1                | Tensor I/O, output head + loss matching                   |
+| **W2** Images & CNN              | W1                | Tensor I/O, pencocokan output head dan loss                   |
 | **W3** Loss/Opt/Eval             | W2                | Smoke test tiga level, baseline yang berjalan             |
 | **W4** Reproducibility           | W3                | Pipeline training penuh; bisa baca loss curve             |
 | **W5** Sequences                 | W4                | Disiplin alur kerja; matriks eksperimen                   |
@@ -1349,7 +1349,7 @@ Tabel rujukan saat Anda kehilangan arah.
 - **Peta dependensi W1-W11?** -> Lampiran §D.7
 - **Diagnosis loss curve (decision tree)?** -> W3 §2.5
 - **Smoke test tiga level?** -> W2 §2.3
-- **Output head + loss matching tabel?** -> W1 §2.2
+- **Tabel pencocokan output head dan loss?** -> W1 §2.2
 - **Backpropagation derivasi manual?** -> Lampiran §A.13
 - **Template entri portofolio mandiri?** -> Lampiran §C.6
 - **Panduan presentasi Komponen Mandiri?** -> Lampiran §C.7
@@ -1442,7 +1442,7 @@ Dua belas tabel di bawah adalah alat bantu bagi Anda untuk memeriksa pemahaman s
 | Menjelaskan mengapa "overfit one batch" adalah alat diagnosis utama | | | |
 | Lab 1: 4 checklist selesai (training loop, loss plot, confusion matrix, sample inspection) | | | |
 
-### W4 - Reproducibility & Experiment Matrix
+### W4 - Reproducibility & Matriks Eksperimen
 
 | Saya harus bisa... | Belum | Mulai | Sudah |
 |---|---|---|---|

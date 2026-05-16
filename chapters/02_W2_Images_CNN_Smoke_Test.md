@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | ▶ 02 | W2 - Images, CNN & Smoke Test | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -149,11 +149,11 @@ Perhatikan bahwa output tidak selalu `(N,)`: deteksi objek menghasilkan tensor t
 
 Semua keluarga arsitektur neural network, pada level komputasi, adalah **MLP dengan batasan tambahan**: CNN adalah MLP yang dipaksa berbagi bobot antar lokasi spasial, Transformer adalah MLP yang memproses setiap posisi dengan bobot sama, RNN adalah MLP yang dipanggil berulang sepanjang waktu.
 
-Model belajar lewat **backpropagation**: setelah loss dihitung di output, gradient dari loss terhadap setiap parameter dirambatkan mundur melalui chain rule, lalu optimizer memperbarui parameter ke arah penurunan loss. `loss.backward()` di PyTorch mengerjakan ini secara otomatis.
+Model belajar lewat **backpropagation**: setelah loss dihitung di output, gradient dari loss terhadap setiap parameter dihitung mundur melalui chain rule, lalu optimizer memperbarui parameter ke arah penurunan loss. `loss.backward()` di PyTorch mengerjakan ini secara otomatis.
 
 Dua fenomena penting yang sering disebut paper:
 
-- **Vanishing gradient** - gradient melemah saat merambat mundur melewati banyak layer; ReLU adalah solusi paling umum.
+- **Vanishing gradient** - gradient mengecil saat backward pass melewati banyak layer; ReLU adalah solusi paling umum.
 - **Exploding gradient** - gradient meledak saat bobot besar; *gradient clipping* adalah solusinya.
 
 > [!NOTE]
@@ -161,13 +161,13 @@ Dua fenomena penting yang sering disebut paper:
 
 ### 2.3 Smoke Test Tiga Level
 
-Tiga level smoke test bukan formalitas; masing-masing menargetkan **tiga jenis bug paling sering** di pipeline deep learning, dari yang paling murah dideteksi ke yang paling mahal:
+Tiga level smoke test bukan formalitas; masing-masing menargetkan **tiga jenis bug paling sering** di pipeline deep learning, dari yang paling cepat dideteksi sampai yang membutuhkan proses debugging paling panjang:
 
 1. **Typo / import / path error** - terdeteksi di Level 1 (`import model`). Tidak butuh dataset, tidak butuh forward pass.
 2. **Shape mismatch antar layer** - terdeteksi di Level 2 (dummy forward dengan tensor random). Butuh model dimuat tetapi tidak butuh data dari dataset.
 3. **Algoritma rusak** (gradient mati, loss tidak turun, target salah-bentuk) - terdeteksi di Level 3 (overfit one batch). Butuh data dari dataset tetapi hanya 4-8 sampel.
 
-Setiap level lebih mahal daripada level sebelumnya, dan masing-masing menangkap jenis bug yang berbeda. Jangan lompat ke Level 3 sebelum Level 1 dan 2 lulus, dan jangan mulai training 30 epoch sebelum Level 3 lulus.
+Setiap level membutuhkan konteks dan waktu debugging lebih banyak daripada level sebelumnya, dan masing-masing menangkap jenis bug yang berbeda. Jangan lompat ke Level 3 sebelum Level 1 dan 2 lulus, dan jangan mulai training 30 epoch sebelum Level 3 lulus.
 
 Sebelum training berjam-jam, jalankan tiga tes ini berurutan. Jika satu tes gagal, hentikan dan perbaiki sebelum lanjut.
 
@@ -268,7 +268,7 @@ MaxPool2d(2) pada input (B, 32, 32, 32):
   out = (32 - 2 + 0)/2 + 1 = 16            # stride=2 setengahkan
 ```
 
-Hafalkan rumus ini. Saat debug shape mismatch (Level 2 smoke test), ini adalah alat pertama Anda.
+Pahami rumus ini dan simpan sebagai acuan. Saat debug shape mismatch (Level 2 smoke test), ini adalah alat pertama Anda.
 
 #### 2.5.4 Receptive Field
 
@@ -363,9 +363,9 @@ Ini berbeda dengan LayerNorm yang menormalkan **per sampel di sumbu fitur**: unt
 
 **Aktivasi: ReLU, GELU, SiLU.**
 
-- **ReLU** (`max(0, x)`): default untuk CNN dan MLP. Murah, turunan 0 atau 1. Risiko: *dead ReLU* - neuron yang tidak pernah menyala bisa mati permanen.
+- **ReLU** (`max(0, x)`): default untuk CNN dan MLP. Biaya komputasinya rendah, turunannya 0 atau 1. Risiko: *dead ReLU* - neuron yang tidak pernah menyala bisa mati permanen.
 - **GELU** (`x · Φ(x)`): default untuk Transformer modern (BERT, GPT). Lebih halus dekat nol.
-- **SiLU/Swish** (`x · σ(x)`): dipakai di MobileNet v3, EfficientNet, LLaMA. Kinerja mirip GELU, lebih murah dihitung.
+- **SiLU/Swish** (`x · σ(x)`): dipakai di MobileNet v3, EfficientNet, LLaMA. Kinerja mirip GELU, lebih ringan dihitung.
 
 Aturan praktisnya: pakai default yang disebut paper yang Anda replikasi. Mengganti aktivasi tanpa alasan kuat adalah variabel tambahan yang harus dijelaskan di laporan.
 

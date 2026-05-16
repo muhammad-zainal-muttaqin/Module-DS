@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -333,7 +333,7 @@ Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://githu
 - **"How to Read a Paper"** oleh S. Keshav (2007, 3 halaman). Memperkenalkan metode tiga tahap (The Three-Pass Approach); sumber populer dari teknik yang diadaptasi di bab ini. Baca sekali seumur hidup, cetak, dan tempel di dekat meja kerja Anda.
 - **arxiv-sanity-lite** (Andrej Karpathy). Alat kurasi *paper* sederhana yang bisa Anda *host* sendiri. Sangat menghemat waktu jika Anda suka mengkurasi literatur dengan preferensi yang spesifik dan unik.
 - **"A Recipe for Training Neural Networks"** oleh Andrej Karpathy (karpathy.github.io, 2019). Memang bukan tentang membaca *paper*, tetapi sangat mewakili sikap ilmiah harian yang diajarkan di bab ini: cek unit, bangun *baseline* yang kuat, dan percayai apa yang bisa diukur.
-- **OpenReview.net**. Baca ulasan (*review*) publik dari konferensi besar seperti ICLR atau NeurIPS untuk *paper* yang Anda suka. Melihat bagaimana *reviewer* profesional mengkritik sebuah *paper* adalah salah satu cara terbaik untuk mempertajam intuisi (*taste*) riset Anda.
+- **OpenReview.net**. Baca ulasan (*review*) publik dari konferensi besar seperti ICLR atau NeurIPS untuk *paper* yang Anda suka. Melihat bagaimana *reviewer* profesional mengkritik sebuah *paper* adalah salah satu cara terbaik untuk mempertajam penilaian (*taste*) riset Anda.
 
 ---
 

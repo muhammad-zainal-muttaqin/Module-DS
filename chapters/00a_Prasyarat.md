@@ -8,7 +8,7 @@
 | 01   | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md)                           | 1      |
 | 02   | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md)                        | 2      |
 | 03   | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md)                    | 3      |
-| 04   | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4      |
+| 04   | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4      |
 | 05   | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md)                              | 5      |
 | 06   | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md)   | 6      |
 | 07   | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md)    | 7      |
@@ -56,7 +56,7 @@ np.array([[1, 2, 3]]).shape     # (1, 3) - dua sumbu, satu baris tiga kolom
 
 ## 2. Konvensi Huruf di Modul
 
-Modul memakai huruf-huruf berikut secara konsisten. Hafalkan sekali; semua bab pakai yang sama.
+Modul memakai huruf-huruf berikut secara konsisten. Pahami sekali; semua bab memakai acuan yang sama.
 
 
 | Huruf    | Singkatan dari                                                     | Contoh konteks                                   |
@@ -90,7 +90,7 @@ Anda tidak perlu menguasai kalkulus untuk memulai. Cukup dua pemahaman dasar.
 
 **Chain rule = rantai turunan.** Kalau `y = f(g(x))`, maka turunannya `dy/dx = f'(g(x)) · g'(x)`. Bayangkan dua roda gigi: kalau roda dalam berputar 2× lebih cepat dari input, dan roda luar 3× lebih cepat dari roda dalam, total roda luar 6× lebih cepat dari input.
 
-Inilah yang dilakukan **backpropagation**: mengambil rantai panjang turunan dari loss sampai ke setiap parameter, lalu merambatkannya mundur melalui chain rule. Detail derivasi 7-langkah ada di [Lampiran A.1](14_Lampiran.md#a1-backpropagation-derivasi-manual). Untuk W1-W2, cukup paham bahwa "rantai turunan" itulah cara kerjanya.
+Inilah yang dilakukan **backpropagation**: mengambil rantai panjang turunan dari loss sampai ke setiap parameter, lalu menghitung gradient untuk setiap parameter secara mundur melalui chain rule. Detail derivasi 7-langkah ada di [Lampiran A.1](14_Lampiran.md#a1-backpropagation-derivasi-manual). Untuk W1-W2, cukup paham bahwa "rantai turunan" itulah cara kerjanya.
 
 ## 5. PyTorch Tensor: Primer 3 Menit
 
@@ -119,7 +119,7 @@ Broadcasting (PyTorch dan NumPy) secara singkat: jika dua tensor punya shape yan
 
 ## 6. Glosarium Singkat
 
-Sembilan belas istilah inti yang muncul berulang sejak W1 - loss, gradient, optimizer, baseline, freeze, fine-tune, ablation, leakage, pre-registration, hyperparameter, overfitting, epoch, batch, seed, checkpoint, augmentation, dropout, batch norm, regularization - sudah tercatat lengkap dengan definisi dan contoh di [Lampiran A](14_Lampiran.md#a-glosarium-indonesia--inggris). Baca sekilas sekali sebelum W1; tidak perlu menghafal, kembali saat butuh.
+Sembilan belas istilah inti yang muncul berulang sejak W1 - loss, gradient, optimizer, baseline, freeze, fine-tune, ablation, leakage, pre-registration, hyperparameter, overfitting, epoch, batch, seed, checkpoint, augmentation, dropout, batch norm, regularization - sudah tercatat lengkap dengan definisi dan contoh di [Lampiran A](14_Lampiran.md#a-glosarium-indonesia--inggris). Baca sekilas sekali sebelum W1; tidak perlu mengingat semuanya, kembali saat butuh.
 
 ---
 

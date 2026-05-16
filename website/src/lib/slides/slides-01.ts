@@ -4,9 +4,9 @@ export const slides01: SlideSection[] = [
   // ── Slide 1: Title ──
   {
     layout: "title",
-    title: "W1: Tabular, Output Heads & Loss Matching",
+    title: "W1: Tabular, Output Heads & Pencocokan Loss",
     subtitle: "MLP adalah pengubah bentuk tensor. Tugas menentukan head, head menentukan loss.",
-    body: "Lab 1a mencakup tiga perumusan tugas dan eksperimen mismatch. Lab 1b membangun MLP dari nol menggunakan NumPy.",
+    body: "Lab 1a mencakup tiga perumusan tugas dan eksperimen ketidakcocokan head dan loss. Lab 1b membangun MLP dari nol menggunakan NumPy.",
     footnote: "Bab 01 - Minggu 1",
   },
 
@@ -71,7 +71,7 @@ export const slides01: SlideSection[] = [
       "Kamu akan **sengaja salah-pasangkan loss dan head,** lalu mengamati bagaimana training gagal sebagai pelajaran konkret yang tidak bisa digantikan oleh teori.",
       "Kamu akan **menulis observasi dan interpretasi** sebagai dua paragraf terpisah dalam catatan lab.",
     ],
-    footnote: "Lab W1 mencakup dua pelaksanaan: Lab 1a (3 tugas plus mismatch) dan Lab 1b (MLP from scratch dengan NumPy).",
+    footnote: "Lab W1 mencakup dua pelaksanaan: Lab 1a (3 tugas plus ketidakcocokan loss dan head) dan Lab 1b (MLP from scratch dengan NumPy).",
   },
 
   // ── Slide 1f: Setelah Bab Ini Kamu Paham ──
@@ -82,11 +82,11 @@ export const slides01: SlideSection[] = [
     gridItems: [
       {
         title: "Menjawab 'Tugas X Butuh Head dan Loss Apa'",
-        body: "Saat menerima tugas baru, kamu memiliki refleks otomatis untuk membaca shape input dan tipe output, lalu memilih pasangan head-loss yang sesuai dari lima konfigurasi resmi.",
+        body: "Saat menerima tugas baru, kamu memiliki refleks otomatis untuk membaca shape input dan tipe output, lalu memilih pasangan head dan loss yang sesuai dari lima konfigurasi resmi.",
       },
       {
-        title: "Mengidentifikasi Loss-Head Mismatch",
-        body: "Saat loss konstan dari epoch pertama atau berubah dengan cara yang aneh, kamu memeriksa pasangan loss-head-target lebih dulu sebelum mendebug arsitektur atau hyperparameter.",
+        title: "Mengidentifikasi Ketidakcocokan Loss dan Head",
+        body: "Saat loss konstan dari epoch pertama atau berubah dengan cara yang aneh, kamu memeriksa pasangan loss, head, dan target lebih dulu sebelum mendebug arsitektur atau hyperparameter.",
       },
       {
         title: "Memisahkan Observasi dan Interpretasi",
@@ -100,7 +100,7 @@ export const slides01: SlideSection[] = [
   {
     layout: "section",
     title: "Mengapa Tabular Lebih Dulu?",
-    body: "Ada empat alasan mengapa kita memulai dari tabular: pertama, pipeline-nya paling pendek karena tidak ada augmentasi dan tidak ada tokenizer; kedua, tiga perumusan tugas bisa diuji pada dataset yang sama; ketiga, bug loss-head terlihat jelas dari output shape; dan keempat, tidak ada domain baru yang perlu dipelajari.",
+    body: "Ada empat alasan mengapa kita memulai dari tabular: pertama, pipeline-nya paling pendek karena tidak ada augmentasi dan tidak ada tokenizer; kedua, tiga perumusan tugas bisa diuji pada dataset yang sama; ketiga, ketidakcocokan loss dan head terlihat jelas dari output shape; dan keempat, tidak ada domain baru yang perlu dipelajari.",
     footnote: "Kita memulai dari tabular karena kompleksitasnya paling rendah, bukan karena tabular lebih penting dari domain lain.",
   },
 
@@ -247,7 +247,7 @@ print(z.shape)                # torch.Size([32, 64])`,
     layout: "section",
     title: "Output Head + Loss: Harus Dipasangkan",
     body: "Pasangan output head dan loss bukan pilihan bebas. Tugas menentukan bentuk head, dan head menentukan fungsi loss yang dipakai. Menukar pasangan ini menghasilkan bug yang sulit didiagnosis: loss masih bisa turun, tapi model tidak belajar hal yang benar.",
-    footnote: "Tiga perempat bug di W1 berasal dari loss-head mismatch. Lab W1 meminta kamu mengalaminya secara sengaja agar efeknya bisa dirasakan langsung.",
+    footnote: "Tiga perempat bug di W1 berasal dari ketidakcocokan loss dan head. Lab W1 meminta kamu mengalaminya secara sengaja agar efeknya bisa dirasakan langsung.",
   },
 
   // ── Slide 9: Regresi ──
@@ -301,18 +301,18 @@ print(z.shape)                # torch.Size([32, 64])`,
   // ── Slide 12: Gambar 5 konfigurasi ──
   {
     layout: "image",
-    title: "5 Konfigurasi Head-Loss Resmi",
+    title: "5 Konfigurasi Head dan Loss Resmi",
     imageUrl: "/figures/fig01h_output_head_loss.png",
     caption: "Gambar ini menunjukkan lima konfigurasi resmi: dari kiri adalah regresi skalar, biner dalam dua varian (2 output vs 1 output), multikelas, dan multilabel.",
     footnote: "Tabel ini juga ada di Lampiran. Tempel di samping layar saat Lab W1.",
   },
 
-  // ── Slide 12b: Loss-head mismatch - benar vs salah (image) ──
+  // ── Slide 12b: Ketidakcocokan loss dan head - benar vs salah (image) ──
   {
     layout: "image",
-    title: "Pasangan Head-Loss: Benar vs Bug Umum",
+    title: "Pasangan Head dan Loss: Benar vs Bug Umum",
     imageUrl: "/figures/loss_head_matching.png",
-    caption: "Gambar ini membandingkan tiga pasangan head-loss yang benar (kiri) dengan tiga bug yang paling sering terjadi (kanan). Kolom kanan menunjukkan bahwa mismatch tidak selalu menghasilkan error - kadang training berjalan tapi model tidak belajar hal yang benar.",
+    caption: "Gambar ini membandingkan tiga pasangan head dan loss yang benar (kiri) dengan tiga bug yang paling sering terjadi (kanan). Kolom kanan menunjukkan bahwa ketidakcocokan ini tidak selalu menghasilkan error - kadang training berjalan tapi model tidak belajar hal yang benar.",
     footnote: "Bug paling berbahaya adalah baris ketiga kolom kanan: Linear(H,K) + MSELoss tidak menghasilkan error, loss bahkan bisa turun, tapi model tidak belajar distribusi kelas yang benar karena MSE tidak dirancang untuk output kategoris.",
   },
 
@@ -434,12 +434,12 @@ for batch_x, batch_y in dataloader:
     title: "4 Pitfalls Paling Sering di W1",
     body: "Ada empat kesalahan yang paling sering terjadi di W1. Hindari pitfalls berikut:",
     bullets: [
-      "**Loss-head mismatch:** Memakai MSE untuk multikelas, atau Softmax+CrossEntropy, menyebabkan loss masih turun tapi hasilnya tidak bermakna.",
+      "**Ketidakcocokan loss dan head:** Memakai MSE untuk multikelas, atau Softmax+CrossEntropy, menyebabkan loss masih turun tapi hasilnya tidak bermakna.",
       "**Softmax sebelum CrossEntropyLoss:** CrossEntropyLoss sudah memasukkan log-softmax di dalamnya, sehingga menambahkan softmax lagi membuat distribusi menjadi salah.",
-      "**Accuracy stuck di 1/K:** Model tidak belajar lebih baik dari tebakan acak. Cek kembali pasangan loss-head, learning rate, dan kualitas data.",
+      "**Accuracy stuck di 1/K:** Model tidak belajar lebih baik dari tebakan acak. Cek kembali pasangan loss dan head, learning rate, dan kualitas data.",
       "**Kesimpulan sebelum observasi:** Angka akurasi yang bagus membuat kamu langsung mengklaim model berhasil, padahal confusion matrix belum dilihat.",
     ],
-    footnote: "Lab W1 langkah 5 meminta kamu menjalankan mismatch secara sengaja dan mendokumentasikan apa yang terjadi.",
+    footnote: "Lab W1 langkah 5 meminta kamu menjalankan ketidakcocokan loss dan head secara sengaja dan mendokumentasikan apa yang terjadi.",
   },
 
   // ── Slide 20: CTA ──

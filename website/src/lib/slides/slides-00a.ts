@@ -99,7 +99,7 @@ export const slides00a: SlideSection[] = [
     title: "Kuis: Baca Shape Ini",
     body: "Coba baca shape tensor berikut dan pilih jawaban yang benar:",
     bullets: [
-      "`x = torch.randn(32, 3, 64, 64)` — apa arti setiap angka?",
+      "`x = torch.randn(32, 3, 64, 64)` - apa arti setiap angka?",
       "A) B=3, C=32, H=64, W=64",
       "B) B=32, C=3, H=64, W=64",
       "C) B=32, C=64, H=3, W=64",
@@ -114,7 +114,7 @@ export const slides00a: SlideSection[] = [
     title: "Jawaban: Shape (32, 3, 64, 64)",
     left: {
       title: "Jawaban: B",
-      body: "Jawaban yang benar adalah B: B=32 (batch), C=3 (channel RGB), H=64, W=64.\n\nDokumentasi PyTorch menyebut tata letak ini sebagai **NCHW**, sedangkan di modul kita menulis **BCHW** karena huruf B sudah dipakai untuk batch dan N kita pakai untuk jumlah kelas. Dua istilah ini menunjuk hal yang sama - dimensi pertama selalu batch, lalu channel, lalu tinggi, lalu lebar.",
+      body: "Jawaban yang benar adalah B: B=32 (batch), C=3 (channel RGB), H=64, W=64.\n\nDokumentasi PyTorch menyebut tata letak ini sebagai **NCHW**, sedangkan di modul kita menulis **BCHW** karena huruf B sudah dipakai untuk batch dan N kita pakai untuk jumlah kelas. Dua istilah ini mengacu pada hal yang sama - dimensi pertama selalu batch, lalu channel, lalu tinggi, lalu lebar.",
     },
     right: {
       title: "Kenapa Bukan yang Lain?",
@@ -124,7 +124,7 @@ export const slides00a: SlideSection[] = [
         "**D salah** karena urutan B-C-H-W (alias NCHW di dokumentasi PyTorch) adalah standar yang konsisten di semua fungsi dan tutorial resmi.",
       ],
     },
-    footnote: "Shape adalah gerbang pertama debugging. Baca sebelum bertanya ke internet atau LLM. Catatan: NCHW di PyTorch = BCHW di modul ini, beda nama saja.",
+    footnote: "Shape adalah titik awal debugging. Baca sebelum bertanya ke internet atau LLM. Catatan: NCHW di PyTorch = BCHW di modul ini, beda nama saja.",
   },
 
   // ── Slide 4: Video deeplizard ──
@@ -190,7 +190,7 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
         body: "K atau N menyatakan jumlah kelas dalam klasifikasi. K dipakai di K-means, sementara N atau num_classes dipakai di kode PyTorch.",
       },
     ],
-    footnote: "Konvensi ini konsisten di semua bab. Jika ada notasi asing, cek Lampiran A.11.",
+    footnote: "Konvensi ini konsisten di semua bab. Jika ada notasi yang belum dikenal, cek Lampiran A.11.",
   },
 
   // ── Slide 7: Arti -> ──
@@ -219,17 +219,17 @@ print(x_flat.shape)         # torch.Size([8, 3072])`,
     },
     right: {
       title: "Chain Rule",
-      body: "Jika z = f(g(x)), maka dz/dx = (dz/dg) × (dg/dx). Konsep ini adalah dasar dari backpropagation.\n\nGradient mengalir mundur dari loss ke layer pertama, dikalikan satu demi satu lewat aturan rantai. PyTorch menangani semua ini lewat Autograd.",
+      body: "Jika z = f(g(x)), maka dz/dx = (dz/dg) × (dg/dx). Konsep ini adalah dasar dari backpropagation.\n\nPada backward pass, gradient dihitung mulai dari loss, lalu dikalikan turunan lokal satu demi satu lewat aturan rantai. PyTorch menangani semua ini lewat Autograd.",
     },
-    footnote: "Tidak perlu hafal rumus. Cukup paham apa yang dihitung dan mengapa arahnya berlawanan.",
+    footnote: "Tidak perlu mengingat rumus di luar konteks. Cukup paham apa yang dihitung dan mengapa arahnya berlawanan.",
   },
 
   // ── Slide 8d: Chain Rule Visual ──
   {
     layout: "image",
-    title: "Chain Rule: Gradient Mengalir Mundur",
+    title: "Chain Rule: Gradient pada Backward Pass",
     imageUrl: "/figures/fig00a_chain_rule.svg",
-    caption: "Gambar ini menunjukkan computation graph saat backward pass: gradient dimulai dari output di bawah, dikalikan turunan lokal di tiap node, lalu mengalir mundur ke variabel input di atas.",
+    caption: "Gambar ini menunjukkan computation graph saat backward pass: gradient dihitung dari output, dikalikan turunan lokal di tiap node, lalu digunakan untuk menghitung turunan terhadap variabel input.",
     footnote: "Sumber: Dive into Deep Learning (d2l.ai), Apache 2.0. Konsep ini menjadi dasar dari `loss.backward()` di PyTorch.",
   },
 
@@ -387,7 +387,7 @@ y.backward()                 # x.grad berisi gradient`,
     body: "Cek apakah kamu sudah siap memasuki W1 dengan daftar berikut:",
     bullets: [
       "Kamu bisa membaca shape `(B, C, H, W)` dan menjelaskan arti setiap huruf.",
-      "Kamu paham bedanya forward pass (input → output) dan backward pass (gradient mengalir mundur).",
+      "Kamu paham bedanya forward pass (input → output) dan backward pass (gradient dihitung saat backward pass).",
       "Kamu bisa membuat tensor PyTorch, mencetak shape-nya, dan menjalankan `.backward()`.",
       "Kamu tahu apa itu loss, gradient, optimizer, dan epoch.",
       "Kamu sudah membaca minimal enam istilah: loss, gradient, optimizer, seed, checkpoint, leakage.",

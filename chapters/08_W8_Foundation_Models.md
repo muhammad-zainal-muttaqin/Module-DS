@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -74,7 +74,7 @@ Sebelum masuk ke "apa itu foundation model", mari kita lihat bagaimana kita samp
 
 **Fase 1: Training dari nol per tugas (sebelum 2012).** Setiap tugas dimulai dari bobot acak. Tidak ada berbagi representasi antar tugas; model untuk klasifikasi gambar tidak membantu model untuk deteksi objek. Ini seperti setiap kali belajar membaca, Anda harus belajar alfabet ulang.
 
-**Fase 2: Pretraining supervised + fine-tuning (2012–2017).** AlexNet (2012) dilatih di ImageNet 1.2 juta gambar, terlalu mahal untuk dilatih ulang setiap kali. Pola baru muncul: ambil bobot yang sudah dilatih di ImageNet, lalu *fine-tune* di dataset yang lebih kecil. Ini bekerja karena representasi visual tingkat rendah (edge, tekstur, bentuk) bersifat universal. Pola ini menjadi standar di computer vision: tidak ada lagi training dari nol.
+**Fase 2: Pretraining supervised + fine-tuning (2012–2017).** AlexNet (2012) dilatih di ImageNet 1.2 juta gambar, biaya training-nya terlalu tinggi untuk dilatih ulang setiap kali. Pola baru muncul: ambil bobot yang sudah dilatih di ImageNet, lalu *fine-tune* di dataset yang lebih kecil. Ini bekerja karena representasi visual tingkat rendah (edge, tekstur, bentuk) bersifat universal. Pola ini menjadi standar di computer vision: tidak ada lagi training dari nol.
 
 **Fase 3: Pretraining self-supervised pada teks (2018–2020).** BERT (Devlin et al., 2018) dan GPT (Radford et al., 2018) memindahkan paradigma ini ke NLP, dengan dua perbedaan penting. Pertama, pretraining dilakukan secara *self-supervised*: model belajar dari teks tanpa label, cukup dengan memprediksi token yang disembunyikan (masked language modeling) atau token berikutnya (causal language modeling). Kedua, skala data melonjak drastis: BERT dilatih di 3,3 miliar token dari BooksCorpus + Wikipedia; GPT-2 di 8 juta halaman web.
 
@@ -111,7 +111,7 @@ Konsekuensi praktis: ketika Anda mendapat tugas baru, pertanyaan pertama adalah 
 >
 > - **Frozen** - bobot pretrained dikunci (`requires_grad = False`). Hanya layer tambahan kecil (linear head, classifier) yang dilatih. Inference tetap melalui seluruh model, tetapi tidak ada backward pass ke backbone. Tercepat dan paling stabil; sub-optimal kalau domain target jauh dari pretraining.
 > - **LoRA** (Low-Rank Adaptation) - sisipkan matriks low-rank `A B` (mis. `r=8`) paralel dengan `W_q` dan `W_v` di setiap attention layer; kunci `W` original. Hanya `A B` dilatih. Trade-off: ~0.5-2% parameter dilatih, performa biasanya 95-99% dari full fine-tuning, training 3-5× lebih cepat. Pakai library `peft` dari HuggingFace.
-> - **Full FT** (full fine-tuning) - semua parameter `requires_grad = True`. Paling fleksibel, paling mahal (memori GPU dan waktu). Risiko overfitting tinggi pada dataset kecil; biasanya butuh learning rate kecil (`1e-5`) dan early stopping.
+> - **Full FT** (full fine-tuning) - semua parameter `requires_grad = True`. Paling fleksibel, dengan biaya memori GPU dan waktu paling tinggi. Risiko overfitting tinggi pada dataset kecil; biasanya butuh learning rate kecil (`1e-5`) dan early stopping.
 
 #### Teks
 
@@ -209,7 +209,7 @@ Compute budget cukup untuk fine-tuning?
 
 **LoRA:** Tambahkan matriks low-rank parallel dengan weight original. Hanya LoRA matrices dilatih (biasanya < 1% parameter). Efficient, hasil sering sebanding dengan full fine-tuning.
 
-**Full fine-tuning:** Semua parameter diperbarui. Paling fleksibel, paling mahal. Butuh data cukup untuk menghindari overfitting.
+**Full fine-tuning:** Semua parameter diperbarui. Paling fleksibel, dengan biaya komputasi paling tinggi. Butuh data cukup untuk menghindari overfitting.
 
 ### 2.5 Teacher Model dalam Training-Time Supervision
 

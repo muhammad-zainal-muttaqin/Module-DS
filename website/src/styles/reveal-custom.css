@@ -53,7 +53,7 @@
   text-align: left;
 }
 
-/* Direct section padding — NO inner card wrapper */
+/* Direct section padding - NO inner card wrapper */
 .reveal .slides section {
   padding: 2rem 2.5rem;
   box-sizing: border-box;
@@ -424,7 +424,7 @@
   transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Spotlight glow — JS sets --mouse-x / --mouse-y on hover */
+/* Spotlight glow - JS sets --mouse-x / --mouse-y on hover */
 .slide-grid-item::before {
   content: '';
   position: absolute;

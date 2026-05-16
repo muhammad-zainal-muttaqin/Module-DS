@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | ▶ 06 | W6 - Representations & Temporal Leakage | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -123,11 +123,11 @@ Kewaspadaan terhadap data bukan tugas tambahan. Tanpanya, seluruh eksperimen ber
 
 *Exploratory Data Analysis* sering diajarkan sebagai daftar langkah: "jalankan `df.describe()`, plot histogram, hitung korelasi, selesai". Praktik yang benar adalah sebaliknya - EDA dipandu oleh pertanyaan, bukan daftar. Setiap angka atau plot yang Anda lihat harus memicu pertanyaan baru, bukan tanda centang.
 
-Kerangka kerja yang produktif: tiga lapis pertanyaan yang mengalir secara berurutan - dari integritas dasar, ke distribusi, ke hubungan tersembunyi.
+Kerangka kerja yang produktif: tiga lapis pertanyaan yang disusun berurutan - dari integritas dasar, ke distribusi, ke hubungan tersembunyi.
 
 ```mermaid
 flowchart LR
-    A[Lapis 1\nBentuk & Integritas\nnull, duplikat, tipe] --> B[Lapis 2\nDistribusi & Anomali\noutlier, imbalance] --> C[Lapis 3\nHubungan & Kejutan\nkorelasi, train-test shift]
+    A[Lapis 1\nBentuk & Integritas\nnull, duplikat, tipe] --> B[Lapis 2\nDistribusi & Anomali\noutlier, imbalance] --> C[Lapis 3\nHubungan & Hal Tak Terduga\nkorelasi, train-test shift]
 ```
 
 **Lapis 1 - Bentuk dan integritas.**
@@ -143,7 +143,7 @@ flowchart LR
 - Distribusi target: imbalanced? Jika ya, seberapa parah?
 - Apakah ada nilai yang "tidak masuk akal" (umur negatif, suhu 999, tanggal di masa depan)?
 
-**Lapis 3 - Hubungan dan kejutan.**
+**Lapis 3 - Hubungan dan hal tak terduga.**
 - Korelasi antar fitur numerik.
 - Korelasi fitur dengan target. Adakah fitur dengan korelasi *sangat* tinggi (>0.95)? Ini patut diselidiki - sering tanda leakage.
 - Apakah distribusi fitur sama antara train dan test? Jika berbeda, mengapa?
@@ -251,7 +251,7 @@ for idx in indices:
     print(f"true: {targets[idx]}, predicted: {preds[idx]}, conf: {confs[idx]:.3f}")
 ```
 
-Proses ini sering menghadirkan kejutan. Saya pernah menemukan 15% label pada dataset publik "kucing vs anjing" salah karena ditandai oleh *crowd worker* yang tergesa-gesa.
+Proses ini sering mengungkap hal tak terduga. Saya pernah menemukan 15% label pada dataset publik "kucing vs anjing" salah karena ditandai oleh *crowd worker* yang tergesa-gesa.
 
 ### 2.4 Verifikasi Pipeline: Pemisahan yang Ketat
 
@@ -561,7 +561,7 @@ Buka [lab_w6_eda_leakage.ipynb](https://colab.research.google.com/github/muhamma
 
 Tugas:
 
-1. Unduh PathMNIST dan jalankan EDA tiga lapis: bentuk/integritas, distribusi/anomali, hubungan/kejutan. Hasilkan minimal 4 figur (distribusi kelas per split, sampel per kelas, statistik per channel, matriks confusion awal).
+1. Unduh PathMNIST dan jalankan EDA tiga lapis: bentuk/integritas, distribusi/anomali, hubungan/hal tak terduga. Hasilkan minimal 4 figur (distribusi kelas per split, sampel per kelas, statistik per channel, matriks confusion awal).
 2. Jalankan cek overlap antar split dengan image hashing. Catat hasilnya di `audit.md`.
 3. Implementasikan strategi deteksi ketidakkonsistenan label (near-duplicate dengan label berbeda, atau disagreement model baseline). Inspeksi 10 pasangan suspek secara manual.
 4. Buat pipeline pra-pemrosesan yang fit-only-on-train. Verifikasi dengan membandingkan output transform di train vs val - statistik normalisasi val harus memakai mean/std dari train, bukan dari val.

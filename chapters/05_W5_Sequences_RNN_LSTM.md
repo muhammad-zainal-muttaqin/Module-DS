@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | ▶ 05 | W5 - Sequences: RNN & LSTM | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -79,13 +79,13 @@ Hal ini disebut **Backpropagation Through Time (BPTT)**. Namanya tampak menakutk
         + ∂L/∂h_3 · ∂h_3/∂h_2 · ∂h_2/∂h_1 · ∂h_1/∂W_h
 ```
 
-Setiap suku adalah satu jalur: gradient dari loss merambat mundur lewat berapa banyak timestep sebelum mencapai parameter `W_h`. Jalur paling panjang (suku ketiga) melewati T-1 timestep.
+Setiap suku adalah satu jalur perhitungan: gradient loss harus melewati beberapa timestep sebelum mencapai parameter `W_h`. Jalur paling panjang (suku ketiga) melewati T-1 timestep.
 
 ### 1.5.2 Vanishing Gradient: Contoh Angka
 
 Setiap kali gradient melewati satu langkah waktu mundur, ia dikalikan dengan turunan `∂h_t/∂h_{t-1}`. Untuk RNN vanilla (`h_t = tanh(W_h h_{t-1} + W_x x_t + b)`), turunan ini kira-kira sebanding dengan `W_h` (modulo turunan tanh yang ≤ 1).
 
-Anggap untuk simplikasi `W_h` adalah skalar `w_h = 0.5`. Setelah merambat mundur T langkah, gradient awal dikalikan `w_h^T`:
+Anggap untuk simplikasi `W_h` adalah skalar `w_h = 0.5`. Setelah backward pass melewati T langkah, gradient awal dikalikan `w_h^T`:
 
 | T (langkah mundur) | w_h^T (w_h = 0.5) | w_h^T (w_h = 0.9) | w_h^T (w_h = 1.1) |
 |---|---|---|---|
@@ -103,9 +103,9 @@ Tiga rezim:
 
 Inilah "vanishing gradient problem" - bukan masalah teori abstrak, tetapi konsekuensi langsung perkalian berulang di chain rule. LSTM (§2.3) dirancang khusus untuk memutus rantai perkalian ini.
 
-*Cell state* LSTM memutus rantai ini dengan cara yang spesifik: `c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t`. Turunan `∂c_t/∂c_{t-1} = f_t` adalah hasil elemen per elemen dengan forget gate, bukan perkalian dengan matriks rekurens `W_h` secara penuh. Gradient bisa mengalir jauh ke belakang tanpa teredam. Cara kerjanya secara rinci ada di §2.3.
+*Cell state* LSTM memutus rantai ini dengan cara yang spesifik: `c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t`. Turunan `∂c_t/∂c_{t-1} = f_t` adalah hasil elemen per elemen dengan forget gate, bukan perkalian dengan matriks rekurens `W_h` secara penuh. Gradient pada timestep awal tetap dapat dihitung tanpa cepat teredam. Cara kerjanya secara rinci ada di §2.3.
 
-Prinsip yang sama berlaku pada **residual connections** yang akan Anda jumpai di W7 dan W8: alih-alih mempelajari `H(x)` langsung, blok residual mempelajari `F(x) = H(x) - x`, sehingga output menjadi `F(x) + x`. Penambahan `x` menciptakan jalur langsung bagi gradient dari loss ke layer sebelumnya, tanpa harus melalui transformasi dalam blok. *Cell state* LSTM, residual connections di ResNet, dan skip connections di blok Transformer adalah satu prinsip yang sama: **pembaruan aditif sebagai jalan pintas gradient**. Memahami prinsip ini sekali sudah cukup untuk mengenali bentuknya di W7 dan W8.
+Prinsip yang sama berlaku pada **residual connections** yang akan Anda jumpai di W7 dan W8: alih-alih mempelajari `H(x)` langsung, blok residual mempelajari `F(x) = H(x) - x`, sehingga output menjadi `F(x) + x`. Penambahan `x` menciptakan jalur langsung bagi gradient dari loss ke layer sebelumnya, tanpa harus melalui transformasi dalam blok. *Cell state* LSTM, residual connections di ResNet, dan skip connections di blok Transformer adalah satu prinsip yang sama: **pembaruan aditif mengurangi perkalian berulang pada gradient**. Memahami prinsip ini sekali sudah cukup untuk mengenali bentuknya di W7 dan W8.
 
 > [!NOTE]
 > Untuk vector/matrix `W_h`, ukuran yang relevan adalah **eigenvalue terbesar** (spectral radius). Kalau spectral radius < 1, gradient vanish; kalau > 1, explode. Rumus T-langkah pakai matrix power, bukan skalar power, tetapi prinsipnya sama.
@@ -161,7 +161,7 @@ Hidden state `h_t` berperan sebagai "memori" yang diperbarui setiap langkah. Ini
 
 ### 2.3 LSTM: Gate sebagai Solusi
 
-Long Short-Term Memory (LSTM) memperkenalkan **cell state** `c_t` yang terpisah dari hidden state, dan tiga **gate** yang mengontrol aliran informasi. Konsep gate: vektor dengan nilai antara 0 dan 1 (hasil dari `σ` = sigmoid) yang dikalikan element-wise (`⊙`, lihat §1.5.3) ke vektor lain - berfungsi seperti "keran" yang memutuskan komponen mana yang lewat dan komponen mana yang ditahan.
+Long Short-Term Memory (LSTM) memperkenalkan **cell state** `c_t` yang terpisah dari hidden state, dan tiga **gate** yang menentukan komponen informasi mana yang dipertahankan atau ditulis. Konsep gate: vektor dengan nilai antara 0 dan 1 (hasil dari `σ` = sigmoid) yang dikalikan element-wise (`⊙`, lihat §1.5.3) ke vektor lain - berfungsi sebagai masker numerik untuk memilih komponen vektor.
 
 #### 2.3.1 Rumus Annotated
 
@@ -187,9 +187,9 @@ Notasi `[h_{t-1}, x_t]` artinya konkatenasi vektor: kalau `h_{t-1}` shape `(d_h,
 
 #### 2.3.2 Kenapa Ini Memutus Vanishing Gradient
 
-Kunci di baris cell state: `c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t`. Saat backprop, turunan `∂c_t/∂c_{t-1} = f_t` (hanya gate, bukan perkalian matriks `W_h` yang berulang). Kalau forget gate `f_t ≈ 1` di sepanjang sequence, gradient cell state mengalir mundur **tanpa menyusut**. Ini jalur cepat gradient yang menjaga sinyal dari timestep awal tetap hidup walau sequence panjang.
+Kunci di baris cell state: `c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t`. Saat backprop, turunan `∂c_t/∂c_{t-1} = f_t` (hanya gate, bukan perkalian matriks `W_h` yang berulang). Kalau forget gate `f_t ≈ 1` di sepanjang sequence, gradient pada cell state tetap stabil **tanpa cepat menyusut**. Struktur aditif ini menjaga informasi gradient dari timestep awal tetap tersedia walau sequence panjang.
 
-Bandingkan dengan RNN vanilla: setiap langkah mundur, gradient dikalikan dengan `W_h` (matriks belajar, bisa kecil). Setelah 100 langkah, gradient `~ 0`. LSTM tidak punya rantai perkalian matriks ini di cell state - hanya rantai gate, dan gate bisa belajar ke nilai 1 untuk "buka jalur".
+Bandingkan dengan RNN vanilla: setiap langkah mundur, gradient dikalikan dengan `W_h` (matriks belajar, bisa kecil). Setelah 100 langkah, gradient `~ 0`. LSTM tidak punya rantai perkalian matriks ini di cell state - hanya rantai gate, dan gate bisa belajar ke nilai 1 untuk mempertahankan kontribusi informasi lama.
 
 ![Vanishing Gradient: RNN vs LSTM - gradient norm per timestep saat backprop](../figures/fig05b_gradient_flow.svg)
 
@@ -197,11 +197,11 @@ Bandingkan dengan RNN vanilla: setiap langkah mundur, gradient dikalikan dengan 
 
 Bayangkan sequence sensor pasien: glukosa setiap 5 menit selama 24 jam (288 timestep). Cell state `c_t` menyimpan "kondisi pasien terakhir kali stabil". Forget gate `f_t` adalah keputusan model di tiap timestep: *apakah kondisi sebelumnya masih relevan?*
 
-- Saat data normal mengalir → `f_t ≈ 1.0` → cell state hampir tidak berubah, sehingga gambaran kondisi stabil tetap dipertahankan.
+- Saat data tetap normal → `f_t ≈ 1.0` → cell state hampir tidak berubah, sehingga gambaran kondisi stabil tetap dipertahankan.
 - Saat anomali (lonjakan glukosa tiba-tiba akibat makan berat) → `f_t` turun ke ~0.3 untuk komponen yang terkait kondisi sebelum makan; cell state diperbarui dengan informasi baru.
 - Saat pasien tidur dan sinyal sangat lambat → `f_t` ≈ 1.0 lagi, cell state mempertahankan gambaran kondisi tidur tanpa terganggu fluktuasi noise kecil.
 
-Forget gate mempelajari *kapan* informasi lama harus dilupakan. Tanpa training, model tidak tahu - tetapi gradient yang merambat lewat sequence membentuk gate untuk kondisi yang relevan.
+Forget gate mempelajari *kapan* informasi lama harus dilupakan. Tanpa training, model tidak tahu - tetapi backward pass melalui sequence memperbarui parameter gate untuk kondisi yang relevan.
 
 #### 2.3.4 Hidden State vs Cell State: Tabel Kontras
 
@@ -209,9 +209,9 @@ Dua "memori" di LSTM sering membingungkan pemula. Perbedaan ringkas:
 
 | Aspek | Cell state `c_t` | Hidden state `h_t` |
 |---|---|---|
-| **Peran metafora** | "highway memori jangka panjang" | "output dan input ke timestep berikut" |
+| **Peran ringkas** | Memori jangka panjang berbasis update aditif | Output dan input ke timestep berikut |
 | **Update** | Lewat dua gate (forget + input) dengan jalur additive | Lewat satu gate (output) dari `tanh(c_t)` |
-| **Gradient flow saat backprop** | Mengalir mundur lewat gate, bisa flat panjang | Mengalir lewat perkalian matriks (riskan vanish) |
+| **Perilaku gradient saat backprop** | Lebih stabil karena update aditif | Dipengaruhi perkalian matriks (riskan vanish) |
 | **Diekspos ke layer berikut?** | Tidak (internal LSTM) | Ya (jadi input ke `Linear` head atau LSTM layer berikut) |
 | **Inisialisasi** | `c_0 = 0` (default) | `h_0 = 0` (default) |
 | **Bentuk shape** | `(d_h,)` per timestep | `(d_h,)` per timestep |

@@ -8,7 +8,7 @@
 | ▶ 01 | W1 - Tabular & Output Heads | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -163,7 +163,7 @@ print("3. Output Logits Multikelas (3 nilai):", hasil_multikelas.detach().numpy(
 
 Pada model pretrained (W7-W8), prinsip ini lebih jelas: backbone CNN/Transformer pretrained menjadi body yang di-freeze, dan hanya head kecil yang dilatih untuk tugas baru. Memisahkan body dan head sejak W1 memudahkan transisi ke pola adaptasi tersebut.
 
-### 2.2 Output Head + Loss Matching
+### 2.2 Pencocokan Output Head dan Loss
 
 Setiap tugas (regression, binary, multiclass) butuh kombinasi head dan loss yang spesifik. Sebelum melihat tabel ringkasan di akhir bagian ini, kita pahami tiga pasangan utama lewat satu contoh angka kecil masing-masing.
 
@@ -208,7 +208,7 @@ softmax(z)[i] = e^(z_i) / Σ_j e^(z_j)
 
 ![Perbandingan sigmoid (binary: satu logit → satu probabilitas) dan softmax (multikelas: N logit → distribusi probabilitas)](../figures/fig01i_sigmoid_softmax.png)
 
-#### 2.2.4 Tabel Ringkasan Pasangan Head-Loss
+#### 2.2.4 Tabel Ringkasan Pasangan Head dan Loss
 
 Setelah memahami ketiga pasangan di atas, gunakan tabel berikut sebagai rujukan cepat. Cetak dan tempel di samping monitor.
 
@@ -324,7 +324,7 @@ Catat untuk setiap run:
 2. **Jalankan regresi.** Set `task=regression`, `loss=mse`, `num_classes=1`. Latih 20 epoch. Catat MAE val.
 3. **Jalankan klasifikasi biner.** Set `task=binary`, `loss=cross_entropy`, `num_classes=2`. Catat accuracy val.
 4. **Jalankan klasifikasi multikelas.** Set `task=multiclass`, `loss=cross_entropy`, `num_classes=3`. Catat accuracy + macro-F1 val.
-5. **Eksperimen mismatch secara sengaja.** Jalankan satu run dengan kombinasi salah (mis. tugas biner tapi `loss=mse`). Amati kegagalan. Tuliskan dalam 2 kalimat apa yang gagal.
+5. **Eksperimen ketidakcocokan loss dan head secara sengaja.** Jalankan satu run dengan kombinasi salah (mis. tugas biner tapi `loss=mse`). Amati kegagalan. Tuliskan dalam 2 kalimat apa yang gagal.
 6. **Tulisan observasi vs interpretasi.** Tulis 1 paragraf observasi murni (apa yang dilihat di angka), 1 paragraf interpretasi (apa yang menurut Anda terjadi).
 
 **Luaran:**

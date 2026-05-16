@@ -18,7 +18,7 @@ export default function EmailHero() {
             <span className="text-rigor dark:text-curiosity">Eksekusi kompleks.</span>
           </h1>
           <p className="text-lg md:text-xl text-ink/75 dark:text-parchment/80 max-w-xl mb-8 leading-relaxed">
-            Panduan praktis bagi asisten riset ML/DL untuk menerjemahkan arahan dosen menjadi eksperimen yang terstruktur, adil, dan konsisten.
+            Panduan praktis bagi asisten riset ML/DL untuk menerjemahkan arahan dosen menjadi eksperimen yang terstruktur, setara, dan konsisten.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link to="/modul/00" className="btn-primary text-base px-5 py-2.5">
@@ -46,7 +46,7 @@ export default function EmailHero() {
               <div className="text-xs text-ink/70 dark:text-parchment/50 uppercase tracking-wider mb-1">Subjek</div>
               <div className="text-base mb-5 font-sans font-medium">eksperimen minggu ini</div>
               <blockquote className="border-l-4 border-rigor pl-4 py-1 text-base md:text-lg italic leading-relaxed">
-                "Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang adil, lalu kirim ringkasan hasil hari Kamis."
+                "Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang setara, lalu kirim ringkasan hasil hari Kamis."
               </blockquote>
               <div className="mt-6 flex items-center justify-between text-sm font-sans">
                 <span className="text-ink/70 dark:text-parchment/60">2 kalimat. Tidak ada panduan lebih lanjut.</span>

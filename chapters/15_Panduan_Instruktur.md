@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -27,7 +27,7 @@
 
 # 15 · Panduan Instruktur
 
-> *Modul ini bukan buku teks yang dibacakan dari depan kelas. Modul ini adalah rangkaian eksperimen bertahap yang membutuhkan fasilitator - seseorang yang tahu kapan memberi ruang untuk gagal, kapan mengajukan pertanyaan yang lebih tajam, dan kapan mundur agar mahasiswa menemukan sendiri jawabannya.*
+> *Modul ini bukan buku teks yang dibacakan dari depan kelas. Modul ini adalah rangkaian eksperimen bertahap yang membutuhkan fasilitator - seseorang yang tahu kapan memberi ruang untuk gagal, kapan mengajukan pertanyaan yang lebih tajam, dan kapan mundur agar mahasiswa mendapatkan jawabannya sendiri.*
 
 ---
 
@@ -159,7 +159,7 @@ Konten di luar `<details>` adalah **konten inti** - wajib untuk semua mahasiswa.
 - **Kaitan rubrik:** Kompetensi 1 (lanjutan), Kompetensi 3 (awal). Target: Developing.
 - **Waktu lab:** Lab 1 lanjut + Lab 2 (focal loss + freeze ablation): 5-7 jam.
 
-### W4 - Reproducibility & Experiment Matrix
+### W4 - Reproducibility & Matriks Eksperimen
 
 - **Prioritas:** Wajibkan matriks eksperimen sebelum kode. Periksa timestamp `protocol.md` - jika setelah hasil training, itu rasionalisasi bukan protokol. §3.5 (Komunikasi Efektif PI dengan SQRC) drill role-play. §2.6 (Etika Data) singgung negative results sebagai kewajiban.
 - **Pitfall:** Mahasiswa mengira `set_seed(42)` cukup. Tunjukkan non-determinisme CUDA: dua run dengan seed sama bisa berbeda 0.5% akurasi. Solusi: `torch.backends.cudnn.deterministic = True`.
@@ -170,7 +170,7 @@ Konten di luar `<details>` adalah **konten inti** - wajib untuk semua mahasiswa.
 ### W5 - Sequences: RNN & LSTM
 
 - **Prioritas:** **Lab 3b wajib**. Tunjukkan gradient flow secara visual (log-plot vanishing gradient) - jangan hanya ceritakan. Minta pernyataan justifikasi arsitektur: kenapa LSTM, bukan vanilla RNN.
-- **Pitfall:** Mahasiswa menghafal LSTM gates tanpa menghubungkan ke gradient flow. Minta gambar gate sambil menjelaskan kenapa cell state tidak vanish.
+- **Pitfall:** Mahasiswa mengulang istilah LSTM gates tanpa menghubungkan ke gradient flow. Minta gambar gate sambil menjelaskan kenapa cell state tidak vanish.
 - **Refleksi berbobot:** "Dataset mana yang secara default akan Anda tangani dengan LSTM, dan mana yang Transformer? Kapan ragu?"
 - **Kaitan rubrik:** Kompetensi 1 breadth (RNN/LSTM family). Target: Developing.
 - **Waktu lab:** Lab 3b (RNN vs LSTM): 4-6 jam wajib.
@@ -203,7 +203,7 @@ Konten di luar `<details>` adalah **konten inti** - wajib untuk semua mahasiswa.
 
 - **Prioritas:** Ablasi per modalitas. Tunjukkan masalah modalitas terabaikan secara empiris: model "sukses" tanpa benar-benar memakai salah satu modalitas. "Hasil bagus" belum cukup; tujuh kondisi ablation wajib.
 - **Pitfall:** Fusion strategi dipilih berdasar trend, bukan analisis. Minta justifikasi sebelum implementasi.
-- **Refleksi berbobot:** "Modalitas mana yang seharusnya paling kontributif untuk dataset Anda? Apakah hasil ablation memvalidasi intuisi itu?"
+- **Refleksi berbobot:** "Modalitas mana yang seharusnya paling kontributif untuk dataset Anda? Apakah hasil ablation memvalidasi dugaan itu?"
 - **Kaitan rubrik:** Kompetensi 1 breadth (multimodal) + Kompetensi 4 (skeptisisme). Target: Developing→Proficient.
 - **Waktu lab:** Lab 8 (multimodal ablation 7 kondisi): 6-8 jam.
 
@@ -283,7 +283,7 @@ Portofolio mahasiswa ada di [`notebooks/portofolio_mandiri.ipynb`](https://githu
 
 - **Setup:** Konteks dan pertanyaan yang mendorong eksplorasi.
 - **Temuan:** Apa yang ditemukan (dengan bukti: kode, plot, tabel).
-- **Kejutan:** Apa yang tidak sesuai ekspektasi.
+- **Hal Tak Terduga:** Apa yang tidak sesuai ekspektasi.
 - **Yang Akan Diubah:** Jika mengulangi, apa yang akan dilakukan berbeda.
 - **Koneksi:** Kaitan dengan materi bab atau pekan sebelumnya.
 
@@ -293,13 +293,13 @@ Portofolio mahasiswa ada di [`notebooks/portofolio_mandiri.ipynb`](https://githu
 | --- | --- | --- | --- | --- |
 | **Pertanyaan awal** | Tidak ada pertanyaan ditulis | Pertanyaan umum ("mencoba X") | Pertanyaan spesifik, dikaitkan dengan gap skill atau topik riset | Pertanyaan berkembang lintas pekan membentuk narasi belajar |
 | **Bukti eksekusi** | Tidak ada bukti konkret | Kode atau plot ada, tidak terinterpretasi | Kode/plot + 1 paragraf interpretasi | Interpretasi mencakup "apa yang TIDAK bisa disimpulkan" |
-| **Refleksi** | "Berjalan lancar" tanpa detail | Satu kejutan atau kesulitan disebut | Kejutan + mengapa terjadi + apa yang diubah | Kejutan dihubungkan ke konsep dari bab lain |
+| **Refleksi** | "Berjalan lancar" tanpa detail | Satu hal tak terduga atau kesulitan disebut | Hal Tak Terduga + mengapa terjadi + apa yang diubah | Hal Tak Terduga dihubungkan ke konsep dari bab lain |
 | **Koneksi** | Tidak ada koneksi ke materi | Koneksi disebut ("ini adalah implementasi dari...") | Koneksi spesifik ke section bab | Koneksi mensintesis dua bab atau lebih |
 
 ### Cara Mendeteksi Entri "Copy-Paste dari Lab"
 
 Entri yang hanya mengulang output lab (`accuracy = 0.78`, `loss turun`) tanpa interpretasi tambahan otomatis Novice. Ciri entri copy-paste:
-- Tidak ada kejutan ("semua berjalan sesuai harapan").
+- Tidak ada hal tak terduga ("semua berjalan sesuai harapan").
 - Tidak ada koneksi ke materi ("saya menjalankan Lab X" tanpa menjelaskan apa yang dipelajari).
 - Kode identik dengan lab notebook (periksa diff terhadap notebook asli).
 
@@ -311,7 +311,7 @@ Hindari:
 - "Perlu ditingkatkan" (tidak ada arah)
 
 Pakai format: **Satu hal yang sudah baik + satu hal yang bisa dipertajam.**
-Contoh: "Analisis F1 per kelas sudah baik karena Anda menghubungkan penurunan ke jumlah sampel. Satu hal: coba tuliskan apa yang TIDAK Anda yakini dari hasil ini - itu akan memperkuat bagian Kejutan."
+Contoh: "Analisis F1 per kelas sudah baik karena Anda menghubungkan penurunan ke jumlah sampel. Satu hal: coba tuliskan apa yang TIDAK Anda yakini dari hasil ini - itu akan memperkuat bagian Hal Tak Terduga."
 
 ### Kiat Menilai Portofolio
 
@@ -378,7 +378,7 @@ W5 secara konsisten menjadi titik paling curam di modul - BPTT, vanishing gradie
 
 4. **Jangan lewatkan Lab 3b.** Lab ini wajib (Breadth Check Kompetensi 1). Jika waktu habis, pangkas satu analisis lain (misalnya analisis lanjutan dari Lab 2), bukan Lab 3b. Gradient flow plot vanishing vs LSTM adalah bukti visual yang tidak bisa diganti narasi.
 
-5. **Susun ulang kesulitan.** Katakan langsung: "W5 memang paling sulit. Jika Anda merasa pusing, itu normal. Yang perlu Anda petik dari W5 bukan hafalan gate equations, melainkan dua hal: (1) kenapa vanilla RNN gagal di sequence panjang, dan (2) cell state adalah 'jalan tol' yang melindungi gradient."
+5. **Susun ulang kesulitan.** Katakan langsung: "W5 memang paling sulit. Jika Anda merasa pusing, itu normal. Yang perlu Anda petik dari W5 bukan mengulang gate equations, melainkan dua hal: (1) kenapa vanilla RNN gagal di sequence panjang, dan (2) cell state adalah 'jalur aditif' yang menjaga gradient tetap stabil."
 
 ### Skenario 6: Semua Mahasiswa Memakai LLM untuk Mengerjakan Lab (W7+)
 

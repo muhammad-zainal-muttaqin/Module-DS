@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| ▶ 04 | W4 - Reproducibility & Experiment Matrix | 4 |
+| ▶ 04 | W4 - Reproducibility & Matriks Eksperimen | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -25,7 +25,7 @@
 
 ---
 
-# 04 · W4 - Reproducibility & Experiment Matrix
+# 04 · W4 - Reproducibility & Matriks Eksperimen
 
 > *Eksperimen yang tidak bisa direproduksi hanyalah anekdot. Matriks eksperimen yang ditulis sebelum kode adalah janji kepada diri sendiri bahwa hasilnya akan bisa dipertanggungjawabkan.*
 
@@ -246,9 +246,9 @@ Ini *terutama* membutuhkan skeptisisme. Jika hipotesis "naik 3 poin" tapi aktual
 
 ### 2.7 Infrastruktur Reproduksibilitas: YAML, Seed, Checkpoint, Git Hash
 
-![Empat Pilar Reproduksibilitas: YAML config, Seed locking, Checkpoint metadata, Git hash](../figures/fig03a_reproducibility_sources.svg)
+![Empat Pilar Reproduksibilitas: YAML config, penguncian seed, Checkpoint metadata, Git hash](../figures/fig03a_reproducibility_sources.svg)
 
-Reproduksibilitas bertumpu pada empat pilar yang saling mengunci. Hyperparameter hidup di config YAML deklaratif, bukan di angka ajaib yang berserakan di kode; config disimpan bersama checkpoint sehingga setiap hasil bisa ditelusuri ke konfigurasi persis yang menghasilkannya. Seed dikunci di awal training dengan `set_seed(cfg['seed'])` sebelum operasi apapun, dan untuk reproduksibilitas ketat di GPU disertai `torch.backends.cudnn.deterministic = True`; satu seed per run, variasi seed dipakai antar replikasi sebagai pengukur noise.
+Reproduksibilitas bertumpu pada empat pilar yang saling mengunci. Hyperparameter hidup di config YAML deklaratif, bukan di angka hardcoded yang berserakan di kode; config disimpan bersama checkpoint sehingga setiap hasil bisa ditelusuri ke konfigurasi persis yang menghasilkannya. Seed dikunci di awal training dengan `set_seed(cfg['seed'])` sebelum operasi apapun, dan untuk reproduksibilitas ketat di GPU disertai `torch.backends.cudnn.deterministic = True`; satu seed per run, variasi seed dipakai antar replikasi sebagai pengukur noise.
 
 Dua pilar berikutnya mengikat hasil pada jejak yang bisa diaudit. Checkpoint menyimpan lebih dari sekadar `model.state_dict()` - di dalamnya ada `config`, `git_hash`, `epoch`, `metrics`, dan `timestamp`, karena checkpoint tanpa config hanyalah setengah bukti. Git hash mengikat setiap run ke commit yang menghasilkannya lewat `get_git_hash()`, dan flag "dirty" memperingatkan ketika ada perubahan yang belum di-commit. Implementasi keempat pilar tersedia di [`template/src/utils.py`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/src/utils.py); Lab 3 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb)) membangun keempatnya secara berurutan.
 
@@ -508,7 +508,7 @@ Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://githu
 ## 7. Refleksi
 
 1. Anda mendapati bahwa baseline di repo riset lab Anda memakai `lr=1e-3`, padahal pengalaman Anda bilang `3e-4` lebih stabil dengan AdamW. Anda ingin membandingkan focal loss dengan baseline. Tuliskan dua rencana eksperimen alternatif untuk menangani ketidakselarasan ini, beserta argumen kapan masing-masing lebih tepat.
-2. Hipotesis Anda gagal: F1 kelas minor tidak naik, akurasi keseluruhan turun. Apa tiga pertanyaan berikutnya yang akan Anda kejar? Urutkan dari yang paling murah (tidak perlu training baru) ke yang paling mahal.
+2. Hipotesis Anda gagal: F1 kelas minor tidak naik, akurasi keseluruhan turun. Apa tiga pertanyaan berikutnya yang akan Anda kejar? Urutkan dari yang paling ringan (tidak perlu training baru) ke yang paling berat (butuh training baru atau inspeksi manual panjang).
 3. Dosen pembimbing meminta Anda "cari teknik mitigasi imbalance yang paling ampuh untuk dataset kita". Instruksi ini jauh lebih terbuka daripada email di bagian 1. Tulis lima pertanyaan klarifikasi yang paling penting Anda ajukan *sebelum* memilih teknik apapun.
 4. **Koneksi ke Capstone.** Di W11 Anda akan menulis proposal capstone lengkap untuk topik Anda sendiri. Latihan sekarang: untuk satu topik kandidat Capstone yang Anda pikirkan, tuliskan draft 3 bagian protokol (tujuan, variabel, hipotesis) hanya dalam satu paragraf. Bagian mana yang paling sulit Anda tulis sekarang, dan apa yang perlu Anda pelajari di bab-bab berikutnya agar bagian itu menjadi mudah?
 

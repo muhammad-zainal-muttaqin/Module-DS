@@ -28,7 +28,7 @@ export default function Glossary() {
       <header className="page-header">
         <h1 className="page-title">Glosarium ID - EN</h1>
         <p className="page-lead">
-          Terjemahan istilah teknis ML/DL. Istilah asing yang lazim tidak diterjemahkan paksa - catatan di kolom ketiga menjelaskan nuansa.
+          Terjemahan istilah teknis ML/DL. Istilah teknis dari bahasa Inggris yang lazim tidak diterjemahkan paksa - catatan di kolom ketiga menjelaskan nuansa.
         </p>
       </header>
 

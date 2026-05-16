@@ -8,7 +8,7 @@
 | 01 | [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md) | 1 |
 | 02 | [W2 - Images, CNN & Smoke Test](02_W2_Images_CNN_Smoke_Test.md) | 2 |
 | 03 | [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) | 3 |
-| 04 | [W4 - Reproducibility & Experiment Matrix](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
+| 04 | [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) | 4 |
 | 05 | [W5 - Sequences: RNN & LSTM](05_W5_Sequences_RNN_LSTM.md) | 5 |
 | 06 | [W6 - Representations & Temporal Leakage](06_W6_Representations_Temporal_Leakage.md) | 6 |
 | 07 | [W7 - Text, Transformers & Repo Adoption](07_W7_Text_Transformers_Repo_Adoption.md) | 7 |
@@ -293,7 +293,7 @@ Gap bukan sekadar "kami memakai metode yang berbeda." Gap adalah pilihan desain 
 
 - Cara mengagregasi informasi dari beberapa sudut pandang entitas yang sama
 - Cara menyelaraskan dua modalitas dengan resolusi temporal yang berbeda
-- Cara menyuntikkan pengetahuan dari model mahal ke model murah tanpa menanggung biaya saat inferensi
+- Cara menyuntikkan pengetahuan dari model besar berbiaya inferensi tinggi ke model kecil yang lebih hemat inferensi
 - Cara membangun representasi yang tahan terhadap domain shift tertentu
 - Cara mengadaptasi model ke bahasa baru dengan sangat sedikit contoh berlabel
 
@@ -650,7 +650,7 @@ Dataset di bawah ini untuk tugas di rumah, atau untuk putaran latihan kedua sete
 - Seorang mahasiswa berkata "Saya ingin mengklasifikasikan jenis penyakit dari gambar, mengabaikan teks." Apa yang sudah dilepaskan oleh mahasiswa ini? Apa yang sudah didapat?
 - Pasangan gambar + tanya-jawab menciptakan input multimodal. Gambarkan Middle untuk memprediksi keparahan penyakit sebagai output ordinal 4-level dari (gambar + pertanyaan terstruktur). Di mana letak gap-nya?
 - Cek temporal/kausal: kalau Anda adalah petani di lapangan, informasi apa yang benar-benar Anda punya, dan apa yang ingin Anda ketahui?
-- Fine-tuning LoRA dari VLM digunakan sebagai baseline. Middle alternatif apa yang lebih murah untuk di-deploy dan masih berguna?
+- Fine-tuning LoRA dari VLM digunakan sebagai baseline. Middle alternatif apa yang lebih ringan untuk deployment dan masih berguna?
 
 ---
 
