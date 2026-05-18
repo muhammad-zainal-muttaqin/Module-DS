@@ -78,14 +78,7 @@ Text  → BERT → embedding_t
                concat([embedding_v, embedding_t]) → Linear → prediction
 ```
 
-**Kelebihan:**
-- Mudah diimplementasikan.
-- Setiap encoder bisa di-pretrain secara terpisah.
-- Jika satu modalitas hilang, prediksi masih bisa menggunakan encoder lainnya.
-
-**Kelemahan:**
-- Tidak ada interaksi antar modalitas sebelum penggabungan. Model tidak bisa belajar bahwa "kata ini relevan ketika gambar menunjukkan X".
-- Sering menghasilkan kegagalan modalitas terabaikan (satu aliran data mendominasi karena lebih mudah dioptimasi).
+Late fusion mudah diimplementasikan dan memungkinkan setiap encoder di-pretrain secara terpisah. Jika satu modalitas tidak tersedia saat inference, prediksi masih dapat dilakukan menggunakan encoder modalitas lain. Kelemahannya: tidak ada interaksi antar modalitas sebelum penggabungan, sehingga model tidak bisa belajar bahwa "kata ini relevan ketika gambar menunjukkan X". Pola ini juga sering menghasilkan kegagalan modalitas terabaikan ketika satu aliran data lebih mudah dioptimasi.
 
 #### Early Fusion
 
@@ -95,13 +88,7 @@ Input dari berbagai modalitas digabungkan di level representasi awal, sebelum di
 Image pixels + Text tokens → concat/project → Shared Transformer → prediction
 ```
 
-**Kelebihan:**
-- Model bisa belajar interaksi antar modalitas dari awal.
-
-**Kelemahan:**
-- Shape yang sangat berbeda antar modalitas butuh projection yang cermat.
-- Training lebih kompleks; lebih sulit untuk pretrained model.
-- Kehilangan satu modalitas saat inference sulit ditangani.
+Keunggulan early fusion adalah kemampuannya mempelajari interaksi antar modalitas sejak awal. Namun, shape yang sangat berbeda antar modalitas memerlukan projection yang cermat. Training menjadi lebih kompleks dan lebih sulit diterapkan pada pretrained model, serta penanganan modalitas yang hilang saat inference menjadi lebih sulit.
 
 #### Cross-Attention Fusion (Interaction-Based)
 
@@ -126,13 +113,7 @@ cross_attn_output  = attention_weights @ V          # (B, T_text, d)
 
 Ini yang digunakan oleh BLIP-2, Flamingo, dan model vision-language modern.
 
-**Kelebihan:**
-- Memungkinkan interaksi pada level yang lebih halus, misalnya token teks "merah" dapat memberi perhatian pada region merah di gambar.
-- Sering mengungguli late dan early fusion pada tugas VQA yang kompleks.
-
-**Kelemahan:**
-- Kompleksitas implementasi dan biaya komputasi lebih tinggi.
-- Butuh pretrained model yang kompatibel untuk kedua modalitas.
+Cross-attention memungkinkan interaksi pada level yang lebih halus - misalnya token teks "merah" dapat memberi perhatian pada region merah di gambar - dan sering mengungguli late dan early fusion pada tugas VQA yang kompleks. Kelemahannya: kompleksitas implementasi dan biaya komputasinya lebih tinggi, serta dibutuhkan pretrained model yang kompatibel untuk kedua modalitas.
 
 ### 2.2 Failure Mode Modalitas Terabaikan
 
@@ -166,9 +147,9 @@ def check_gradient_flow(model, batch):
 
 **Solusi umum:**
 
-- ***Modality dropout*** - saat training, secara acak "matikan" setiap modalitas dengan probabilitas tertentu. Memaksa model belajar dari setiap modalitas secara mandiri.
-- **Separate loss terms** - tambahkan auxiliary loss per modalitas agar setiap encoder mendapat gradient yang jelas.
-- **Gradient balancing** - scale learning rate setiap modalitas berdasarkan gradient magnitude.
+- ***Modality dropout***: saat training, setiap modalitas dimatikan secara acak dengan probabilitas tertentu, sehingga model dipaksa belajar dari setiap modalitas secara mandiri.
+- **Separate loss terms**: tambahkan auxiliary loss per modalitas agar setiap encoder mendapat gradient yang jelas.
+- **Gradient balancing**: sesuaikan learning rate setiap modalitas berdasarkan gradient magnitude masing-masing.
 
 ### 2.3 Modalitas Hilang: Penanganan Saat Input Tidak Lengkap
 
@@ -370,9 +351,9 @@ class PainEstimator(nn.Module):
 
 **"Late fusion cukup untuk semua kasus."** Late fusion mudah diimplementasikan tapi sering menghasilkan masalah modalitas terabaikan. Coba cross-attention jika tugas butuh interaksi antar modalitas.
 
-**"Hasil yang meningkat belum tentu berarti model memakai semua modalitas."** Tidak. Model bisa mencapai peningkatan kecil dari satu modalitas saja, sementara modalitas lain diabaikan. Jalankan ablation!
+**"Hasil yang meningkat belum tentu berarti model memakai semua modalitas."** Klaim ini tidak tepat: model bisa mencapai peningkatan dari satu modalitas saja, sementara modalitas lain diabaikan. Jalankan ablation!
 
-**"Temporal alignment otomatis ditangani oleh DataLoader."** Tidak. Anda bertanggung jawab memverifikasi bahwa timestamp dari setiap modalitas benar-benar disinkronkan sebelum dimasukkan ke model.
+**"Temporal alignment otomatis ditangani oleh DataLoader."** Klaim ini tidak tepat: Anda tetap bertanggung jawab memverifikasi bahwa timestamp dari setiap modalitas benar-benar disinkronkan sebelum dimasukkan ke model.
 
 **"Modalitas hilang = zero padding."** Zero padding memberikan sinyal yang ambigu (apakah nol berarti "missing" atau "nilai sebenarnya nol"?). Gunakan learnable null token atau *modality dropout* saat training.
 
@@ -425,10 +406,10 @@ Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://githu
 
 ## 8. Bacaan Lanjutan
 
-- **Baltrusaitis et al. - *Multimodal Machine Learning: A Survey and Taxonomy*** (TPAMI, 2019). Survey komprehensif fusion strategies. Baca bagian 3 (Fusion) dan bagian 5 (Co-learning) untuk konteks W9.
-- **Wang et al. - *What Makes Training Multi-Modal Classification Networks Hard?*** (CVPR, 2020). Tentang masalah modalitas terabaikan dan solusinya. Sangat relevan dengan §2.2.
-- **Li et al. - *BLIP: Bootstrapping Language-Image Pre-training*** (2022). Contoh cross-attention fusion dalam praktik yang bisa dibaca sebagai case study.
-- **Lampiran C.14** - template protokol ablation per modalitas untuk dipakai langsung di Lab W9.
+- **Baltrusaitis et al. - *Multimodal Machine Learning: A Survey and Taxonomy*** (TPAMI, 2019). Paper ini menyajikan survei komprehensif tentang strategi fusion. Baca bagian 3 (Fusion) dan bagian 5 (Co-learning) untuk konteks W9.
+- **Wang et al. - *What Makes Training Multi-Modal Classification Networks Hard?*** (CVPR, 2020). Paper ini membahas masalah modalitas terabaikan dan solusinya, dan sangat relevan dengan §2.2.
+- **Li et al. - *BLIP: Bootstrapping Language-Image Pre-training*** (2022). Paper ini menyajikan contoh cross-attention fusion dalam praktik yang bisa dibaca sebagai studi kasus.
+- **Lampiran C.14** berisi template protokol ablation per modalitas yang bisa dipakai langsung di Lab W9.
 
 ---
 

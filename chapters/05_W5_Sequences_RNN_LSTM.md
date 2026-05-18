@@ -30,8 +30,8 @@
 > *Model yang tidak ingat masa lalu hanya bisa belajar pola saat ini. Arsitektur recurrent hadir justru karena urutan itu penting - apa yang terjadi sebelumnya mengubah makna apa yang terjadi sekarang.*
 
 **Baris peta besar:** `(T, F) -> (1,)`, `(N,)`, `(T'', 1)`
-**Kebiasaan riset:** Diagnosis sequence panjang dan justifikasi arsitektur
-**Dataset:** Sequence dataset dengan dependensi panjang yang terlihat
+**Kebiasaan riset** yang dilatih di bab ini adalah diagnosis sequence panjang dan justifikasi pilihan arsitektur.
+**Dataset** yang dipakai adalah sequence dataset dengan dependensi panjang yang terlihat.
 **Lab utama:** Lab 3b ([lab_w5_lstm_sequence.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w5_lstm_sequence.ipynb)) - **wajib di W5**
 
 ---
@@ -97,9 +97,9 @@ Anggap untuk simplikasi `W_h` adalah skalar `w_h = 0.5`. Setelah backward pass m
 
 Tiga rezim:
 
-- **|w_h| < 1 → vanishing gradient.** Setelah 50-100 langkah, gradient praktis nol. Model tidak bisa belajar dependensi panjang.
-- **|w_h| > 1 → exploding gradient.** Gradient meledak. Loss tiba-tiba menjadi NaN. Solusi praktis: gradient clipping (lihat §4).
-- **|w_h| ≈ 1 → titik kritis.** Stabil hanya di pinggiran, sulit dipertahankan tanpa intervensi (LSTM gate, residual connection, normalization).
+- Ketika **|w_h| < 1**, gradient mengalami *vanishing*: setelah 50-100 langkah, gradient praktis nol sehingga model tidak bisa belajar dependensi panjang.
+- Ketika **|w_h| > 1**, gradient meledak (*exploding*): nilai loss tiba-tiba menjadi NaN. Solusi praktisnya adalah gradient clipping (lihat §4).
+- Ketika **|w_h| ≈ 1**, model berada di titik kritis: kondisi stabil hanya di pinggiran dan sulit dipertahankan tanpa intervensi (LSTM gate, residual connection, normalization).
 
 Inilah "vanishing gradient problem" - bukan masalah teori abstrak, tetapi konsekuensi langsung perkalian berulang di chain rule. LSTM (§2.3) dirancang khusus untuk memutus rantai perkalian ini.
 
@@ -176,12 +176,12 @@ hidden state: h_t = o_t ⊙ tanh(c_t)                     # shape (d_h,)
 
 Membaca baris demi baris:
 
-1. **Forget gate `f_t`** - "berapa banyak dari cell state lama yang dipertahankan?" Nilai `f_t[i] = 0.9` artinya pertahankan 90% komponen ke-i; `f_t[i] = 0.1` artinya hampir lupa.
-2. **Input gate `i_t`** - "berapa banyak dari informasi baru `g_t` yang ditulis ke cell state?" Mirip forget tetapi mengontrol *write*, bukan *retain*.
-3. **Cell update `g_t`** - kandidat informasi baru, hasil dari `tanh` (rentang -1 sampai 1).
-4. **Cell state `c_t`** - "memori utama" yang diperbarui dengan campuran `f_t ⊙ c_{t-1}` (yang dipertahankan) dan `i_t ⊙ g_t` (yang ditulis).
-5. **Output gate `o_t`** - "berapa banyak dari cell state yang diekspos sebagai hidden state output?"
-6. **Hidden state `h_t`** - hasil akhir, yang nanti dipakai sebagai output dan diteruskan ke timestep berikutnya.
+1. **Forget gate `f_t`** menjawab pertanyaan: "berapa banyak dari cell state lama yang dipertahankan?" Nilai `f_t[i] = 0.9` artinya pertahankan 90% komponen ke-i; `f_t[i] = 0.1` artinya hampir lupa.
+2. **Input gate `i_t`** menjawab pertanyaan: "berapa banyak dari informasi baru `g_t` yang ditulis ke cell state?" Cara kerjanya mirip forget gate, tetapi mengontrol *write*, bukan *retain*.
+3. **Cell update `g_t`** adalah kandidat informasi baru yang dihasilkan oleh `tanh` (rentang -1 sampai 1).
+4. **Cell state `c_t`** berfungsi sebagai "memori utama" yang diperbarui dengan campuran `f_t ⊙ c_{t-1}` (yang dipertahankan) dan `i_t ⊙ g_t` (yang ditulis).
+5. **Output gate `o_t`** menentukan: "berapa banyak dari cell state yang diekspos sebagai hidden state output?"
+6. **Hidden state `h_t`** adalah hasil akhir yang nanti dipakai sebagai output dan diteruskan ke timestep berikutnya.
 
 Notasi `[h_{t-1}, x_t]` artinya konkatenasi vektor: kalau `h_{t-1}` shape `(d_h,)` dan `x_t` shape `(F,)`, hasil konkatenasi shape `(d_h + F,)`. Maka `W_f` shape `(d_h, d_h + F)`.
 
@@ -231,9 +231,9 @@ hidden state: h_t = (1 - z_t) ⊙ h_{t-1} + z_t ⊙ h̃_t
 
 **Apa yang disederhanakan?**
 
-- **Hanya 2 gate**, bukan 3 (tanpa forget gate terpisah, fungsinya diserap oleh `z_t`).
-- **Tidak ada cell state** `c_t`, hanya `h_t` yang dipertahankan, sehingga GRU tidak punya mekanisme "memory" terpisah dari output.
-- **Parameter ~25% lebih sedikit** daripada LSTM karena satu gate dihapus.
+- GRU hanya memiliki **2 gate**, bukan 3: forget gate tidak ada sebagai komponen terpisah karena fungsinya diserap oleh `z_t`.
+- GRU **tidak memiliki cell state** `c_t` yang terpisah; hanya `h_t` yang dipertahankan, sehingga GRU tidak punya mekanisme "memory" yang berbeda dari output.
+- Jumlah **parameter GRU sekitar 25% lebih sedikit** daripada LSTM karena satu gate dihapus.
 
 **Kapan memilih GRU vs LSTM:**
 

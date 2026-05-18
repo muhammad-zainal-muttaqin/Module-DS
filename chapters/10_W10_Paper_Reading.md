@@ -58,7 +58,7 @@ Bayangkan setahun dari sekarang. Anda sudah lulus atau sedang menjadi TA semeste
 
 Dua mahasiswa menghadapi situasi yang sama dengan dua strategi.
 
-Mahasiswa pertama membuka arXiv, melihat 50 paper baru di bidang itu minggu ini, merasa kewalahan, lalu memilih satu paper yang judulnya paling menarik. Ia membaca dari depan ke belakang, tidak sepenuhnya paham, tutup. Pekan depan, paper lain. Setelah tiga bulan, ia tahu banyak istilah tetapi belum pernah mengubah satu metode paper menjadi kode yang berjalan. Pekerjaannya adalah *mengonsumsi*, bukan *membangun*.
+Mahasiswa pertama membuka arXiv, melihat 50 paper baru di bidang itu minggu ini, merasa kewalahan, lalu memilih satu paper yang judulnya paling menarik. Ia membaca dari depan ke belakang, tidak sepenuhnya paham, lalu menutupnya. Pekan depan, paper lain. Setelah tiga bulan, ia tahu banyak istilah tetapi belum pernah mengubah satu metode paper menjadi kode yang berjalan. Pekerjaannya adalah *mengonsumsi*, bukan *membangun*.
 
 Mahasiswa kedua menyiapkan rutinitas. Setiap Senin pagi, 30 menit: baca daftar paper baru di arXiv dengan filter ketat (dua kata kunci + kategori). Pilih 5 teratas berdasarkan abstrak saja. Setiap Selasa-Jumat, 30 menit pagi: baca satu dari 5 teratas dengan metode tiga putaran. Setiap Sabtu, 60 menit: pilih satu komponen kecil dari paper dan tulis versi minimalnya di template repo. Setelah tiga bulan, ia sudah mengimplementasikan beberapa loss, layer, metric, atau trik training dari paper. Ia mulai memahami paper sebagai spesifikasi teknis, bukan bacaan pasif.
 
@@ -89,7 +89,7 @@ arXiv menerbitkan ratusan paper ML per hari. Membaca semua mustahil. Tujuan kura
 
 Empat tingkat filter, dari kasar ke halus:
 
-**Filter 1 - Kategori + kata kunci.** Di arXiv, berlangganan kategori spesifik (`cs.CV`, `cs.LG`, `eess.IV` untuk medical imaging). Tambahkan filter kata kunci dari minat spesifik. Alat: Google Scholar Alerts, arxiv-sanity, Papers with Code RSS.
+**Filter 1 - Kategori + kata kunci.** Di arXiv, berlangganan kategori spesifik (`cs.CV`, `cs.LG`, `eess.IV` untuk medical imaging). Tambahkan filter kata kunci dari minat spesifik. Beberapa alat yang berguna: Google Scholar Alerts, arxiv-sanity, dan Papers with Code RSS.
 
 **Filter 2 - Judul.** 80% paper dapat Anda tolak dari judul: bukan bidang Anda, bukan tipe pertanyaan yang Anda cari. Proses 50 judul dalam 5 menit; yang tersisa mungkin 10.
 
@@ -263,15 +263,15 @@ Rani telah melakukan keterampilan W10: memilih paper, membaca secara teknis, men
 
 ## 4. Pitfalls & Miskonsepsi
 
-**Pitfall 1 - Menganggap arXiv sebagai cap otoritas.** Paper di arXiv bisa sangat penting, tetapi status "ada di arXiv" tidak berarti klaimnya benar. *Cara deteksi:* catatan paper tidak menyebut venue, versi, baseline, atau ablation yang hilang.
+**Pitfall 1 - Menganggap arXiv sebagai cap otoritas.** Paper di arXiv bisa sangat penting, tetapi status "ada di arXiv" tidak berarti klaimnya benar. Pitfall ini bisa dikenali dari catatan paper yang tidak menyebut venue, versi, baseline, atau ablation yang hilang.
 
-**Pitfall 2 - Membaca untuk merasa pintar, bukan untuk membangun sesuatu.** Anda mengonsumsi paper sebanyak 5/minggu tetapi tidak pernah menjalankan kode dari satu pun paper. *Cara deteksi:* buka `src/`, notebook, atau laporan eksperimen. Jika tidak ada implementasi kecil, Anda sedang mengonsumsi.
+**Pitfall 2 - Membaca untuk merasa pintar, bukan untuk membangun sesuatu.** Anda mengonsumsi paper sebanyak 5/minggu tetapi tidak pernah menjalankan kode dari satu pun paper. Cara mendeteksinya: buka `src/`, notebook, atau laporan eksperimen. Jika tidak ada implementasi kecil, Anda sedang mengonsumsi.
 
-**Pitfall 3 - Paper baru dikejar, paper fondasi dilewat.** Hanya membaca paper 2024-2025 tanpa paper 2015-2018 yang membangun field. *Cara deteksi:* saat membaca related work paper baru, perhatikan rujukan yang sering muncul di banyak paper modern - itu paper fondasi; sisakan satu slot/bulan untuknya.
+**Pitfall 3 - Paper baru dikejar, paper fondasi dilewat.** Hanya membaca paper 2024-2025 tanpa paper 2015-2018 yang membangun field. Cara mendeteksinya: saat membaca related work paper baru, perhatikan rujukan yang sering muncul di banyak paper modern - itu paper fondasi; sisakan satu slot per bulan untuknya.
 
-**Pitfall 4 - Mengimplementasikan seluruh paper sekaligus.** Paper modern berisi banyak komponen: backbone, loss, scheduler, augmentasi, dataset cleaning, dan training trick. *Cara deteksi:* Anda belum bisa menjelaskan satu kontribusi inti dalam satu kalimat sebelum menulis kode.
+**Pitfall 4 - Mengimplementasikan seluruh paper sekaligus.** Paper modern berisi banyak komponen: backbone, loss, scheduler, augmentasi, dataset cleaning, dan training trick. Cara mendeteksinya: jika Anda belum bisa menjelaskan satu kontribusi inti paper dalam satu kalimat, jangan mulai menulis kode.
 
-**Pitfall 5 - Rutinitas yang tidak proporsional dengan hidup Anda.** 6 jam/minggu adalah rekomendasi mahasiswa dengan beban kuliah normal. Pekerja full-time mungkin hanya 3 jam. *Cara deteksi:* jika setelah sebulan rutinitas terhenti, masalahnya mungkin bukan kemalasan, melainkan target yang terlalu tinggi. Pangkas 50%; apa yang bertahan lebih berharga daripada rencana sempurna di atas kertas.
+**Pitfall 5 - Rutinitas yang tidak proporsional dengan hidup Anda.** 6 jam/minggu adalah rekomendasi mahasiswa dengan beban kuliah normal. Pekerja full-time mungkin hanya 3 jam. Cara mendeteksinya: jika rutinitas terhenti setelah sebulan, masalahnya mungkin bukan kemalasan, melainkan target yang terlalu tinggi. Pangkas 50%; apa yang bertahan lebih berharga daripada rencana sempurna di atas kertas.
 
 ---
 
@@ -330,10 +330,10 @@ Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://githu
 
 ## 8. Bacaan Lanjutan
 
-- **"How to Read a Paper"** oleh S. Keshav (2007, 3 halaman). Memperkenalkan metode tiga tahap (The Three-Pass Approach); sumber populer dari teknik yang diadaptasi di bab ini. Baca sekali seumur hidup, cetak, dan tempel di dekat meja kerja Anda.
-- **arxiv-sanity-lite** (Andrej Karpathy). Alat kurasi *paper* sederhana yang bisa Anda *host* sendiri. Sangat menghemat waktu jika Anda suka mengkurasi literatur dengan preferensi yang spesifik dan unik.
-- **"A Recipe for Training Neural Networks"** oleh Andrej Karpathy (karpathy.github.io, 2019). Memang bukan tentang membaca *paper*, tetapi sangat mewakili sikap ilmiah harian yang diajarkan di bab ini: cek unit, bangun *baseline* yang kuat, dan percayai apa yang bisa diukur.
-- **OpenReview.net**. Baca ulasan (*review*) publik dari konferensi besar seperti ICLR atau NeurIPS untuk *paper* yang Anda suka. Melihat bagaimana *reviewer* profesional mengkritik sebuah *paper* adalah salah satu cara terbaik untuk mempertajam penilaian (*taste*) riset Anda.
+- **"How to Read a Paper"** oleh S. Keshav (2007, 3 halaman). Paper ini memperkenalkan metode tiga tahap (The Three-Pass Approach) - teknik yang menjadi dasar pendekatan di bab ini. Baca sekali seumur hidup, cetak, dan tempel di dekat meja Anda.
+- **arxiv-sanity-lite** (Andrej Karpathy). Alat ini adalah sistem kurasi *paper* sederhana yang bisa Anda *host* sendiri, dan sangat menghemat waktu jika Anda suka mengkurasi literatur dengan preferensi yang spesifik.
+- **"A Recipe for Training Neural Networks"** oleh Andrej Karpathy (karpathy.github.io, 2019). Tulisan ini memang bukan tentang membaca *paper*, tetapi sangat mewakili sikap ilmiah harian yang diajarkan di bab ini: cek unit, bangun *baseline* yang kuat, dan percayai apa yang bisa diukur.
+- **OpenReview.net**. Situs ini menyediakan ulasan (*review*) publik dari konferensi besar seperti ICLR atau NeurIPS. Membaca cara *reviewer* profesional mengkritik sebuah *paper* adalah salah satu cara terbaik untuk mempertajam penilaian riset Anda.
 
 ---
 

@@ -101,13 +101,13 @@ Email pembuka tadi tidak berdiri sendiri; ia bergantung pada sepuluh kompetensi 
 
 Kompetensi teknis cepat tumpul kalau tidak dibiasakan bersama sikap riset yang tepat. Empat sikap berikut ditanamkan sepanjang modul lewat pilihan contoh dan pertanyaan refleksi, sering kali tanpa disebut secara eksplisit.
 
-**Curiosity** - rasa ingin tahu yang tak kenal lelah. Ketika angka akurasi meloncat dari 78% ke 80% setelah Anda mengganti loss, sikap ini yang bertanya: "apakah kenaikan ini konsisten jika aku jalankan tiga kali dengan seed berbeda, atau sekadar kebetulan?" Curiosity menuntun Anda ke eksperimen tambahan sebelum menulis laporan.
+**Curiosity** adalah rasa ingin tahu yang tak kenal lelah. Ketika angka akurasi meloncat dari 78% ke 80% setelah Anda mengganti loss, sikap ini yang bertanya: "apakah kenaikan ini konsisten jika aku jalankan tiga kali dengan seed berbeda, atau sekadar kebetulan?" Curiosity menuntun Anda ke eksperimen tambahan sebelum menulis laporan.
 
-**Rigor** - disiplin dalam prosedur. Bukan sekadar "rapi", tetapi taat pada aturan seperti: satu variabel berubah pada satu waktu, seluruh konfigurasi disimpan bersama checkpoint, setiap angka di laporan dapat dilacak kembali ke run mana. Rigor melelahkan di awal dan menyelamatkan Anda berjam-jam di akhir.
+**Rigor** adalah disiplin dalam prosedur - bukan sekadar "rapi", tetapi taat pada aturan seperti: satu variabel berubah pada satu waktu, seluruh konfigurasi disimpan bersama checkpoint, setiap angka di laporan dapat dilacak kembali ke run mana. Rigor melelahkan di awal dan menyelamatkan Anda berjam-jam di akhir.
 
-**Skepticism** - kesediaan untuk tidak mempercayai angka sendiri. Akurasi 99% pada hari pertama bukan kabar baik, itu lampu merah. Hampir selalu ada *leakage*, label yang bocor, atau data test yang tercampur dengan training. Skeptisisme memaksa Anda memeriksa sebelum berbangga.
+**Skepticism** adalah kesediaan untuk tidak mempercayai angka sendiri. Akurasi 99% pada hari pertama bukan kabar baik, itu lampu merah. Hampir selalu ada *leakage*, label yang bocor, atau data test yang tercampur dengan training. Skeptisisme memaksa Anda memeriksa sebelum berbangga.
 
-**Ownership** - rasa memiliki yang melampaui alat. LLM mungkin menulis separuh kode Anda; repositori orang lain mungkin menyediakan arsitektur; RunPod mungkin menjalankan training. Tetapi saat dosen bertanya mengapa pilihan tertentu diambil, jawabannya tetap tanggung jawab Anda. Ownership berarti Anda bisa menjelaskan setiap keputusan yang nama Anda tercantum padanya.
+**Ownership** adalah rasa memiliki yang melampaui alat. LLM mungkin menulis separuh kode Anda; repositori orang lain mungkin menyediakan arsitektur; RunPod mungkin menjalankan training. Tetapi saat dosen bertanya mengapa pilihan tertentu diambil, jawabannya tetap tanggung jawab Anda. Ownership berarti Anda bisa menjelaskan setiap keputusan yang nama Anda tercantum padanya.
 
 Keempat sikap tidak diajarkan sebagai doktrin. Sikap-sikap itu muncul dalam pitfall yang dibahas, dalam checklist yang diulang, dan dalam pertanyaan refleksi di akhir tiap bab.
 
@@ -128,10 +128,10 @@ Modul ini paling efektif jika tiga komitmen berikut dipegang sepanjang bootcamp.
 
 > [!WARNING]
 > Empat kebiasaan yang paling sering menghambat kemajuan:
-> - **Lab hanya sampai kode jalan** - selesai bukan saat tidak error, tetapi saat hasilnya bisa dijelaskan. Jika hasil di luar dugaan, itu sinyal untuk berhenti dan menyelidiki.
-> - **Kode LLM tanpa dibaca** - ketika kodenya benar, Anda melewatkan pemahaman; ketika salah nanti, Anda tidak tahu cara mencarinya. Protokol verifikasi LLM dibahas di W7.
-> - **Catatan eksperimen ditunda** - memori tidak bisa merekam dua puluh run ablation yang serupa. Jika ditunda, Anda terpaksa menjalankan ulang eksperimen hanya untuk mengingat hasilnya.
-> - **Data langsung di-train tanpa diperiksa** - W6 menunjukkan contoh konkret ketika kelalaian seperti ini memaksa pengulangan berbulan-bulan.
+> - **Lab hanya sampai kode jalan:** selesai bukan saat tidak error, tetapi saat hasilnya bisa dijelaskan. Jika hasil di luar dugaan, itu sinyal untuk berhenti dan menyelidiki.
+> - **Kode LLM tanpa dibaca:** ketika kodenya benar, Anda melewatkan pemahaman; ketika salah nanti, Anda tidak tahu cara mencarinya. Protokol verifikasi LLM dibahas di W7.
+> - **Catatan eksperimen ditunda:** memori tidak bisa merekam dua puluh run ablation yang serupa. Jika ditunda, Anda terpaksa menjalankan ulang eksperimen hanya untuk mengingat hasilnya.
+> - **Data langsung di-train tanpa diperiksa:** W6 menunjukkan contoh konkret ketika kelalaian seperti ini memaksa pengulangan berbulan-bulan.
 
 ---
 
@@ -147,9 +147,9 @@ Sebelum melangkah ke W1, luangkan waktu sepuluh menit untuk menulis jawaban sing
 
 ## 8. Bacaan Lanjutan
 
-- **Andrej Karpathy - *A Recipe for Training Neural Networks*** (blog, 2019). Esai pendek tentang bagaimana seorang peneliti berpengalaman memulai proyek. Relevan sebelum W2 karena menanamkan ritme "verify everything before you scale".
-- **Goodfellow, Bengio, Courville - *Deep Learning*** (Bab 1 & 5). Fondasi konseptual yang sengaja tidak diulang di modul ini; baca bab 1 untuk konteks sejarah, bab 5 untuk kerangka pikir machine learning.
-- **The Turing Way - *A Handbook for Reproducible Research*** (bagian *Reproducibility*). Dibaca ringan minggu 1-2; penuh analogi yang akan kembali di W4.
+- **Andrej Karpathy - *A Recipe for Training Neural Networks*** (blog, 2019). Tulisan ini adalah esai pendek tentang bagaimana seorang peneliti berpengalaman memulai proyek, dan sangat relevan sebelum W2 karena menanamkan ritme "verify everything before you scale".
+- **Goodfellow, Bengio, Courville - *Deep Learning*** (Bab 1 & 5). Buku ini memuat fondasi konseptual yang sengaja tidak diulang di modul ini; baca bab 1 untuk konteks sejarah dan bab 5 untuk kerangka pikir machine learning.
+- **The Turing Way - *A Handbook for Reproducible Research*** (bagian *Reproducibility*). Buku ini cocok dibaca ringan pada minggu 1-2 karena penuh analogi yang akan kembali relevan di W4.
 
 ---
 

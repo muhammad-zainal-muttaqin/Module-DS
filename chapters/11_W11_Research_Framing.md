@@ -722,7 +722,7 @@ Dataset di bawah ini untuk tugas di rumah, atau untuk putaran latihan kedua sete
 
 **"Framing saya lulus cek temporal karena saya tidak melihat ada masalah."** Cek temporal memerlukan pertanyaan eksplisit: apakah versi yang di-deploy dari model ini akan punya akses ke setiap elemen input pada saat perlu membuat prediksi? Tidak melihat masalah tidak sama dengan lulus. Periksa secara sistematis.
 
-**"Gap saya di Middle berarti saya perlu metode yang benar-benar baru."** Tidak. Kasus B (rangkaian langkah yang sudah dikenal) sudah cukup sebagai kontribusi jika kombinasinya belum pernah diterapkan pada Input/Output ini. Banyak riset yang dipublikasikan adalah Kasus B. Yang penting adalah bisa mengidentifikasi dengan tepat apa kontribusinya - rangkaian itu sendiri dan validasinya - bukan mengklaim lebih dari itu.
+**"Gap saya di Middle berarti saya perlu metode yang benar-benar baru."** Anggapan ini tidak tepat. Kasus B (rangkaian langkah yang sudah dikenal) sudah cukup sebagai kontribusi jika kombinasinya belum pernah diterapkan pada Input/Output ini. Banyak riset yang dipublikasikan adalah Kasus B. Yang penting adalah bisa mengidentifikasi dengan tepat apa kontribusinya - rangkaian itu sendiri dan validasinya - bukan mengklaim lebih dari itu.
 
 ---
 
@@ -861,10 +861,10 @@ Jika sebagian terjawab: ubah arah ke:
 
 ## 15. Bacaan Lanjutan
 
-- **Template dekomposisi** (§13 bab ini) - simpan dan gunakan untuk setiap paper yang dibaca.
-- **Checklist sebelum W12** (§12 bab ini) - verifikasi kesiapan framing.
-- **[`template/docs/prereg_template.md`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/docs/prereg_template.md)** - template pre-registration; akan diisi setelah framing disetujui di W12.
-- **Schwartz - *The Importance of Stupidity in Scientific Research*** (2008, 2 halaman). Tentang mengapa merasa "bingung" di depan pertanyaan yang sulit adalah tanda kemajuan, bukan kegagalan.
+- **Template dekomposisi** (§13 bab ini) tersedia sebagai referensi untuk dipakai saat membaca setiap paper baru.
+- **Checklist sebelum W12** (§12 bab ini) berguna untuk memverifikasi kesiapan framing sebelum presentasi.
+- **[`template/docs/prereg_template.md`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/docs/prereg_template.md)** adalah template pre-registration yang akan diisi setelah framing disetujui di W12.
+- **Schwartz - *The Importance of Stupidity in Scientific Research*** (2008, 2 halaman). Tulisan ini membahas mengapa merasa "bingung" di depan pertanyaan yang sulit adalah tanda kemajuan, bukan kegagalan.
 
 ---
 

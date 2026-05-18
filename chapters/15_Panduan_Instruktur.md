@@ -43,10 +43,10 @@ Dokumen ini adalah panduan operasional untuk dosen pengampu, instruktur, atau fa
 
 Curiosity, Rigor, Skepticism, dan Ownership tidak diajarkan sebagai doktrin. Sikap-sikap ini ditanamkan secara tidak langsung melalui:
 
-- **Cerita pembuka** di setiap bab - skenario riset yang menciptakan kebutuhan terhadap konsep.
-- **Pitfall & miskonsepsi** - kesalahan yang terjadi di lapangan dan memicu refleksi.
-- **Pertanyaan refleksi** di akhir bab - tiga pertanyaan terbuka yang memaksa mahasiswa mengartikulasikan pemahaman sendiri.
-- **Komponen Mandiri** - eksplorasi berbasis pertanyaan mingguan yang melatih inisiatif riset.
+- **Cerita pembuka** di setiap bab adalah skenario riset yang menciptakan kebutuhan terhadap konsep.
+- **Pitfall & miskonsepsi** adalah kesalahan yang terjadi di lapangan dan memicu refleksi.
+- **Pertanyaan refleksi** di akhir bab adalah tiga pertanyaan terbuka yang mendorong mahasiswa mengartikulasikan pemahaman sendiri.
+- **Komponen Mandiri** adalah eksplorasi berbasis pertanyaan mingguan yang melatih inisiatif riset.
 
 Mahasiswa tidak akan bisa menyebutkan definisi keempat sikap, tetapi pada akhir semester mereka seharusnya *menerapkannya tanpa disuruh*. Itu indikator keberhasilan.
 
@@ -395,8 +395,8 @@ W5 secara konsisten menjadi titik paling curam di modul - BPTT, vanishing gradie
 ## 7. Bacaan Lanjutan untuk Dosen
 
 - **Dan Levy - *Teaching Effectively with Zoom*** (2020). Meskipun berfokus pada pengajaran online, bab tentang "memfasilitasi diskusi, bukan memberi ceramah" berlaku untuk kelas tatap muka.
-- **Linda Nilson - *Specifications Grading*** (2014). Buku referensi tentang mastery-based grading. Rubrik modul ini (4 level, 3 titik evaluasi) adalah adaptasi dari spec grading.
-- **David Perkins - *Making Learning Whole*** (2009). Tentang "teaching for understanding" melalui tujuh prinsip; relevan untuk memahami mengapa modul ini menolak mengajarkan sikap sebagai bab terpisah.
+- **Linda Nilson - *Specifications Grading*** (2014). Buku ini adalah referensi tentang mastery-based grading; rubrik modul ini (4 level, 3 titik evaluasi) merupakan adaptasi dari spec grading.
+- **David Perkins - *Making Learning Whole*** (2009). Buku ini membahas "teaching for understanding" melalui tujuh prinsip dan relevan untuk memahami mengapa modul ini menolak mengajarkan sikap sebagai bab terpisah.
 - **Andrej Karpathy - *A Recipe for Training Neural Networks*** (2019). Baca sebelum mengajar W2 dan W3. Esai pendek ini adalah companion piece untuk W3 §2.5 (loss curve diagnosis).
 - **Jupyter Notebook untuk pengajaran:** Jika mahasiswa kesulitan dengan notebook, pertimbangkan untuk menggunakan JupyterBook atau nbgrader untuk distribusi dan penilaian otomatis.
 

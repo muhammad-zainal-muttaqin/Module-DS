@@ -86,15 +86,15 @@ Contoh konkret:
 
 Anda tidak perlu menguasai kalkulus untuk memulai. Cukup dua pemahaman dasar.
 
-**Turunan = kemiringan.** Turunan fungsi `f(x)` di titik `x = a` mengukur seberapa cepat `f` berubah saat `x` digeser sedikit di sekitar `a`. Notasi: `df/dx`. Kalau `f(x) = x²`, maka `df/dx = 2x`. Di `x = 3`, turunan = 6, artinya saat `x` bergeser dari 3 ke 3.01, `f` bergeser kira-kira `6 × 0.01 = 0.06`.
+**Turunan** adalah kemiringan. Turunan fungsi `f(x)` di titik `x = a` mengukur seberapa cepat `f` berubah saat `x` digeser sedikit di sekitar `a`. Notasi: `df/dx`. Kalau `f(x) = x²`, maka `df/dx = 2x`. Di `x = 3`, turunan = 6, artinya saat `x` bergeser dari 3 ke 3.01, `f` bergeser kira-kira `6 × 0.01 = 0.06`.
 
-**Chain rule = rantai turunan.** Kalau `y = f(g(x))`, maka turunannya `dy/dx = f'(g(x)) · g'(x)`. Bayangkan dua roda gigi: kalau roda dalam berputar 2× lebih cepat dari input, dan roda luar 3× lebih cepat dari roda dalam, total roda luar 6× lebih cepat dari input.
+**Chain rule** adalah rantai turunan. Kalau `y = f(g(x))`, maka turunannya `dy/dx = f'(g(x)) · g'(x)`. Bayangkan dua roda gigi: kalau roda dalam berputar 2× lebih cepat dari input, dan roda luar 3× lebih cepat dari roda dalam, total roda luar 6× lebih cepat dari input.
 
 Inilah yang dilakukan **backpropagation**: mengambil rantai panjang turunan dari loss sampai ke setiap parameter, lalu menghitung gradient untuk setiap parameter secara mundur melalui chain rule. Detail derivasi 7-langkah ada di [Lampiran A.1](14_Lampiran.md#a1-backpropagation-derivasi-manual). Untuk W1-W2, cukup paham bahwa "rantai turunan" itulah cara kerjanya.
 
 ## 5. PyTorch Tensor: Primer 3 Menit
 
-PyTorch adalah library deep learning yang dipakai sepanjang modul. Konsep paling dasar: **tensor** = array multi-dimensi dengan dukungan GPU dan autograd.
+PyTorch adalah library deep learning yang dipakai sepanjang modul. Konsep paling dasar adalah **tensor**, yaitu array multi-dimensi dengan dukungan GPU dan autograd.
 
 ```python
 import torch
@@ -108,9 +108,9 @@ x.to('cuda')     # pindahkan ke GPU jika tersedia
 
 Tiga hal ini dikerjakan terus-menerus:
 
-1. **Memeriksa shape.** `print(x.shape)` adalah debug pertama saat training error.
-2. **Memindahkan ke device.** `model.to(device)` dan `x.to(device)` agar perhitungan berjalan di GPU/CPU yang konsisten.
-3. **Memanggil `.backward()`.** Setelah `loss = criterion(model(x), y)`, panggilan `loss.backward()` menghitung semua gradient otomatis melalui chain rule.
+1. **Memeriksa shape.** Perintah `print(x.shape)` adalah debug pertama yang dijalankan saat training error.
+2. **Memindahkan ke device.** Perintah `model.to(device)` dan `x.to(device)` memastikan perhitungan berjalan di GPU/CPU yang konsisten.
+3. **Memanggil `.backward()`.** Setelah `loss = criterion(model(x), y)`, panggilan `loss.backward()` menghitung semua gradient secara otomatis melalui chain rule.
 
 Broadcasting (PyTorch dan NumPy) secara singkat: jika dua tensor punya shape yang kompatibel, operasi seperti `a + b` memperluas tensor kecil agar cocok dengan tensor besar tanpa menyalin memori. Aturan kompatibilitas: dua sumbu kompatibel jika ukurannya sama atau salah satu sama dengan 1.
 

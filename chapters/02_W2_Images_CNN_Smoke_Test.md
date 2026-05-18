@@ -60,9 +60,9 @@ Setelah W2, lanjut ke [W3](03_W3_Loss_Optimizer_Evaluasi.md) untuk loss, optimiz
 
 Seorang rekan mengirim tiga dataset sekaligus: *"tolong coba klasifikasikan dulu, pakai arsitektur yang menurut Anda paling masuk akal"*.
 
-- **A**: tabel medis - 20 kolom hasil lab darah pasien, target diabetes ya/tidak.
-- **B**: 10.000 gambar daun sawit berlabel *sehat* atau *terkena penyakit*, resolusi 224×224.
-- **C**: 30.000 review produk berbahasa Indonesia, target sentimen positif/negatif.
+- **Dataset A** berupa tabel medis dengan 20 kolom hasil lab darah pasien, dengan target diabetes ya/tidak.
+- **Dataset B** berisi 10.000 gambar daun sawit berlabel *sehat* atau *terkena penyakit*, resolusi 224×224.
+- **Dataset C** berisi 30.000 review produk berbahasa Indonesia, dengan target sentimen positif/negatif.
 
 Tanpa membuka paper apa pun, Anda sudah bisa menebak keluarga arsitektur yang cocok. Dataset A berupa fitur tabular datar; feed-forward network sudah masuk akal. Dataset B berupa grid piksel 2D dengan *translation invariance*; CNN cocok untuk struktur seperti ini. Dataset C berupa urutan kata dengan ketergantungan jangka panjang; Transformer atau RNN lebih masuk akal.
 
@@ -153,8 +153,8 @@ Model belajar lewat **backpropagation**: setelah loss dihitung di output, gradie
 
 Dua fenomena penting yang sering disebut paper:
 
-- **Vanishing gradient** - gradient mengecil saat backward pass melewati banyak layer; ReLU adalah solusi paling umum.
-- **Exploding gradient** - gradient meledak saat bobot besar; *gradient clipping* adalah solusinya.
+- **Vanishing gradient** terjadi ketika gradient mengecil saat backward pass melewati banyak layer; ReLU adalah solusi paling umum.
+- **Exploding gradient** terjadi ketika gradient meledak akibat bobot yang terlalu besar; *gradient clipping* adalah solusinya.
 
 > [!NOTE]
 > Derivasi 7-langkah chain rule untuk MLP (MSE loss + sigmoid) tersedia lengkap di [Lampiran A.1](14_Lampiran.md#a1-backpropagation-derivasi-manual). Baca setelah W3, ketika Anda sudah punya beberapa run sukses untuk diinterpretasi. Lab 1c (MLP numpy from-scratch) tersedia sebagai breadth lab opsional dan menerapkan backprop secara konkret pada MNIST.
@@ -163,15 +163,15 @@ Dua fenomena penting yang sering disebut paper:
 
 Tiga level smoke test bukan formalitas; masing-masing menargetkan **tiga jenis bug paling sering** di pipeline deep learning, dari yang paling cepat dideteksi sampai yang membutuhkan proses debugging paling panjang:
 
-1. **Typo / import / path error** - terdeteksi di Level 1 (`import model`). Tidak butuh dataset, tidak butuh forward pass.
-2. **Shape mismatch antar layer** - terdeteksi di Level 2 (dummy forward dengan tensor random). Butuh model dimuat tetapi tidak butuh data dari dataset.
-3. **Algoritma rusak** (gradient mati, loss tidak turun, target salah-bentuk) - terdeteksi di Level 3 (overfit one batch). Butuh data dari dataset tetapi hanya 4-8 sampel.
+1. **Typo / import / path error** terdeteksi di Level 1 (`import model`): tidak butuh dataset, tidak butuh forward pass.
+2. **Shape mismatch antar layer** terdeteksi di Level 2 (dummy forward dengan tensor random): level ini butuh model dimuat tetapi tidak butuh data dari dataset.
+3. **Algoritma rusak** (gradient mati, loss tidak turun, target salah-bentuk) terdeteksi di Level 3 (overfit one batch): level ini butuh data dari dataset tetapi hanya 4-8 sampel.
 
 Setiap level membutuhkan konteks dan waktu debugging lebih banyak daripada level sebelumnya, dan masing-masing menangkap jenis bug yang berbeda. Jangan lompat ke Level 3 sebelum Level 1 dan 2 lulus, dan jangan mulai training 30 epoch sebelum Level 3 lulus.
 
 Sebelum training berjam-jam, jalankan tiga tes ini berurutan. Jika satu tes gagal, hentikan dan perbaiki sebelum lanjut.
 
-**Level 1 - Import test.** `import model; model.eval()`. Gagal berarti ada typo, missing dependency, atau shape mismatch di definisi layer.
+**Level 1 - Import test.** `import model; model.eval()`. Jika level ini gagal, ada typo, missing dependency, atau shape mismatch di definisi layer.
 
 **Level 2 - Dummy forward pass.** Buat tensor random dengan shape yang benar, umpankan ke model, periksa output shape.
 
@@ -202,7 +202,7 @@ for i in range(100):
 
 Sebelum mendalami arsitektur, lihat empat contoh training konkret dan tanyakan diri sendiri: *apa yang berbeda?*
 
-- **Run A:** Loss training dan val turun sejajar, keduanya mencapai angka rendah di epoch 20. Ini training yang berjalan baik.
+- **Run A:** Loss training dan val turun sejajar, keduanya mencapai angka rendah di epoch 20. Ini adalah training yang berjalan baik.
 - **Run B:** Loss training turun mulus tapi loss val stagnan sejak epoch 4. Sesuatu sudah salah di sini - apa?
 - **Run C:** Loss training tidak bergerak sama sekali dari epoch pertama. Apakah ini masalah learning rate atau bug?
 - **Run D:** Loss meledak ke `NaN` di epoch ke-8 setelah awalnya turun normal.
@@ -244,9 +244,9 @@ Filter di atas adalah **detektor tepi vertikal sederhana**: nilainya menjadi bes
 
 Tiga parameter utama `Conv2d`:
 
-- **Kernel size** - ukuran filter. 3×3 paling umum. Kernel 1×1 = projection per-pixel; kernel 7×7 = receptive field besar tapi parameter banyak.
-- **Stride** - berapa pixel filter geser setiap langkah. `stride=1` (default) menggeser satu pixel; `stride=2` menggeser dua pixel sehingga output setengah lebih kecil di tiap dimensi spasial.
-- **Padding** - berapa baris/kolom nol ditambahkan di tepi image sebelum konvolusi. `padding=1` menambah satu lapisan nol di setiap sisi; tanpa padding, output mengecil setiap layer.
+- **Kernel size** adalah ukuran satu filter. Filter 3×3 paling umum dipakai. Filter 1×1 berfungsi sebagai proyeksi per-pixel (mengubah jumlah channel tanpa menyentuh dimensi spasial), sedangkan filter 7×7 memberi *receptive field* lebih besar tetapi membutuhkan lebih banyak parameter.
+- **Stride** menentukan berapa pixel filter bergeser setiap langkah. `stride=1` (default) menggeser satu pixel; `stride=2` menghasilkan output yang setengah lebih kecil di tiap dimensi spasial dan sering dipakai sebagai pengganti MaxPool.
+- **Padding** adalah jumlah baris dan kolom nol yang ditambahkan di tepi gambar sebelum konvolusi dijalankan. `padding=1` menambah satu lapisan nol di setiap sisi; tanpa padding, dimensi spasial output menyusut satu pixel di setiap sisi per layer.
 
 #### 2.5.3 Rumus Output Shape
 
@@ -298,19 +298,19 @@ Empat keluarga yang paling sering muncul di paper dan repositori riset.
 
 #### Feed-Forward Neural Network (FFN/MLP)
 
-Lapisan linear berturut-turut dengan non-linearitas di antaranya. Asumsi: tidak ada struktur khusus pada fitur input - urutan kolom tidak bermakna, tidak ada kedekatan spasial atau temporal. Cocok untuk data tabular dan embedding yang sudah diproses. Kelemahan: tidak efisien ketika data punya struktur yang bisa dimanfaatkan.
+FFN adalah rangkaian lapisan linear yang diselingi non-linearitas. Arsitektur ini tidak mengasumsikan struktur khusus pada fitur input: urutan kolom tidak bermakna, tidak ada kedekatan spasial atau temporal. Karena itu, FFN paling cocok untuk data tabular dan embedding yang sudah diproses. Di sisi lain, ketika data memiliki struktur yang bisa dimanfaatkan seperti pola spasial pada gambar, FFN tidak memanfaatkannya dan cenderung boros parameter dibanding CNN atau RNN.
 
 #### Convolutional Neural Network (CNN)
 
-Satu *filter* kecil digeser ke seluruh input, berbagi bobot di semua lokasi. Asumsi: pola relevan dapat muncul di lokasi manapun (*translation invariance*) dan bersifat lokal. Komponen khas: `Conv2d → BatchNorm → ReLU → MaxPool`. Kekuatan: sangat efisien parameter untuk gambar dan data grid. Kelemahan: asumsi lokalitas gagal ketika pola penting menyebar luas.
+CNN bekerja dengan menggeser satu *filter* kecil ke seluruh input sambil berbagi bobot di semua lokasi spasial. Asumsi yang tertanam di dalamnya adalah bahwa pola relevan dapat muncul di lokasi manapun (*translation invariance*) dan bersifat lokal: satu filter 3×3 bisa mendeteksi tepi di sudut kiri atas maupun sudut kanan bawah gambar menggunakan bobot yang sama. Komponen khas CNN mengikuti pola `Conv2d → BatchNorm → ReLU → MaxPool`. Arsitektur ini sangat efisien secara parameter untuk gambar dan data grid, tetapi asumsi lokalitasnya gagal ketika pola penting tersebar luas di seluruh gambar.
 
 #### Recurrent Neural Network (RNN), LSTM, GRU
 
-Memproses urutan satu langkah waktu demi satu, menyimpan *hidden state* yang merangkum masa lalu. Asumsi: urutan penting, informasi langkah sebelumnya membantu prediksi berikutnya. LSTM dan GRU memperkenalkan *gate* untuk mengatasi *vanishing gradient* pada RNN polos. Kelemahan: komputasi sekuensial (tidak bisa diparalelkan sepanjang urutan), ketergantungan sangat panjang tetap sulit ditangkap.
+RNN memproses urutan satu langkah waktu demi satu, menyimpan *hidden state* yang merangkum informasi dari langkah-langkah sebelumnya. Arsitektur ini mengasumsikan bahwa urutan penting dan bahwa konteks masa lalu membantu prediksi langkah berikutnya - asumsi yang masuk akal untuk sinyal sensor, teks, atau deret waktu. LSTM dan GRU menambahkan mekanisme *gate* untuk mengatasi *vanishing gradient* pada RNN polos. Dua keterbatasan utamanya: komputasi berjalan secara sekuensial sehingga tidak bisa diparalelkan sepanjang urutan, dan ketergantungan yang sangat panjang tetap sulit ditangkap bahkan oleh LSTM.
 
 #### Transformer
 
-Menggantikan rekursi dengan *self-attention*: setiap elemen urutan secara langsung melihat semua elemen lain. Komponen utama: `Multi-Head Attention`, `Positional Encoding`, `Feed-Forward` per posisi. Dominan di NLP modern (BERT, GPT), kini juga di visi (ViT) dan audio. Biaya utama: self-attention kuadratik terhadap panjang urutan.
+Transformer menggantikan rekursi dengan *self-attention*: setiap elemen urutan secara langsung melihat semua elemen lain dalam satu operasi paralel. Komponen utamanya adalah `Multi-Head Attention`, `Positional Encoding`, dan `Feed-Forward` yang diterapkan per posisi. Arsitektur ini kini mendominasi NLP modern (BERT, GPT) dan semakin banyak dipakai di visi (ViT) serta audio. Satu biaya yang perlu diperhitungkan: operasi self-attention bersifat kuadratik terhadap panjang urutan, sehingga urutan panjang membutuhkan memori dan komputasi yang jauh lebih besar.
 
 ![Lima keluarga arsitektur neural network: MLP, CNN, RNN/LSTM, Transformer, dan Autoencoder - masing-masing dengan inductive bias dan domain khasnya](../figures/fig01a_nn_families.svg)
 
@@ -320,7 +320,7 @@ Setiap keluarga di atas dapat Anda baca sebagai "MLP + asumsi spesifik domain". 
 
 Setiap layer adalah *fungsi* yang mengubah representasi data menjadi bentuk yang lebih berguna bagi layer berikutnya. Di CNN, layer awal belajar detail kecil (tepi, tekstur), layer dalam menggabungkannya menjadi konsep lebih tinggi. Dalam praktiknya, saat *fine-tune* model pretrained, layer awal biasanya aman di-*freeze*, sedangkan layer akhir perlu beradaptasi dengan domain baru.
 
-**Inisialisasi bobot: titik awal yang sering diabaikan.** Memilih nol atau nilai terlalu besar menghancurkan sinyal gradient sejak iterasi pertama.
+Salah satu keputusan yang sering diabaikan adalah **inisialisasi bobot**. Memilih nol atau nilai terlalu besar menghancurkan sinyal gradient sejak iterasi pertama.
 
 Sebelum membahas dua skema standar, perjelas notasinya:
 
@@ -330,8 +330,8 @@ Sebelum membahas dua skema standar, perjelas notasinya:
 
 Dua skema utama:
 
-- **Kaiming (He) initialization** - untuk layer dengan aktivasi ReLU: `σ² = 2/fan_in`, jadi `σ = sqrt(2/fan_in)`. Kenapa angka 2? Karena ReLU mematikan kira-kira separuh aktivasi (yang negatif menjadi 0), variansi sinyal di output layer menyusut menjadi separuh. Mengompensasi dengan faktor 2 di variansi inisialisasi menjaga aliran sinyal stabil lewat banyak layer ReLU. PyTorch menerapkannya otomatis untuk `nn.Conv2d` dan `nn.Linear`.
-- **Xavier (Glorot) initialization** - untuk aktivasi simetris (Tanh, Sigmoid): `σ² = 2/(fan_in + fan_out)`. Sering dipakai di Transformer (yang banyak memakai LayerNorm + GELU).
+- **Kaiming (He) initialization** dipakai untuk layer dengan aktivasi ReLU: `σ² = 2/fan_in`, jadi `σ = sqrt(2/fan_in)`. Kenapa angka 2? Karena ReLU mematikan kira-kira separuh aktivasi (yang negatif menjadi 0), variansi sinyal di output layer menyusut menjadi separuh. Mengompensasi dengan faktor 2 di variansi inisialisasi menjaga aliran sinyal stabil lewat banyak layer ReLU. PyTorch menerapkannya otomatis untuk `nn.Conv2d` dan `nn.Linear`.
+- **Xavier (Glorot) initialization** dipakai untuk aktivasi simetris (Tanh, Sigmoid): `σ² = 2/(fan_in + fan_out)`. Skema ini sering dipakai di Transformer yang banyak memakai LayerNorm + GELU.
 
 Anda jarang perlu menginisialisasi sendiri. Tapi ketika mendefinisikan layer kustom atau mendebug model yang tidak mau belajar dari epoch pertama, ini relevan:
 
@@ -345,7 +345,7 @@ def init_weights(m):
 model.apply(init_weights)
 ```
 
-**Normalisasi: BatchNorm, LayerNorm, GroupNorm.** Ketiganya berbeda pada sumbu yang dinormalisasi:
+Di samping inisialisasi, cara model menormalkan aktivasi antar layer juga menentukan stabilitas training. **BatchNorm, LayerNorm, dan GroupNorm** adalah tiga skema yang paling umum - ketiganya berbeda pada sumbu yang dinormalisasi:
 
 | Normalisasi | Normalisasi melewati... | Butuh batch size besar? | Domain khas |
 | --- | --- | --- | --- |
@@ -361,11 +361,11 @@ Ini berbeda dengan LayerNorm yang menormalkan **per sampel di sumbu fitur**: unt
 
 ![BatchNorm, LayerNorm, dan GroupNorm - perbedaan sumbu normalisasi pada tensor (N, C, H, W)](../figures/fig01f_normalization.svg)
 
-**Aktivasi: ReLU, GELU, SiLU.**
+Satu komponen lagi yang menentukan perilaku tiap layer adalah **fungsi aktivasi**. Tiga yang paling sering muncul:
 
-- **ReLU** (`max(0, x)`): default untuk CNN dan MLP. Biaya komputasinya rendah, turunannya 0 atau 1. Risiko: *dead ReLU* - neuron yang tidak pernah menyala bisa mati permanen.
-- **GELU** (`x · Φ(x)`): default untuk Transformer modern (BERT, GPT). Lebih halus dekat nol.
-- **SiLU/Swish** (`x · σ(x)`): dipakai di MobileNet v3, EfficientNet, LLaMA. Kinerja mirip GELU, lebih ringan dihitung.
+- **ReLU** (`max(0, x)`) adalah default untuk CNN dan MLP. Biaya komputasinya rendah dan turunannya hanya 0 atau 1. Risikonya adalah *dead ReLU*: neuron yang tidak pernah menyala bisa mati permanen karena gradientnya selalu nol.
+- **GELU** (`x · Φ(x)`) adalah default untuk Transformer modern (BERT, GPT). Kurva di sekitar nol lebih halus dibanding ReLU, sehingga gradient tidak langsung mati untuk aktivasi kecil.
+- **SiLU/Swish** (`x · σ(x)`) dipakai di MobileNet v3, EfficientNet, dan LLaMA. Kinerjanya mirip GELU tetapi lebih ringan dihitung.
 
 Aturan praktisnya: pakai default yang disebut paper yang Anda replikasi. Mengganti aktivasi tanpa alasan kuat adalah variabel tambahan yang harus dijelaskan di laporan.
 
@@ -375,11 +375,11 @@ Aturan praktisnya: pakai default yang disebut paper yang Anda replikasi. Menggan
 
 Saat membaca kode SimpleCNN di §3, tiga istilah ini dipakai tanpa penjelasan. Kita definisikan dulu di sini supaya kode tidak terasa magis.
 
-**Augmentation.** Transformasi acak yang diterapkan **hanya pada batch training** untuk memperluas variasi data. Contoh: `RandomCrop` (potong area acak), `RandomHorizontalFlip` (balik kiri-kanan dengan probabilitas 0.5), `ColorJitter` (ubah hue/brightness). Tujuannya agar model belajar fitur yang tetap stabil terhadap transformasi yang masuk akal di dunia nyata. Augmentasi tidak diterapkan di val/test; di sana kita ingin evaluasi pada data apa adanya.
+**Augmentation** adalah kumpulan transformasi acak yang diterapkan hanya pada batch training untuk memperluas variasi data yang dilihat model. Contoh: `RandomCrop` (potong area acak), `RandomHorizontalFlip` (balik kiri-kanan dengan probabilitas 0.5), `ColorJitter` (ubah hue/brightness). Tujuannya agar model belajar fitur yang tetap stabil terhadap transformasi yang masuk akal di dunia nyata. Augmentasi tidak diterapkan di val/test; di sana kita mengevaluasi data apa adanya.
 
-**Dropout.** Layer `nn.Dropout(p)` secara acak menonaktifkan fraksi `p` aktivasi di setiap forward pass saat training (mis. `p=0.3` mematikan 30% neuron). Saat evaluasi (`model.eval()`), dropout otomatis nonaktif. Mengapa berguna? Memaksa model tidak bergantung pada satu jalur jaringan tertentu, sehingga setiap subjaringan kompeten sendiri. Efeknya mirip ensembling banyak model kecil dalam satu model besar.
+**Dropout** bekerja dengan menonaktifkan secara acak fraksi `p` aktivasi di setiap forward pass saat training - contohnya `p=0.3` mematikan 30% neuron per langkah. Saat evaluasi (`model.eval()`), dropout otomatis dinonaktifkan. Dropout berguna karena memaksa model tidak bergantung pada satu jalur jaringan tertentu, sehingga setiap subjaringan harus kompeten secara mandiri. Efeknya mirip ensembling banyak model kecil dalam satu model besar.
 
-**Regularization.** Istilah payung untuk segala teknik yang mengurangi overfitting. Termasuk: dropout, augmentation, weight decay (penalti L2 pada bobot di update optimizer), early stopping, dan label smoothing. Teknik-teknik ini paling sering dipakai bersamaan, bukan satu per satu. Rentang efektif (mis. dropout 0.1-0.5, weight decay 1e-5 sampai 1e-3) bergantung pada arsitektur dan ukuran dataset; aturan praktisnya: mulai dari default di paper yang Anda replikasi, lalu sesuaikan kalau ada bukti overfitting (`train acc >> val acc`).
+**Regularization** adalah istilah payung untuk semua teknik yang mengurangi overfitting. Teknik yang termasuk: dropout, augmentation, weight decay (penalti L2 pada bobot di update optimizer), early stopping, dan label smoothing. Teknik-teknik ini paling sering dipakai bersamaan, bukan satu per satu. Titik awal yang masuk akal: mulai dari default di paper yang Anda replikasi, lalu sesuaikan jika ada bukti overfitting (`train acc >> val acc`).
 
 ---
 
@@ -455,7 +455,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4, weight_decay=1e-4)
 ```
 
-Augmentasi hanya pada training set; normalisasi dengan statistik CIFAR-10 yang sama di val/test; batch size 128 cukup stabil untuk BatchNorm; `device` otomatis agar kode jalan di laptop dan server.
+Augmentasi hanya diterapkan pada training set; normalisasi menggunakan statistik CIFAR-10 yang sama di val/test; batch size 128 cukup stabil untuk BatchNorm; `device` disetel otomatis agar kode dapat berjalan di laptop maupun server.
 
 **Mengapa angka spesifik di `Normalize`?** Tuple `(0.4914, 0.4822, 0.4465)` adalah **mean per-channel CIFAR-10** (red, green, blue), dihitung sekali dari training set; tuple `(0.2470, 0.2435, 0.2616)` adalah **std per-channel**. Dengan menormalkan input ke zero-mean unit-variance per channel, optimizer punya landscape yang lebih simetris dan konvergen lebih cepat. Setiap dataset baru perlu menghitung statistik sendiri; jangan pakai angka CIFAR-10 untuk PathMNIST atau ImageNet.
 
@@ -463,9 +463,9 @@ Augmentasi hanya pada training set; normalisasi dengan statistik CIFAR-10 yang s
 
 ## 4. Pitfalls & Miskonsepsi
 
-**"Arsitektur yang lebih dalam selalu lebih baik."** Tidak. Tanpa data cukup banyak, model dalam cenderung overfitting. Mulai dari arsitektur sederhana yang konvergen, tingkatkan kedalaman hanya jika bottleneck terbukti adalah kapasitas model.
+**"Arsitektur yang lebih dalam selalu lebih baik."** Klaim ini tidak tepat. Tanpa data cukup banyak, model dalam cenderung overfitting. Mulai dari arsitektur sederhana yang konvergen, tingkatkan kedalaman hanya jika bottleneck terbukti adalah kapasitas model.
 
-**"Adam selalu lebih baik dari SGD."** Pada banyak tugas, Adam konvergen lebih cepat di epoch awal tetapi SGD (dengan momentum dan schedule yang tepat) sering menang di akhir. Bergantung pada tugas.
+**"Adam selalu lebih baik dari SGD."** Pada banyak tugas, Adam konvergen lebih cepat di epoch awal tetapi SGD (dengan momentum dan schedule yang tepat) sering menang di akhir. Pilihan tergantung pada tugas dan konfigurasi eksperimen.
 
 **"Accuracy 99% berarti model hebat."** Selalu periksa baseline naif - *dummy classifier* yang memprediksi kelas mayoritas. Jika akurasinya juga tinggi, Anda sedang mengukur kesamaan dengan distribusi kelas.
 
@@ -480,7 +480,7 @@ Buka [lab_w2_cnn_baseline.ipynb](https://colab.research.google.com/github/muhamm
 1. Jalankan tiga level smoke test (import, dummy forward, overfit one batch).
 2. Bangun SimpleCNN, latih baseline dari scratch.
 3. Bangun baseline fine-tuning pretrained (ResNet-18 frozen backbone).
-4. Dokumentasikan: di level mana smoke test akan menangkap setiap jenis error.
+4. Dokumentasikan pada level mana setiap jenis error tertangkap oleh smoke test.
 
 Selesaikan evaluasi dan error analysis setelah membaca [W3](03_W3_Loss_Optimizer_Evaluasi.md).
 
@@ -492,7 +492,7 @@ Selesaikan evaluasi dan error analysis setelah membaca [W3](03_W3_Loss_Optimizer
 
 ### Lab 1c - MLP dari Nol (breadth opsional, kapan saja)
 
-Buka [lab_w1_mlp_numpy.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w1_mlp_numpy.ipynb). Tersedia sebagai breadth lab untuk Breadth Check (MLP family). Implementasi backpropagation 7-langkah manual dalam numpy + finite-difference gradient check + parity check vs PyTorch.
+Buka [lab_w1_mlp_numpy.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w1_mlp_numpy.ipynb). Lab ini tersedia sebagai breadth lab untuk Breadth Check (MLP family), yang mencakup implementasi backpropagation 7-langkah manual dalam numpy, finite-difference gradient check, dan parity check terhadap PyTorch.
 
 ---
 
@@ -506,9 +506,9 @@ Buka [lab_w1_mlp_numpy.ipynb](https://colab.research.google.com/github/muhammad-
 
 ## 7. Bacaan Lanjutan
 
-- **Andrej Karpathy - *A Recipe for Training Neural Networks*** (2019). Ritme kerja peneliti berpengalaman; bagian "overfit a single batch" sangat berguna untuk mendebug loop training.
-- **Christopher Olah - *Understanding LSTM Networks*** (blog, 2015). Penjelasan visual paling jelas tentang mekanisme gate LSTM.
-- **The Deep Learning Book (Goodfellow et al.), Bab 6 & 9.** Bab 6 untuk FFN, Bab 9 untuk CNN.
+- **Andrej Karpathy - *A Recipe for Training Neural Networks*** (2019). Tulisan ini membahas ritme kerja peneliti berpengalaman; bagian "overfit a single batch" sangat berguna untuk mendebug loop training.
+- **Christopher Olah - *Understanding LSTM Networks*** (blog, 2015). Blog post ini menyajikan penjelasan visual yang paling jelas tentang mekanisme gate LSTM.
+- **The Deep Learning Book (Goodfellow et al.), Bab 6 & 9.** Bab 6 membahas FFN, sedangkan Bab 9 membahas CNN.
 
 ---
 

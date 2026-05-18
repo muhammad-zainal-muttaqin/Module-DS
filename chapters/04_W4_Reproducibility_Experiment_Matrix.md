@@ -29,10 +29,10 @@
 
 > *Eksperimen yang tidak bisa direproduksi hanyalah anekdot. Matriks eksperimen yang ditulis sebelum kode adalah janji kepada diri sendiri bahwa hasilnya akan bisa dipertanggungjawabkan.*
 
-**Baris peta besar:** keluarga model yang sama, sekarang dengan disiplin alur kerja riset
-**Kebiasaan riset:** Matriks eksperimen sebelum coding
-**Dataset:** Dataset baru (berbeda dari W2-W3) untuk menguji disiplin alur kerja di luar dataset yang sudah dikenal
-**Lab utama:** Lab 3 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb))
+**Baris peta besar** mencakup keluarga model yang sama dari W2-W3, kini dilengkapi dengan disiplin alur kerja riset.
+**Kebiasaan riset** yang dibangun minggu ini adalah menyusun matriks eksperimen sebelum menulis kode.
+**Dataset** yang dipakai adalah dataset baru (berbeda dari W2-W3) untuk menguji disiplin alur kerja di luar dataset yang sudah dikenal.
+**Lab utama** minggu ini adalah Lab 3 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb)).
 
 ---
 
@@ -50,7 +50,7 @@ Ingat email PI dari Bab 00:
 
 **Cara A - langsung kerja.** Anda membuka `train.py`, mengganti `CrossEntropyLoss` menjadi `FocalLoss`, menambahkan `for p in model.block1.parameters(): p.requires_grad = False`, menjalankan training 20 epoch, mengirim akurasi ke Slack: *"baseline 78.4%, mod 80.1%, naik 1.7%"*.
 
-**Cara B - merancang lebih dulu.** Anda duduk 30 menit. Menulis satu halaman: apa yang dimaksud "baseline"; `gamma` berapa untuk focal loss; apakah kedua run memakai seed sama; blok awal mana yang di-freeze, layer awal backbone pretrained atau `block1` pada CNN custom; apakah "bandingkan" berarti satu run masing-masing atau tiga run untuk mengurangi *noise*; metrik mana yang paling berbicara pada kelas minor (yang biasanya jadi motivasi utama memakai focal loss). Setelah semua jelas, Anda kerja selama tiga hari, melaporkan hasil dengan tabel, plot, dan interpretasi.
+**Cara B - merancang lebih dulu.** Anda duduk 30 menit dan menulis satu halaman yang menjawab: apa yang dimaksud "baseline"; `gamma` berapa untuk focal loss; apakah kedua run memakai seed sama; blok awal mana yang di-freeze, layer awal backbone pretrained atau `block1` pada CNN custom; apakah "bandingkan" berarti satu run masing-masing atau tiga run untuk mengurangi *noise*; metrik mana yang paling berbicara pada kelas minor (yang biasanya jadi motivasi utama memakai focal loss). Setelah semua jelas, Anda kerja selama tiga hari, melaporkan hasil dengan tabel, plot, dan interpretasi.
 
 Kedua cara menghasilkan angka. Hanya Cara B menghasilkan *eksperimen* - sesuatu yang bisa dipertanggungjawabkan ketika PI bertanya "kenapa kenaikan 1.7% ini bisa dipercaya?" Perbedaannya bukan kecerdasan; perbedaannya adalah *kebiasaan merancang sebelum menjalankan*.
 
@@ -65,9 +65,9 @@ Bab ini membangun kebiasaan itu.
 > [!IMPORTANT]
 > **Tiga istilah kunci yang dipakai berulang di bab ini.** Definisi singkat di sini supaya tidak muncul tiba-tiba.
 >
-> - **Pre-registration** - dokumen tertulis (`protocol.md` di repo Anda) berisi hipotesis, variabel, metrik, dan threshold sukses yang ditulis **sebelum** eksperimen dijalankan. Tujuan: mencegah cerita-setelah-fakta dan konfirmasi bias. Asal istilah dari riset psikologi tahun 2010-an, kini standar di reproducible ML. Timestamp pre-reg adalah bukti bahwa Anda merencanakan sebelum melihat hasil.
-> - **Seed variance** - selisih hasil antar run yang konfigurasinya identik kecuali RNG seed (initialisasi bobot acak, urutan shuffle data, augmentasi acak). Pada CIFAR-10 baseline biasanya ±0.5-1.5% akurasi. Klaim "naik 1.7%" dengan seed variance ±1.5% bisa sekadar noise.
-> - **Effect size** - selisih metrik antara dua kondisi (mis. baseline vs modifikasi). Threshold yang ditetapkan di pre-reg menjawab "berapa besar selisih yang dianggap bermakna untuk aplikasi ini?" - bukan dijawab post-hoc setelah melihat angka.
+> - **Pre-registration** adalah dokumen tertulis (`protocol.md` di repo Anda) yang berisi hipotesis, variabel, metrik, dan threshold sukses yang ditulis **sebelum** eksperimen dijalankan. Tujuannya mencegah cerita-setelah-fakta dan konfirmasi bias. Istilah ini berasal dari riset psikologi tahun 2010-an dan kini menjadi standar di reproducible ML. Timestamp pre-reg adalah bukti bahwa Anda merencanakan sebelum melihat hasil.
+> - **Seed variance** adalah selisih hasil antar run yang konfigurasinya identik kecuali RNG seed (inisialisasi bobot acak, urutan shuffle data, augmentasi acak). Pada CIFAR-10 baseline, seed variance biasanya ±0.5-1.5% akurasi, sehingga klaim "naik 1.7%" dengan seed variance ±1.5% bisa sekadar noise.
+> - **Effect size** adalah selisih metrik antara dua kondisi (mis. baseline vs modifikasi). Threshold yang ditetapkan di pre-reg menjawab "berapa besar selisih yang dianggap bermakna untuk aplikasi ini?" - bukan dijawab post-hoc setelah melihat angka.
 
 ### 2.0 Matriks Eksperimen Sebelum Coding
 
@@ -76,7 +76,7 @@ Sebelum menyentuh kode, tulis **matriks eksperimen** - tabel yang mendaftar semu
 2. baru menyadari di tengah jalan bahwa dua kondisi tidak sebanding,
 3. tidak bisa menjelaskan apa yang berubah di antara run.
 
-Format minimal:
+Format minimal yang disarankan adalah sebagai berikut:
 
 | Run ID | Variabel berubah | Nilai | Seed | Status |
 |---|---|---|---|---|
@@ -87,7 +87,7 @@ Format minimal:
 Tulis matriks ini di `protocol.md` di folder eksperimen, **sebelum** baris kode pertama. Timestamp file adalah bukti bahwa Anda merencanakan sebelum melihat hasil.
 
 > [!IMPORTANT]
-> "Matriks eksperimen sebelum coding" adalah kebiasaan riset W4. Setiap eksperimen yang dilaporkan setelah W4 harus punya matriks tertulis. Tidak ada matriks = angka tidak bisa dipertanggungjawabkan.
+> "Matriks eksperimen sebelum coding" adalah kebiasaan riset W4. Setiap eksperimen yang dilaporkan setelah W4 harus punya matriks tertulis. Tanpa matriks, angka yang dihasilkan tidak bisa dipertanggungjawabkan.
 
 ### 2.1 Lima Pertanyaan Sebelum Menyentuh Kode
 
@@ -105,16 +105,16 @@ Hipotesis yang baik berbentuk *pernyataan empiris yang bisa salah*. Contoh: "Foc
 **4. Metrik sukses apa?**  
 Tentukan *sebelum* Anda melihat hasil. Urutkan: metrik utama, metrik sekunder, metrik pengaman (yang tidak boleh memburuk). Contoh untuk perubahan fokus pada kelas minor:
 
-- Utama: F1-score kelas minor.
-- Sekunder: recall kelas minor, confusion matrix.
-- Pengaman: akurasi keseluruhan tidak turun > 1%; train/val gap tidak meningkat drastis.
+- Metrik utama adalah F1-score kelas minor.
+- Metrik sekunder mencakup recall kelas minor dan confusion matrix.
+- Metrik pengaman: akurasi keseluruhan tidak boleh turun > 1%, dan train/val gap tidak boleh meningkat drastis.
 
 **5. Bentuk hasil apa yang Anda harapkan, dan apa yang tidak terduga?**  
 Pikirkan dua kemungkinan sebelum menjalankan eksperimen: hipotesis benar, atau hipotesis salah. Apa yang akan terlihat di log? Apa yang akan Anda simpulkan? Jika Anda tidak bisa membayangkan keduanya, rancangan eksperimen belum cukup jelas.
 
 ### 2.2 Protokol Eksperimen Satu Halaman
 
-Contoh konkret, langsung bisa ditiru:
+Berikut adalah contoh protokol konkret yang bisa langsung ditiru:
 
 ```markdown
 # Protocol: Focal Loss + Freeze Layer pada CIFAR-10
@@ -180,9 +180,9 @@ Baca secara vertikal: kolom `LR` seragam, berarti learning rate bukan variabel. 
 
 **Tiga strategi menginisialisasi baseline hyperparameter.** Sebelum bisa mengontrol variabel, Anda perlu baseline yang konfigurasinya masuk akal. Tiga strategi umum, dari paling mudah ke paling teliti:
 
-1. **Salin dari paper.** Jika paper asli menyertakan config (LR, batch size, weight decay), gunakan itu sebagai titik mulai. Waspadai: paper sering melapor setting terbaik mereka, bukan setting yang "wajar untuk dataset lebih kecil".
-2. **Grid search kecil pada subset.** Ambil 10-20% data, jalankan grid LR × {1e-3, 3e-4, 1e-4} dengan 3 epoch. Ini jauh lebih cepat daripada training penuh dan cukup untuk menyingkirkan nilai LR yang jelas salah.
-3. **Learning rate range test.** Mulai dari LR sangat kecil (1e-7), naikkan secara eksponensial setiap batch selama 100 iterasi. Plot loss vs LR - titik di mana loss turun paling curam adalah kandidat LR yang baik (Leslie Smith, 2017). Banyak library modern punya implementasi bawaan.
+1. **Salin konfigurasi dari paper.** Jika paper asli menyertakan config (LR, batch size, weight decay), gunakan itu sebagai titik mulai. Waspadai: paper sering melapor setting terbaik mereka, bukan setting yang "wajar untuk dataset lebih kecil".
+2. **Lakukan grid search kecil pada subset.** Ambil 10-20% data, jalankan grid LR × {1e-3, 3e-4, 1e-4} dengan 3 epoch. Cara ini jauh lebih cepat daripada training penuh dan cukup untuk menyingkirkan nilai LR yang jelas salah.
+3. **Terapkan learning rate range test.** Mulai dari LR sangat kecil (1e-7), naikkan secara eksponensial setiap batch selama 100 iterasi. Plot loss vs LR - titik di mana loss turun paling curam adalah kandidat LR yang baik (Leslie Smith, 2017). Banyak library modern punya implementasi bawaan.
 
 ### 2.4 Noise, Seed, Replikasi, dan Kapan Perbedaan Bermakna
 
@@ -190,13 +190,13 @@ Model dengan inisialisasi berbeda sering menghasilkan akurasi yang berbeda beber
 
 Solusi: replikasi minimal tiga seed per kondisi, laporkan rata-rata dan standar deviasi. Idealnya lima seed, tetapi tiga sudah jauh lebih baik daripada satu. Jika Anda tidak punya waktu, akui keterbatasan ini di laporan - jangan pura-pura satu run adalah kebenaran.
 
-Di luar seed, sumber noise lain: urutan data, kernel CUDA yang non-deterministik (beberapa operasi konvolusi), optimasi compiler. Untuk reproduksibilitas ketat, Anda juga perlu mengatur `torch.backends.cudnn.deterministic = True` - bab berikutnya membahas teknik ini lebih lengkap.
+Di luar seed, sumber noise lain yang perlu diperhatikan mencakup urutan data, kernel CUDA yang non-deterministik (beberapa operasi konvolusi), dan optimasi compiler. Untuk reproduksibilitas ketat, Anda juga perlu mengatur `torch.backends.cudnn.deterministic = True` - bab berikutnya membahas teknik ini lebih lengkap.
 
 **Kapan perbedaan cukup besar untuk diklaim?** Mean ± std memberi gambaran variabilitas, tetapi tidak langsung menjawab pertanyaan "apakah ini sinyal yang sesungguhnya atau sekadar noise?" Dua aturan praktis yang berguna:
 
-1. **Aturan 2σ**: Jika Δ antara dua kondisi lebih besar dari 2 × σ gabungan keduanya, perbedaannya lebih mungkin bermakna daripada sekadar variasi seed. Ini bukan uji statistik formal, tetapi cukup untuk laporan internal.
+1. **Aturan 2σ** menyatakan bahwa jika Δ antara dua kondisi lebih besar dari 2 × σ gabungan keduanya, perbedaannya lebih mungkin bermakna daripada sekadar variasi seed. Aturan ini bukan uji statistik formal, tetapi cukup untuk laporan internal.
 
-2. **Effect size threshold**: Tetapkan δ minimum sebelum eksperimen berjalan (di pre-registration). Jika kenaikan yang diprediksi penting adalah 2 poin F1, kenaikan 0.3 poin tidak bermakna dalam praktiknya meski angkanya "naik". Peningkatan < 0.5 poin pada dataset besar dengan 3 seed hampir selalu noise.
+2. **Effect size threshold** mengharuskan Anda menetapkan δ minimum sebelum eksperimen berjalan (di pre-registration). Jika kenaikan yang diprediksi penting adalah 2 poin F1, kenaikan 0.3 poin tidak bermakna dalam praktiknya meski angkanya "naik". Peningkatan < 0.5 poin pada dataset besar dengan 3 seed hampir selalu noise.
 
 Untuk publikasi atau laporan formal, pertimbangkan *paired t-test* atau *Wilcoxon signed-rank test* jika Anda punya cukup run (≥5 seed per kondisi). Namun di tahap eksplorasi awal, threshold δ yang ditetapkan sebelumnya lebih berguna daripada p-value yang dihitung setelah melihat data.
 
@@ -206,8 +206,8 @@ Ada perbedaan halus antara *hipotesis* dan *harapan*. Hipotesis berisi prediksi 
 
 Hipotesis yang spesifik melindungi Anda dari dua bahaya:
 
-1. **Bias konfirmasi.** Tanpa target konkret, hasil apa saja yang sedikit lebih baik mudah terbaca sebagai "bukti bahwa hipotesisnya benar". Dengan target 3 poin, kenaikan 0.5 poin adalah *tidak mengkonfirmasi*, bukan sukses kecil.
-2. **Cerita setelah fakta.** Tanpa prediksi tertulis sebelum run, mudah sekali menarasikan hasil aktual sebagai "yang kita harapkan sejak awal". Protokol tertulis mencegah ini.
+1. **Bias konfirmasi** muncul saat tidak ada target konkret: hasil apa saja yang sedikit lebih baik mudah terbaca sebagai "bukti bahwa hipotesisnya benar". Dengan target 3 poin, kenaikan 0.5 poin adalah *tidak mengkonfirmasi*, bukan sukses kecil.
+2. **Cerita setelah fakta** terbentuk tanpa prediksi tertulis sebelum run: Anda mudah menarasikan hasil aktual sebagai "yang kita harapkan sejak awal". Protokol tertulis mencegah ini.
 
 Hipotesis tidak harus benar. Hipotesis yang ternyata salah sering lebih informatif daripada yang benar - karena ia memaksa Anda mencari penjelasan. Laboratorium yang paling produktif memperlakukan hipotesis salah bukan sebagai kegagalan, tetapi sebagai data.
 
@@ -219,27 +219,27 @@ Ini situasi yang hampir pasti Anda alami: eksperimen sudah berjalan, hasilnya ti
 
 Misalnya hipotesis "F1 naik ≥ 3 poin" tapi hasil aktual Δ = 1.8 poin. Jangan langsung klaim "hipotesis terkonfirmasi sebagian" - itu bukan cara kerja pre-registration. Langkah yang tepat:
 
-1. **Verifikasi protokol** *cocok persis* - apakah semua variabel benar-benar dikontrol sesuai pre-reg?
-2. **Tambah 2 seed lagi** untuk memastikan angka tidak berubah arah.
-3. **Jika tetap 1.8 poin**, simpulkan hipotesis tidak terkonfirmasi dan catat sebagai temuan negatif.
+1. **Verifikasi bahwa protokol cocok persis** - apakah semua variabel benar-benar dikontrol sesuai pre-reg?
+2. **Tambahkan 2 seed lagi** untuk memastikan angka tidak berubah arah.
+3. **Jika hasilnya tetap 1.8 poin**, simpulkan hipotesis tidak terkonfirmasi dan catat sebagai temuan negatif.
 
 #### Skenario B - Hasil berlawanan arah dari prediksi
 
 Hipotesis "focal loss meningkatkan F1" tapi hasilnya F1 turun 1.2 poin. Ini lebih informatif dari skenario A. Sebelum menyimpulkan "focal loss tidak efektif", lakukan:
 
-1. **Audit implementasi** - apakah `gamma=0` menghasilkan CE yang identik?
-2. **Cek distribusi loss tiap kelas** - apakah focal loss terlalu agresif menekan kelas mudah?
-3. **Investigasi baseline** - apakah baseline yang dipakai sudah fair (sama hyperparameter kecuali variabel yang diuji)?
+1. **Audit implementasi:** apakah `gamma=0` menghasilkan CE yang identik?
+2. **Periksa distribusi loss tiap kelas:** apakah focal loss terlalu agresif menekan kelas mudah?
+3. **Investigasi baseline:** apakah baseline yang dipakai sudah setara (sama hyperparameter kecuali variabel yang diuji)?
 
 Jika semua aman, hasil negatif ini valid dan layak dilaporkan.
 
 #### Skenario C - Hasil sangat bagus, jauh di atas prediksi
 
-Ini *terutama* membutuhkan skeptisisme. Jika hipotesis "naik 3 poin" tapi aktual naik 12 poin, kemungkinan ada bug atau leakage yang tidak disengaja. Langkah:
+Skenario ini *terutama* membutuhkan skeptisisme. Jika hipotesis "naik 3 poin" tapi aktual naik 12 poin, kemungkinan ada bug atau leakage yang tidak disengaja. Langkah yang perlu ditempuh:
 
-1. **Jalankan ulang baseline** dengan seed berbeda.
+1. **Jalankan ulang baseline** dengan seed berbeda untuk memastikan angka tidak berfluktuasi.
 2. **Periksa test set** - apakah benar-benar tidak menyentuh training?
-3. **Verifikasi intervensi** - tidak secara tidak sengaja mengubah sesuatu yang lain (misal: augmentasi, normalisasi)?
+3. **Verifikasi intervensi** - apakah tidak secara tidak sengaja mengubah sesuatu yang lain (misal: augmentasi, normalisasi)?
 
 > [!NOTE]
 > **Hasil negatif yang didokumentasikan dengan baik adalah kontribusi berarti untuk riset** - ia mencegah orang lain membuang waktu di arah yang sama. Di lab Anda sendiri, catatan negatif melindungi Anda dari mengulangi eksperimen yang sama enam bulan kemudian.
@@ -322,20 +322,20 @@ Mari kita kerjakan email PI langkah demi langkah, membangun protokol yang baru s
 
 ### 3.1 Membaca Instruksi dengan Cermat
 
-Instruksi: *"Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang setara, lalu kirim ringkasan hasil hari Kamis."*
+Instruksi yang diterima berbunyi: *"Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang setara, lalu kirim ringkasan hasil hari Kamis."*
 
 Ambiguitas yang harus Anda ajukan ke PI (lewat pesan singkat atau di pertemuan mingguan):
 
-- **"Focal loss"**: versi asli Lin et al. 2017 (γ, α) atau variannya? Nilai γ berapa? α dipakai atau tidak?
-- **"Blok awal"**: bagian mana dalam kode? Jika backbone ResNet-18, ini bisa berarti `conv1` atau `layer1`; jika SimpleCNN kita, istilah yang cocok adalah `block1`. Konfirmasi bagian yang dimaksud.
-- **"Bandingkan"**: berapa seed, berapa epoch, metrik mana yang menentukan?
-- **"Baseline"**: konfigurasi mana persisnya? Apakah baseline yang ada di repo sudah pakai augmentasi, atau polos?
+- **"Focal loss"** belum jelas: apakah yang dimaksud adalah versi asli Lin et al. 2017 (γ, α) atau variannya? Nilai γ berapa? α dipakai atau tidak?
+- **"Blok awal"** perlu dikonfirmasi: bagian mana dalam kode yang dimaksud? Jika backbone ResNet-18, ini bisa berarti `conv1` atau `layer1`; jika SimpleCNN kita, istilah yang cocok adalah `block1`.
+- **"Bandingkan"** membutuhkan kejelasan operasional: berapa seed, berapa epoch, dan metrik mana yang menentukan?
+- **"Baseline"** perlu spesifikasi: konfigurasi mana persisnya? Apakah baseline yang ada di repo sudah pakai augmentasi, atau polos?
 
 Jika PI sibuk dan jawabannya singkat ("pakai default"), Anda *menulis asumsi Anda* di protokol dan kirim satu kalimat konfirmasi: "OK, saya ambil γ=2.0, 3 seed, 20 epoch, metrik utama F1 kelas minor - beri tahu jika ingin lain." Ini memberi PI satu kesempatan menolak asumsi salah, dan memberi Anda jejak tertulis ketika nanti perlu menjelaskan pilihan.
 
 ### 3.2 Menulis Protokol
 
-Hasil konfirmasi → protokol di bagian 2.2 di atas. Perhatikan bagaimana protokol menutup seluruh ambiguitas: γ ditetapkan, seed ditentukan, metrik urut prioritasnya, waktu diperkirakan.
+Setelah konfirmasi diperoleh, susun protokol seperti contoh di bagian 2.2 di atas. Perhatikan bagaimana protokol menutup seluruh ambiguitas: γ ditetapkan, seed ditentukan, metrik diurutkan prioritasnya, dan waktu diperkirakan.
 
 ### 3.3 Menulis Kode Modifikasi
 
@@ -382,14 +382,14 @@ trainable = [p for p in model.parameters() if p.requires_grad]
 optimizer = torch.optim.AdamW(trainable, lr=3e-4, weight_decay=1e-4)
 ```
 
-Dua pelajaran implementasi:
+Ada dua pelajaran implementasi yang perlu diperhatikan:
 
-1. `**FocalLoss` ditulis dengan dokumentasi alasan, bukan apa.** Komentar `gamma=0 → cross-entropy` memberi verifikasi cepat; ketika γ=0, hasil harus sama persis dengan baseline - ini uji minimal yang mudah untuk memastikan tidak ada bug.
-2. **Optimizer hanya diberi parameter yang dilatih.** Ini lebih dari kosmetik: beberapa optimizer (termasuk AdamW) mempertahankan state per parameter; memasukkan parameter frozen akan membuang memori dan sedikit waktu. Lebih penting, filter ini membuat niat kode eksplisit.
+1. **`FocalLoss` didokumentasikan dengan alasan, bukan hanya apa yang dilakukan.** Komentar `gamma=0 → cross-entropy` memberi verifikasi cepat; ketika γ=0, hasil harus sama persis dengan baseline - ini uji minimal yang mudah untuk memastikan tidak ada bug.
+2. **Optimizer hanya menerima parameter yang dilatih.** Ini lebih dari kosmetik: beberapa optimizer (termasuk AdamW) mempertahankan state per parameter; memasukkan parameter frozen akan membuang memori dan sedikit waktu. Lebih penting, filter ini membuat niat kode eksplisit.
 
 ### 3.4 Menjalankan dan Melaporkan
 
-Enam run total. Simpan log dalam folder per-eksperimen. Setelah selesai, buat tabel agregat:
+Protokol ini menghasilkan enam run total. Setiap log disimpan dalam folder per-eksperimen, lalu setelah seluruh run selesai, susun tabel agregat berikut:
 
 
 | Kondisi       | F1 minor (mean ± std) | Acc keseluruhan | Train/val gap |
@@ -398,12 +398,12 @@ Enam run total. Simpan log dalam folder per-eksperimen. Setelah selesai, buat ta
 | Focal+Freeze  | 0.672 ± 0.014         | 0.774 ± 0.011   | 0.11          |
 
 
-Interpretasi (tulis sebelum PI bertanya):
+Tuliskan interpretasi berikut sebelum PI bertanya - jangan menunggu diminta:
 
-- **H1 terkonfirmasi.** F1 minor naik 6 poin, melampaui ambang 3 poin. Ketiga seed konsisten (std kecil).
-- **H2 terkonfirmasi.** Akurasi turun 0.7 poin, di bawah ambang 1 poin. Trade-off yang dapat diterima.
-- **Catatan pengamanan.** Train/val gap naik tipis (0.09 → 0.11), sinyal awal overfitting lebih tinggi pada varian focal. Perlu dipantau jika melanjutkan ke dataset lebih besar.
-- **Langkah berikutnya yang diusulkan.** Gamma sweep (γ ∈ {1.0, 2.0, 3.0}) untuk mencari titik optimal; mencoba freeze parsial (hanya conv, bukan BN).
+- **H1 terkonfirmasi:** F1 minor naik 6 poin, melampaui ambang 3 poin, dan ketiga seed konsisten (std kecil).
+- **H2 terkonfirmasi:** Akurasi turun 0.7 poin, masih di bawah ambang 1 poin, sehingga trade-off ini dapat diterima.
+- **Catatan pengamanan:** Train/val gap naik tipis (0.09 → 0.11), yang merupakan sinyal awal overfitting lebih tinggi pada varian focal. Nilainya perlu dipantau jika eksperimen dilanjutkan ke dataset lebih besar.
+- **Langkah berikutnya yang diusulkan:** Jalankan gamma sweep (γ ∈ {1.0, 2.0, 3.0}) untuk mencari titik optimal, lalu coba freeze parsial (hanya conv, bukan BN).
 
 Laporan satu paragraf seperti contoh sebelumnya memberi PI informasi yang bisa dia pakai untuk keputusan berikutnya. Bandingkan dengan "baseline 78.4%, mod 80.1%, naik 1.7%" di Cara A.
 
@@ -428,17 +428,17 @@ Di luar update rutin, ada tiga alat yang membentuk kebiasaan komunikasi seorang 
 
 ## 4. Pitfalls & Miskonsepsi
 
-**Menjalankan satu seed dan menarik kesimpulan.** Ini paling umum. Satu run adalah satu titik data di distribusi run yang mungkin. Minimal tiga seed.
+**Menjalankan satu seed lalu menarik kesimpulan** adalah jebakan yang paling umum. Satu run adalah satu titik data di distribusi run yang mungkin; kesimpulan yang valid membutuhkan minimal tiga seed.
 
-**Mengubah baseline di tengah jalan.** Anda mulai dengan baseline A, menjalankan modifikasi B, akurasi B ternyata lebih rendah. Lalu Anda "memperbaiki" baseline (mengganti lr, menambah augmentasi) dan ternyata baseline sekarang kompetitif. Masalahnya: Anda tidak lagi punya pembanding yang setara. Jika baseline perlu diubah, ubah dulu, *lalu* jalankan modifikasi.
+**Mengubah baseline di tengah jalan** merusak perbandingan yang sedang dibangun. Anda mulai dengan baseline A, menjalankan modifikasi B, akurasi B ternyata lebih rendah. Lalu Anda "memperbaiki" baseline (mengganti lr, menambah augmentasi) dan ternyata baseline sekarang kompetitif. Masalahnya: Anda tidak lagi punya pembanding yang setara. Jika baseline perlu diubah, ubah dulu, *lalu* jalankan modifikasi.
 
-**Memilih metrik setelah melihat hasil.** Anda berharap focal loss menaikkan akurasi; akurasi ternyata stagnan, tetapi F1 kelas minor naik. Anda "menyadari" F1 adalah metrik yang tepat. Ini konfirmasi bias. Metrik dipilih di protokol, sebelum run. Boleh menambahkan metrik baru sebagai pengamatan, tetapi metrik utama tetap yang ditulis lebih dulu.
+**Memilih metrik setelah melihat hasil** adalah bentuk konfirmasi bias. Anda berharap focal loss menaikkan akurasi; akurasi ternyata stagnan, tetapi F1 kelas minor naik, lalu Anda "menyadari" F1 adalah metrik yang tepat. Metrik harus dipilih di protokol sebelum run dijalankan. Boleh menambahkan metrik baru sebagai pengamatan, tetapi metrik utama tetap yang ditulis lebih dulu.
 
-**Membandingkan run dengan epoch berbeda.** Baseline di-train 20 epoch; modifikasi 25 epoch "karena modelnya lebih rumit". Sekarang Anda membandingkan dua hal sekaligus (modifikasi + training lebih lama). Pisahkan.
+**Membandingkan run dengan jumlah epoch yang berbeda** mencampurkan dua variabel sekaligus. Jika baseline dilatih 20 epoch dan modifikasi dilatih 25 epoch "karena modelnya lebih rumit", maka yang sedang dibandingkan adalah dua hal sekaligus: modifikasi arsitektur dan durasi training. Pisahkan keduanya ke dalam run terpisah.
 
-**Tidak menulis hipotesis sama sekali.** Tanpa hipotesis, setiap hasil "menarik". Dengan hipotesis, hasil terbagi jelas menjadi konfirmasi, sanggahan, atau kebetulan - dan Anda tahu apa langkah selanjutnya di masing-masing kasus.
+**Tidak menulis hipotesis sama sekali** membuat setiap hasil tampak "menarik". Dengan hipotesis yang tertulis, hasil terbagi jelas menjadi konfirmasi, sanggahan, atau kebetulan - dan langkah selanjutnya di masing-masing kasus menjadi jelas.
 
-**Menyembunyikan ablation yang "gagal".** Anda menjalankan sepuluh eksperimen; sembilan tidak berhasil, satu iya. Laporan hanya menampilkan yang berhasil. Ini menyesatkan PI dan masa depan diri Anda sendiri. Laporkan semua yang Anda jalankan; ablation yang gagal sering lebih informatif daripada yang berhasil.
+**Menyembunyikan ablation yang "gagal"** menyesatkan PI dan diri Anda sendiri di masa mendatang. Jika Anda menjalankan sepuluh eksperimen dan hanya satu yang berhasil, laporan yang hanya menampilkan yang berhasil menyembunyikan sembilan data berharga. Laporkan semua yang Anda jalankan; ablation yang gagal sering lebih informatif daripada yang berhasil.
 
 ---
 

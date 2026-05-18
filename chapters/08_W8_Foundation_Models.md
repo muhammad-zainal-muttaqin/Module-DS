@@ -96,9 +96,9 @@ Dulu, pertanyaan pertama saat memulai riset adalah "arsitektur apa yang harus sa
 
 Foundation model bukan definisi teknis yang ketat. Dalam konteks riset praktis, istilah ini merujuk ke model yang:
 
-1. **Pretrained pada data besar** - teks, gambar, audio, atau multimodal pada skala yang tidak praktis untuk dilatih sendiri.
-2. **Representasi yang dapat ditransfer** - hidden states atau embeddings berguna untuk banyak tugas hilir.
-3. **Dapat diadaptasi tanpa training penuh** - frozen extraction, lightweight adapters (LoRA), atau fine-tuning sebagian sudah memberikan hasil kompetitif.
+1. **Pretrained pada data besar**: model ini dilatih pada teks, gambar, audio, atau multimodal dalam skala yang tidak praktis untuk dilatih sendiri.
+2. **Representasi yang dapat ditransfer**: hidden states atau embeddings yang dihasilkan berguna untuk banyak tugas hilir.
+3. **Dapat diadaptasi tanpa training penuh**: frozen extraction, lightweight adapters seperti LoRA, atau fine-tuning sebagian sudah memberikan hasil yang kompetitif.
 
 Konsekuensi praktis: ketika Anda mendapat tugas baru, pertanyaan pertama adalah "apakah tersedia foundation model yang relevan?" bukan "arsitektur apa yang akan saya bangun dari nol?"
 
@@ -109,9 +109,9 @@ Konsekuensi praktis: ketika Anda mendapat tugas baru, pertanyaan pertama adalah 
 > [!IMPORTANT]
 > **Tiga mode adaptasi yang dipakai berulang di tabel.** Definisi singkat di sini supaya tabel tidak terasa magis. Detail pohon keputusan ada di §2.4.
 >
-> - **Frozen** - bobot pretrained dikunci (`requires_grad = False`). Hanya layer tambahan kecil (linear head, classifier) yang dilatih. Inference tetap melalui seluruh model, tetapi tidak ada backward pass ke backbone. Tercepat dan paling stabil; sub-optimal kalau domain target jauh dari pretraining.
-> - **LoRA** (Low-Rank Adaptation) - sisipkan matriks low-rank `A B` (mis. `r=8`) paralel dengan `W_q` dan `W_v` di setiap attention layer; kunci `W` original. Hanya `A B` dilatih. Trade-off: ~0.5-2% parameter dilatih, performa biasanya 95-99% dari full fine-tuning, training 3-5× lebih cepat. Pakai library `peft` dari HuggingFace.
-> - **Full FT** (full fine-tuning) - semua parameter `requires_grad = True`. Paling fleksibel, dengan biaya memori GPU dan waktu paling tinggi. Risiko overfitting tinggi pada dataset kecil; biasanya butuh learning rate kecil (`1e-5`) dan early stopping.
+> - **Frozen** mengunci bobot pretrained (`requires_grad = False`) sehingga hanya layer tambahan kecil (linear head, classifier) yang dilatih. Inference tetap melalui seluruh model, tetapi tidak ada backward pass ke backbone. Strategi ini paling cepat dan stabil, meski kurang optimal kalau domain target jauh dari pretraining.
+> - **LoRA** (Low-Rank Adaptation) menyisipkan matriks low-rank `A B` (mis. `r=8`) secara paralel dengan `W_q` dan `W_v` di setiap attention layer, lalu mengunci `W` original sehingga hanya `A B` yang dilatih. Sekitar 0,5–2% parameter dilatih, performa biasanya 95–99% dari full fine-tuning, dan training 3–5× lebih cepat. Pakai library `peft` dari HuggingFace.
+> - **Full FT** (full fine-tuning) membiarkan semua parameter `requires_grad = True`. Strategi ini paling fleksibel, dengan biaya memori GPU dan waktu paling tinggi. Risiko overfitting tinggi pada dataset kecil; biasanya butuh learning rate kecil (`1e-5`) dan early stopping.
 
 #### Teks
 
@@ -205,20 +205,20 @@ Compute budget cukup untuk fine-tuning?
             └── Frozen atau LoRA (r=4-8) sudah cukup
 ```
 
-**Frozen features:** Extract embeddings tanpa gradient. Hanya latih linear head. Tercepat, cocok untuk proof-of-concept atau data sedikit.
+**Frozen features** adalah strategi mengekstrak embeddings tanpa gradient, di mana hanya linear head yang dilatih. Pilihan ini paling cepat dan cocok untuk proof-of-concept atau dataset kecil.
 
-**LoRA:** Tambahkan matriks low-rank parallel dengan weight original. Hanya LoRA matrices dilatih (biasanya < 1% parameter). Efficient, hasil sering sebanding dengan full fine-tuning.
+**LoRA** menambahkan matriks low-rank secara paralel dengan weight original, sehingga hanya matriks LoRA yang dilatih (biasanya kurang dari 1% parameter). Hasilnya sering sebanding dengan full fine-tuning, dengan biaya komputasi yang jauh lebih rendah.
 
-**Full fine-tuning:** Semua parameter diperbarui. Paling fleksibel, dengan biaya komputasi paling tinggi. Butuh data cukup untuk menghindari overfitting.
+**Full fine-tuning** memperbarui semua parameter model. Strategi ini paling fleksibel, tetapi biaya komputasinya paling tinggi dan memerlukan data yang cukup untuk menghindari overfitting.
 
 ### 2.5 Teacher Model dalam Training-Time Supervision
 
 Foundation model tidak selalu digunakan untuk inference. Pola penting: **teacher model yang hanya hadir saat training**.
 
 Contoh:
-- **Knowledge distillation** - model besar (teacher) melatih model kecil (student) dengan soft targets.
-- **Auxiliary supervision** - embedding dari CLIP digunakan sebagai target untuk network visual lebih kecil.
-- **Pseudo-label generation** - foundation model menghasilkan pseudo-labels untuk unlabeled data.
+- **Knowledge distillation** adalah pola di mana model besar (teacher) melatih model kecil (student) dengan soft targets.
+- **Auxiliary supervision** menggunakan embedding dari CLIP sebagai target latih untuk network visual yang lebih kecil.
+- **Pseudo-label generation** memanfaatkan foundation model untuk menghasilkan pseudo-labels pada data yang tidak berlabel.
 
 Dalam semua kasus ini, foundation model tidak ada dalam model final yang di-deploy. Model fondasi ini meningkatkan proses pelatihan. Pola ini penting karena memungkinkan manfaat dari foundation model tanpa biaya inferensinya.
 
@@ -263,8 +263,7 @@ Dataset: IndoNLU SmSA (dari Lab 5b). Tiga strategi pada dataset yang sama untuk 
 for param in model.bert.parameters():
     param.requires_grad = False
 ```
-Keunggulan: training selesai dalam menit, tidak butuh GPU besar.
-Kelemahan: representasi frozen mungkin tidak optimal untuk sentimen.
+Strategi ini menyelesaikan training dalam menit tanpa memerlukan GPU besar. Kelemahannya: representasi yang dikunci belum tentu optimal untuk domain sentimen.
 
 **Strategi B - LoRA (r=8):**
 ```python
@@ -273,8 +272,7 @@ config = LoraConfig(task_type=TaskType.SEQ_CLS, r=8, lora_alpha=16,
                     target_modules=["query", "value"])
 model = get_peft_model(base_model, config)
 ```
-Keunggulan: 10-20× lebih hemat parameter dari full FT, training 5× lebih cepat.
-Kelemahan: butuh library PEFT; kurang dikenal.
+Parameter yang dilatih 10–20× lebih sedikit dari full FT, dan training 5× lebih cepat. Kelemahannya adalah ketergantungan pada library PEFT yang tidak sepopuler PyTorch bawaan.
 
 **Strategi C - Full Fine-tuning:**
 ```python
@@ -282,8 +280,7 @@ model = AutoModelForSequenceClassification.from_pretrained(
     "indobenchmark/indobert-base-p1", num_labels=3)
 # Semua parameter trainable by default
 ```
-Keunggulan: paling fleksibel, potensi performa tertinggi.
-Kelemahan: paling lama, butuh GPU, risiko overfitting pada data kecil.
+Strategi ini menawarkan fleksibilitas tertinggi dengan potensi performa terbaik. Di sisi lain, training paling lama, memerlukan GPU, dan risiko overfitting lebih tinggi pada dataset kecil.
 
 **Ekspektasi perbandingan** pada 5000 sampel IndoNLU SmSA:
 - Frozen: macro-F1 ≈ 68-73%. Cepat, tapi sub-optimal.
@@ -298,9 +295,9 @@ Kelemahan: paling lama, butuh GPU, risiko overfitting pada data kecil.
 
 **"Frozen features cukup untuk domain shift besar."** Representasi frozen BERT pada teks klinik sangat spesifik mungkin jauh lebih buruk dari fine-tuned model kecil yang lebih relevan.
 
-**"LoRA rank besar lebih baik."** Tidak linier. r=4 atau r=8 sering sudah cukup. Rank lebih besar menambah parameter tapi tidak selalu performa.
+**"LoRA rank besar lebih baik."** Hubungannya tidak linier. r=4 atau r=8 sering sudah cukup untuk dataset rata-rata. Rank lebih besar menambah parameter tetapi tidak selalu meningkatkan performa.
 
-**"Model Card selalu jujur dan lengkap."** Baca bagian "Limitations" dengan skeptis - sering kurang detail dibanding bagian "Performance".
+**"Model Card selalu jujur dan lengkap."** Baca bagian "Limitations" dengan skeptis - bagian ini sering kurang detail dibanding bagian "Performance".
 
 ---
 

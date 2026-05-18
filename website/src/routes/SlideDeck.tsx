@@ -260,7 +260,7 @@ export default function SlideDeck() {
     revealInstance.current = reveal;
 
     reveal.initialize({
-      hash: true,
+      hash: false,
       slideNumber: "c/t",
       controls: true,
       progress: true,

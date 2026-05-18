@@ -44,9 +44,9 @@ Sepuluh minggu bootcamp mengajarkan cara mengeksekusi: diberi masalah yang terde
 Prosesnya tidak akan berjalan persis seperti yang direncanakan. Itu bukan tanda ada yang salah. Proyek riset yang berjalan persis seperti yang direncanakan kemungkinan tidak menanyakan pertanyaan yang sesungguhnya. Momen meninjau ulang - ketika hasil Eksperimen 1 memaksa Anda merevisi hipotesis dan desain - adalah pusat capstone, bukan jalan menyimpang darinya.
 
 Capstone yang baik punya:
-- Gap yang sesungguhnya di Middle. Sesuatu yang tidak bisa diselesaikan oleh pipeline standar yang diterapkan apa adanya
-- Cakupan yang bisa ditutup dalam 3 minggu kerja yang fokus
-- Artefak publik: repositori yang bisa di-clone dan dijalankan orang lain, laporan yang bisa dibaca orang lain secara mandiri, demo yang bisa dicoba orang lain
+- **Gap yang sesungguhnya di Middle**: sebuah langkah yang tidak bisa diselesaikan oleh pipeline standar yang diterapkan apa adanya.
+- **Cakupan yang bisa ditutup** dalam 3 minggu kerja yang fokus - proyek kecil yang dieksekusi dengan baik lebih berharga daripada proyek ambisius yang setengah selesai.
+- **Artefak publik**: repositori yang bisa di-clone dan dijalankan orang lain, laporan yang bisa dibaca orang lain secara mandiri, dan demo yang bisa dicoba orang lain.
 
 Cakupannya boleh sederhana. Proyek kecil yang dieksekusi dengan baik lebih berharga daripada proyek ambisius yang setengah selesai.
 
@@ -288,19 +288,19 @@ Pertanyaan yang diajukan saat presentasi ("apa yang akan memfalsifikasi ini?", "
 
 Ini adalah cara paling umum proyek capstone mengalami kesulitan. Mengetahuinya lebih awal membuatnya lebih mudah ditangkap lebih awal.
 
-**Tinjauan ulang yang bukan tinjauan ulang.** Hasil Eksperimen 1 tiba, dan peserta menulis "tinjauan ulang" yang menyatakan ulang apa yang sudah direncanakan dari awal. Eksperimen 2 terlihat identik dengan apa yang akan dijalankan terlepas dari apa yang ditunjukkan Eksperimen 1. Pertanyaan diagnostiknya: kalau Eksperimen 1 menghasilkan arah yang berlawanan, apakah Eksperimen 2 akan berbeda? Kalau tidak, tinjauan ulang ditulis sebelum hasil dibaca, bukan setelahnya.
+**Tinjauan ulang yang bukan tinjauan ulang** adalah pola paling umum yang perlu diwaspadai. Hasil Eksperimen 1 tiba, dan peserta menulis "tinjauan ulang" yang sebenarnya hanya menyatakan ulang apa yang sudah direncanakan dari awal. Eksperimen 2 terlihat identik dengan apa yang akan dijalankan terlepas dari apa yang ditunjukkan Eksperimen 1. Pertanyaan diagnostiknya: kalau Eksperimen 1 menghasilkan arah yang berlawanan, apakah Eksperimen 2 akan berbeda? Kalau tidak, tinjauan ulang ditulis sebelum hasil dibaca, bukan setelahnya.
 
-**Ekspansi cakupan di akhir.** "Saya ingin menambahkan satu eksperimen lagi." Setiap eksperimen yang tidak ada dalam pre-registration adalah tambahan, bukan kewajiban. Tulis di bagian keterbatasan sebagai kerja ke depan. Laporan tidak akan lebih baik dengan eksperimen ketiga yang terburu-buru. Laporan akan lebih baik dengan eksperimen kedua yang dianalisis lebih hati-hati.
+**Ekspansi cakupan di akhir** terjadi saat peserta ingin menambahkan eksperimen baru di luar pre-registration. Setiap eksperimen yang tidak ada dalam pre-registration adalah tambahan, bukan kewajiban. Tulis di bagian keterbatasan sebagai kerja ke depan. Laporan tidak akan lebih baik dengan eksperimen ketiga yang terburu-buru - laporan akan lebih baik dengan eksperimen kedua yang dianalisis lebih hati-hati.
 
-**Penulisan yang dimulai di minggu terakhir.** Kalau laporan ditulis dari awal di W15, hasilnya akan dangkal dan terburu-buru. Tulis bagian metode selama Eksperimen 1. Tulis bagian hasil saat eksperimen selesai. Tulis pendahuluan saat kontribusinya sudah jelas. W15 untuk memoles, bukan memulai.
+**Penulisan yang dimulai di minggu terakhir** selalu menghasilkan laporan yang dangkal dan terburu-buru. Tulis bagian metode selama Eksperimen 1. Tulis bagian hasil saat eksperimen selesai. Tulis pendahuluan saat kontribusinya sudah jelas. W15 hanya untuk memoles, bukan memulai dari nol.
 
-**Hasil tanpa variansi.** Satu hasil dengan satu seed yang dilaporkan sebagai "89,2%" tidak memberi pembaca informasi apa pun tentang keandalan. Setiap hasil utama perlu standar deviasi dari setidaknya 3 seed. Kalau perbedaan antar kondisi lebih kecil dari standar deviasi, hasilnya tidak meyakinkan. Katakan demikian.
+**Hasil tanpa variansi** melemahkan kepercayaan pembaca pada temuan. Satu hasil dengan satu seed yang dilaporkan sebagai "89,2%" tidak memberi informasi apa pun tentang keandalan. Setiap hasil utama perlu standar deviasi dari setidaknya 3 seed. Kalau perbedaan antar kondisi lebih kecil dari standar deviasi, hasilnya tidak meyakinkan - katakan demikian.
 
-**Demo yang hanya menampilkan keberhasilan.** Demo yang dirancang hanya untuk menampilkan prediksi yang benar adalah artefak pemasaran, bukan alat riset. Buat mudah untuk menemukan kasus di mana model gagal. Ini adalah tanda kejujuran, dan sering mengungkap hal yang lebih menarik daripada keberhasilannya.
+**Demo yang hanya menampilkan keberhasilan** tidak berguna sebagai alat riset. Demo yang dirancang hanya untuk menampilkan prediksi yang benar adalah artefak pemasaran. Buat mudah untuk menemukan kasus di mana model gagal - ini adalah tanda kejujuran, dan sering mengungkap hal yang lebih menarik daripada keberhasilannya.
 
-**Mengklaim berlebihan.** "Metode kami membuktikan bahwa X berlaku secara universal." Satu proyek dengan satu dataset dalam kondisi tertentu menunjukkan sesuatu tentang kondisi tersebut, bukan tentang dunia secara umum. Ganti "membuktikan" dengan "mengindikasikan" atau "menunjukkan, pada dataset ini dan dalam kondisi ini." Ini bukan kerendahan hati yang berlebihan; ini adalah ketepatan.
+**Mengklaim berlebihan** adalah kesalahan yang paling sering muncul di bagian kesimpulan. Frasa "metode kami membuktikan bahwa X berlaku secara universal" jauh melampaui apa yang bisa disimpulkan dari satu proyek dengan satu dataset. Ganti "membuktikan" dengan "mengindikasikan" atau "menunjukkan, pada dataset ini dan dalam kondisi ini" - ini bukan kerendahan hati yang berlebihan, ini adalah ketepatan.
 
-**Menyembunyikan masalah.** Peserta yang menemukan masalah data serius di W12 dan menyebutkannya pertama kali di W14 sudah kehilangan dua minggu potensi bantuan. Bawa masalah ke pertemuan segera setelah muncul. Itulah gunanya pertemuan-pertemuan ini.
+**Menyembunyikan masalah** dari pembimbing hanya memperburuk situasi. Peserta yang menemukan masalah data serius di W12 dan menyebutkannya pertama kali di W14 sudah kehilangan dua minggu potensi bantuan. Bawa masalah ke pertemuan segera setelah muncul.
 
 ---
 
@@ -316,6 +316,6 @@ Ini adalah cara paling umum proyek capstone mengalami kesulitan. Mengetahuinya l
 
 ## Bacaan Lanjutan
 
-- **[W11 - Research Framing](11_W11_Research_Framing.md)** - kerangka dekomposisi dan template, untuk referensi saat mempersiapkan pertahanan framing W12.
-- **`template/docs/prereg_template.md`** - template pre-registration yang sudah ada di repo; gunakan untuk Eksperimen 1 dan 2.
-- **[Rubrik Penilaian](13_Rubrik_Penilaian.md)** - rubrik capstone, untuk memahami bagaimana setiap fase dievaluasi.
+- **[W11 - Research Framing](11_W11_Research_Framing.md)** menyediakan kerangka dekomposisi dan template sebagai referensi saat mempersiapkan pertahanan framing W12.
+- **`template/docs/prereg_template.md`** adalah template pre-registration yang sudah ada di repo; gunakan untuk Eksperimen 1 dan 2.
+- **[Rubrik Penilaian](13_Rubrik_Penilaian.md)** menjelaskan rubrik capstone untuk memahami bagaimana setiap fase dievaluasi.

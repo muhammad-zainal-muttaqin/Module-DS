@@ -54,9 +54,9 @@ Ketiga tema bertemu dalam satu alur kerja: mengadopsi repo HuggingFace, memakai 
 
 TF-IDF adalah baseline yang kuat dan sering diabaikan. Bukan tanpa alasan - ia cepat, interpretable, dan sering efektif pada dataset kecil. Tapi ia punya dua kelemahan fundamental:
 
-**Polisemi.** Kata "bank" dalam "bank sungai" dan "bank uang" mendapat vektor yang identik. TF-IDF tidak bisa membedakannya.
+**Polisemi** adalah kelemahan pertama: kata "bank" dalam "bank sungai" dan "bank uang" mendapat vektor yang identik. TF-IDF tidak bisa membedakannya.
 
-**Ketergantungan antar kata hilang.** "Tidak buruk" dan "tidak baik" memiliki representasi yang sepenuhnya berbeda dari "baik" dan "buruk" dalam TF-IDF, padahal sebenarnya kita ingin model memahami bahwa negasi mengubah polaritas.
+**Ketergantungan antar kata hilang** adalah kelemahan kedua: "Tidak buruk" dan "tidak baik" memiliki representasi yang sepenuhnya berbeda dari "baik" dan "buruk" dalam TF-IDF, padahal kita ingin model memahami bahwa negasi mengubah polaritas.
 
 Contextual embeddings (BERT, RoBERTa, IndoBERT) menghasilkan representasi yang berbeda untuk kata yang sama tergantung konteksnya. Setiap token mendapat embedding yang dipengaruhi oleh seluruh sequence di sekitarnya via self-attention.
 
@@ -68,9 +68,9 @@ Jawabannya ada pada struktur lapisan. Layer-layer awal Transformer mempelajari p
 
 **Apa itu tokenizer?** Pretrained Transformer tidak melihat string mentah; ia melihat urutan integer (token ID). **Tokenizer** adalah fungsi yang memetakan string ke urutan integer dan sebaliknya. Tiga gaya tokenisasi utama:
 
-- **Word-level** - satu token per kata (whitespace-split). Sederhana, tetapi vocab besar dan rentan OOV (out-of-vocabulary) untuk kata baru.
-- **Character-level** - satu token per karakter. Vocab kecil, tetapi sequence sangat panjang.
-- **Subword (BPE / WordPiece / SentencePiece)** - kompromi: kata umum jadi 1 token; kata jarang dipecah jadi sub-unit. Pakai oleh BERT, GPT, IndoBERT, modern Transformer hampir semuanya. Kata "tidak" mungkin 1 token; kata "tertangkap" mungkin terpisah jadi `["ter", "tangkap"]`.
+- **Word-level** memetakan satu token per kata (whitespace-split). Skema ini sederhana, tetapi vocab menjadi besar dan rentan OOV (out-of-vocabulary) untuk kata baru.
+- **Character-level** memetakan satu token per karakter, sehingga vocab kecil tetapi sequence menjadi sangat panjang.
+- **Subword (BPE / WordPiece / SentencePiece)** mengambil jalan tengah: kata umum dijadikan 1 token, kata jarang dipecah jadi sub-unit. Skema ini dipakai oleh BERT, GPT, IndoBERT, dan hampir semua Transformer modern. Kata "tidak" mungkin menjadi 1 token; kata "tertangkap" mungkin terpisah jadi `["ter", "tangkap"]`.
 
 Setiap pretrained model punya tokenizer spesifik (vocab + algoritma). Bug paling umum saat memakai pretrained model adalah perbedaan antara tokenizer model dan cara Anda memproses teks. Memakai tokenizer yang salah menghasilkan input yang tidak cocok dengan apa yang dilihat model saat pretraining.
 
@@ -127,7 +127,7 @@ output  = weights @ V                   # (5, 16) - dimensi sama seperti input
 
 Cetak `weights`. Baris *i* adalah distribusi probabilitas yang menunjukkan seberapa besar perhatian token *i* ke setiap posisi saat membentuk *output*-nya.
 
-**Posisi attention dalam arsitektur penuh.** Satu layer attention adalah satu komponen di dalam blok Transformer:
+**Posisi attention dalam arsitektur penuh** adalah satu komponen di dalam blok Transformer:
 
 ```
 Input (T, d_model)
@@ -159,9 +159,9 @@ Lab 6b ([lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github
 
 Dua keputusan yang perlu dibandingkan:
 
-**Frozen backbone** - hanya head kecil yang dilatih memakai embedding tetap. Cepat, hemat komputasi, stabil. Cocok untuk dataset kecil atau ketika domain sangat mirip dengan pretraining.
+**Frozen backbone** berarti hanya head kecil yang dilatih memakai embedding tetap. Pendekatan ini cepat, hemat komputasi, dan stabil. Frozen backbone cocok untuk dataset kecil atau ketika domain sangat mirip dengan pretraining.
 
-**Fine-tuned** - seluruh model (atau sebagian) dilatih bersama head. Lebih lambat, lebih fleksibel, sering lebih baik pada dataset cukup besar.
+**Fine-tuned** berarti seluruh model (atau sebagian) dilatih bersama head. Pendekatan ini lebih lambat, lebih fleksibel, dan sering menghasilkan performa lebih baik pada dataset yang cukup besar.
 
 > [!TIP]
 > **Contoh waktu/biaya konkret (IndoBERT-base, ~110M parameter, dataset SmSA ~12k sampel, GPU T4):**
@@ -170,9 +170,9 @@ Dua keputusan yang perlu dibandingkan:
 > 
 > Aturan praktis: kalau dataset < 5k sampel atau Anda butuh prototype cepat, **frozen** dulu. Kalau dataset > 20k atau butuh squeeze last 3-5% performa, **fine-tune**. Antara keduanya: PEFT seperti LoRA (W8) sebagai jalan tengah.
 
-**[CLS] pooling** - menggunakan token `[CLS]` sebagai representasi seluruh sequence. Ini token spesial yang ditambahkan otomatis di awal setiap input oleh tokenizer keluarga BERT. Selama pretraining BERT, model belajar menaruh ringkasan global di posisi ini lewat objective next-sentence prediction; itu sebabnya `[CLS]` jadi pilihan natural untuk classification head.
+**[CLS] pooling** menggunakan token `[CLS]` sebagai representasi seluruh sequence. Token ini adalah token spesial yang ditambahkan otomatis di awal setiap input oleh tokenizer keluarga BERT. Selama pretraining, model belajar menaruh ringkasan global di posisi ini lewat objective next-sentence prediction; itu sebabnya `[CLS]` jadi pilihan natural untuk classification head.
 
-**Mean pooling** - rata-rata embedding semua token (kecuali padding). Sering lebih robust untuk sentence similarity tasks (representasi tidak terlalu "berat sebelah" ke satu posisi), tetapi bisa kehilangan ketegasan kalau cuma sebagian token yang relevan untuk task. Untuk classification, [CLS] dan mean pool biasanya beda 1-3 poin F1; mana yang menang bergantung dataset. Lab 5b membuat 2×2 ini eksplisit supaya Anda bisa lihat sendiri pada dataset Indonesia.
+**Mean pooling** mengambil rata-rata embedding semua token (kecuali padding). Pendekatan ini sering lebih robust untuk sentence similarity tasks karena representasi tidak terlalu "berat sebelah" ke satu posisi, tetapi bisa kehilangan ketegasan kalau hanya sebagian token yang relevan untuk tugas tersebut. Untuk classification, [CLS] dan mean pool biasanya berbeda 1-3 poin F1; mana yang menang bergantung dataset. Lab 5b menjalankan 2×2 ini secara eksplisit supaya Anda bisa melihat sendiri pada dataset Indonesia.
 
 Lab 5b menjalankan 2×2 ini secara eksplisit:
 
@@ -201,9 +201,9 @@ Modul ini tidak melarang AI coding tools. Ia mewajibkan **protokol verifikasi** 
 
 Setiap kode yang dihasilkan AI harus diverifikasi sebelum dipakai:
 
-1. **Verifikasi bentuk tensor** - apakah input/output shape yang diklaim cocok dengan kode?
-2. **Uji kasus tepi** - jalankan dengan satu sampel dan periksa hasilnya secara manual.
-3. **Baris-per-baris read** - Anda harus bisa menjelaskan fungsi setiap baris.
+1. **Verifikasi bentuk tensor**: apakah input/output shape yang diklaim cocok dengan kode?
+2. **Uji kasus tepi**: jalankan dengan satu sampel dan periksa hasilnya secara manual.
+3. **Baris-per-baris read**: pastikan Anda bisa menjelaskan fungsi setiap baris.
 
 Jika tidak bisa menjelaskan baris tertentu setelah membacanya dua kali, itu bukan kode yang harus dikumpulkan dengan nama Anda.
 
@@ -219,10 +219,10 @@ Tulis satu paragraf synthesis: "Sumber A menyarankan X karena P. Sumber B menyar
 
 ### 2.3 AI untuk Non-Kode
 
-Alat AI berguna melampaui kode:
-- **Membaca paper** - "tolong rangkum bagian 3.2 dan identifikasi asumsi yang tidak diucapkan eksplisit"
-- **Mendiskusikan hipotesis** - "diberikan bahwa distribusi kelas sangat tidak seimbang, apakah ada alasan untuk tidak memakai focal loss?"
-- **Navigasi repo** - "bagaimana alur data dari DataLoader ke model dalam repo ini?" (dengan memberikan struktur folder sebagai konteks)
+Alat AI berguna melampaui kode. Berikut tiga contoh prompt yang produktif:
+- Saat **membaca paper**: "tolong rangkum bagian 3.2 dan identifikasi asumsi yang tidak diucapkan eksplisit."
+- Saat **mendiskusikan hipotesis**: "diberikan bahwa distribusi kelas sangat tidak seimbang, apakah ada alasan untuk tidak memakai focal loss?"
+- Saat **menavigasi repo**: "bagaimana alur data dari DataLoader ke model dalam repo ini?" - berikan struktur folder sebagai konteks agar jawaban lebih akurat.
 
 ![Alur Kerja LLM: sintesis, verifikasi, dan dokumentasi dalam riset ML](../figures/fig05a_llm_workflow.svg)
 
@@ -236,11 +236,11 @@ Untuk pengalaman langsung mengikuti protokol di atas, buka [lab_w7_llm_assisted.
 
 Konten repo adoption dari bab ini (urutan membaca, environment setup, modifikasi seminimal mungkin) tersedia pada bagian ini dari file asli. Ringkasan kebiasaan utama:
 
-**Urutan baca:** README → paper/laporan → struktur folder → entry point (`train.py`) → model & loss → DataLoader
+**Urutan baca** yang dianjurkan adalah: README → paper/laporan → struktur folder → entry point (`train.py`) → model & loss → DataLoader.
 
-**repo_map.md template:** Dokumentasikan pemahaman Anda tentang repo baru dalam file `repo_map.md`. Template tersedia di [Lampiran C.12](14_Lampiran.md#c12-template-repo-map). Anda akan membuat `repo_map.md` dua kali: satu di W7 (repo teks/transformer), satu di W9 (repo multimodal).
+**`repo_map.md`** adalah dokumen yang merekam pemahaman Anda tentang repo baru. Dokumentasikan pemahaman tersebut dalam file `repo_map.md` menggunakan template di [Lampiran C.12](14_Lampiran.md#c12-template-repo-map). Anda akan membuat `repo_map.md` dua kali: satu di W7 (repo teks/transformer), satu di W9 (repo multimodal).
 
-**Modifikasi seminimal mungkin:** Buat branch baru, buat perubahan sekecil mungkin untuk menjalankan eksperimen Anda, dokumentasikan diff. Ini memudahkan merge kembali dan memudahkan debugging saat sesuatu rusak.
+**Modifikasi seminimal mungkin** berarti membuat branch baru, membuat perubahan sekecil mungkin untuk menjalankan eksperimen Anda, dan mendokumentasikan diff. Pendekatan ini memudahkan merge kembali dan memudahkan debugging saat sesuatu rusak.
 
 ---
 
@@ -300,9 +300,9 @@ Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasi
 
 ## 7. Bacaan Lanjutan
 
-- **Devlin et al. - *BERT: Pre-training of Deep Bidirectional Transformers*** (2018). Baca Abstract + bagian 3 (pretraining) + bagian 4.1 (fine-tuning). Lewati appendix.
-- **HuggingFace - *Course Chapter 2: Using Transformers***. Tutorial interaktif untuk tokenizer dan pipeline HuggingFace.
-- **Khoirunisa et al. - *IndoNLU: Benchmark and Resources for Evaluating Indonesian NLP*** (2020). Konteks untuk Lab 5b dataset.
+- **Devlin et al. - *BERT: Pre-training of Deep Bidirectional Transformers*** (2018). Baca Abstract + bagian 3 (pretraining) + bagian 4.1 (fine-tuning); lewati appendix.
+- **HuggingFace - *Course Chapter 2: Using Transformers***. Kursus ini menyediakan tutorial interaktif untuk tokenizer dan pipeline HuggingFace.
+- **Khoirunisa et al. - *IndoNLU: Benchmark and Resources for Evaluating Indonesian NLP*** (2020). Makalah ini memberikan konteks untuk dataset Lab 5b.
 
 ---
 
@@ -425,7 +425,7 @@ y = model(x)
 assert y.shape == (2, 10)
 ```
 
-Menangkap bug dimensi atau mismatch input/output.
+Level ini menangkap bug dimensi atau mismatch input/output.
 
 #### Level 3 - Satu iterasi training
 
@@ -464,7 +464,7 @@ rg "CrossEntropyLoss|FocalLoss" src/
 rg "build_model\(" src/
 ```
 
-**Search IDE (VS Code: `Ctrl+T`).** Jauh lebih cepat daripada `grep` untuk simbol Python.
+**Search IDE (VS Code: `Ctrl+T`)** jauh lebih cepat daripada `grep` untuk menemukan simbol Python.
 
 **Type checker (`pyright` atau `mypy`):**
 
@@ -567,11 +567,11 @@ Banyak repo riset hanya punya README satu paragraf. Taktik saat Anda harus memak
 
 Setelah Anda memahami repo cukup baik untuk memodifikasi, Anda juga bisa menyumbang perbaikan kecil. Tiga jenis kontribusi yang hampir selalu diterima:
 
-**Perbaikan dokumentasi.** README, docstring, komentar. Bug paling sering adalah dokumentasi yang keliru atau tidak lengkap. Anda yang baru saja mengadopsi repo paling tahu apa yang membingungkan.
+**Perbaikan dokumentasi** mencakup README, docstring, dan komentar. Bug yang paling sering dijumpai adalah dokumentasi yang keliru atau tidak lengkap - dan Anda yang baru saja mengadopsi repo paling tahu apa yang membingungkan.
 
-**Perbaikan bug kecil.** Typo, off-by-one, import yang salah, versi library yang di-pin terlalu ketat. Satu PR per perbaikan.
+**Perbaikan bug kecil** mencakup typo, off-by-one, import yang salah, dan versi library yang di-pin terlalu ketat. Kirim satu PR per perbaikan.
 
-**Fitur yang umum diinginkan.** Jika repo belum punya `--dry-run` atau `set_seed` yang deterministik, tambahkan. Jelaskan motivasi di deskripsi PR.
+**Fitur yang umum diinginkan** adalah kontribusi ketiga yang hampir selalu diterima. Jika repo belum punya `--dry-run` atau `set_seed` yang deterministik, tambahkan dan jelaskan motivasi di deskripsi PR.
 
 Etika kontribusi: sebelum mengirim PR besar, buka issue dulu menanyakan apakah kontribusi semacam itu akan diterima. Menghemat waktu Anda dan maintainer.
 
@@ -581,7 +581,7 @@ Ketika adopsi repo atau eksperimen gagal, respons pertama yang paling sering ada
 
 #### Kategori 1 - Setup Error
 
-Environment, dependency, path, atau konfigurasi tidak benar.
+Kategori ini mencakup masalah di environment, dependency, path, atau konfigurasi yang tidak benar.
 
 - **Tanda:** error saat `import`, `ModuleNotFoundError`, `FileNotFoundError`, CUDA version mismatch.
 - **Langkah uji:**
@@ -591,7 +591,7 @@ Environment, dependency, path, atau konfigurasi tidak benar.
 
 #### Kategori 2 - Data Error
 
-Dataset tidak ada, format tidak sesuai, leakage, atau preprocessing berbeda dari yang diharapkan model.
+Kategori ini mencakup masalah di dataset: dataset tidak ada, format tidak sesuai, leakage, atau preprocessing berbeda dari yang diharapkan model.
 
 - **Tanda:** error di DataLoader, akurasi terlalu tinggi dari awal, loss tidak wajar (terlalu kecil atau NaN langsung).
 - **Langkah uji:**
@@ -601,14 +601,14 @@ Dataset tidak ada, format tidak sesuai, leakage, atau preprocessing berbeda dari
 
 #### Kategori 3 - Algorithmic Error
 
-Bug di forward pass, loss function, atau training loop.
+Kategori ini mencakup bug di forward pass, loss function, atau training loop.
 
 - **Tanda:** loss tidak turun sama sekali, NaN loss, prediksi selalu kelas yang sama, gradient nol.
 - **Langkah uji:** *overfit one batch* - ambil 4 sampel, jalankan 100-200 iterasi hanya pada itu. Model harus mencapai loss mendekati nol. Jika tidak, ada bug di model atau loss.
 
 #### Kategori 4 - Experiment Error
 
-Konfigurasi tidak sesuai rancangan: seed tidak di-set, variabel yang seharusnya dikontrol tidak terkontrol, metrik yang dilaporkan bukan yang direncanakan.
+Kategori ini mencakup konfigurasi yang tidak sesuai rancangan: seed tidak di-set, variabel yang seharusnya dikontrol tidak terkontrol, atau metrik yang dilaporkan bukan yang direncanakan.
 
 - **Tanda:** hasil yang tidak bisa direproduksi, metrik berbeda dari yang ada di pre-registration, kondisi ablation tidak sesuai grid.
 - **Langkah uji:** baca ulang pre-registration dan bandingkan dengan config YAML yang benar-benar dipakai. Cek commit hash di checkpoint.
@@ -632,7 +632,7 @@ Tabel ringkas untuk referensi cepat:
 
 Misalkan Anda menerima tugas: *"Gunakan repo `vision-baseline` dari lab kita. Tambahkan opsi memakai focal loss. Hasilkan baseline + ablation pada CIFAR-10."*
 
-> **Latihan paralel di repo yang sebenarnya.** Contoh ini memakai repo hipotetis agar fokus pada pola, bukan detail library. Untuk latihan di kode yang sebenarnya, clone salah satu berikut dan ikuti langkah yang sama (pemetaan, entry point, peta panggilan, titik injeksi modifikasi) secara paralel:
+> **Latihan paralel di repo yang sebenarnya:** contoh berikut memakai repo hipotetis agar fokus pada pola, bukan detail library. Untuk latihan di kode yang sebenarnya, clone salah satu berikut dan ikuti langkah yang sama (pemetaan, entry point, peta panggilan, titik injeksi modifikasi) secara paralel:
 >
 > - **`rwightman/pytorch-image-models` (timm)** - `github.com/huggingface/pytorch-image-models`. Ratusan model klasifikasi gambar; entry point `train.py` di root. Banyak dipakai di paper visi.
 > - **`huggingface/transformers`** - `github.com/huggingface/transformers`. Skala jauh lebih besar; cocok bila Capstone Anda di domain teks. Mulai dari `examples/pytorch/text-classification/run_classification.py` - itu skeleton yang paling mudah diadaptasi.
@@ -669,7 +669,7 @@ vision-baseline/
 └── README.md
 ```
 
-Tidak ada `losses.py` - loss mungkin di `train.py`. Tidak ada `tests/`. Sepuluh menit membaca: cukup ringkas.
+Tidak ada `losses.py` - loss mungkin di `train.py`. Tidak ada `tests/`. Sepuluh menit membaca sudah cukup untuk memetakan repo sekecil ini.
 
 ### 3.2 Menit 15-30: Entry Point dan Peta Panggilan
 
@@ -839,10 +839,10 @@ Buka [lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/mu
 
 Fokus:
 
-1. **Implementasi *scaled dot-product attention*** dengan tensor ops (tanpa `nn.MultiheadAttention`).
-2. **Satu Transformer encoder block** dengan LayerNorm pre-norm, FFN GELU, dan *residual*.
-3. **Parity check** terhadap `nn.TransformerEncoderLayer` PyTorch untuk memverifikasi shape dan skala output yang konsisten.
-4. **Training ringan** pada tugas *toy sequence classification* agar block terbukti bisa belajar.
+1. Implementasikan ***scaled dot-product attention*** dengan tensor ops tanpa `nn.MultiheadAttention`.
+2. Bangun satu **Transformer encoder block** dengan LayerNorm pre-norm, FFN GELU, dan *residual*.
+3. Jalankan **parity check** terhadap `nn.TransformerEncoderLayer` PyTorch untuk memverifikasi shape dan skala output yang konsisten.
+4. Latih model ringan pada tugas *toy sequence classification* agar block terbukti bisa belajar.
 
 Bila Anda pernah membaca kode Transformer di Hugging Face atau `fairseq` dan merasa terhalang oleh abstraksi, lab ini membuat Anda melihat balok-balok fondasinya dalam bentuk paling minimal. Estimasi 4-5 jam.
 
@@ -866,9 +866,9 @@ Setelah Anda lancar membaca repo orang lain, latihan berikutnya adalah membantu 
    - Satu saran konkret untuk perbaikan repo masing-masing.
 
 **Daftar rekomendasi repo (pilih salah satu):**
-- `pytorch/examples` - `mnist/main.py` (CNN sederhana, banyak komentar)
-- `huggingface/transformers` - `src/transformers/models/bert/modeling_bert.py` (fokus pada `BertSelfAttention` saja, abaikan sisanya)
-- Repo lab teman sendiri dari Lab 3 yang sudah direfaktor (jika ingin latihan yang lebih relevan)
+- `pytorch/examples` → `mnist/main.py`: CNN sederhana dengan banyak komentar, mudah dipetakan.
+- `huggingface/transformers` → `src/transformers/models/bert/modeling_bert.py`: fokus pada `BertSelfAttention` saja, abaikan sisanya.
+- Repo lab teman sendiri dari Lab 3 yang sudah direfaktor, jika ingin latihan yang lebih relevan dengan konteks kelas.
 
 **Checklist verifikasi:**
 - [ ] Setiap orang selesai mapping 4 komponen dalam 30 menit.
@@ -905,10 +905,10 @@ Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://githu
 
 ## D7. Bacaan Lanjutan Pendalaman
 
-- **Peter Seibel - *Code is not literature*** (esai, 2014). Argumen mengapa kode dibaca secara berbeda dari teks naratif; implikasinya untuk strategi membaca.
-- **Michael Feathers - *Working Effectively with Legacy Code*** (buku). Walaupun ditujukan untuk software engineering, Bab 1-3 relevan untuk siapa saja yang akan sering bekerja dengan kode warisan.
-- **Greg Wilson et al. - *Good Enough Practices in Scientific Computing*** (PLOS Comp Biol, 2017). Standar minimal yang bisa Anda harapkan - atau ikuti saat menulis repo sendiri nanti.
-- **GitHub - *About Pull Requests*** (docs.github.com). Panduan teknis untuk memahami alur kerja kontribusi.
+- **Peter Seibel - *Code is not literature*** (esai, 2014). Esai ini berargumen mengapa kode dibaca secara berbeda dari teks naratif, beserta implikasinya untuk strategi membaca.
+- **Michael Feathers - *Working Effectively with Legacy Code*** (buku). Meskipun ditujukan untuk software engineering, Bab 1-3 relevan untuk siapa saja yang akan sering bekerja dengan kode warisan.
+- **Greg Wilson et al. - *Good Enough Practices in Scientific Computing*** (PLOS Comp Biol, 2017). Makalah ini menetapkan standar minimal yang bisa Anda harapkan dari repo riset - atau ikuti saat menulis repo sendiri nanti.
+- **GitHub - *About Pull Requests*** (docs.github.com). Dokumentasi ini menyediakan panduan teknis untuk memahami alur kerja kontribusi.
 
 ---
 

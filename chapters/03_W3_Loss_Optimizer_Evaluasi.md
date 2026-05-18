@@ -29,10 +29,10 @@
 
 > *Training selesai, kurva loss muncul di layar. Inilah momen di mana banyak pemula berhenti karena tidak tahu harus membaca apa. Loss curve bukan sekadar "turun = bagus, naik = buruk" - ia adalah sinyal diagnostik yang bisa memberi tahu apa yang salah bahkan sebelum Anda memeriksa kode.*
 
-**Baris peta besar:** `(C, H, W) -> (N,)` (lanjutan W2, fokus alur kerja)
-**Kebiasaan riset:** Ubah satu hal pada satu waktu
-**Dataset:** CIFAR-10 (reuse dari W2)
-**Lab utama:** Lab 1 selesai + Lab 2 ([lab_w3_loss_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb))
+**Baris peta besar** adalah `(C, H, W) -> (N,)` (lanjutan W2, fokus alur kerja).
+**Kebiasaan riset** yang ditanamkan minggu ini adalah: ubah satu hal pada satu waktu.
+**Dataset** yang dipakai adalah CIFAR-10 (reuse dari W2).
+**Lab utama** minggu ini adalah Lab 1 selesai + Lab 2 ([lab_w3_loss_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb)).
 
 ---
 
@@ -40,20 +40,20 @@
 
 W3 adalah minggu berbasis contoh. Sebelum membaca teori tentang loss dan optimizer, Anda mengamati lima contoh training konkret dan diminta mengidentifikasi apa yang terjadi. Baru setelah itu kita menarik pola dan penjelasannya.
 
-- **1.5** Galeri Lima Training (sebelum teori)
-- **2.1** Loss sebagai pilihan - bukan bawaan default
-- **2.2** Optimizer dan weight decay
-- **2.3** Evaluasi: bukan satu angka
-- **2.4** Tiga strategi representasi fitur
-- **2.5** Diagnosis loss curve - capstone W3
+- **§1.5** memulai dengan galeri lima training konkret (sebelum teori).
+- **§2.1** membahas loss sebagai pilihan, bukan bawaan default.
+- **§2.2** menjelaskan cara optimizer memutuskan langkah dan peran weight decay.
+- **§2.3** menguraikan evaluasi yang tidak bisa diringkas jadi satu angka.
+- **§2.4** membandingkan tiga strategi representasi fitur.
+- **§2.5** menutup dengan kerangka diagnosis loss curve lengkap.
 
-**Rekap W2:** Anda sudah memahami tensor I/O, empat keluarga arsitektur, dan smoke test tiga level. W3 melanjutkan fondasi itu.
+Sebagai rekap W2: Anda sudah memahami tensor I/O, empat keluarga arsitektur, dan smoke test tiga level. W3 melanjutkan fondasi itu.
 
 ---
 
 ## 1.5 Galeri Lima Training: Sebelum Membaca Teori
 
-Ini bukan soal. Ini latihan observasi.
+Bagian ini bukan soal - melainkan latihan observasi.
 
 Perhatikan lima loss curve berikut. Masing-masing menampilkan train loss dan val loss selama 20 epoch.
 
@@ -99,15 +99,15 @@ Loss menentukan *apa yang dianggap salah oleh model*. Mengganti loss berarti men
 
 **Untuk klasifikasi:**
 
-- **Cross-entropy** - pilihan default. Mengukur jarak antara distribusi probabilitas prediksi dan label. Pakai `CrossEntropyLoss` di PyTorch (otomatis gabung softmax + log-likelihood).
+- **Cross-entropy** adalah pilihan default untuk klasifikasi. Loss ini mengukur jarak antara distribusi probabilitas prediksi dan label. Pakai `CrossEntropyLoss` di PyTorch (otomatis gabung softmax + log-likelihood).
 - **Focal loss** (Lin et al., 2017) - memodifikasi cross-entropy dengan faktor `(1-p_t)^γ` yang menurunkan bobot sampel mudah (di mana model sudah benar dan yakin) dan menaikkan bobot sampel sulit. Berguna pada kelas sangat tidak seimbang.
   - **Contoh numerik.** Untuk kelas minor dengan prediksi `p_t = 0.2` (model salah-yakin) dan `γ = 2`: faktor `(1 - 0.2)² = 0.64`. Untuk kelas mayor dengan `p_t = 0.95` (model benar-yakin): faktor `(1 - 0.95)² = 0.0025`. Loss kelas minor diberi bobot 256× lebih besar dari kelas mayor di iterasi yang sama.
 - **Label smoothing** - mengganti label one-hot `[0, 1, 0]` dengan distribusi sedikit kabur `[0.033, 0.933, 0.033]` (smoothing 0.1, 3 kelas). Mencegah model terlalu percaya diri (overconfident); sering memperbaiki kalibrasi probabilitas.
 
 **Untuk regresi:**
 
-- **MSE** - hukuman kuadratik. Sensitif terhadap outlier (residu meleset 5 menyumbang loss 25×), cocok ketika residu kecil sudah bermasalah.
-- **MAE** - linear. Lebih robust ke outlier tetapi tidak punya "tarikan" kuat di sekitar nol; konvergensi sering lebih lambat.
+- **MSE** menerapkan hukuman kuadratik pada residu. Loss ini sensitif terhadap outlier (residu meleset 5 menyumbang loss 25×), cocok ketika residu kecil sudah bermasalah.
+- **MAE** mengukur residu secara linear. Loss ini lebih robust ke outlier tetapi tidak punya "tarikan" kuat di sekitar nol; konvergensi sering lebih lambat.
 - **Huber loss** - menggabungkan keduanya: kuadratik untuk `|residu| < δ`, linear untuk residu lebih besar. Default δ = 1.0 di PyTorch.
 
 Pertanyaan yang selalu relevan sebelum mengganti loss: *apa jenis kesalahan dengan konsekuensi terbesar di aplikasi Anda?* Jika konsekuensi false negative pada kelas minor lebih besar, focal loss atau pembobotan kelas langsung membantu. Mengganti loss tanpa alasan jelas menambah satu variabel yang harus dijelaskan di laporan.
@@ -116,9 +116,9 @@ Pertanyaan yang selalu relevan sebelum mengganti loss: *apa jenis kesalahan deng
 
 Optimizer mengubah gradient menjadi langkah pembaruan pada parameter.
 
-- **SGD (+ momentum).** Paling tua dan paling sederhana, tetapi sering menghasilkan performa sangat kuat setelah tuning yang tekun. Membutuhkan *learning rate schedule* yang dirancang hati-hati. Banyak paper *state-of-the-art* di visi komputer tetap memakai SGD.
-- **Adam dan AdamW.** Adaptif - setiap parameter mendapat learning rate yang disesuaikan. Sangat cepat konvergen di epoch awal. AdamW memperbaiki Adam dengan memisahkan *weight decay* dari gradient momentum.
-- **LAMB.** Varian untuk *batch size* besar (ribuan sampel). Relevan di pre-training besar (BERT, GPT), jarang diperlukan di proyek kuliah.
+- **SGD (+ momentum)** adalah optimizer paling tua dan paling sederhana, tetapi sering menghasilkan performa sangat kuat setelah tuning yang tekun. SGD membutuhkan *learning rate schedule* yang dirancang hati-hati. Banyak paper *state-of-the-art* di visi komputer tetap memakai SGD.
+- **Adam dan AdamW** bersifat adaptif - setiap parameter mendapat learning rate yang disesuaikan, sehingga sangat cepat konvergen di epoch awal. AdamW memperbaiki Adam dengan memisahkan *weight decay* dari gradient momentum.
+- **LAMB** adalah varian yang dirancang untuk *batch size* besar (ribuan sampel). LAMB relevan di pre-training besar (BERT, GPT), dan jarang diperlukan di proyek kuliah.
 
 > [!NOTE]
 > **`weight_decay` di AdamW bukan L2 regularisasi.** Pada SGD, menambahkan L2 regularisasi (`λ ||w||²` ke loss) ekuivalen dengan mengurangkan `λw` dari setiap parameter. Pada Adam, hal ini **tidak berlaku**: Adam membagi gradient dengan estimasi variansi, sehingga penalti L2 yang ditambahkan ke loss mendapat efek yang tidak proporsional antar parameter. AdamW memperbaiki ini dengan menerapkan weight decay *langsung* ke parameter (bukan lewat gradient). Akibat praktisnya: `weight_decay=0.01` di AdamW memberi efek regularisasi yang lebih konsisten daripada nilai yang sama di Adam biasa.
@@ -133,7 +133,7 @@ Dipasangkan dengan optimizer adalah *scheduler*: mekanisme menurunkan (atau mena
 
 ### 2.3 Evaluasi: Bukan Satu Angka
 
-Satu kesalahan klasik: membanggakan akurasi 95% tanpa menyadari kelas positif hanya 5% dari data. Dalam kondisi itu, *dummy classifier* yang selalu memprediksi "negatif" juga mencapai 95%.
+Satu kesalahan klasik yang sering terjadi adalah membanggakan akurasi 95% tanpa menyadari bahwa kelas positif hanya 5% dari data. Dalam kondisi itu, *dummy classifier* yang selalu memprediksi "negatif" juga mencapai 95%.
 
 | Metrik | Kapan dipakai | Kelemahan |
 | --- | --- | --- |
@@ -145,19 +145,19 @@ Satu kesalahan klasik: membanggakan akurasi 95% tanpa menyadari kelas positif ha
 
 Di samping metrik, Anda juga perlu strategi validasi:
 
-- **Hold-out split.** Train/val/test sekali; val untuk tuning, test untuk pengukuran final. Cepat tetapi sensitif terhadap keberuntungan pembagian.
-- **K-fold cross-validation.** Bagi data menjadi k bagian; training k kali dengan tiap bagian jadi validasi bergantian. Estimasi lebih stabil, biaya k kali training.
-- **Stratified split/fold.** Distribusi kelas sama di setiap bagian; wajib untuk klasifikasi dengan imbalance.
+- **Hold-out split** memisahkan data menjadi train/val/test satu kali; val dipakai untuk tuning, test untuk pengukuran final. Pendekatan ini cepat tetapi sensitif terhadap keberuntungan pembagian.
+- **K-fold cross-validation** membagi data menjadi k bagian dan menjalankan training k kali dengan tiap bagian jadi validasi bergantian. Estimasi yang dihasilkan lebih stabil, dengan biaya k kali training.
+- **Stratified split/fold** menjamin distribusi kelas sama di setiap bagian; strategi ini wajib untuk klasifikasi dengan imbalance.
 
 ### 2.4 Representasi Fitur: Tiga Pilihan Desain
 
 Salah satu keputusan yang paling sering menentukan performa model bukan pilihan arsitektur, melainkan pilihan representasi. Keputusan ini diambil jauh sebelum training dimulai. Pada modalitas dan tugas yang sama, perbedaan representasi kerap menghasilkan selisih performa lebih besar daripada pergantian arsitektur.
 
-**Engineered.** Fitur dirancang manusia dengan pengetahuan domain - statistik agregat, transformasi matematis, atau fitur klasik. Di gambar: histogram warna, HOG, SIFT. Di sinyal CGM: mean, koefisien variasi, *time-in-range*. Representasi *engineered* memiliki biaya komputasi rendah, mudah diinterpretasi, dan sering menjadi baseline yang sangat kuat ketika data latih terbatas.
+**Engineered** adalah representasi yang dirancang manusia dengan pengetahuan domain - statistik agregat, transformasi matematis, atau fitur klasik. Di gambar: histogram warna, HOG, SIFT. Di sinyal CGM: mean, koefisien variasi, *time-in-range*. Representasi *engineered* memiliki biaya komputasi rendah, mudah diinterpretasi, dan sering menjadi baseline yang sangat kuat ketika data latih terbatas.
 
-**Extracted.** Fitur diambil dari *hidden layer* model *pretrained* yang di-freeze. Di visi: *hidden states* dari CNN atau ViT pretrained pada ImageNet. Di teks: token `[CLS]` atau mean pooling dari BERT. Kompromi menarik: Anda mendapat representasi dari model besar tanpa biaya training penuh, dengan syarat domain target tidak terlalu jauh dari domain pretraining.
+**Extracted** adalah representasi yang diambil dari *hidden layer* model *pretrained* yang di-freeze. Di visi: *hidden states* dari CNN atau ViT pretrained pada ImageNet. Di teks: token `[CLS]` atau mean pooling dari BERT. Kompromi yang menarik: Anda mendapat representasi dari model besar tanpa biaya training penuh, dengan syarat domain target tidak terlalu jauh dari domain pretraining.
 
-**Learned.** Representasi dipelajari langsung dari data melalui training *end-to-end* atau *self-supervised*. Fine-tuning BERT, melatih 1D CNN dari nol pada sinyal ECG, atau fine-tune ResNet pada dataset medis semuanya termasuk kategori ini. Strategi ini biasanya paling kuat ketika data latih memadai, tetapi paling membutuhkan banyak data dan memiliki biaya training paling tinggi.
+**Learned** adalah strategi di mana representasi dipelajari langsung dari data melalui training *end-to-end* atau *self-supervised*. Fine-tuning BERT, melatih 1D CNN dari nol pada sinyal ECG, atau fine-tune ResNet pada dataset medis semuanya termasuk kategori ini. Strategi ini biasanya paling kuat ketika data latih memadai, tetapi paling membutuhkan banyak data dan memiliki biaya training paling tinggi.
 
 
 | Domain | Engineered | Extracted | Learned |
@@ -204,19 +204,19 @@ flowchart TD
 ```
 
 **Pola 1: Loss training tinggi, tidak turun dari awal.**
-Model tidak belajar sama sekali. Hipotesis: (a) learning rate terlalu kecil, atau (b) bug di forward pass. Langkah tes: jalankan *overfit one batch* - ambil 4-8 sampel, jalankan ratusan iterasi hanya pada sampel itu. Jika loss tidak turun mendekati nol, ada bug di arsitektur atau loss function. Jika turun, model sehat - masalahnya di tempat lain. Naikkan LR 10× dan lihat apakah kurva mulai bergerak.
+Pola ini menandakan model tidak belajar sama sekali. Hipotesis: (a) learning rate terlalu kecil, atau (b) bug di forward pass. Langkah tes: jalankan *overfit one batch* - ambil 4-8 sampel, jalankan ratusan iterasi hanya pada sampel itu. Jika loss tidak turun mendekati nol, ada bug di arsitektur atau loss function. Jika turun, model sehat - masalahnya di tempat lain. Naikkan LR 10× dan lihat apakah kurva mulai bergerak.
 
 **Pola 2: Loss training turun, tapi loss validasi stagnan atau lebih tinggi sejak awal.**
-Overfitting sangat cepat. Hipotesis: dataset terlalu kecil relatif terhadap kapasitas model, atau ada data leakage. Langkah tes: kurangi kapasitas model atau tambah regularisasi. Jika val loss tidak membaik sama sekali, curigai leakage.
+Pola ini menunjukkan overfitting yang terjadi sangat cepat. Hipotesis: dataset terlalu kecil relatif terhadap kapasitas model, atau ada data leakage. Langkah tes: kurangi kapasitas model atau tambah regularisasi. Jika val loss tidak membaik sama sekali, curigai leakage.
 
 **Pola 3: Loss training dan validasi turun sejajar, tetapi val jauh di atas train di akhir.**
-Overfitting klasik. Langkah tes: identifikasi epoch terbaik dari kurva val sebelum kedua kurva mulai menjauh, lalu gunakan *early stopping*.
+Pola ini adalah overfitting klasik. Langkah tes: identifikasi epoch terbaik dari kurva val sebelum kedua kurva mulai menjauh, lalu gunakan *early stopping*.
 
 **Pola 4: Loss validasi turun tapi loss training stagnan di angka tinggi.**
-*Underfitting* - model terlalu kecil atau LR terlalu rendah. Paradoksnya, val bisa lebih baik dari train jika val set kebetulan lebih mudah. Langkah tes: periksa apakah augmentasi terlalu agresif.
+Pola ini mengindikasikan *underfitting* - model terlalu kecil atau LR terlalu rendah. Paradoksnya, val bisa lebih baik dari train jika val set kebetulan lebih mudah. Langkah tes: periksa apakah augmentasi terlalu agresif.
 
 **Pola 5: Loss meledak - tiba-tiba `NaN` atau naik tajam.**
-Gradient explosion. Hipotesis: (a) LR terlalu besar, atau (b) tidak ada gradient clipping. Langkah tes: kurangi LR 10× atau tambahkan `grad_clip = 1.0`. Untuk RNN dan Transformer, gradient clipping hampir selalu diperlukan.
+Pola ini menandakan gradient explosion. Hipotesis: (a) LR terlalu besar, atau (b) tidak ada gradient clipping. Langkah tes: kurangi LR 10× atau tambahkan `grad_clip = 1.0`. Untuk RNN dan Transformer, gradient clipping hampir selalu diperlukan.
 
 ![Lima pola loss curve untuk diagnosis: underfitting, overfitting, early divergence, val lebih rendah dari train, dan konvergensi normal](../figures/fig01c_loss_curves_diagnostic.svg)
 
@@ -228,10 +228,10 @@ Jika loss curve Anda tidak cocok dengan kelima pola di atas, jangan menebak. Kem
 
 ## 3. Worked Example: Evaluasi yang Jujur
 
-Setelah training SimpleCNN dari [W2](02_W2_Images_CNN_Smoke_Test.md), tiga pemeriksaan sebelum menulis angka di laporan:
+Setelah training SimpleCNN dari [W2](02_W2_Images_CNN_Smoke_Test.md), ada tiga pemeriksaan yang perlu diselesaikan sebelum menulis angka di laporan:
 
 1. **Overfitting?** Bandingkan train accuracy dengan val accuracy. Selisih > 10% biasanya sinyal overfitting.
-2. **Akurasi per kelas.** Pada CIFAR-10, kelas `cat` vs `dog` biasanya lebih sulit. Confusion matrix menunjukkan pola kesalahan.
+2. **Akurasi per kelas** perlu diperiksa secara terpisah. Pada CIFAR-10, kelas `cat` vs `dog` biasanya lebih sulit. Confusion matrix menunjukkan pola kesalahan.
 3. **Sampel yang salah.** Visualisasikan 10 gambar paling *confident* salah. Sering kali ada pola yang bisa dijelaskan.
 
 ---
@@ -242,7 +242,7 @@ Setelah training SimpleCNN dari [W2](02_W2_Images_CNN_Smoke_Test.md), tiga pemer
 
 **"Mengganti loss pasti meningkatkan performa jika diimplementasi benar."** Tidak ada loss yang unggul secara universal. Focal loss membantu pada imbalance ekstrem tetapi bisa memperburuk performa pada kelas seimbang karena menurunkan sinyal dari mayoritas sampel.
 
-**"Loss validasi sedikit di atas loss training itu normal."** Benar untuk gap kecil. Tapi jika val loss tidak pernah turun atau mulai naik sementara train loss terus turun, itu bukan "sedikit" - itu sinyal yang perlu ditangani.
+**"Loss validasi sedikit di atas loss training itu normal."** Pernyataan ini benar untuk gap kecil. Tapi jika val loss tidak pernah turun atau mulai naik sementara train loss terus turun, itu bukan "sedikit" - itu sinyal yang perlu ditangani.
 
 ---
 
@@ -267,11 +267,11 @@ Buka [lab_w2_cnn_baseline.ipynb](https://colab.research.google.com/github/muhamm
 
 Buka [lab_w6_feature_representation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w6_feature_representation.ipynb). Pada CIFAR-10 yang sama, bandingkan tiga strategi:
 
-1. **Engineered**: HOG manual + MLP kecil (tanpa pretrained weights apapun).
-2. **Extracted**: ResNet-18 pretrained pada ImageNet, di-freeze seluruhnya - hanya linear probe.
-3. **Learned**: ResNet-18 pretrained, di-fine-tune penuh.
+1. **Engineered**: pakai HOG manual + MLP kecil (tanpa pretrained weights apapun).
+2. **Extracted**: pakai ResNet-18 pretrained pada ImageNet yang di-freeze seluruhnya - hanya linear probe.
+3. **Learned**: pakai ResNet-18 pretrained yang di-fine-tune penuh.
 
-Pertanyaan yang dijawab setelah lab: Pada dataset terbatas (500 sampel per kelas), strategi mana yang paling menguntungkan? Pada dataset penuh, apakah jawabannya berubah?
+Jawab pertanyaan berikut setelah menyelesaikan lab: Pada dataset terbatas (500 sampel per kelas), strategi mana yang paling menguntungkan? Pada dataset penuh, apakah jawabannya berubah?
 
 ---
 
@@ -279,7 +279,7 @@ Pertanyaan yang dijawab setelah lab: Pada dataset terbatas (500 sampel per kelas
 
 1. Saat Anda mengganti `CrossEntropyLoss` menjadi `FocalLoss`, apa saja variabel yang *secara implisit* juga berubah walaupun Anda tidak menyentuhnya? (Petunjuk: pikirkan learning rate efektif, tekanan pada kelas minor, stabilitas awal training.) Bagaimana ini memengaruhi cara Anda merancang perbandingan?
 2. Anda ditugaskan membangun klasifikasi kualitas biji kopi dari foto *close-up* dengan hanya 300 gambar per kelas untuk empat kelas. Bandingkan tiga strategi representasi secara singkat. Manakah yang paling masuk akal dicoba terlebih dahulu dan mengapa? Pada penambahan data sejumlah berapa Anda akan mempertimbangkan berpindah strategi?
-3. **Koneksi ke Capstone.** Saat masuk Capstone (W12-W15) nanti, Anda diminta memilih topik dan membangun baseline. Dari kerangka tensor input → output, empat keluarga arsitektur, dan tiga strategi representasi, tuliskan satu kalimat: *"Saat membaca repo Capstone nanti, pertanyaan pertama yang saya ajukan ke diri sendiri adalah ..."*.
+3. **Koneksi ke Capstone:** Saat masuk Capstone (W12-W15) nanti, Anda diminta memilih topik dan membangun baseline. Dari kerangka tensor input → output, empat keluarga arsitektur, dan tiga strategi representasi, tuliskan satu kalimat: *"Saat membaca repo Capstone nanti, pertanyaan pertama yang saya ajukan ke diri sendiri adalah ..."*.
 
 ---
 
@@ -287,7 +287,7 @@ Pertanyaan yang dijawab setelah lab: Pada dataset terbatas (500 sampel per kelas
 
 - **Andrej Karpathy - *A Recipe for Training Neural Networks*** (2019). Bagian "overfit a single batch" dan "visualize just before the net" adalah checklist diagnosis yang sangat praktis.
 - **Lin et al. - *Focal Loss for Dense Object Detection*** (ICCV 2017). Baca bagian 3 untuk gambaran konseptualnya; lewati eksperimen detection.
-- **The Deep Learning Book (Goodfellow et al.), Bab 8.** Optimizer secara lebih mendalam.
+- **The Deep Learning Book (Goodfellow et al.), Bab 8.** Bab ini membahas optimizer secara lebih mendalam.
 
 ---
 

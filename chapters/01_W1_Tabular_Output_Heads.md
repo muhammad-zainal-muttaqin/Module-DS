@@ -29,10 +29,10 @@
 
 > *Sebelum membahas arsitektur yang rumit, kita mulai dari pertanyaan yang paling sederhana: shape apa yang masuk, dan shape apa yang harus keluar?*
 
-**Baris peta besar:** `(F,) -> (1,)`, `(1,)`, `(N,)`
-**Kebiasaan riset:** Observasi sebelum kesimpulan
-**Dataset:** Tabular bersama sintetis yang mendukung regresi, klasifikasi biner, dan multiclass dari input yang sama
-**Lab utama:** Lab 0 ([lab_w1_tabular_heads.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w1_tabular_heads.ipynb))
+**Baris peta besar** mencakup transformasi `(F,) -> (1,)`, `(1,)`, dan `(N,)` sesuai tugas.
+**Kebiasaan riset** yang ditanamkan adalah observasi sebelum kesimpulan.
+**Dataset** yang dipakai adalah tabular sintetis bersama yang mendukung regresi, klasifikasi biner, dan multiclass dari input yang sama.
+**Lab utama** adalah Lab 0 ([lab_w1_tabular_heads.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w1_tabular_heads.ipynb)).
 
 ---
 
@@ -71,9 +71,9 @@ input (F,) -> Linear(F, 64) -> ReLU -> Linear(64, 32) -> ReLU -> Linear(32, D_ou
 
 Perhatikan bahwa `D_out` ditentukan oleh **tugas**, bukan oleh data:
 
-- regression scalar: `D_out = 1`
-- binary classification: `D_out = 1` (logit) atau `D_out = 2` (logits dua kelas)
-- multiclass dengan N kelas: `D_out = N`
+- Regression scalar menghasilkan `D_out = 1`.
+- Binary classification menghasilkan `D_out = 1` (logit tunggal) atau `D_out = 2` (logits dua kelas).
+- Multiclass dengan N kelas menghasilkan `D_out = N`.
 
 Inilah maksud "MLP sebagai pengubah bentuk tensor": tubuh model tetap sama, kepala (head) berubah sesuai tugas.
 
@@ -169,7 +169,7 @@ Setiap tugas (regression, binary, multiclass) butuh kombinasi head dan loss yang
 
 #### 2.2.1 Regression: MSE dan Jarak Kuadrat
 
-Tugas regression: prediksi angka kontinu (harga rumah, suhu besok, kadar glukosa). Output head: `Linear(D, 1)` tanpa aktivasi. Loss: **Mean Squared Error**:
+Tugas regression adalah memprediksi angka kontinu (harga rumah, suhu besok, kadar glukosa). Output head yang dipakai adalah `Linear(D, 1)` tanpa aktivasi. Loss yang digunakan adalah **Mean Squared Error**:
 
 ```
 MSE = (1/N) Σ (ŷ - y)²
@@ -179,7 +179,7 @@ Untuk satu sampel dengan prediksi `ŷ = 0.9` dan target `y = 1.0`, MSE per-sampe
 
 #### 2.2.2 Binary Classification: BCE dan Sigmoid
 
-Tugas binary: prediksi ya/tidak, positif/negatif. Output head: `Linear(D, 1)` menghasilkan satu **logit** (angka real, bukan probabilitas). Loss: **Binary Cross-Entropy with Logits**:
+Tugas binary adalah memprediksi ya/tidak atau positif/negatif. Output head yang dipakai adalah `Linear(D, 1)` yang menghasilkan satu **logit** (angka real, bukan probabilitas). Loss yang digunakan adalah **Binary Cross-Entropy with Logits**:
 
 ```
 BCE = -[y log(σ(z)) + (1 - y) log(1 - σ(z))]
@@ -192,7 +192,7 @@ PyTorch menyediakan `BCEWithLogitsLoss` yang menggabung sigmoid + log dalam satu
 
 #### 2.2.3 Multiclass: CrossEntropy dan Softmax
 
-Tugas multiclass dengan N kelas: prediksi salah satu dari N kategori (misal: anjing/kucing/kelinci, N=3). Output head: `Linear(D, N)` menghasilkan **vektor logit** panjang N. Loss: **Cross-Entropy**:
+Tugas multiclass dengan N kelas adalah memprediksi salah satu dari N kategori (misal: anjing/kucing/kelinci, N=3). Output head yang dipakai adalah `Linear(D, N)` yang menghasilkan **vektor logit** panjang N. Loss yang digunakan adalah **Cross-Entropy**:
 
 ```
 CE = -log(softmax(z)[y])
@@ -265,11 +265,11 @@ for epoch in range(10):
 
 Lima baris kunci yang perlu dikenali setiap kali melihat kode training PyTorch:
 
-1. **`logits = model(x)`** - forward pass; shape input `(B, F)`, shape output sesuai tugas.
-2. **`loss = criterion(logits, y)`** - hitung loss; perhatikan target shape harus cocok dengan loss yang dipakai (lihat tabel §2.2.4).
-3. **`optimizer.zero_grad()`** - tanpa ini, gradient batch sebelumnya menumpuk dan training kacau.
-4. **`loss.backward()`** - autograd jalan mundur, isi `.grad` di setiap parameter.
-5. **`optimizer.step()`** - update parameter pakai gradient yang baru dihitung.
+1. **`logits = model(x)`** menjalankan forward pass; shape input `(B, F)`, shape output sesuai tugas.
+2. **`loss = criterion(logits, y)`** menghitung loss; perhatikan bahwa target shape harus cocok dengan loss yang dipakai (lihat tabel §2.2.4).
+3. **`optimizer.zero_grad()`** wajib dipanggil sebelum backward; tanpa ini, gradient batch sebelumnya menumpuk dan training kacau.
+4. **`loss.backward()`** menjalankan autograd mundur dan mengisi `.grad` di setiap parameter.
+5. **`optimizer.step()`** memperbarui parameter menggunakan gradient yang baru dihitung.
 
 Lima baris di atas adalah pola yang berulang sepanjang modul, dari W1 (tabular) sampai W11 (capstone). Apa yang berubah hanyalah definisi `model`, pilihan `criterion`, dan bagaimana `train_loader` dibangun.
 
@@ -279,9 +279,9 @@ Lima baris di atas adalah pola yang berulang sepanjang modul, dari W1 (tabular) 
 
 Lab 0 menyiapkan dataset tabular sintetis sederhana dengan 10 fitur. Dari fitur yang sama, kita membuat tiga target:
 
-- `y_regression` = kombinasi linear dari fitur + noise (kontinu)
-- `y_binary` = sign dari kombinasi linear (0/1)
-- `y_multiclass` = bucketize ke 3 kuantil (kelas 0/1/2)
+- `y_regression` adalah kombinasi linear dari fitur ditambah noise (kontinu).
+- `y_binary` adalah hasil sign dari kombinasi linear (0/1).
+- `y_multiclass` adalah hasil bucketize ke 3 kuantil (kelas 0/1/2).
 
 Dengan demikian, **input** identik, tetapi **output head** dan **loss** berubah. Tiga konfigurasi yang dijalankan:
 
@@ -294,10 +294,9 @@ model.num_classes: 1    # atau 2, 3
 
 Catat untuk setiap run:
 
-- train loss akhir
-- val loss akhir
-- satu metrik yang sesuai: MAE (regression), accuracy (binary), accuracy + macro-F1 (multiclass)
-- pengamatan: apa yang Anda *lihat* di kurva, sebelum apa yang Anda *simpulkan*
+- Train loss akhir dan val loss akhir dicatat pada akhir epoch terakhir.
+- Satu metrik yang sesuai dicatat: MAE untuk regression, accuracy untuk binary, dan accuracy + macro-F1 untuk multiclass.
+- Pengamatan ditulis dalam kalimat yang mendeskripsikan apa yang *terlihat* di kurva, sebelum menarik kesimpulan apapun.
 
 ---
 
@@ -315,8 +314,8 @@ Catat untuk setiap run:
 
 ## 5. Lab 0 - Tabular Output Heads
 
-**File:** [lab_w1_tabular_heads.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w1_tabular_heads.ipynb)
-**Estimasi waktu:** 3-4 jam.
+**File** yang digunakan adalah [lab_w1_tabular_heads.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w1_tabular_heads.ipynb).
+**Estimasi waktu** yang dibutuhkan adalah 3-4 jam.
 
 **Langkah:**
 
@@ -329,10 +328,10 @@ Catat untuk setiap run:
 
 **Luaran:**
 
-- 3 konfigurasi run (regression, binary, multiclass) di `experiments/`
-- 1 notebook lab0 dengan output sel terisi
-- 1 tulisan `observasi_vs_interpretasi.md` (template di [Lampiran C.6](14_Lampiran.md#c6-template-entri-portofolio-mandiri))
-- Smoke test repositori berhasil
+- 3 konfigurasi run (regression, binary, multiclass) tersimpan di `experiments/`.
+- 1 notebook lab0 dengan seluruh sel output telah terisi.
+- 1 file `observasi_vs_interpretasi.md` yang ditulis berdasarkan template di [Lampiran C.6](14_Lampiran.md#c6-template-entri-portofolio-mandiri).
+- Smoke test repositori berhasil dijalankan tanpa error.
 
 ---
 

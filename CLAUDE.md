@@ -306,6 +306,34 @@ Pembuka section inklusif: pakai "kita" ("Sebelum **kita** membahas...").
 
 Hindari konstruksi bertingkat English. Pecah jadi 2-3 kalimat dengan penanda kohesi ("justru", "memang", "sebaliknya", "nah"). Reduplikasi jamak lebih natural ("kompetensi-kompetensi").
 
+**Struktur Kalimat dalam Penjelasan Materi (SPOK wajib):**
+
+Setiap kalimat dalam prosa bab harus lolos empat cek:
+
+1. Ada **subjek eksplisit** - bukan tersirat atau hilang.
+2. Ada **predikat** - "adalah", "berfungsi", "bekerja dengan", "menentukan", "terdiri dari", dst.
+3. Bisa **dibaca lantang** dan terdengar natural dalam bahasa Indonesia.
+4. **Tidak bisa disalahpahami** karena subjeknya ambigu.
+
+**Pola terlarang dan penggantinya:**
+
+| Pola terlarang | Contoh buruk | Contoh benar |
+|---|---|---|
+| Fragment tanpa predikat | `"Lapisan linear berturut-turut dengan non-linearitas di antaranya."` | `"FFN adalah rangkaian lapisan linear yang diselingi non-linearitas."` |
+| `"Label: fragmen"` untuk deskripsi | `"Asumsi: tidak ada struktur khusus..."` | `"Arsitektur ini tidak mengasumsikan struktur khusus..."` |
+| `"Kekuatan:"` / `"Kelemahan:"` sebagai label | `"Kekuatan: sangat efisien parameter untuk gambar."` | `"Arsitektur ini sangat efisien secara parameter untuk gambar dan data grid."` |
+| `"**Term.** Definisi."` | `"**Augmentation.** Transformasi acak yang diterapkan..."` | `"**Augmentation** adalah kumpulan transformasi acak yang diterapkan..."` |
+| `"**X** - definisi singkat"` di bullet | `"**Kernel size** - ukuran filter. 3×3 paling umum."` | `"**Kernel size** adalah ukuran satu filter. Filter 3×3 paling umum dipakai."` |
+| Template identik diulang per item | Empat arsitektur semua pakai Asumsi:/Kekuatan:/Kelemahan: | Setiap item ditulis sebagai paragraf unik dengan struktur kalimat berbeda |
+
+**Variasi antar item:**
+
+Saat mendeskripsikan beberapa item sejenis (arsitektur, teknik, metrik), setiap item harus punya paragraf dengan struktur kalimat yang berbeda. Dilarang mengulang template yang persis sama ("Asumsi → Kekuatan → Kelemahan") untuk setiap item.
+
+**Transisi antar sub-konsep:**
+
+Saat satu section membahas beberapa sub-konsep berbeda (misal: inisialisasi bobot → normalisasi → aktivasi), wajib ada kalimat jembatan di antaranya. Contoh: *"Di samping inisialisasi, cara model menormalkan aktivasi antar layer juga menentukan stabilitas training."*
+
 **Format Markdown:**
 
 - Inline code dalam bold: `**\`Conv2d(...)`**, bukan ``` **Conv2d(...)**` ```.

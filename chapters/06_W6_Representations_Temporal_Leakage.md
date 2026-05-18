@@ -81,9 +81,9 @@ from sklearn.model_selection import train_test_split
 X_train, X_test = train_test_split(df, test_size=0.2, shuffle=True)
 ```
 
-**Masalah 1 - Random split.** Sampel dari jam 14:00 bisa masuk train, dan sampel jam 13:00 dari hari yang sama masuk test. Model "melihat" data setelah titik test ketika training.
+**Masalah 1: random split.** Sampel dari jam 14:00 bisa masuk train, dan sampel jam 13:00 dari hari yang sama masuk test. Model "melihat" data setelah titik test ketika training.
 
-**Masalah 2 - Rolling feature melampaui batas.** Nilai `rolling_mean_24h` pada titik ke-T dihitung dari T-23 hingga T. Jika salah satu titik T-23..T-1 ada di test set tetapi T ada di train set, fitur training mengandung informasi test.
+**Masalah 2: rolling feature melampaui batas.** Nilai `rolling_mean_24h` pada titik ke-T dihitung dari T-23 hingga T. Jika salah satu titik T-23..T-1 ada di test set tetapi T ada di train set, fitur training mengandung informasi test.
 
 **Hasil yang Anda lihat:** akurasi F1 = 0.92. Kelihatan bagus. Tapi saat dipakai di produksi, model hanya mencapai F1 = 0.63. Inilah angka yang menipu akibat temporal leakage.
 
@@ -187,15 +187,15 @@ Ingat: laporan otomatis adalah titik awal, bukan akhir. Ia menunjukkan *apa*; An
 
 *Data leakage* adalah masuknya informasi ke training yang seharusnya tidak tersedia pada waktu prediksi. Lima jenis yang paling umum:
 
-**1. Target leakage.** Fitur yang dihitung *setelah* atau *dari* target. Contoh: `total_payments` di prediksi default kredit - jumlah pembayaran hanya tersedia setelah pinjaman berakhir, jadi tidak bisa ada di data training untuk model prediksi awal.
+**1. Target leakage** terjadi ketika fitur dihitung *setelah* atau *dari* target. Contoh: `total_payments` di prediksi default kredit - jumlah pembayaran hanya tersedia setelah pinjaman berakhir, jadi tidak bisa ada di data training untuk model prediksi awal.
 
-**2. Train-test contamination.** Baris yang sama ada di train dan test. Ini sering terjadi saat split dilakukan setelah proses yang menciptakan duplikasi, misalnya agregasi yang meniru baris.
+**2. Train-test contamination** terjadi ketika baris yang sama ada di train dan test. Ini sering muncul saat split dilakukan setelah proses yang menciptakan duplikasi, misalnya agregasi yang meniru baris.
 
-**3. Temporal leakage.** Data masa depan masuk ke prediksi masa lalu. Umum di time series - pemisahan train/test dengan random split padahal data punya urutan waktu. Solusinya: split berdasarkan waktu, bukan acak.
+**3. Temporal leakage** terjadi ketika data masa depan masuk ke prediksi masa lalu. Jenis ini umum di time series - pemisahan train/test dengan random split padahal data punya urutan waktu. Solusinya: split berdasarkan waktu, bukan acak.
 
-**4. Group leakage.** Data dari subjek yang sama ada di train dan test. Contoh: pasien yang sama punya beberapa rontgen; satu masuk train, satu masuk test. Model bisa belajar mengenali pasien, bukan penyakit. Solusinya: split berdasarkan grup (pasien, pengguna, sesi).
+**4. Group leakage** terjadi ketika data dari subjek yang sama ada di train dan test. Contoh: pasien yang sama punya beberapa rontgen; satu masuk train, satu masuk test. Model bisa belajar mengenali pasien, bukan penyakit. Solusinya: split berdasarkan grup (pasien, pengguna, sesi).
 
-**5. Preprocessing leakage.** Statistik untuk normalisasi (mean, std) dihitung dari seluruh dataset termasuk test. Ini memberi model informasi agregat test. Solusinya: fit preprocessing hanya pada train, transform train+test dengan parameter yang sudah di-fit.
+**5. Preprocessing leakage** terjadi ketika statistik untuk normalisasi (mean, std) dihitung dari seluruh dataset termasuk test. Ini memberi model informasi agregat test. Solusinya: fit preprocessing hanya pada train, transform train+test dengan parameter yang sudah di-fit.
 
 ![Lima jenis data leakage: tanda-tanda, penyebab, dan cara deteksinya](../figures/fig04a_data_leakage.svg)
 
@@ -217,8 +217,8 @@ Protokol audit label untuk dataset klasifikasi:
 
 1. **Periksa distribusi label.** `value_counts()`. Kelas dengan frekuensi sangat rendah (< 1%) mungkin tidak praktis untuk model klasifikasi biasa - pertimbangkan menggabung ke kelas lain atau memakai pendekatan *few-shot*.
 2. **Periksa ejaan/konsistensi kategori.** `df['label'].unique()`. Sering ditemukan 'Positif', 'positif', 'Positive', 'POS' yang seharusnya satu kelas.
-3. **Sampel inspeksi manual.** Ambil 50 sampel acak, periksa labelnya dengan pemahaman domain. Jika Anda bukan ahli domain, minta bantuan.
-4. **Inspeksi kesalahan model sebagai audit tambahan.** Setelah baseline training, ambil 20 "kesalahan paling percaya diri" - prediksi di mana model yakin tetapi salah. Sering kali *labelnya* yang salah, bukan modelnya.
+3. **Lakukan inspeksi manual pada sampel.** Ambil 50 sampel acak, periksa labelnya dengan pemahaman domain. Jika Anda bukan ahli domain, minta bantuan.
+4. **Inspeksi kesalahan model sebagai audit tambahan.** Setelah baseline training, ambil 20 "kesalahan paling percaya diri" yaitu prediksi di mana model yakin tetapi salah. Sering kali *labelnya* yang salah, bukan modelnya.
 
 Contoh pada dataset gambar:
 
@@ -317,15 +317,15 @@ Untuk model PyTorch yang memakai augmentasi, prinsip sama: augmentasi hanya di t
 
 Data di dunia nyata sering berbeda dari data training. Tiga bentuk perubahan:
 
-**Covariate shift** - distribusi fitur `P(x)` berubah, tetapi hubungan fitur→target `P(y|x)` tetap. Model masih bisa di-deploy kalau fitur baru tidak terlalu jauh dari yang dilihat saat training.
+**Covariate shift** adalah kondisi di mana distribusi fitur `P(x)` berubah, tetapi hubungan fitur→target `P(y|x)` tetap. Model masih bisa di-deploy kalau fitur baru tidak terlalu jauh dari yang dilihat saat training.
 - *Contoh konkret:* model klasifikasi daun penyakit dilatih di musim kemarau (warna lebih kekuningan), dipakai di musim hujan (warna lebih gelap dan basah). Pola visual penyakit yang sama, tetapi distribusi warna pixel bergeser.
 - *Deteksi:* histogram per-channel train vs deploy berbeda; uji KS pada distribusi fitur.
 
-**Label shift** - distribusi target `P(y)` berubah, tetapi `P(x|y)` tetap. Mengetahui shift jenis ini penting karena solusinya berbeda dari covariate shift.
+**Label shift** adalah kondisi di mana distribusi target `P(y)` berubah, tetapi `P(x|y)` tetap. Mengetahui shift jenis ini penting karena solusinya berbeda dari covariate shift.
 - *Contoh konkret:* model deteksi spam dilatih saat spam = 5% dari email, di-deploy saat campaign besar membuat spam = 30%. Tampilan spam tetap sama; hanya proporsinya berubah. Threshold default akan menghasilkan banyak false negative.
 - *Deteksi:* bandingkan `value_counts` label di sample produksi (ground-truth atau proxy lemah) vs train.
 
-**Concept drift** - `P(y|x)` itu sendiri berubah. Hubungan fitur→target tidak lagi yang sama. Paling sulit ditangani; biasanya butuh re-training periodik.
+**Concept drift** adalah kondisi di mana `P(y|x)` itu sendiri berubah. Hubungan fitur→target tidak lagi yang sama. Jenis ini paling sulit ditangani dan biasanya butuh re-training periodik.
 - *Contoh konkret:* model prediksi churn pelanggan dilatih sebelum app rilis fitur baru. Setelah rilis, pengguna yang sebelumnya churn karena fitur kurang sekarang loyal - dengan fitur input identik, label berubah.
 - *Deteksi:* metrik di production turun walau distribusi fitur stabil; bandingkan akurasi window sliding bulanan.
 
@@ -347,13 +347,13 @@ Sejauh ini kita membahas validasi data dari sudut teknis - leakage, label, pipel
 
 Ketidakseimbangan kelas bukan satu-satunya bentuk bias dalam dataset. Empat jenis bias yang harus Anda kenali sebelum melangkah ke training:
 
-**Selection bias.** Data training tidak merepresentasikan populasi target. Contoh klasik: dataset wajah yang 90%-nya adalah etnis tertentu; model akan berkinerja buruk pada etnis lain. Contoh lain: model penyakit mata yang dilatih pada gambar berkualitas klinik, lalu gagal di lapangan karena gambar dari ponsel. Deteksi awal: bandingkan demografi atau properti sampel dataset Anda dengan populasi target yang diklaim.
+**Selection bias** terjadi ketika data training tidak merepresentasikan populasi target. Contoh klasik: dataset wajah yang 90%-nya adalah etnis tertentu; model akan berkinerja buruk pada etnis lain. Contoh lain: model penyakit mata yang dilatih pada gambar berkualitas klinik, lalu gagal di lapangan karena gambar dari ponsel. Deteksi awal: bandingkan demografi atau properti sampel dataset Anda dengan populasi target yang diklaim.
 
-**Measurement bias.** Fitur atau label mengukur konstruk yang berbeda dari yang dimaksud. Contoh terkenal: model prediksi "risiko kriminal" COMPAS (ProPublica, 2016) - label "residivis" ternyata sangat berkorelasi dengan intensitas patroli polisi di lingkungan tertentu, bukan risiko aktual. Pertanyaan yang harus diajukan: "apakah yang kita ukur benar-benar merepresentasikan konstruk yang kita klaim?"
+**Measurement bias** terjadi ketika fitur atau label mengukur konstruk yang berbeda dari yang dimaksud. Contoh terkenal: model prediksi "risiko kriminal" COMPAS (ProPublica, 2016) - label "residivis" ternyata sangat berkorelasi dengan intensitas patroli polisi di lingkungan tertentu, bukan risiko aktual. Pertanyaan yang harus diajukan: "apakah yang kita ukur benar-benar merepresentasikan konstruk yang kita klaim?"
 
-**Label bias.** Bias manusia pemberi label tercermin dalam *ground truth*. Contoh: dataset klasifikasi teks "toxic" di mana komentar dalam dialek tertentu (AAVE) diberi label toxic lebih sering daripada komentar serupa dalam bahasa Inggris standar. Deteksi awal: periksa apakah distribusi label berbeda signifikan antar subgrup yang seharusnya mirip.
+**Label bias** terjadi ketika bias manusia pemberi label tercermin dalam *ground truth*. Contoh: dataset klasifikasi teks "toxic" di mana komentar dalam dialek tertentu (AAVE) diberi label toxic lebih sering daripada komentar serupa dalam bahasa Inggris standar. Deteksi awal: periksa apakah distribusi label berbeda signifikan antar subgrup yang seharusnya mirip.
 
-**Historical bias.** Ketidaksetaraan yang sudah ada di dunia nyata tercermin dalam data. Contoh: dataset *resume screening* yang dilatih pada data historis perekrutan di masa lalu akan mewarisi bias gender atau ras pada keputusan perekrutan masa itu. Ini berbeda dari label bias karena *dunia nyata memang bias*, bukan pemberi label yang keliru.
+**Historical bias** terjadi ketika ketidaksetaraan yang sudah ada di dunia nyata tercermin dalam data. Contoh: dataset *resume screening* yang dilatih pada data historis perekrutan di masa lalu akan mewarisi bias gender atau ras pada keputusan perekrutan masa itu. Jenis ini berbeda dari label bias karena *dunia nyata memang bias*, bukan pemberi label yang keliru.
 
 Keempat jenis bias tidak selalu bisa "diperbaiki" di level data. Beberapa memerlukan perubahan di level metrik evaluasi, desain model, atau bahkan keputusan untuk tidak membangun model sama sekali. Minimum yang bisa Anda lakukan: **dokumentasikan bias yang Anda sadari di audit data Anda**, di samping leakage dan label quality. Bias yang tidak diketahui akan diam-diam hidup di model dan muncul di tempat yang tidak Anda perkirakan.
 
@@ -366,15 +366,15 @@ Keempat jenis bias tidak selalu bisa "diperbaiki" di level data. Beberapa memerl
 
 Keadilan (*fairness*) dalam ML adalah bidang penelitian sendiri. Anda tidak diharapkan menjadi pakar, tetapi tiga konsep ini adalah minimum yang perlu diketahui sebelum melepas model ke dunia:
 
-**Fairness through unawareness tidak efektif.** Menghapus fitur sensitif (gender, ras, agama) tidak otomatis membuat model adil. Fitur-fitur yang tampak netral - kode pos, jenis perangkat, jam aktivitas - bisa menjadi *proxy* untuk fitur sensitif. Model bisa belajar menggunakannya secara tidak langsung, sehingga bias tetap ada tetapi lebih sulit dideteksi.
+**Fairness through unawareness tidak efektif** sebagai strategi mitigasi bias. Menghapus fitur sensitif (gender, ras, agama) tidak otomatis membuat model adil. Fitur-fitur yang tampak netral - kode pos, jenis perangkat, jam aktivitas - bisa menjadi *proxy* untuk fitur sensitif. Model bisa belajar menggunakannya secara tidak langsung, sehingga bias tetap ada tetapi lebih sulit dideteksi.
 
-**Definisi fairness tidak tunggal.** Dua definisi yang paling sering dipakai:
+**Definisi fairness tidak tunggal**, dan memilih satu definisi adalah keputusan nilai, bukan keputusan teknis. Dua definisi yang paling sering dipakai:
 - *Demographic parity*: proporsi prediksi positif sama antar kelompok. Masalah: bisa tercapai dengan menerima kandidat tidak berkualitas dari satu kelompok dan menolak kandidat berkualitas dari kelompok lain.
 - *Equal opportunity*: true positive rate sama antar kelompok. Masalah: tidak peduli dengan false positive rate.
 
 Pilihan definisi fairness bergantung pada konteks aplikasi. Tidak ada definisi yang superior universal; yang penting adalah Anda tahu definisi mana yang dipakai dan mengapa.
 
-**Fairness vs accuracy adalah trade-off yang sesungguhnya.** Mencapai fairness sering (tidak selalu) menurunkan akurasi keseluruhan. Mengabaikan fairness sama sekali demi akurasi adalah keputusan etis, bukan sekadar teknis. Sebagai asisten riset, tugas Anda adalah membuat trade-off ini eksplisit - bukan memilih sendiri, tetapi memberi PI informasi cukup untuk memilih dengan sadar.
+**Fairness vs accuracy mengandung trade-off yang nyata.** Mencapai fairness sering (tidak selalu) menurunkan akurasi keseluruhan. Mengabaikan fairness sama sekali demi akurasi adalah keputusan etis, bukan sekadar teknis. Sebagai asisten riset, tugas Anda adalah membuat trade-off ini eksplisit - bukan memilih sendiri, tetapi memberi PI informasi cukup untuk memilih dengan sadar.
 
 Sumber untuk pendalaman: *Fairness and Machine Learning* (Barocas, Hardt, Narayanan - gratis online) dan *Model Cards for Model Reporting* (Mitchell et al., 2019) - template satu halaman untuk mendokumentasikan bias, asumsi, dan batasan model.
 
@@ -490,7 +490,7 @@ Jika ada overlap > 0, catat, laporkan, dan pertimbangkan memfilter sebelum train
 
 ### 3.5 Cek Label yang Tidak Konsisten
 
-Pada dataset kecil, inspeksi manual 20 sampel acak per kelas. Pada dataset besar, strategi proxy:
+Pada dataset kecil, lakukan inspeksi manual 20 sampel acak per kelas. Pada dataset besar, gunakan strategi proxy berikut:
 
 - Cari *near-duplicate* - gambar yang sangat mirip (cosine similarity embedding > 0.99) dengan label berbeda. Ini kandidat label tidak konsisten.
 - Latih baseline pendek, ambil sampel dengan *disagreement maksimal* antara prediksi dan label. Inspeksi manual.
@@ -592,9 +592,9 @@ Buka [lab_w6_temporal_leakage.ipynb](https://colab.research.google.com/github/mu
 6. Tulis satu paragraf: apa yang membuat angka bocor terlihat meyakinkan, dan mengapa tetap salah?
 
 **Luaran:**
-- Pipeline causal vs leaky dengan kode terdokumentasi.
-- Tabel perbandingan F1 (causal vs leaky vs delta).
-- 1 paragraf "kenapa ini menipu".
+- Pipeline causal vs leaky yang kodenya terdokumentasi.
+- Tabel yang membandingkan F1 (causal vs leaky vs delta).
+- Satu paragraf yang menjelaskan mengapa angka bocor terlihat meyakinkan.
 
 ---
 
@@ -626,10 +626,10 @@ Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasi
 
 ## 8. Bacaan Lanjutan
 
-- **Kaufman, Rosset, Perlich - *Leakage in Data Mining: Formulation, Detection, and Avoidance*** (KDD 2011). Taksonomi klasik tentang leakage; panjang tetapi bagian 2-3 cukup untuk memahami konsepnya.
-- **Northcutt et al. - *Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks*** (NeurIPS 2021). Menunjukkan berapa banyak label salah di benchmark populer (ImageNet, CIFAR-10). Tonik skeptisisme.
-- **Geirhos et al. - *Shortcut Learning in Deep Neural Networks*** (Nature Machine Intelligence, 2020). Mengapa model "belajar" dengan cara yang tidak kita harapkan, dan bagaimana mendeteksinya.
-- **Cleanlab documentation** (cleanlab.readthedocs.io). Library praktis untuk deteksi label noise; dibaca sebagai alternatif dari implementasi manual di Lab 4.
+- **Kaufman, Rosset, Perlich - *Leakage in Data Mining: Formulation, Detection, and Avoidance*** (KDD 2011). Makalah ini menyajikan taksonomi klasik tentang leakage; panjang, tetapi bagian 2-3 sudah cukup untuk memahami konsepnya.
+- **Northcutt et al. - *Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks*** (NeurIPS 2021). Makalah ini menunjukkan berapa banyak label salah di benchmark populer (ImageNet, CIFAR-10) - bacaan yang membangun skeptisisme terhadap angka benchmark.
+- **Geirhos et al. - *Shortcut Learning in Deep Neural Networks*** (Nature Machine Intelligence, 2020). Makalah ini menjelaskan mengapa model "belajar" dengan cara yang tidak kita harapkan, dan bagaimana mendeteksinya.
+- **Cleanlab documentation** (cleanlab.readthedocs.io). Library ini menyediakan alat praktis untuk deteksi label noise; dibaca sebagai alternatif dari implementasi manual di Lab 4.
 
 ---
 
