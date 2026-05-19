@@ -129,8 +129,8 @@ print(y.shape)   # torch.Size([32])
   {
     layout: "image",
     title: "Backpropagation: Forward Pass dan Backward Pass",
-    imageUrl: "/figures/fig01b_mlp_forward_backward.svg",
-    caption: "Gambar ini menunjukkan dua fase komputasi neural network: forward pass menghitung output dari input melewati setiap layer secara berurutan dari kiri ke kanan, dan backward pass menggunakan chain rule untuk menghitung gradient dari loss terhadap setiap parameter dari layer terakhir mundur ke layer pertama.",
+    imageUrl: "/figures/fig01b_mlp_forward_backward.png",
+    caption: "Gambar ini menunjukkan dua fase komputasi neural network: forward pass menghitung output dari input melewati setiap layer secara berurutan dari kiri ke kanan (banner biru bawah), dan backward pass menggunakan chain rule untuk menghitung gradient dari loss terhadap setiap parameter dari layer terakhir mundur ke layer pertama (panah merah putus-putus di atas).",
     footnote: "Derivasi 7-langkah tersedia di Lampiran A.1. Lab 1c mengimplementasikan backprop manual dalam numpy.",
   },
 
@@ -207,8 +207,8 @@ for i in range(100):
   {
     layout: "image",
     title: "Empat Pola Loss: Diagnosis Visual",
-    imageUrl: "/figures/fig01c_loss_curves_diagnostic.svg",
-    caption: "Gambar ini menunjukkan empat pola kurva loss yang paling sering muncul: Run A adalah training sehat dengan loss train dan val turun sejajar; Run B adalah overfitting dengan loss train turun tetapi val stagnan; Run C adalah loss yang tidak bergerak akibat bug atau learning rate terlalu kecil; Run D adalah loss yang meledak ke NaN akibat gradient exploding.",
+    imageUrl: "/figures/fig01c_loss_curves_diagnostic.png",
+    caption: "Gambar ini menunjukkan empat pola kurva loss yang paling sering muncul: Run A adalah training sehat dengan loss train dan val turun sejajar; Run B adalah overfitting dengan loss train turun tetapi val mulai naik kembali; Run C adalah loss yang stagnan dari epoch pertama akibat bug atau learning rate terlalu kecil; Run D adalah loss yang meledak ke NaN akibat exploding gradient.",
     footnote: "Perhatikan pola di setiap run sebelum melihat diagnosis di slide berikutnya.",
   },
 
@@ -331,8 +331,8 @@ for i in range(100):
   {
     layout: "image",
     title: "Lima Keluarga Arsitektur Neural Network",
-    imageUrl: "/figures/fig01a_nn_families.svg",
-    caption: "Gambar ini menunjukkan lima keluarga arsitektur neural network dengan inductive bias masing-masing: MLP tidak mengasumsikan struktur apapun, CNN mengasumsikan lokalitas spasial, RNN/LSTM mengasumsikan urutan waktu, Transformer menggantikan rekursi dengan self-attention global, dan Autoencoder mengasumsikan representasi yang dapat dikompres dan direkonstruksi.",
+    imageUrl: "/figures/fig01a_nn_families.png",
+    caption: "Gambar ini menunjukkan lima keluarga arsitektur neural network dengan inductive bias masing-masing: MLP/Fully Connected tidak mengasumsikan struktur apapun pada fitur, CNN mengasumsikan lokalitas spasial dan spatial equivariance, RNN/LSTM mengasumsikan sequentiality dan konteks masa lalu, Transformer beroperasi secara global dengan self-attention, dan Autoencoder mengasumsikan representasi yang dapat dikompres melalui bottleneck.",
     footnote: "W2 fokus pada CNN. RNN/LSTM dibahas di W5, Transformer di W7, Autoencoder di Lab Breadth.",
   },
 
@@ -364,8 +364,8 @@ for i in range(100):
   {
     layout: "image",
     title: "BatchNorm, LayerNorm, GroupNorm: Perbedaan Sumbu Normalisasi",
-    imageUrl: "/figures/fig01f_normalization.svg",
-    caption: "Gambar ini menunjukkan perbedaan tiga jenis normalisasi pada tensor (N, C, H, W): BatchNorm menormalkan melewati seluruh batch di tiap channel sehingga butuh batch besar; LayerNorm menormalkan per sampel di seluruh fitur sehingga tidak bergantung batch size; GroupNorm menormalkan per grup channel per sampel dan cocok untuk batch kecil.",
+    imageUrl: "/figures/fig01f_normalization.png",
+    caption: "Gambar ini menunjukkan perbedaan tiga jenis normalisasi melalui visualisasi grid (N, C): BatchNorm menormalkan per channel melewati seluruh batch (satu warna per kolom) sehingga membutuhkan batch besar; LayerNorm menormalkan per sampel melewati semua channel (satu warna per baris) sehingga tidak bergantung batch size; GroupNorm menormalkan per grup channel per sampel (warna per blok) dan cocok untuk batch kecil.",
     footnote: "Aturan praktis: BatchNorm untuk CNN, LayerNorm untuk Transformer dan RNN, GroupNorm untuk CNN dengan batch kecil.",
   },
 
@@ -373,8 +373,8 @@ for i in range(100):
   {
     layout: "image",
     title: "Fungsi Aktivasi: ReLU, GELU, dan SiLU",
-    imageUrl: "/figures/fig01e_activation_functions.svg",
-    caption: "Gambar ini menunjukkan kurva tiga fungsi aktivasi paling umum pada rentang [-3, 3]: ReLU memotong nilai negatif secara tajam dan menjadi default untuk CNN dan MLP; GELU memiliki kurva halus di sekitar nol dan menjadi default Transformer modern seperti BERT dan GPT; SiLU dipakai di MobileNet dan EfficientNet.",
+    imageUrl: "/figures/fig01e_activation_functions.png",
+    caption: "Gambar ini menunjukkan kurva tiga fungsi aktivasi paling umum pada rentang [-3, 3]: ReLU (merah) memotong nilai negatif menjadi nol dan menciptakan dead zone di region negatif; GELU (biru) turun sedikit di bawah nol lalu naik secara halus - menjadi default Transformer modern; SiLU/Swish (hijau putus-putus) berperilaku serupa GELU dan dipakai di arsitektur efisien seperti EfficientNet.",
     footnote: "Aturan praktis: pakai aktivasi yang disebut paper yang Anda replikasi. Mengganti aktivasi tanpa alasan kuat adalah variabel tambahan yang harus dijelaskan.",
   },
 
