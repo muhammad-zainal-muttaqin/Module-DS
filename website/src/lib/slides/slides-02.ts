@@ -103,20 +103,7 @@ print(y.shape)   # torch.Size([32])
     footnote: "Pemahaman backpropagation adalah prasyarat untuk mendiagnosis masalah training di semua arsitektur.",
   },
 
-  // ── 10: Tiga Keluarga = MLP + Batasan ──
-  {
-    layout: "bullets",
-    title: "CNN, RNN, dan Transformer: Semuanya MLP dengan Batasan Tambahan",
-    body: "Tiga keluarga arsitektur utama dapat dipahami sebagai MLP yang diberi batasan khusus sesuai struktur data yang diproses:",
-    bullets: [
-      "**CNN** adalah MLP yang dipaksa berbagi bobot yang sama di semua lokasi spasial - inilah *parameter sharing* yang membuat CNN sangat efisien untuk gambar.",
-      "**RNN/LSTM** adalah MLP yang dipanggil berulang di setiap langkah waktu dengan bobot yang sama - memungkinkan model memproses urutan dengan panjang berapapun.",
-      "**Transformer** menggantikan rekursi dengan self-attention: setiap posisi dalam urutan melihat semua posisi lain secara langsung dalam satu operasi paralel.",
-    ],
-    footnote: "Implikasi: backpropagation bekerja dengan cara yang sama di semua arsitektur ini - chain rule berjalan mundur dari loss ke setiap parameter.",
-  },
-
-  // ── 11: Image MLP Foundation ──
+  // ── 10: Image MLP Foundation ──
   {
     layout: "image",
     title: "MLP sebagai Fondasi Tiga Keluarga Arsitektur",
@@ -125,13 +112,26 @@ print(y.shape)   # torch.Size([32])
     footnote: "Semua arsitektur pada akhirnya belajar dengan cara yang sama: hitung loss, jalankan backward, perbarui bobot.",
   },
 
-  // ── 12: Image Backpropagation ──
+  // ── 11: Image Backpropagation ──
   {
     layout: "image",
     title: "Backpropagation: Forward Pass dan Backward Pass",
     imageUrl: "/figures/fig01b_mlp_forward_backward.png",
     caption: "Gambar ini menunjukkan dua fase komputasi neural network: forward pass menghitung output dari input melewati setiap layer secara berurutan dari kiri ke kanan (banner biru bawah), dan backward pass menggunakan chain rule untuk menghitung gradient dari loss terhadap setiap parameter dari layer terakhir mundur ke layer pertama (panah merah putus-putus di atas).",
     footnote: "Derivasi 7-langkah tersedia di Lampiran A.1. Lab 1c mengimplementasikan backprop manual dalam numpy.",
+  },
+
+  // ── 12: Tiga Keluarga = MLP + Batasan ──
+  {
+    layout: "bullets",
+    title: "CNN, RNN, dan Transformer: Semuanya MLP dengan Batasan Tambahan",
+    body: "Diagram di atas menunjukkan MLP sebagai fondasi. Setiap batasan yang ditambahkan menghasilkan keluarga arsitektur yang berbeda:",
+    bullets: [
+      "**CNN** adalah MLP yang dipaksa berbagi bobot yang sama di semua lokasi spasial - inilah *parameter sharing* yang membuat CNN sangat efisien untuk gambar.",
+      "**RNN/LSTM** adalah MLP yang dipanggil berulang di setiap langkah waktu dengan bobot yang sama - memungkinkan model memproses urutan dengan panjang berapapun.",
+      "**Transformer** menggantikan rekursi dengan self-attention: setiap posisi dalam urutan melihat semua posisi lain secara langsung dalam satu operasi paralel.",
+    ],
+    footnote: "Implikasi: backpropagation bekerja dengan cara yang sama di semua arsitektur ini - chain rule berjalan mundur dari loss ke setiap parameter.",
   },
 
   // ── 13: Vanishing vs Exploding Gradient ──
@@ -214,14 +214,23 @@ for i in range(100):
 
   // ── 19: Diagnosis Empat Pola ──
   {
-    layout: "bullets",
-    title: "Cara Membaca Pola Loss",
-    body: "Diagnosis awal dari empat pola yang muncul di galeri training - setiap pola mengarah ke tindakan yang berbeda:",
-    bullets: [
-      "**Run A (train dan val turun sejajar)** adalah training yang berjalan baik - model belajar pola yang general, bukan menghafal training set.",
-      "**Run B (train turun, val stagnan)** adalah overfitting klasik. Solusi: augmentasi lebih agresif, dropout lebih besar, atau kurangi kapasitas model.",
-      "**Run C (loss tidak bergerak) dan Run D (loss ke NaN)** adalah tanda bug atau konfigurasi yang salah - tidak bisa diselesaikan dengan hyperparameter tuning.",
-    ],
+    layout: "split",
+    title: "Cara Membaca Empat Pola Loss",
+    body: "Setiap pola mengarah ke tindakan yang berbeda - diagnosis yang salah membuang waktu training:",
+    left: {
+      title: "Run A dan Run B",
+      bullets: [
+        "**Run A** adalah training yang berjalan baik: loss train dan val turun sejajar, gap kecil di akhir.",
+        "**Run B** adalah overfitting: loss train terus turun tetapi loss val berhenti turun lalu naik kembali. Solusi: augmentasi lebih agresif, dropout lebih besar, atau kurangi kapasitas.",
+      ],
+    },
+    right: {
+      title: "Run C dan Run D",
+      bullets: [
+        "**Run C** adalah loss yang tidak bergerak dari epoch pertama - tanda bug di training loop atau learning rate terlalu kecil. Bukan masalah yang diselesaikan dengan hyperparameter tuning.",
+        "**Run D** adalah loss yang meledak ke NaN - tanda exploding gradient atau learning rate terlalu besar. Solusi: gradient clipping atau turunkan lr.",
+      ],
+    },
     footnote: "W3 menyelesaikan kerangka ini: kapan turunkan lr, kapan tambah regularisasi, kapan periksa data, kapan periksa arsitektur.",
   },
 
@@ -233,26 +242,26 @@ for i in range(100):
     footnote: "Pemahaman mekanik Conv2d membuat debugging shape mismatch di Level 2 jauh lebih cepat.",
   },
 
-  // ── 21: Filter yang Geser ──
-  {
-    layout: "bullets",
-    title: "Cara Kerja Filter: Tempel, Kalikan, Jumlahkan, Geser",
-    body: "Satu filter kecil berisi bobot yang dipelajari, lalu digeser ke seluruh gambar untuk menghasilkan satu feature map:",
-    bullets: [
-      "Satu filter 3×3 berisi 9 angka bobot yang dipelajari saat training - bukan nilai tetap yang dirancang manusia seperti filter Sobel atau Canny.",
-      "Filter ditempatkan di satu lokasi gambar, dikalikan element-wise dengan patch di bawahnya, lalu hasilnya dijumlahkan menjadi satu angka di feature map.",
-      "Semua posisi memakai bobot filter yang sama - inilah **parameter sharing** yang membuat CNN jauh lebih efisien dari MLP penuh untuk data gambar.",
-    ],
-    footnote: "Satu nn.Conv2d(3, 64, ...) memiliki 64 filter berbeda, sehingga menghasilkan 64 feature map untuk satu gambar input.",
-  },
-
-  // ── 22: Image Filter Sliding ──
+  // ── 21: Image Filter Sliding ──
   {
     layout: "image",
     title: "Filter 3×3 Bergeser Melewati Gambar",
     imageUrl: "/figures/fig02c_conv_filter.png",
     caption: "Gambar ini menunjukkan operasi konvolusi 2D: filter 3×3 ditempatkan di satu lokasi gambar, dikalikan element-wise dengan patch di bawahnya, lalu semua hasil perkalian dijumlahkan menjadi satu nilai di feature map. Filter kemudian bergeser satu pixel ke kanan dan operasi diulang sampai seluruh gambar terpindai.",
     footnote: "Perhatikan bahwa bobot filter (9 angka) tidak berubah saat filter bergeser - itulah parameter sharing.",
+  },
+
+  // ── 22: Teks Filter yang Geser ──
+  {
+    layout: "bullets",
+    title: "Cara Kerja Filter: Tempel, Kalikan, Jumlahkan, Geser",
+    body: "Diagram di atas menunjukkan satu siklus operasi filter. Tiga prinsip yang berlaku di setiap posisi:",
+    bullets: [
+      "Satu filter 3×3 berisi 9 angka bobot yang dipelajari saat training - bukan nilai tetap yang dirancang manusia seperti filter Sobel atau Canny.",
+      "Filter ditempatkan di satu lokasi gambar, dikalikan element-wise dengan patch di bawahnya, lalu hasilnya dijumlahkan menjadi satu angka di feature map.",
+      "Semua posisi memakai bobot filter yang sama - inilah **parameter sharing** yang membuat CNN jauh lebih efisien dari MLP penuh untuk data gambar.",
+    ],
+    footnote: "Satu nn.Conv2d(3, 64, ...) memiliki 64 filter berbeda, sehingga menghasilkan 64 feature map untuk satu gambar input.",
   },
 
   // ── 23: Tiga Parameter Conv2d ──
@@ -275,20 +284,7 @@ for i in range(100):
     footnote: "Rumus ini adalah alat utama saat debugging Level 2: hitung shape yang diharapkan di setiap layer, bandingkan dengan error message.",
   },
 
-  // ── 24: Receptive Field ──
-  {
-    layout: "bullets",
-    title: "Receptive Field: Satu Pixel Output Melihat Berapa Besar Area Input?",
-    body: "Satu pixel di feature map tidak hanya melihat satu pixel input - receptive field tumbuh semakin besar seiring bertambahnya kedalaman layer:",
-    bullets: [
-      "Layer Conv2d pertama (kernel 3×3): satu pixel output melihat patch 3×3 di input asli - receptive field = 3×3.",
-      "Setelah layer Conv2d kedua (kernel 3×3, tanpa pooling): receptive field bertambah menjadi 5×5 di input asli karena setiap pixel layer 1 sudah melihat 3×3.",
-      "MaxPool2d(2) melipatgandakan receptive field dua kali - layer Conv2d setelah MaxPool melihat area dua kali lebih besar di input asli.",
-    ],
-    footnote: "Di layer dalam CNN, receptive field bisa mencakup seluruh gambar - CNN belajar konsep global dari operasi lokal kecil yang berlapis.",
-  },
-
-  // ── 25: Image Receptive Field ──
+  // ── 24: Image Receptive Field ──
   {
     layout: "image",
     title: "Receptive Field Tumbuh Seiring Kedalaman Layer",
@@ -297,19 +293,32 @@ for i in range(100):
     footnote: "Inilah cara CNN menangkap tepi di layer awal dan objek utuh di layer dalam, tanpa mengorbankan efisiensi parameter.",
   },
 
+  // ── 25: Teks Receptive Field ──
+  {
+    layout: "bullets",
+    title: "Receptive Field: Mengapa CNN Bisa Menangkap Pola Besar?",
+    body: "Diagram di atas menunjukkan pertumbuhan receptive field. Tiga aturan yang menjelaskan mekanismenya:",
+    bullets: [
+      "Layer Conv2d pertama (kernel 3×3): satu pixel output melihat patch 3×3 di input asli - receptive field = 3×3.",
+      "Setelah layer Conv2d kedua (kernel 3×3, tanpa pooling): receptive field bertambah menjadi 5×5 di input asli karena setiap pixel layer 1 sudah melihat 3×3.",
+      "MaxPool2d(2) melipatgandakan receptive field dua kali - layer Conv2d setelah MaxPool melihat area dua kali lebih besar di input asli.",
+    ],
+    footnote: "Di layer dalam CNN, receptive field bisa mencakup seluruh gambar - CNN belajar konsep global dari operasi lokal kecil yang berlapis.",
+  },
+
   // ── 26: Section Arsitektur ──
   {
     layout: "section",
-    title: "Empat Keluarga Arsitektur: Empat Asumsi tentang Data",
-    body: "Setiap keluarga arsitektur mengandung asumsi yang berbeda tentang struktur data. Memilih arsitektur yang tepat berarti memilih asumsi yang paling sesuai.",
-    footnote: "Transformer (W7) dan Autoencoder (Lab Breadth) melengkapi lima keluarga yang menjadi target Breadth Check.",
+    title: "Lima Keluarga Arsitektur: Lima Asumsi tentang Data",
+    body: "Setiap keluarga arsitektur mengandung asumsi yang berbeda tentang struktur data. Bootcamp ini mencakup kelima keluarga: MLP (W1), CNN (W2), RNN/LSTM (W5), Transformer (W7), dan Autoencoder (Lab Breadth).",
+    footnote: "Empat dari lima keluarga wajib dikuasai untuk Breadth Check - Autoencoder bersifat opsional tetapi dianjurkan.",
   },
 
   // ── 27: Grid 3 Keluarga ──
   {
     layout: "grid",
-    title: "FFN, CNN, dan RNN/LSTM: Tiga Asumsi yang Berbeda",
-    body: "Tiga keluarga pertama ini mencakup sebagian besar tugas supervised learning yang dijumpai di riset ML:",
+    title: "FFN, CNN, RNN/LSTM: Tiga Keluarga yang Dibahas di W1-W5",
+    body: "Tiga keluarga ini dibahas mendalam di W1-W5. Transformer dan Autoencoder menyusul di W7 dan Lab Breadth:",
     gridItems: [
       {
         title: "FFN/MLP: Tanpa Struktur Khusus",

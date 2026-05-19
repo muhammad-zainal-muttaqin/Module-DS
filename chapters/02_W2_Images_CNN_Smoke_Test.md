@@ -120,6 +120,8 @@ Contoh konkret CIFAR-10: 32 foto RGB 32×32 dalam satu batch berbentuk `(32, 3, 
 > [!TIP]
 > Kalau Anda lupa urutan sumbu, panggil `print(x.shape)` setelah `next(iter(loader))`. Tensor dengan empat angka di shape adalah 4D dengan urutan `(B, C, H, W)` di PyTorch.
 
+![Visualisasi tensor (N, C, H, W): batch foto RGB tersusun dalam empat sumbu - jumlah gambar, channel warna, tinggi, dan lebar](../figures/fig00a_tensor_nchw.jpeg)
+
 ---
 
 ## 2. Konsep Inti
@@ -149,6 +151,8 @@ Perhatikan bahwa output tidak selalu `(N,)`: deteksi objek menghasilkan tensor t
 
 Semua keluarga arsitektur neural network, pada level komputasi, adalah **MLP dengan batasan tambahan**: CNN adalah MLP yang dipaksa berbagi bobot antar lokasi spasial, Transformer adalah MLP yang memproses setiap posisi dengan bobot sama, RNN adalah MLP yang dipanggil berulang sepanjang waktu.
 
+![MLP sebagai fondasi tiga keluarga arsitektur: CNN (parameter sharing spasial), RNN/LSTM (parameter sharing temporal), dan Transformer (self-attention menggantikan rekursi)](../figures/fig02b_mlp_foundation.png)
+
 Model belajar lewat **backpropagation**: setelah loss dihitung di output, gradient dari loss terhadap setiap parameter dihitung mundur melalui chain rule, lalu optimizer memperbarui parameter ke arah penurunan loss. `loss.backward()` di PyTorch mengerjakan ini secara otomatis.
 
 Dua fenomena penting yang sering disebut paper:
@@ -158,6 +162,8 @@ Dua fenomena penting yang sering disebut paper:
 
 > [!NOTE]
 > Derivasi 7-langkah chain rule untuk MLP (MSE loss + sigmoid) tersedia lengkap di [Lampiran A.1](14_Lampiran.md#a1-backpropagation-derivasi-manual). Baca setelah W3, ketika Anda sudah punya beberapa run sukses untuk diinterpretasi. Lab 1c (MLP numpy from-scratch) tersedia sebagai breadth lab opsional dan menerapkan backprop secara konkret pada MNIST.
+
+![Forward pass menghitung output dari input melewati setiap layer; backward pass menggunakan chain rule untuk menghitung gradient dari loss terhadap setiap parameter](../figures/fig01b_mlp_forward_backward.png)
 
 ### 2.3 Smoke Test Tiga Level
 
@@ -209,6 +215,8 @@ Sebelum mendalami arsitektur, lihat empat contoh training konkret dan tanyakan d
 
 Jangan baca jawabannya dulu. Tuliskan hipotesis Anda untuk setiap contoh dalam satu kalimat. Kita akan kembali ke empat contoh ini di W3 dengan kerangka diagnosis yang lengkap.
 
+![Empat pola loss curve: Run A (training sehat), Run B (overfitting - val naik), Run C (loss stagnan dari awal), Run D (loss meledak ke NaN)](../figures/fig01c_loss_curves_diagnostic.png)
+
 ### 2.5 Conv2d: Gambaran Sebelum Kode
 
 `nn.Conv2d` adalah komponen utama CNN. Sebelum melihat parameter di kode SimpleCNN nanti, kita pahami dulu apa yang ia lakukan secara mekanis.
@@ -239,6 +247,8 @@ Filter geser ke kanan satu pixel, ulangi. Total 3×3 = 9 posisi → output 3×3.
 ```
 
 Filter di atas adalah **detektor tepi vertikal sederhana**: nilainya menjadi besar di lokasi yang berisi transisi terang-ke-gelap dari kiri ke kanan. Dalam praktiknya, bobot filter dipelajari otomatis lewat training; CNN belajar filter apa yang berguna untuk tugasnya.
+
+![Filter 3×3 bergeser melewati gambar: ditempatkan di satu lokasi, dikalikan element-wise dengan patch di bawahnya, hasilnya dijumlahkan menjadi satu nilai di feature map, lalu filter bergeser ke posisi berikutnya](../figures/fig02c_conv_filter.png)
 
 #### 2.5.2 Kernel, Stride, Padding
 
@@ -287,6 +297,8 @@ Layer 2 feature map (12×12)
    = 5×5 patch di input asli
 ```
 
+![Receptive field tumbuh seiring kedalaman: layer Conv 1 melihat 3×3 pixel input, layer Conv 2 melihat 5×5, layer Conv 3 melihat 7×7 - setiap layer menambahkan 2 pixel di setiap sisi](../figures/fig02d_receptive_field.png)
+
 Ukuran area input yang dilihat satu pixel di feature map disebut **receptive field**. Di layer akhir CNN yang dalam, receptive field bisa mencakup sebagian besar atau seluruh gambar. Dengan cara inilah CNN menangkap pola besar dari operasi lokal kecil.
 
 > [!NOTE]
@@ -312,7 +324,7 @@ RNN memproses urutan satu langkah waktu demi satu, menyimpan *hidden state* yang
 
 Transformer menggantikan rekursi dengan *self-attention*: setiap elemen urutan secara langsung melihat semua elemen lain dalam satu operasi paralel. Komponen utamanya adalah `Multi-Head Attention`, `Positional Encoding`, dan `Feed-Forward` yang diterapkan per posisi. Arsitektur ini kini mendominasi NLP modern (BERT, GPT) dan semakin banyak dipakai di visi (ViT) serta audio. Satu biaya yang perlu diperhitungkan: operasi self-attention bersifat kuadratik terhadap panjang urutan, sehingga urutan panjang membutuhkan memori dan komputasi yang jauh lebih besar.
 
-![Lima keluarga arsitektur neural network: MLP, CNN, RNN/LSTM, Transformer, dan Autoencoder - masing-masing dengan inductive bias dan domain khasnya](../figures/fig01a_nn_families.svg)
+![Lima keluarga arsitektur neural network: MLP, CNN, RNN/LSTM, Transformer, dan Autoencoder - masing-masing dengan inductive bias dan domain khasnya](../figures/fig01a_nn_families.png)
 
 Setiap keluarga di atas dapat Anda baca sebagai "MLP + asumsi spesifik domain". Ketika asumsi cocok dengan data, model belajar lebih efisien.
 
@@ -359,7 +371,7 @@ BN menghitung statistik dari seluruh batch; batch kecil membuat statistik bising
 
 Ini berbeda dengan LayerNorm yang menormalkan **per sampel di sumbu fitur**: untuk satu image, hitung mean dari semua nilai `(C, H, W)` lalu normalkan. LayerNorm tidak butuh batch besar karena tidak mengagregasi lintas sampel.
 
-![BatchNorm, LayerNorm, dan GroupNorm - perbedaan sumbu normalisasi pada tensor (N, C, H, W)](../figures/fig01f_normalization.svg)
+![BatchNorm, LayerNorm, dan GroupNorm - perbedaan sumbu normalisasi pada tensor (N, C, H, W)](../figures/fig01f_normalization.png)
 
 Satu komponen lagi yang menentukan perilaku tiap layer adalah **fungsi aktivasi**. Tiga yang paling sering muncul:
 
@@ -369,7 +381,7 @@ Satu komponen lagi yang menentukan perilaku tiap layer adalah **fungsi aktivasi*
 
 Aturan praktisnya: pakai default yang disebut paper yang Anda replikasi. Mengganti aktivasi tanpa alasan kuat adalah variabel tambahan yang harus dijelaskan di laporan.
 
-![Kurva fungsi aktivasi ReLU, GELU, dan SiLU pada rentang [-3, 3]](../figures/fig01e_activation_functions.svg)
+![Kurva fungsi aktivasi ReLU, GELU, dan SiLU pada rentang [-3, 3]](../figures/fig01e_activation_functions.png)
 
 ### 2.8 Augmentation, Dropout, dan Regularization: Kosakata Sebelum Kode
 
