@@ -167,6 +167,10 @@ Bahasa Indonesia. Istilah teknis ML/DL tetap Inggris (loss, checkpoint, seed, fr
 
 Sikap (Curiosity, Rigor, Skepticism, Ownership) ditanamkan via cerita pembuka, pitfall, refleksi - bukan bab khusus.
 
+**Penempatan gambar:** Gambar disisipkan langsung di dalam section tempat kontennya dibahas - bukan dikumpulkan di akhir bab. Prinsip bottom-up berlaku: letakkan gambar tepat setelah teks yang mendeskripsikan konsep tersebut, sehingga pembaca melihat penjelasan teks lalu langsung melihat visualnya. Setiap gambar baru yang dibuat harus segera disisipkan di semua section relevan pada hari yang sama.
+
+**Sinkronisasi gambar:** Setelah gambar baru dibuat atau diperbarui, update semua file yang mereferensikannya: chapter `.md` (path gambar), `slides-XX.ts` (imageUrl + caption), dan catatan sumber di CLAUDE.md bagian Struktur Konten jika diperlukan. Jangan biarkan gambar baru ada di `figures/` tapi belum dipakai.
+
 ## Gaya Penulisan (Style Guide)
 
 **Tanda baca:**
@@ -480,18 +484,31 @@ export const SLIDE_DECKS: Record<string, SlideDeckData> = {
 3. **`website/src/styles/reveal-custom.css`** - styling khusus (jarang diperlukan).
 
 **Konvensi:**
-- Max 10 slide (ideal 6-8).
+- Max 10 slide untuk deck **trailer** (ideal 6-8). Deck **standalone** (presentasi tanpa modul, seperti slides-02) boleh lebih - arahkan ke 35-45 slide.
 - Slide 1: `layout: "title"` + footnote chapter.
 - Slide terakhir: `layout: "cta"` + `ctaTarget`.
+- **Max 3 bullet per slide.** Lebih dari 3 = pecah jadi dua slide terpisah.
 - **Bold lead-in** di bullets untuk scanning cepat.
+- `layout: "section"` sebagai "napas" di awal setiap topik besar - wajib ada sebelum konten topik baru dimulai.
 - `layout: "grid"` untuk 3-6 item paralel.
-- `layout: "split"` untuk perbandingan 2 kolom.
+- `layout: "split"` untuk perbandingan 2 hal yang kontras sifatnya.
 - `layout: "code"` untuk snippet max 8-10 baris.
 - `footnote` untuk konteks, bukan konten utama.
 
+**Slide standalone vs trailer:** Slide trailer ringkas (6-8 slide) untuk pengantar sebelum mahasiswa membaca modul. Slide standalone lengkap (35+ slide) untuk presentasi langsung tanpa modul - pastikan setiap konsep punya slide sendiri dan setiap gambar penting ditampilkan.
+
 ### Gaya Penulisan Slide Deck
 
-Slide deck adalah **trailer**, bukan pengganti modul. Setiap slide harus bisa dibaca sebagai prosa utuh dengan SPOK lengkap. Pembaca slide tidak boleh merasa seperti membaca fragment atau daftar tanpa konteks.
+Slide deck adalah **trailer**, bukan pengganti modul - kecuali dinyatakan eksplisit sebagai standalone. Setiap slide harus bisa dibaca sebagai prosa utuh dengan SPOK lengkap. Pembaca slide tidak boleh merasa seperti membaca fragment atau daftar tanpa konteks.
+
+**Urutan bottom-up (gambar sebelum teks):**
+
+Slide gambar (`layout: "image"`) wajib muncul **sebelum** slide teks yang menjelaskan konsep yang sama. Penonton melihat contoh konkret dulu, baru memahami prinsip abstraknya.
+
+- Salah: slide teks "filter bergeser ke seluruh gambar" → slide gambar filter sliding
+- Benar: slide gambar filter sliding → slide teks "Diagram di atas menunjukkan tiga prinsip:"
+
+Slide teks yang **mengikuti gambar** wajib membuka `body` dengan referensi ke gambar sebelumnya: `"Diagram di atas menunjukkan..."` atau `"Dari gambar tersebut, tiga prinsip yang berlaku:"`. Jangan buka dengan kalimat yang seolah-olah gambar belum ditampilkan.
 
 **Lead sentence wajib (setiap slide non-title):**
 
@@ -556,6 +573,52 @@ npm run build    # pastikan tidak error
 ```
 
 Slide otomatis muncul sebagai chip "▶ Slide Ringkasan" karena `ModuleReader.tsx` baca `hasSlideDeck(id)`.
+
+## Gambar (Figures)
+
+### Format dan Kualitas
+
+- **PNG untuk semua gambar baru.** SVG lama tidak perlu diganti kecuali kualitasnya buruk atau kontennya tidak sesuai lagi.
+- Rasio **16:9** untuk gambar yang dipakai di slide. Lebih bebas untuk chapter.
+- Latar **putih bersih**, font sans-serif, tidak ada watermark atau bingkai tebal.
+- Label teks dalam **Bahasa Indonesia**.
+- Diagram harus **self-explanatory** - bisa dibaca tanpa teks pendamping di luar gambar.
+
+### Color Coding (konsisten di semua file)
+
+| Keluarga Arsitektur | Warna |
+|---|---|
+| MLP / Fully Connected | Biru (`#3B82F6`, biru tua) |
+| CNN | Hijau (`#059669`, emerald) |
+| RNN / LSTM | Amber / kuning-oranye |
+| Transformer | Ungu (`#7C3AED`) |
+| Autoencoder | Merah (`#EF4444`) |
+
+Warna ini konsisten di semua diagram, slide, dan chapter. Jangan pakai warna yang berbeda untuk keluarga yang sama di file berbeda.
+
+### Workflow Pembuatan
+
+1. Claude menyediakan **prompt deskriptif detail** - posisi setiap elemen, warna, teks label, ikon, gaya garis, rasio.
+2. Pengguna membuat gambar sendiri dari prompt tersebut.
+3. Simpan di `figures/` dengan nama `fig<XX><huruf>_<deskripsi>.png`.
+4. Copy manual ke `website/public/figures/` (sync script tidak selalu meng-copy figures baru otomatis).
+5. Segera update referensi di chapter `.md` dan `slides-XX.ts` yang relevan.
+
+### Konvensi Penamaan
+
+`fig<chapter><huruf>_<deskripsi_singkat>.png`
+
+Contoh: `fig02b_mlp_foundation.png` = chapter W2, gambar urutan b, topik MLP foundation.
+Huruf berurutan: a, b, c, ... per chapter. Cek file yang sudah ada sebelum memberi huruf baru.
+
+### Prompt yang Baik
+
+Prompt gambar harus mencakup semua ini agar hasilnya presisi:
+- Rasio keseluruhan dan warna latar
+- Setiap elemen utama: posisi relatif, ukuran, warna, teks label (dalam Bahasa Indonesia)
+- Jenis garis dan panah (solid, putus-putus, tebal/tipis)
+- Ikon representatif jika ada (bukan hanya kotak + teks)
+- Gaya tipografi: font, ukuran relatif, tebal/normal
 
 ## Konvensi Eksperimen
 
