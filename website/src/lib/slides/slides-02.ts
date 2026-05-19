@@ -125,7 +125,7 @@ print(y.shape)   # torch.Size([32])
   {
     layout: "bullets",
     title: "CNN, RNN, dan Transformer: Semuanya MLP dengan Batasan Tambahan",
-    body: "Diagram di atas menunjukkan MLP sebagai fondasi. Setiap batasan yang ditambahkan menghasilkan keluarga arsitektur yang berbeda:",
+    body: "Dua diagram sebelumnya menunjukkan fondasi yang sama: MLP + backpropagation. Setiap batasan spesifik yang ditambahkan ke MLP menghasilkan keluarga arsitektur yang berbeda:",
     bullets: [
       "**CNN** adalah MLP yang dipaksa berbagi bobot yang sama di semua lokasi spasial - inilah *parameter sharing* yang membuat CNN sangat efisien untuk gambar.",
       "**RNN/LSTM** adalah MLP yang dipanggil berulang di setiap langkah waktu dengan bobot yang sama - memungkinkan model memproses urutan dengan panjang berapapun.",
@@ -299,9 +299,9 @@ for i in range(100):
     title: "Receptive Field: Mengapa CNN Bisa Menangkap Pola Besar?",
     body: "Diagram di atas menunjukkan pertumbuhan receptive field. Tiga aturan yang menjelaskan mekanismenya:",
     bullets: [
-      "Layer Conv2d pertama (kernel 3×3): satu pixel output melihat patch 3×3 di input asli - receptive field = 3×3.",
-      "Setelah layer Conv2d kedua (kernel 3×3, tanpa pooling): receptive field bertambah menjadi 5×5 di input asli karena setiap pixel layer 1 sudah melihat 3×3.",
-      "MaxPool2d(2) melipatgandakan receptive field dua kali - layer Conv2d setelah MaxPool melihat area dua kali lebih besar di input asli.",
+      "**Layer Conv2d pertama** dengan kernel 3×3 menghasilkan receptive field 3×3 - satu pixel output hanya melihat patch 3×3 di input asli.",
+      "**Layer Conv2d kedua** (kernel 3×3, tanpa pooling) memperluas receptive field menjadi 5×5 di input asli, karena setiap pixel layer pertama sudah melihat 3×3.",
+      "**MaxPool2d(2)** melipatgandakan receptive field dua kali - layer Conv2d setelah MaxPool melihat area dua kali lebih besar di input asli.",
     ],
     footnote: "Di layer dalam CNN, receptive field bisa mencakup seluruh gambar - CNN belajar konsep global dari operasi lokal kecil yang berlapis.",
   },
@@ -391,7 +391,7 @@ for i in range(100):
   {
     layout: "section",
     title: "Augmentation, Dropout, dan Regularization",
-    body: "Tiga teknik ini bekerja sama untuk mencegah overfitting - ketiganya paling efektif dipakai bersamaan.",
+    body: "Augmentation, Dropout, dan berbagai teknik regularisasi lainnya bekerja bersama mencegah overfitting. Ketiganya paling efektif dipakai bersamaan, bukan satu per satu.",
     footnote: "Titik awal: mulai dari default di paper yang Anda replikasi, lalu sesuaikan jika ada bukti overfitting (train acc >> val acc).",
   },
 
