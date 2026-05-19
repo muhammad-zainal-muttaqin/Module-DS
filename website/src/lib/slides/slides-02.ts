@@ -38,7 +38,7 @@ export const slides02: SlideSection[] = [
     body: "Satu kerangka yang menyederhanakan hampir semua keputusan arsitektur: tentukan shape tensor input dan output terlebih dahulu, lalu pilih arsitektur yang menghubungkan keduanya:",
     bullets: [
       "**Tabular:** input **(F,)** vektor fitur satu baris → output **(N,)** logit kelas, atau **(1,)** untuk regresi.",
-      "**Gambar:** input **(C, H, W)** → output **(N,)** untuk klasifikasi, atau **(G, G, 5+N)** untuk deteksi objek.",
+      "**Gambar:** input **(C, H, W)** → output **(N,)** untuk klasifikasi gambar.",
       "**Teks dan urutan:** input **(T,)** token → output **(N,)** untuk sentimen, atau **(T, N)** untuk labeling setiap token.",
     ],
     footnote: "Latihan: tulis pasangan tensor masuk-keluar untuk dataset proyek Anda sebelum menulis satu baris kode.",

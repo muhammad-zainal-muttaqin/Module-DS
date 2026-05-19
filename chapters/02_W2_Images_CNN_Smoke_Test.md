@@ -137,7 +137,7 @@ Saat membaca kode repositori yang belum dikenal, hal pertama yang perlu Anda per
 | --- | --- | --- | --- | --- |
 | Tabular | Umur, tekanan darah, kolesterol | `(F,)` - vektor fitur | `(N,)` | Klasifikasi risiko penyakit |
 | Gambar | Foto RGB 224×224 | `(C, H, W)` | `(N,)` | Klasifikasi kucing vs anjing |
-| Gambar | Foto kebun / jalan | `(C, H, W)` | `(G, G, 5+N)` | Deteksi objek |
+| Gambar | Foto kebun / jalan | `(C, H, W)` | `(G, G, 5+N)` | Deteksi objek (YOLO: G×G grid sel, masing-masing prediksi 5 nilai bbox + N kelas) |
 | Teks | Ulasan produk | `(T,)` - urutan token | `(N,)` | Klasifikasi sentimen |
 | Teks | Kalimat berita | `(T,)` - urutan token | `(T, N)` | Token classification |
 | Deret waktu | Sinyal sensor per detik | `(T, F)` - waktu × fitur | `(1,)` | Prediksi nilai berikutnya |
