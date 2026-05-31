@@ -39,6 +39,7 @@ import { slides07 } from "./slides-07";
 import { slides08 } from "./slides-08";
 import { slides09 } from "./slides-09";
 import { slides10 } from "./slides-10";
+import { slides11 } from "./slides-11";
 
 export const SLIDE_DECKS: Record<string, SlideDeckData> = {
   "00": { chapterId: "00", slides: slides00 },
@@ -53,6 +54,7 @@ export const SLIDE_DECKS: Record<string, SlideDeckData> = {
   "08": { chapterId: "08", slides: slides08 },
   "09": { chapterId: "09", slides: slides09 },
   "10": { chapterId: "10", slides: slides10 },
+  "11": { chapterId: "11", slides: slides11 },
 };
 
 export function getSlideDeck(chapterId: string): SlideDeckData | undefined {
