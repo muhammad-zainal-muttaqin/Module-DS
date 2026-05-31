@@ -28,7 +28,7 @@ Jika dua prasyarat pertama belum solid, kerjakan lebih dulu *primer* pada [Lampi
 |---|---|---|---|---|
 | 1 | Tabular, output heads, observasi pertama | [01](chapters/01_W1_Tabular_Output_Heads.md) | Lab 0 | Observation before conclusion |
 | 2 | Images, CNN, smoke test tiga level | [02](chapters/02_W2_Images_CNN_Smoke_Test.md) | Lab 1 | Three-level smoke test |
-| 3 | Loss, optimizer, galeri run (example-first) | [03](chapters/03_W3_Loss_Optimizer_Evaluasi.md) | Lab 1 + Lab 2 | Change one thing at a time |
+| 3 | Loss, optimizer, galeri training (berbasis contoh) | [03](chapters/03_W3_Loss_Optimizer_Evaluasi.md) | Lab 1 + Lab 2 | Change one thing at a time |
 | 4 | Reproducibility + experiment matrix | [04](chapters/04_W4_Reproducibility_Experiment_Matrix.md) | Lab 3 | Experiment matrix before coding |
 | 5 | Sequences: RNN vs LSTM, gradient flow | [05](chapters/05_W5_Sequences_RNN_LSTM.md) | Lab 3b (wajib) | Long-sequence diagnosis |
 | 6 | Representations + temporal leakage demo | [06](chapters/06_W6_Representations_Temporal_Leakage.md) | Lab 6 (leakage) | Validate preprocessing |
