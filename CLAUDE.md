@@ -286,6 +286,12 @@ Prinsip:
 | `sum to 1` | `jumlahnya 1` | |
 | `di-cover` / `sudah di-cover` | `dibahas` / `tercakup` | |
 | `representasi yang informatif` / `yang kaya` | hapus adjective / restrukturisasi | Calque "rich/informative representations" |
+| `membaca X sebagai sinyal diagnostik` | `membaca X untuk mendiagnosis hasil Y` | Jangan pakai `sebagai` kalau maksudnya tujuan tindakan |
+| `memilih X dengan alasan` | `menentukan X yang sesuai` / `menjelaskan alasan memilih X` | Pilih bentuk sesuai konteks; jangan dibuat formal |
+| `mengukur model dengan jujur` | `mengevaluasi model dengan metrik yang sesuai` | Hindari bahasa moral kalau cukup teknis |
+| `metrik yang bisa dipertanggungjawabkan` | `metrik yang sesuai` / `angka yang bisa dicek ulang` | `dipertanggungjawabkan` terlalu administratif untuk slide pembelajaran |
+| `hasil bisa dipertanggungjawabkan` | `hasil bisa dicek ulang` / `hasil punya catatan yang jelas` | Pakai kata kerja sehari-hari yang tetap tepat |
+| `evaluasi yang jujur` | `evaluasi dengan metrik yang sesuai` / `evaluasi yang tidak menutupi kelemahan model` | Jangan jadikan "jujur" pengganti penjelasan teknis |
 | `kritis` sebagai intensifier generik | `penting`, `menentukan`, `vital` | Pilih spesifik sesuai konteks |
 | `membaca secara kritis` | `membaca dengan cermat` / `menganalisis` | Kecuali konteks skeptisisme |
 | `pertanyaan kritis` | `pertanyaan teknis` / `pertanyaan evaluasi` | |
@@ -304,7 +310,21 @@ Prinsip:
 | `berkenalan dengan X` sebagai judul section | `Memuat X` / `Memeriksa X` / tindakan langsung | Kiasan sosial untuk operasi teknis |
 | `merangkai X` untuk "membuat/mendefinisikan X" | `Membuat X` / `Mendefinisikan X` | Kecuali benar-benar ada perakitan komponen |
 
-Pola wajib dihindari: kiasan fisik/sosial untuk konsep teknis ("bahan baku", "meja kerja", "pabrik", "gerbang"), arah spasial untuk operasi matematika ("mengalir ke depan/kiri/kanan"), dramatisasi tidak perlu ("misi sabotase", "sakti", "ajaib"), spasial-metaforis ("berada X menuju Y", "di jalur untuk Z"), post-nominal calque ("topik lab nyata"), adjective calque pada abstrak ("representasi yang kaya/informatif"), personifikasi abstrak, frasa Inggris untuk hal umum ("by design", "shared dataset", "shape transformer", "task formulation"), label metadata Inggris, `Anda akan + V` sebagai default opener, overuse `kritis`, overuse `mengejutkan`.
+Pola wajib dihindari: kiasan fisik/sosial untuk konsep teknis ("bahan baku", "meja kerja", "pabrik", "gerbang"), arah spasial untuk operasi matematika ("mengalir ke depan/kiri/kanan"), dramatisasi tidak perlu ("misi sabotase", "sakti", "ajaib"), spasial-metaforis ("berada X menuju Y", "di jalur untuk Z"), post-nominal calque ("topik lab nyata"), adjective calque pada abstrak ("representasi yang kaya/informatif"), personifikasi abstrak, frasa Inggris untuk hal umum ("by design", "shared dataset", "shape transformer", "task formulation"), label metadata Inggris, `Anda akan + V` sebagai default opener, overuse `kritis`, overuse `mengejutkan`, dan kalimat objektif belajar yang terdengar seperti terjemahan Inggris.
+
+**Kalimat objektif belajar:**
+
+Kalimat objektif di slide dan peta bab harus terasa seperti instruksi belajar yang natural, bukan daftar verba akademik. Jangan mengganti kalimat kaku dengan bahasa formal-administratif.
+
+Contoh:
+- Salah: `Membaca loss curve sebagai sinyal diagnostik, memilih loss dan optimizer dengan alasan, dan mengukur model dengan jujur.`
+- Benar: `Belajar membaca loss curve untuk mendiagnosis hasil training, menentukan loss dan optimizer yang sesuai, lalu mengevaluasi model dengan metrik yang sesuai.`
+
+Aturan praktis:
+1. Pakai `belajar + tindakan + untuk + tujuan konkret`.
+2. Pakai `menentukan X yang sesuai` jika konteksnya memilih teknik.
+3. Pakai `metrik yang sesuai`, bukan `metrik yang bisa dipertanggungjawabkan`, kecuali konteksnya memang audit formal.
+4. Jika kata `jujur`, `alasan`, atau `dipertanggungjawabkan` muncul, cek apakah maksudnya bisa ditulis lebih sederhana: `sesuai`, `bisa dicek ulang`, `punya catatan`, atau `tidak menutupi kelemahan`.
 
 Pembuka section inklusif: pakai "kita" ("Sebelum **kita** membahas...").
 

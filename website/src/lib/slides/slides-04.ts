@@ -5,7 +5,7 @@ export const slides04: SlideSection[] = [
   {
     layout: "title",
     title: "W4: Reproducibility & Matriks Eksperimen",
-    subtitle: "Merancang eksperimen sebelum menulis kode, mengontrol variabel, dan mengikat setiap hasil pada jejak yang bisa diaudit.",
+    subtitle: "Belajar merancang eksperimen sebelum menulis kode, mengontrol variabel, dan menyimpan jejak hasil agar bisa dicek ulang.",
     body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 04 - Minggu 4",
   },
@@ -26,7 +26,7 @@ export const slides04: SlideSection[] = [
     bullets: [
       "**Kebiasaan riset** yang ditanamkan minggu ini adalah menyusun matriks eksperimen sebelum menulis kode, sehingga tidak ada run yang dijalankan tanpa rencana tertulis.",
       "**Dataset** yang dipakai adalah dataset baru, berbeda dari W2-W3, untuk menguji disiplin alur kerja di luar data yang sudah dikenal.",
-      "**Reproduksibilitas** diperlakukan sebagai syarat, bukan tambahan - hasil yang tidak bisa diulang oleh orang lain dianggap belum selesai.",
+      "**Reproduksibilitas** adalah syarat utama - hasil yang tidak bisa diulang oleh orang lain belum dianggap selesai.",
     ],
     footnote: "Lab utama minggu ini adalah Lab 3 (lab_w4_experiment_tracking.ipynb).",
   },
@@ -36,7 +36,7 @@ export const slides04: SlideSection[] = [
     layout: "section",
     title: "Motivasi: Dua Cara Menjawab Email",
     body: "Seorang PI mengirim satu instruksi singkat: \"Uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang setara, lalu kirim ringkasan hasil hari Kamis.\" Ada dua cara menanggapinya, dan keduanya menghasilkan angka.",
-    footnote: "Hanya satu dari keduanya menghasilkan eksperimen yang bisa dipertanggungjawabkan.",
+    footnote: "Hanya satu dari keduanya menghasilkan eksperimen yang bisa dicek ulang.",
   },
 
   // ── 5: Split Cara A vs Cara B ──
@@ -280,7 +280,7 @@ export const slides04: SlideSection[] = [
     bullets: [
       "**Bias konfirmasi** muncul saat tidak ada target, sehingga hasil yang sedikit lebih baik mudah dibaca sebagai bukti - dengan target 3 poin, kenaikan 0.5 poin adalah tidak terkonfirmasi, bukan sukses kecil.",
       "**Cerita setelah fakta** terbentuk tanpa prediksi tertulis, sehingga hasil aktual mudah dinarasikan sebagai \"yang kita harapkan sejak awal\" - protokol tertulis mencegah ini.",
-      "**Hipotesis yang ternyata salah** sering lebih informatif daripada yang benar, karena ia memaksa Anda mencari penjelasan dan diperlakukan sebagai data, bukan kegagalan.",
+      "**Hipotesis yang ternyata salah** sering lebih berguna daripada yang benar, karena hasil itu memaksa Anda mencari penjelasan dan mencatatnya sebagai data, bukan kegagalan.",
     ],
     footnote: "Laboratorium paling produktif memperlakukan hipotesis salah sebagai bahan analisis, bukan aib.",
   },
@@ -436,7 +436,7 @@ optim:
   {
     layout: "code",
     title: "Menulis Kode dengan Uji Minimal Bawaan",
-    body: "Implementasi FocalLoss didokumentasikan dengan alasan, bukan hanya apa yang dilakukan, sehingga kasus gamma=0 menjadi uji cepat bahwa tidak ada bug:",
+    body: "Implementasi FocalLoss perlu menjelaskan alasan tiap bagian kode, bukan hanya menulis apa yang dilakukan. Dengan begitu, kasus gamma=0 bisa menjadi uji cepat bahwa tidak ada bug:",
     lang: "python",
     code: `class FocalLoss(nn.Module):
     """gamma=0 -> ekuivalen cross-entropy.
@@ -477,7 +477,7 @@ optim:
     bullets: [
       "**Update mingguan** berisi empat bagian - progress, kendala, rencana, satu pertanyaan - dan dikirim sebelum diminta, karena konsistensi membangun kepercayaan lebih cepat daripada hasil spektakuler yang mendadak.",
       "**Kerangka SQRC** (Situation, Question, Resolution attempt, Call) memandu Anda menulis pertanyaan teknis yang menunjukkan Anda sudah berusaha sebelum meminta bantuan.",
-      "**Ekspresi ketidakpastian yang jujur** - melaporkan keterbatasan dan menyertai \"saya tidak tahu\" dengan langkah konkret berikutnya - adalah tanda kompetensi, bukan kelemahan.",
+      "**Ekspresi ketidakpastian yang baik** berarti menyebut keterbatasan dan menyertai \"saya tidak tahu\" dengan langkah konkret berikutnya.",
     ],
     footnote: "Template dan contoh lengkap tersedia di Lampiran C.11 dan D.8.",
   },
@@ -511,7 +511,7 @@ optim:
     bullets: [
       "**Membandingkan run dengan jumlah epoch berbeda** mencampur dua variabel - jika baseline 20 epoch dan modifikasi 25 epoch, yang dibandingkan adalah arsitektur sekaligus durasi training.",
       "**Tidak menulis hipotesis sama sekali** membuat setiap hasil tampak menarik, sedangkan hipotesis tertulis membagi hasil menjadi konfirmasi, sanggahan, atau kebetulan.",
-      "**Menyembunyikan ablation yang gagal** menyesatkan PI dan diri sendiri, karena sembilan eksperimen gagal sering lebih informatif daripada satu yang berhasil.",
+      "**Menyembunyikan ablation yang gagal** menyesatkan PI dan diri sendiri, karena sembilan eksperimen gagal sering lebih berguna daripada satu yang berhasil.",
     ],
     footnote: "Laporkan semua yang Anda jalankan - ablation yang gagal adalah data, bukan aib.",
   },

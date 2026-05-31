@@ -27,7 +27,7 @@
 
 # 03 · W3 - Loss, Optimizer & Evaluasi
 
-> *Training selesai, kurva loss muncul di layar. Inilah saat banyak pemula berhenti karena tidak tahu harus membaca apa. Loss curve bukan sekadar "turun = bagus, naik = buruk" - ia adalah sinyal diagnostik yang bisa menunjukkan apa yang salah bahkan sebelum Anda memeriksa kode.*
+> *Training selesai, kurva loss muncul di layar. Inilah saat banyak pemula berhenti karena tidak tahu harus membaca apa. Loss curve bukan sekadar "turun = bagus, naik = buruk" - dari bentuk kurvanya, Anda bisa mulai mendiagnosis hasil training bahkan sebelum memeriksa kode.*
 
 **Baris peta besar** adalah `(C, H, W) -> (N,)` (lanjutan W2, fokus alur kerja).
 **Kebiasaan riset** yang ditanamkan minggu ini adalah: ubah satu hal pada satu waktu.
@@ -41,7 +41,7 @@
 W3 adalah minggu berbasis contoh. Sebelum membaca teori tentang loss dan optimizer, Anda mengamati lima contoh training konkret dan diminta mengidentifikasi apa yang terjadi. Baru setelah itu kita menarik pola dan penjelasannya.
 
 - **§1.5** memulai dengan galeri lima training konkret (sebelum teori).
-- **§2.1** membahas loss sebagai pilihan, bukan bawaan default.
+- **§2.1** membahas cara memilih loss yang sesuai, bukan sekadar memakai bawaan default.
 - **§2.2** menjelaskan cara optimizer memutuskan langkah dan peran weight decay.
 - **§2.3** menguraikan evaluasi yang tidak bisa diringkas jadi satu angka.
 - **§2.4** membandingkan tiga strategi representasi fitur.
@@ -220,13 +220,13 @@ Pola ini menandakan gradient explosion. Hipotesis: (a) LR terlalu besar, atau (b
 
 ![Lima pola loss curve untuk diagnosis: underfitting, overfitting, early divergence, val lebih rendah dari train, dan konvergensi normal](../figures/fig01c_loss_curves_diagnostic.svg)
 
-**Overfit satu batch** adalah alat diagnosis terpenting untuk membedakan bug kode dari masalah hiperparameter. Karpathy menyebutnya *"the most important debugging tool"*.
+**Overfit satu batch** adalah pemeriksaan terpenting untuk membedakan bug kode dari masalah hiperparameter. Karpathy menyebutnya *"the most important debugging tool"*.
 
 Jika loss curve Anda tidak cocok dengan kelima pola di atas, jangan menebak. Kembali ke simpul paling atas diagram: overfit satu batch. Hasil tes itu - apakah loss turun ke nol atau tidak - akan memisahkan bug kode dari masalah hiperparameter dan mengarahkan Anda ke cabang diagnosis yang tepat.
 
 ---
 
-## 3. Worked Example: Evaluasi yang Jujur
+## 3. Worked Example: Evaluasi dengan Metrik yang Sesuai
 
 Setelah training SimpleCNN dari [W2](02_W2_Images_CNN_Smoke_Test.md), ada tiga pemeriksaan yang perlu diselesaikan sebelum menulis angka di laporan:
 
@@ -293,6 +293,6 @@ Jawab pertanyaan berikut setelah menyelesaikan lab: Pada dataset terbatas (500 s
 
 ## Lanjut ke W4
 
-Anda sudah memiliki kerangka lengkap untuk memahami dan membangun sistem ML/DL dari tensor input sampai diagnosis loss curve. W4 menggeser fokus dari *memahami sistem* menjadi *merancang eksperimen yang reproduksibel*: YAML config, penguncian seed, struktur folder run, dan matriks eksperimen.
+Anda sudah memiliki alur dasar untuk memahami sistem ML/DL dari tensor input sampai diagnosis loss curve. W4 melanjutkannya ke perancangan eksperimen yang bisa diulang: YAML config, penguncian seed, struktur folder run, dan matriks eksperimen.
 
 Buka [W4 - Reproducibility & Matriks Eksperimen](04_W4_Reproducibility_Experiment_Matrix.md) ketika siap.

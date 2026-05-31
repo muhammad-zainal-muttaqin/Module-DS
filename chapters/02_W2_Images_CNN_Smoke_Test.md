@@ -526,6 +526,6 @@ Buka [lab_w1_mlp_numpy.ipynb](https://colab.research.google.com/github/muhammad-
 
 ## Lanjut ke W3
 
-Fondasi sudah siap. Bab berikutnya (W3) menuntaskan: loss sebagai pilihan, optimizer sebagai mekanisme langkah, evaluasi yang jujur, tiga strategi representasi fitur, dan cara membaca loss curve untuk mendiagnosis masalah training. Bab itu dimulai dari galeri contoh training konkret sebelum teori.
+Fondasi sudah siap. Bab berikutnya (W3) membahas cara memilih loss yang sesuai, cara optimizer memperbarui parameter, evaluasi dengan metrik yang sesuai, tiga strategi representasi fitur, dan cara membaca loss curve untuk mendiagnosis hasil training. Bab itu dimulai dari galeri contoh training konkret sebelum teori.
 
 Buka [W3 - Loss, Optimizer & Evaluasi](03_W3_Loss_Optimizer_Evaluasi.md) ketika siap.

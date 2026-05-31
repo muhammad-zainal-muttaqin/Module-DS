@@ -38,7 +38,7 @@
 
 ## 0. Peta Bab
 
-W5 memperluas Big Map ke domain sequence. Setelah W5, Anda memahami tiga keluarga output head untuk tugas sequence, mampu membangun dan melatih RNN vanilla serta LSTM/GRU, melihat vanishing gradient secara konkret dalam satu perbandingan, memilih arsitektur sequence berdasarkan panjang dependensi, dan menulis pernyataan justifikasi arsitektur yang konkret.
+W5 memperluas Big Map ke domain sequence. Setelah W5, Anda memahami tiga keluarga output head untuk tugas sequence, mampu membangun dan melatih RNN vanilla serta LSTM/GRU, melihat gejala vanishing gradient dari satu perbandingan, menentukan arsitektur sequence berdasarkan panjang dependensi, dan menulis alasan pemilihan arsitektur dengan jelas.
 
 ---
 
@@ -161,7 +161,7 @@ Hidden state `h_t` berperan sebagai "memori" yang diperbarui setiap langkah. Ini
 
 ### 2.3 LSTM: Gate sebagai Solusi
 
-Long Short-Term Memory (LSTM) memperkenalkan **cell state** `c_t` yang terpisah dari hidden state, dan tiga **gate** yang menentukan komponen informasi mana yang dipertahankan atau ditulis. Konsep gate: vektor dengan nilai antara 0 dan 1 (hasil dari `σ` = sigmoid) yang dikalikan element-wise (`⊙`, lihat §1.5.3) ke vektor lain - berfungsi sebagai masker numerik untuk memilih komponen vektor.
+Long Short-Term Memory (LSTM) memperkenalkan **cell state** `c_t` yang terpisah dari hidden state, dan tiga **gate** yang menentukan komponen informasi mana yang dipertahankan atau ditulis. Gate adalah vektor bernilai 0 sampai 1 (hasil dari `σ` = sigmoid) yang dikalikan element-wise (`⊙`, lihat §1.5.3) ke vektor lain untuk memilih komponen vektor.
 
 #### 2.3.1 Rumus Annotated
 
@@ -179,7 +179,7 @@ Membaca baris demi baris:
 1. **Forget gate `f_t`** menjawab pertanyaan: "berapa banyak dari cell state lama yang dipertahankan?" Nilai `f_t[i] = 0.9` artinya pertahankan 90% komponen ke-i; `f_t[i] = 0.1` artinya hampir lupa.
 2. **Input gate `i_t`** menjawab pertanyaan: "berapa banyak dari informasi baru `g_t` yang ditulis ke cell state?" Cara kerjanya mirip forget gate, tetapi mengontrol *write*, bukan *retain*.
 3. **Cell update `g_t`** adalah kandidat informasi baru yang dihasilkan oleh `tanh` (rentang -1 sampai 1).
-4. **Cell state `c_t`** berfungsi sebagai "memori utama" yang diperbarui dengan campuran `f_t ⊙ c_{t-1}` (yang dipertahankan) dan `i_t ⊙ g_t` (yang ditulis).
+4. **Cell state `c_t`** menyimpan nilai internal yang diperbarui dengan campuran `f_t ⊙ c_{t-1}` (yang dipertahankan) dan `i_t ⊙ g_t` (yang ditulis).
 5. **Output gate `o_t`** menentukan: "berapa banyak dari cell state yang diekspos sebagai hidden state output?"
 6. **Hidden state `h_t`** adalah hasil akhir yang nanti dipakai sebagai output dan diteruskan ke timestep berikutnya.
 
@@ -195,7 +195,7 @@ Bandingkan dengan RNN vanilla: setiap langkah mundur, gradient dikalikan dengan 
 
 #### 2.3.3 Forget Gate: Gambaran Konkret
 
-Bayangkan sequence sensor pasien: glukosa setiap 5 menit selama 24 jam (288 timestep). Cell state `c_t` menyimpan "kondisi pasien terakhir kali stabil". Forget gate `f_t` adalah keputusan model di tiap timestep: *apakah kondisi sebelumnya masih relevan?*
+Contoh konkretnya adalah sequence sensor pasien: glukosa setiap 5 menit selama 24 jam (288 timestep). Cell state `c_t` menyimpan kondisi pasien terakhir kali stabil. Forget gate `f_t` adalah keputusan model di tiap timestep: *apakah kondisi sebelumnya masih relevan?*
 
 - Saat data tetap normal → `f_t ≈ 1.0` → cell state hampir tidak berubah, sehingga gambaran kondisi stabil tetap dipertahankan.
 - Saat anomali (lonjakan glukosa tiba-tiba akibat makan berat) → `f_t` turun ke ~0.3 untuk komponen yang terkait kondisi sebelum makan; cell state diperbarui dengan informasi baru.

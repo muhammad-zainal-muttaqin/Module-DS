@@ -5,7 +5,7 @@ export const slides03: SlideSection[] = [
   {
     layout: "title",
     title: "W3: Loss, Optimizer & Evaluasi",
-    subtitle: "Membaca loss curve sebagai sinyal diagnostik, memilih loss dan optimizer dengan alasan, dan mengukur model dengan jujur.",
+    subtitle: "Belajar membaca loss curve untuk mendiagnosis hasil training, menentukan loss dan optimizer yang sesuai, lalu mengevaluasi model dengan metrik yang sesuai.",
     body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 03 - Minggu 3",
   },
@@ -14,7 +14,7 @@ export const slides03: SlideSection[] = [
   {
     layout: "section",
     title: "Peta W3",
-    body: "W3 adalah minggu berbasis contoh. Kita mulai dari mengamati lima training konkret, baru menarik teorinya: loss sebagai pilihan, cara optimizer memutuskan langkah, evaluasi yang tidak bisa diringkas satu angka, tiga strategi representasi, dan kerangka diagnosis loss curve.",
+    body: "W3 dimulai dari lima contoh training. Dari contoh itu, kita belajar kapan sebuah loss cocok dipakai, bagaimana optimizer memperbarui parameter, mengapa satu angka akurasi sering belum cukup, dan bagaimana loss curve membantu diagnosis.",
     footnote: "Baris peta besar minggu ini adalah (C, H, W) -> (N,), melanjutkan W2 dengan fokus pada alur kerja.",
   },
 
@@ -26,7 +26,7 @@ export const slides03: SlideSection[] = [
     bullets: [
       "**Kebiasaan riset** yang ditanamkan minggu ini adalah mengubah satu hal pada satu waktu, sehingga setiap perubahan performa bisa dijelaskan penyebabnya.",
       "**Dataset** yang dipakai tetap CIFAR-10 dari W2, sehingga kita bisa fokus pada loss, optimizer, dan evaluasi tanpa terganggu domain baru.",
-      "**Loss curve** diperlakukan sebagai alat diagnosis, bukan sekadar indikator naik-turun yang dilihat sekilas.",
+      "**Loss curve** dibaca untuk mendiagnosis hasil training, bukan hanya dilihat sekilas apakah naik atau turun.",
     ],
     footnote: "Lab minggu ini: Lab 1 (baseline CNN) diselesaikan, lalu Lab 2 (ablation loss).",
   },
@@ -35,7 +35,7 @@ export const slides03: SlideSection[] = [
   {
     layout: "section",
     title: "Galeri Lima Training: Amati Sebelum Teori",
-    body: "Sebelum membaca teori loss dan optimizer, kita melihat lima loss curve konkret dan mendiagnosisnya sendiri. Latihan observasi ini melatih mata sebelum otak punya kosakata teknis.",
+    body: "Sebelum membaca teori loss dan optimizer, kita melihat lima loss curve konkret dan mencoba mendiagnosis hasil training dari bentuk kurvanya.",
     footnote: "Masing-masing menampilkan train loss dan val loss selama 20 epoch.",
   },
 
@@ -230,7 +230,7 @@ export const slides03: SlideSection[] = [
     layout: "section",
     title: "Evaluasi: Bukan Satu Angka",
     body: "Membanggakan akurasi 95% tanpa menyadari kelas positif hanya 5% adalah kesalahan klasik. Dalam kondisi itu, dummy classifier yang selalu memprediksi negatif juga mencapai 95%.",
-    footnote: "Evaluasi yang jujur memilih metrik sesuai kondisi data, bukan metrik yang paling enak dilihat.",
+    footnote: "Pilih metrik yang sesuai dengan kondisi data, bukan metrik yang membuat hasil terlihat paling bagus.",
   },
 
   // ── 20: Metrik ──
@@ -241,7 +241,7 @@ export const slides03: SlideSection[] = [
     bullets: [
       "**Accuracy** layak dipakai hanya saat kelas seimbang, karena ia menyesatkan begitu satu kelas mendominasi data.",
       "**Precision, recall, dan F1** dipakai saat kelas tidak seimbang dan fokusnya pada satu kelas tertentu, dengan konsekuensi harus memilih ambang batas.",
-      "**ROC-AUC dan PR-AUC** mengevaluasi kualitas probabilistik; PR-AUC lebih informatif daripada ROC-AUC pada imbalance ekstrem.",
+      "**ROC-AUC dan PR-AUC** mengevaluasi kualitas probabilistik; PR-AUC lebih sesuai daripada ROC-AUC pada imbalance ekstrem.",
     ],
     footnote: "Perplexity adalah metrik khusus model bahasa dan hanya bermakna relatif antar model.",
   },
@@ -347,29 +347,29 @@ export const slides03: SlideSection[] = [
   // ── 29: Overfit one batch ──
   {
     layout: "bullets",
-    title: "Overfit Satu Batch: Alat Diagnosis Terpenting",
+    title: "Overfit Satu Batch: Pemeriksaan Terpenting",
     body: "Jika loss curve Anda tidak cocok dengan kelima pola, jangan menebak. Kembali ke simpul paling atas peta diagnosis dan jalankan overfit satu batch:",
     bullets: [
       "Ambil 4-8 sampel saja, lalu jalankan ratusan iterasi hanya pada sampel itu tanpa augmentasi.",
       "Jika loss turun mendekati nol, model dan pipeline sehat - masalahnya ada di data, learning rate, atau regularisasi.",
       "Jika loss tidak turun, ada bug di arsitektur atau loss function - perbaiki kode sebelum menyentuh hiperparameter apapun.",
     ],
-    footnote: "Karpathy menyebut overfit satu batch sebagai alat debugging terpenting dalam melatih neural network.",
+    footnote: "Karpathy menyebut overfit satu batch sebagai pemeriksaan debugging terpenting dalam melatih neural network.",
   },
 
   // ── 30: Section Worked Example ──
   {
     layout: "section",
-    title: "Worked Example: Evaluasi yang Jujur",
+    title: "Worked Example: Evaluasi dengan Metrik yang Sesuai",
     body: "Setelah training SimpleCNN dari W2, ada tiga pemeriksaan yang perlu selesai sebelum satu angka pun ditulis di laporan. Angka tanpa pemeriksaan ini mudah menyesatkan.",
-    footnote: "Tujuannya bukan angka yang bagus, melainkan angka yang bisa dipertanggungjawabkan.",
+    footnote: "Tujuannya bukan mencari angka yang bagus, melainkan memastikan angka itu sesuai dengan kondisi data.",
   },
 
   // ── 31: Tiga pemeriksaan ──
   {
     layout: "bullets",
     title: "Tiga Pemeriksaan Sebelum Menulis Angka",
-    body: "Ketiga pemeriksaan ini mengubah satu angka akurasi menjadi laporan yang jujur tentang kekuatan dan kelemahan model:",
+    body: "Ketiga pemeriksaan ini mengubah satu angka akurasi menjadi laporan yang menunjukkan kekuatan dan kelemahan model:",
     bullets: [
       "**Periksa overfitting** dengan membandingkan train accuracy dan val accuracy; selisih lebih dari 10% biasanya menjadi sinyal model menghafal, bukan belajar.",
       "**Periksa akurasi per kelas** secara terpisah lewat confusion matrix; pada CIFAR-10, pasangan `cat` dan `dog` biasanya paling sering tertukar.",
@@ -429,7 +429,7 @@ export const slides03: SlideSection[] = [
   {
     layout: "bullets",
     title: "Lanjut ke W4: dari Memahami ke Merancang",
-    body: "Dengan W3 selesai, Anda punya kerangka lengkap dari tensor input sampai diagnosis loss curve. W4 menggeser fokus dari memahami sistem ke merancang eksperimen yang reproduksibel:",
+    body: "Setelah W3, Anda sudah punya alur dari tensor input sampai diagnosis loss curve. W4 melanjutkannya ke perancangan eksperimen yang bisa diulang:",
     bullets: [
       "**YAML config dan penguncian seed** membuat setiap run bisa diulang persis oleh orang lain.",
       "**Struktur folder run dan checkpoint** menyimpan config, log, dan git hash agar hasil bisa dilacak balik.",

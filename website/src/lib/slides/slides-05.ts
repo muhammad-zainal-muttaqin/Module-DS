@@ -5,7 +5,7 @@ export const slides05: SlideSection[] = [
   {
     layout: "title",
     title: "W5: Sequences - RNN & LSTM",
-    subtitle: "Memahami vanishing gradient secara konkret, membaca mekanisme gate LSTM, dan memilih arsitektur recurrent berdasarkan panjang dependensi.",
+    subtitle: "Belajar melihat gejala vanishing gradient, memahami cara kerja gate LSTM, dan menentukan arsitektur recurrent sesuai panjang dependensi.",
     body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 05 - Minggu 5",
   },
@@ -14,7 +14,7 @@ export const slides05: SlideSection[] = [
   {
     layout: "section",
     title: "Peta W5",
-    body: "W5 memperluas Big Map ke domain sequence. Minggu ini Anda memahami tiga keluarga output head untuk sequence, membangun RNN dan LSTM, melihat vanishing gradient dalam satu perbandingan konkret, lalu memilih arsitektur berdasarkan panjang dependensi.",
+    body: "W5 memperluas Big Map ke domain sequence. Minggu ini Anda belajar tiga keluarga output head untuk sequence, membangun RNN dan LSTM, melihat gejala vanishing gradient dari satu perbandingan, lalu menentukan arsitektur berdasarkan panjang dependensi.",
     footnote: "Baris peta besar minggu ini adalah (T, F) -> (1,), (N,), (T'', 1).",
   },
 
@@ -25,7 +25,7 @@ export const slides05: SlideSection[] = [
     body: "W4 membangun disiplin alur kerja eksperimen; W5 memakai disiplin itu pada arsitektur baru yang memperlakukan urutan sebagai informasi. Tiga hal menjadi fokus minggu ini:",
     bullets: [
       "**Tensor sequence** berbentuk (T, F) masuk sebagai input, dengan T sebagai panjang waktu dan F jumlah fitur per timestep.",
-      "**Kebiasaan riset** yang dilatih minggu ini adalah diagnosis sequence panjang dan menulis justifikasi pilihan arsitektur secara konkret.",
+      "**Kebiasaan riset** minggu ini adalah mendiagnosis sequence panjang dan menulis alasan memilih arsitektur secara jelas.",
       "**Lab 3b wajib** di W5 karena sekaligus memenuhi Breadth Check untuk keluarga RNN/LSTM, salah satu dari lima keluarga arsitektur.",
     ],
     footnote: "Lab utama minggu ini adalah lab_w5_lstm_sequence.ipynb.",
@@ -147,7 +147,7 @@ export const slides05: SlideSection[] = [
     layout: "image",
     title: "RNN Vanilla vs LSTM Cell",
     imageUrl: "/figures/fig05a_rnn_vs_lstm.svg",
-    caption: "Gambar ini membandingkan dua arsitektur recurrent: RNN vanilla yang di-unroll sepanjang timestep di bagian atas, dan detail mekanisme gate di dalam satu sel LSTM di bagian bawah. RNN vanilla hanya memiliki satu jalur hidden state, sedangkan LSTM menambahkan cell state terpisah beserta tiga gate yang mengatur aliran informasi.",
+    caption: "Gambar ini membandingkan dua arsitektur recurrent: RNN vanilla yang di-unroll sepanjang timestep di bagian atas, dan detail mekanisme gate di dalam satu sel LSTM di bagian bawah. RNN vanilla hanya memiliki satu jalur hidden state, sedangkan LSTM menambahkan cell state terpisah beserta tiga gate yang mengatur informasi yang dipertahankan, ditulis, dan dikeluarkan.",
     footnote: "Warna amber dipakai konsisten untuk keluarga RNN/LSTM di seluruh modul.",
   },
 
@@ -191,13 +191,13 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
   {
     layout: "bullets",
     title: "Apa yang Diputuskan Tiap Gate",
-    body: "Ketiga gate menjawab tiga pertanyaan berbeda tentang aliran informasi di dalam sel:",
+    body: "Ketiga gate menjawab tiga pertanyaan berbeda tentang informasi yang dipertahankan, ditulis, dan dikeluarkan oleh sel:",
     bullets: [
       "**Forget gate f_t** menjawab berapa banyak cell state lama yang dipertahankan - nilai 0.9 berarti pertahankan 90% komponen itu, nilai 0.1 berarti hampir lupa.",
       "**Input gate i_t** menjawab berapa banyak informasi baru g_t yang ditulis ke cell state, mengontrol penulisan alih-alih retensi.",
       "**Output gate o_t** menjawab berapa banyak cell state yang diekspos sebagai hidden state output ke timestep berikutnya.",
     ],
-    footnote: "Cell state c_t adalah memori utama yang diperbarui dari campuran yang dipertahankan dan yang ditulis.",
+    footnote: "Cell state c_t menyimpan nilai internal yang diperbarui dari komponen lama dan komponen baru.",
   },
 
   // ── 19: Image fig05b ──
@@ -213,7 +213,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
   {
     layout: "bullets",
     title: "Mengapa Cell State Memutus Vanishing Gradient",
-    body: "Dari gambar tersebut, perbedaan kurva berasal dari cara gradient mengalir di cell state versus di hidden state RNN:",
+    body: "Dari gambar tersebut, perbedaan kurva muncul karena gradient pada cell state LSTM dihitung lewat jalur yang berbeda dari hidden state RNN:",
     bullets: [
       "**Turunan dc_t/dc_{t-1} = f_t** hanya melibatkan forget gate, bukan perkalian matriks W_h yang berulang, sehingga tidak ada rantai perkalian matriks di cell state.",
       "**Saat forget gate mendekati 1** di sepanjang sequence, gradient pada cell state tetap stabil tanpa cepat menyusut.",
@@ -242,7 +242,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
   {
     layout: "bullets",
     title: "Forget Gate dalam Gambaran Konkret",
-    body: "Bayangkan sequence sensor glukosa pasien setiap 5 menit selama 24 jam, dan cell state menyimpan gambaran kondisi stabil terakhir. Forget gate memutuskan kapan kondisi lama masih relevan:",
+    body: "Contoh konkretnya adalah sequence sensor glukosa pasien setiap 5 menit selama 24 jam. Cell state menyimpan kondisi stabil terakhir, lalu forget gate menentukan kapan kondisi lama masih relevan:",
     bullets: [
       "**Saat data tetap normal**, forget gate mendekati 1.0 sehingga cell state hampir tidak berubah dan gambaran kondisi stabil dipertahankan.",
       "**Saat terjadi anomali** seperti lonjakan glukosa akibat makan berat, forget gate turun ke sekitar 0.3 untuk komponen terkait dan cell state diperbarui dengan informasi baru.",
@@ -456,7 +456,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
       "Setelah melihat plot gradient flow di Lab 3b, pada panjang berapa RNN vanilla mulai kehilangan sinyal, dan bagaimana angka itu mengubah keputusan Anda?",
       "Bagaimana strategi engineered, extracted, dan learned features muncul dalam konteks sequence, dengan satu contoh konkret untuk masing-masing di domain sensor?",
     ],
-    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat memilih arsitektur capstone.",
+    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya akan dipakai lagi saat menentukan arsitektur capstone.",
   },
 
   // ── 39: Lanjut W6 ──

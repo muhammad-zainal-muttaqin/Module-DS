@@ -27,7 +27,7 @@
 
 # 04 · W4 - Reproducibility & Matriks Eksperimen
 
-> *Eksperimen yang tidak bisa direproduksi hanyalah anekdot. Matriks eksperimen yang ditulis sebelum kode adalah janji kepada diri sendiri bahwa hasilnya akan bisa dipertanggungjawabkan.*
+> *Eksperimen yang tidak bisa direproduksi hanyalah anekdot. Matriks eksperimen yang ditulis sebelum kode membuat hasil bisa dicek ulang dari rencana, konfigurasi, dan catatan run.*
 
 **Baris peta besar** mencakup keluarga model yang sama dari W2-W3, kini dilengkapi dengan disiplin alur kerja riset.
 **Kebiasaan riset** yang dibangun minggu ini adalah menyusun matriks eksperimen sebelum menulis kode.
@@ -52,7 +52,7 @@ Ingat email PI dari Bab 00:
 
 **Cara B - merancang lebih dulu.** Anda duduk 30 menit dan menulis satu halaman yang menjawab: apa yang dimaksud "baseline"; `gamma` berapa untuk focal loss; apakah kedua run memakai seed sama; blok awal mana yang di-freeze, layer awal backbone pretrained atau `block1` pada CNN custom; apakah "bandingkan" berarti satu run masing-masing atau tiga run untuk mengurangi *noise*; metrik mana yang paling berbicara pada kelas minor (yang biasanya jadi motivasi utama memakai focal loss). Setelah semua jelas, Anda kerja selama tiga hari, melaporkan hasil dengan tabel, plot, dan interpretasi.
 
-Kedua cara menghasilkan angka. Hanya Cara B menghasilkan *eksperimen* - sesuatu yang bisa dipertanggungjawabkan ketika PI bertanya "kenapa kenaikan 1.7% ini bisa dipercaya?" Perbedaannya bukan kecerdasan; perbedaannya adalah *kebiasaan merancang sebelum menjalankan*.
+Kedua cara menghasilkan angka. Hanya Cara B menghasilkan *eksperimen* - hasil yang bisa dijelaskan ketika PI bertanya "kenapa kenaikan 1.7% ini bisa dipercaya?" Perbedaannya bukan kecerdasan; perbedaannya adalah *kebiasaan merancang sebelum menjalankan*.
 
 Bab ini membangun kebiasaan itu.
 
@@ -87,7 +87,7 @@ Format minimal yang disarankan adalah sebagai berikut:
 Tulis matriks ini di `protocol.md` di folder eksperimen, **sebelum** baris kode pertama. Timestamp file adalah bukti bahwa Anda merencanakan sebelum melihat hasil.
 
 > [!IMPORTANT]
-> "Matriks eksperimen sebelum coding" adalah kebiasaan riset W4. Setiap eksperimen yang dilaporkan setelah W4 harus punya matriks tertulis. Tanpa matriks, angka yang dihasilkan tidak bisa dipertanggungjawabkan.
+> "Matriks eksperimen sebelum coding" adalah kebiasaan riset W4. Setiap eksperimen yang dilaporkan setelah W4 harus punya matriks tertulis. Tanpa matriks, angka yang dihasilkan sulit dicek ulang.
 
 ### 2.1 Lima Pertanyaan Sebelum Menyentuh Kode
 
@@ -97,7 +97,7 @@ Sebelum Anda membuka editor, jawab lima pertanyaan ini. Tulis jawabannya di file
 Apa yang berbeda antara kondisi A (baseline) dan kondisi B (modifikasi)? Daftar harus spesifik: bukan "loss", tetapi "`CrossEntropyLoss` → `FocalLoss(gamma=2.0)`". Bukan "freeze layer", tetapi "`backbone.layer1.parameters()` dengan `requires_grad=False`". Jika ada lebih dari satu variabel berubah, pisahkan - Anda butuh satu eksperimen per variabel untuk atribusi yang jelas.
 
 **2. Apa baseline yang setara?**  
-Baseline harus identik dengan kondisi modifikasi pada *semua variabel lain*: arsitektur, data, augmentasi, optimizer, learning rate, seed, jumlah epoch. Jika baseline yang tersedia di repo berbeda di salah satu aspek, entah Anda menyesuaikan baseline atau melaporkan perbedaan dengan jujur.
+Baseline harus identik dengan kondisi modifikasi pada *semua variabel lain*: arsitektur, data, augmentasi, optimizer, learning rate, seed, jumlah epoch. Jika baseline yang tersedia di repo berbeda di salah satu aspek, sesuaikan baseline atau tulis perbedaannya secara eksplisit.
 
 **3. Apa hipotesis yang dapat dipalsukan?**  
 Hipotesis yang baik berbentuk *pernyataan empiris yang bisa salah*. Contoh: "Focal loss dengan γ=2.0 meningkatkan F1-score pada kelas minor minimal 3 poin absolut, tanpa menurunkan akurasi keseluruhan lebih dari 1 poin." Hipotesis yang buruk: "Focal loss lebih baik." (Lebih baik pada metrik apa? Seberapa besar? Pada kondisi apa?)
@@ -153,7 +153,7 @@ Berikut adalah contoh protokol konkret yang bisa langsung ditiru:
 - Total: setengah hari kerja.
 ```
 
-Satu halaman ini mengubah "uji focal loss dan freeze blok awal" menjadi rancangan yang bisa dibaca, didiskusikan, dan dijalankan oleh orang lain tanpa tebakan. Protokol tersimpan di repo bersama kode. Dokumen ini merekam rencana sebelum hasil keluar; berguna sebagai cek kejujuran nanti ketika Anda tergoda mengubah cerita agar sesuai data.
+Satu halaman ini mengubah "uji focal loss dan freeze blok awal" menjadi rancangan yang bisa dibaca, didiskusikan, dan dijalankan oleh orang lain tanpa tebakan. Protokol tersimpan di repo bersama kode. Dokumen ini merekam rencana sebelum hasil keluar; nanti, dokumen ini membantu mengecek apakah cerita Anda berubah setelah melihat data.
 
 ### 2.3 Mengendalikan Variabel
 
@@ -209,7 +209,7 @@ Hipotesis yang spesifik melindungi Anda dari dua bahaya:
 1. **Bias konfirmasi** muncul saat tidak ada target konkret: hasil apa saja yang sedikit lebih baik mudah terbaca sebagai "bukti bahwa hipotesisnya benar". Dengan target 3 poin, kenaikan 0.5 poin adalah *tidak mengkonfirmasi*, bukan sukses kecil.
 2. **Cerita setelah fakta** terbentuk tanpa prediksi tertulis sebelum run: Anda mudah menarasikan hasil aktual sebagai "yang kita harapkan sejak awal". Protokol tertulis mencegah ini.
 
-Hipotesis tidak harus benar. Hipotesis yang ternyata salah sering lebih informatif daripada yang benar - karena ia memaksa Anda mencari penjelasan. Laboratorium yang paling produktif memperlakukan hipotesis salah bukan sebagai kegagalan, tetapi sebagai data.
+Hipotesis tidak harus benar. Hipotesis yang ternyata salah sering lebih berguna daripada yang benar karena ia memaksa Anda mencari penjelasan. Laboratorium yang produktif mencatat hipotesis salah sebagai data, bukan sebagai kegagalan.
 
 ### 2.6 Ketika Hipotesis Tidak Terkonfirmasi
 
@@ -225,7 +225,7 @@ Misalnya hipotesis "F1 naik ≥ 3 poin" tapi hasil aktual Δ = 1.8 poin. Jangan 
 
 #### Skenario B - Hasil berlawanan arah dari prediksi
 
-Hipotesis "focal loss meningkatkan F1" tapi hasilnya F1 turun 1.2 poin. Ini lebih informatif dari skenario A. Sebelum menyimpulkan "focal loss tidak efektif", lakukan:
+Hipotesis "focal loss meningkatkan F1" tapi hasilnya F1 turun 1.2 poin. Ini lebih berguna dari skenario A karena arah hasilnya jelas berlawanan. Sebelum menyimpulkan "focal loss tidak efektif", lakukan:
 
 1. **Audit implementasi:** apakah `gamma=0` menghasilkan CE yang identik?
 2. **Periksa distribusi loss tiap kelas:** apakah focal loss terlalu agresif menekan kelas mudah?
@@ -384,7 +384,7 @@ optimizer = torch.optim.AdamW(trainable, lr=3e-4, weight_decay=1e-4)
 
 Ada dua pelajaran implementasi yang perlu diperhatikan:
 
-1. **`FocalLoss` didokumentasikan dengan alasan, bukan hanya apa yang dilakukan.** Komentar `gamma=0 → cross-entropy` memberi verifikasi cepat; ketika γ=0, hasil harus sama persis dengan baseline - ini uji minimal yang mudah untuk memastikan tidak ada bug.
+1. **`FocalLoss` menjelaskan alasan tiap bagian kode, bukan hanya apa yang dilakukan.** Komentar `gamma=0 → cross-entropy` memberi verifikasi cepat; ketika γ=0, hasil harus sama persis dengan baseline - ini uji minimal yang mudah untuk memastikan tidak ada bug.
 2. **Optimizer hanya menerima parameter yang dilatih.** Ini lebih dari kosmetik: beberapa optimizer (termasuk AdamW) mempertahankan state per parameter; memasukkan parameter frozen akan membuang memori dan sedikit waktu. Lebih penting, filter ini membuat niat kode eksplisit.
 
 ### 3.4 Menjalankan dan Melaporkan
@@ -419,7 +419,7 @@ Template salin-pakai lengkap dengan contoh terisi dan tiga prinsip update yang b
 
 #### 3.5.2 Tiga Alat Komunikasi: SQRC, Saluran, Ketidakpastian
 
-Di luar update rutin, ada tiga alat yang membentuk kebiasaan komunikasi seorang asisten riset. Pertama, kerangka **SQRC** (Situation, Question, Resolution attempt, Call/permintaan) memandu Anda menulis pertanyaan teknis yang menunjukkan Anda sudah berusaha sebelum meminta bantuan; ini membedakan asisten mandiri dari yang bergantung. Kedua, pemilihan saluran komunikasi mengikuti satu aturan praktis: jika butuh jawaban dalam hitungan menit pakai chat, jika butuh pemikiran lebih dalam pakai email, dan diskusi arah riset selalu lebih efisien tatap muka. Ketiga, ekspresi ketidakpastian profesional - melaporkan hasil dengan keterbatasan yang jujur, menahan generalisasi berlebihan, dan menyertai "saya tidak tahu" dengan langkah konkret berikutnya - adalah tanda kompetensi, bukan kelemahan.
+Di luar update rutin, ada tiga alat yang membentuk kebiasaan komunikasi seorang asisten riset. Pertama, kerangka **SQRC** (Situation, Question, Resolution attempt, Call/permintaan) memandu Anda menulis pertanyaan teknis yang menunjukkan Anda sudah berusaha sebelum meminta bantuan; ini membedakan asisten mandiri dari yang bergantung. Kedua, pemilihan saluran komunikasi mengikuti satu aturan praktis: jika butuh jawaban dalam hitungan menit pakai chat, jika butuh pemikiran lebih dalam pakai email, dan diskusi arah riset selalu lebih efisien tatap muka. Ketiga, ekspresi ketidakpastian profesional berarti menyebut keterbatasan, menahan generalisasi berlebihan, dan menyertai "saya tidak tahu" dengan langkah konkret berikutnya.
 
 > [!TIP]
 > Tabel SQRC dengan contoh kalimat, matriks lima saluran komunikasi, dan empat pasangan kalimat "kurang tepat vs lebih tepat" untuk ekspresi ketidakpastian tersedia lengkap di [Lampiran D.8](14_Lampiran.md#d8-komunikasi-pi). Baca sekali sebelum email pertama Anda ke PI; rujuk kembali ketika menulis pertanyaan teknis yang sulit.
@@ -438,7 +438,7 @@ Di luar update rutin, ada tiga alat yang membentuk kebiasaan komunikasi seorang 
 
 **Tidak menulis hipotesis sama sekali** membuat setiap hasil tampak "menarik". Dengan hipotesis yang tertulis, hasil terbagi jelas menjadi konfirmasi, sanggahan, atau kebetulan - dan langkah selanjutnya di masing-masing kasus menjadi jelas.
 
-**Menyembunyikan ablation yang "gagal"** menyesatkan PI dan diri Anda sendiri di masa mendatang. Jika Anda menjalankan sepuluh eksperimen dan hanya satu yang berhasil, laporan yang hanya menampilkan yang berhasil menyembunyikan sembilan data berharga. Laporkan semua yang Anda jalankan; ablation yang gagal sering lebih informatif daripada yang berhasil.
+**Menyembunyikan ablation yang "gagal"** menyesatkan PI dan diri Anda sendiri di masa mendatang. Jika Anda menjalankan sepuluh eksperimen dan hanya satu yang berhasil, laporan yang hanya menampilkan yang berhasil menyembunyikan sembilan data berharga. Laporkan semua yang Anda jalankan; ablation yang gagal sering lebih berguna daripada yang berhasil.
 
 ---
 
