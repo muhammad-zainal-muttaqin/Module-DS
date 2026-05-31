@@ -97,7 +97,7 @@ Anggap untuk simplikasi `W_h` adalah skalar `w_h = 0.5`. Setelah backward pass m
 
 Tiga rezim:
 
-- Ketika **|w_h| < 1**, gradient mengalami *vanishing*: setelah 50-100 langkah, gradient praktis nol sehingga model tidak bisa belajar dependensi panjang.
+- Ketika **|w_h| < 1**, gradient menyusut (*vanishing*): setelah 50-100 langkah, gradient praktis nol sehingga model tidak bisa belajar dependensi panjang.
 - Ketika **|w_h| > 1**, gradient meledak (*exploding*): nilai loss tiba-tiba menjadi NaN. Solusi praktisnya adalah gradient clipping (lihat §4).
 - Ketika **|w_h| ≈ 1**, model berada di titik kritis: kondisi stabil hanya di pinggiran dan sulit dipertahankan tanpa intervensi (LSTM gate, residual connection, normalization).
 
@@ -148,7 +148,7 @@ h_t = tanh(W_x x_t + W_h h_{t-1} + b)
 Penjelasan simbol baris-per-baris:
 
 - `x_t` adalah input pada timestep `t`, shape `(F,)` (atau `(B, F)` untuk batch).
-- `h_{t-1}` adalah hidden state dari timestep sebelumnya, shape `(d_h,)` di mana `d_h` adalah hidden size yang Anda tentukan.
+- `h_{t-1}` adalah hidden state dari timestep sebelumnya, shape `(d_h,)` dengan `d_h` sebagai hidden size yang Anda tentukan.
 - `W_x` adalah matriks bobot input shape `(d_h, F)`; `W_h` matriks bobot hidden-to-hidden shape `(d_h, d_h)`.
 - `W_h h_{t-1}` adalah perkalian matriks (bukan element-wise) yang menghasilkan vektor shape `(d_h,)`.
 - `tanh` adalah aktivasi yang memastikan `h_t` berada di rentang (-1, 1) - mencegah hidden state meledak ke nilai besar.
@@ -245,7 +245,7 @@ hidden state: h_t = (1 - z_t) ⊙ h_{t-1} + z_t ⊙ h̃_t
 | Anggaran parameter ketat | GRU | ~25% lebih ringan |
 | Tidak yakin | Coba keduanya | Keduanya sebanding di banyak benchmark; bedanya sering <2% |
 
-Aturan praktis: coba LSTM dulu sebagai default, GRU sebagai alternatif kalau training time atau parameter budget jadi concern. Di lab minggu ini, Anda akan membandingkan RNN vs LSTM vs GRU pada sequence sintetis.
+Aturan praktis: coba LSTM dulu sebagai default, GRU sebagai alternatif kalau training time atau parameter budget jadi pertimbangan. Di lab minggu ini, Anda akan membandingkan RNN vs LSTM vs GRU pada sequence sintetis.
 
 ### 2.5 Sequence Model dalam Bentuk Alaminya
 
