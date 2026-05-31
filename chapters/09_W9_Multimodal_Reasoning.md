@@ -201,7 +201,7 @@ Untuk sistem yang vital di produksi, desain model sebagai ensemble:
 - Default: gunakan semua modalitas yang tersedia.
 - Jika satu modalitas hilang: fallback ke model unimodal untuk modalitas yang tersedia.
 
-Sederhana tapi efektif untuk kasus penggunaan di mana keandalan lebih penting daripada performa maksimal.
+Sederhana tapi efektif untuk kasus penggunaan saat keandalan lebih penting daripada performa maksimal.
 
 ### 2.4 Temporal Alignment: Ketika Aliran Data Tidak Sinkron
 
