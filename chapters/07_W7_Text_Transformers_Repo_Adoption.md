@@ -283,7 +283,7 @@ Pilih satu pertanyaan dari materi W7 yang ingin Anda jelajahi lebih dalam. Boleh
 **Beberapa pertanyaan pemantik** (tidak wajib salah satunya):
 - Token apa yang paling diperhatikan model saat memprediksi sentimen positif vs negatif - apakah ini masuk akal?
 - Apakah IndoBERT, mBERT, atau XLM-R memberikan hasil berbeda yang bermakna untuk sentimen Indonesia?
-- Bagaimana cara kerja attention dari nol (Lab 6b Transformer-mini) - di mana paling sering gagal pada toy task?
+- Bagaimana cara kerja attention dari nol (Lab 6b Transformer-mini) - pada bagian mana implementasinya paling sering gagal pada toy task?
 - Apa yang paling berbeda antara repo riset orang lain dan `template` yang Anda pakai?
 
 Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasikan 10 menit di awal W8. Format: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
