@@ -27,7 +27,7 @@
 
 # 03 · W3 - Loss, Optimizer & Evaluasi
 
-> *Training selesai, kurva loss muncul di layar. Inilah momen di mana banyak pemula berhenti karena tidak tahu harus membaca apa. Loss curve bukan sekadar "turun = bagus, naik = buruk" - ia adalah sinyal diagnostik yang bisa memberi tahu apa yang salah bahkan sebelum Anda memeriksa kode.*
+> *Training selesai, kurva loss muncul di layar. Inilah saat banyak pemula berhenti karena tidak tahu harus membaca apa. Loss curve bukan sekadar "turun = bagus, naik = buruk" - ia adalah sinyal diagnostik yang bisa menunjukkan apa yang salah bahkan sebelum Anda memeriksa kode.*
 
 **Baris peta besar** adalah `(C, H, W) -> (N,)` (lanjutan W2, fokus alur kerja).
 **Kebiasaan riset** yang ditanamkan minggu ini adalah: ubah satu hal pada satu waktu.
@@ -100,15 +100,15 @@ Loss menentukan *apa yang dianggap salah oleh model*. Mengganti loss berarti men
 **Untuk klasifikasi:**
 
 - **Cross-entropy** adalah pilihan default untuk klasifikasi. Loss ini mengukur jarak antara distribusi probabilitas prediksi dan label. Pakai `CrossEntropyLoss` di PyTorch (otomatis gabung softmax + log-likelihood).
-- **Focal loss** (Lin et al., 2017) - memodifikasi cross-entropy dengan faktor `(1-p_t)^γ` yang menurunkan bobot sampel mudah (di mana model sudah benar dan yakin) dan menaikkan bobot sampel sulit. Berguna pada kelas sangat tidak seimbang.
+- **Focal loss** (Lin et al., 2017) adalah modifikasi cross-entropy dengan faktor `(1-p_t)^γ` yang menurunkan bobot sampel mudah (saat model sudah benar dan yakin) dan menaikkan bobot sampel sulit. Loss ini berguna pada kelas yang sangat tidak seimbang.
   - **Contoh numerik.** Untuk kelas minor dengan prediksi `p_t = 0.2` (model salah-yakin) dan `γ = 2`: faktor `(1 - 0.2)² = 0.64`. Untuk kelas mayor dengan `p_t = 0.95` (model benar-yakin): faktor `(1 - 0.95)² = 0.0025`. Loss kelas minor diberi bobot 256× lebih besar dari kelas mayor di iterasi yang sama.
-- **Label smoothing** - mengganti label one-hot `[0, 1, 0]` dengan distribusi sedikit kabur `[0.033, 0.933, 0.033]` (smoothing 0.1, 3 kelas). Mencegah model terlalu percaya diri (overconfident); sering memperbaiki kalibrasi probabilitas.
+- **Label smoothing** adalah teknik yang mengganti label one-hot `[0, 1, 0]` dengan distribusi yang dilembutkan `[0.033, 0.933, 0.033]` (smoothing 0.1, 3 kelas). Teknik ini mencegah model terlalu percaya diri (overconfident) dan sering memperbaiki kalibrasi probabilitas.
 
 **Untuk regresi:**
 
-- **MSE** menerapkan hukuman kuadratik pada residu. Loss ini sensitif terhadap outlier (residu meleset 5 menyumbang loss 25×), cocok ketika residu kecil sudah bermasalah.
-- **MAE** mengukur residu secara linear. Loss ini lebih robust ke outlier tetapi tidak punya "tarikan" kuat di sekitar nol; konvergensi sering lebih lambat.
-- **Huber loss** - menggabungkan keduanya: kuadratik untuk `|residu| < δ`, linear untuk residu lebih besar. Default δ = 1.0 di PyTorch.
+- **MSE** menerapkan penalti kuadratik pada residu. Loss ini sensitif terhadap outlier (residu meleset 5 menyumbang loss 25×), cocok saat residu kecil sudah bermasalah.
+- **MAE** mengukur residu secara linear. Loss ini lebih robust terhadap outlier, tetapi gradientnya konstan di sekitar nol sehingga konvergensi sering lebih lambat.
+- **Huber loss** menggabungkan keduanya: kuadratik untuk `|residu| < δ` dan linear untuk residu yang lebih besar. Default δ = 1.0 di PyTorch.
 
 Pertanyaan yang selalu relevan sebelum mengganti loss: *apa jenis kesalahan dengan konsekuensi terbesar di aplikasi Anda?* Jika konsekuensi false negative pada kelas minor lebih besar, focal loss atau pembobotan kelas langsung membantu. Mengganti loss tanpa alasan jelas menambah satu variabel yang harus dijelaskan di laporan.
 
@@ -123,7 +123,7 @@ Optimizer mengubah gradient menjadi langkah pembaruan pada parameter.
 > [!NOTE]
 > **`weight_decay` di AdamW bukan L2 regularisasi.** Pada SGD, menambahkan L2 regularisasi (`λ ||w||²` ke loss) ekuivalen dengan mengurangkan `λw` dari setiap parameter. Pada Adam, hal ini **tidak berlaku**: Adam membagi gradient dengan estimasi variansi, sehingga penalti L2 yang ditambahkan ke loss mendapat efek yang tidak proporsional antar parameter. AdamW memperbaiki ini dengan menerapkan weight decay *langsung* ke parameter (bukan lewat gradient). Akibat praktisnya: `weight_decay=0.01` di AdamW memberi efek regularisasi yang lebih konsisten daripada nilai yang sama di Adam biasa.
 
-Dipasangkan dengan optimizer adalah *scheduler*: mekanisme menurunkan (atau menaikkan lalu menurunkan) learning rate selama training. `OneCycleLR`, `CosineAnnealingLR`, dan `ReduceLROnPlateau` adalah tiga pola yang paling sering Anda jumpai.
+Optimizer dipasangkan dengan *scheduler*, yaitu mekanisme yang menurunkan (atau menaikkan lalu menurunkan) learning rate selama training. `OneCycleLR`, `CosineAnnealingLR`, dan `ReduceLROnPlateau` adalah tiga pola yang paling sering Anda jumpai.
 
 > [!TIP]
 > **Aturan praktis Adam vs AdamW.** Pakai **AdamW** sebagai default untuk training dari nol modern (CNN, Transformer). Hindari "Adam + L2 manual ditambahkan ke loss" - itu yang membuat regularisasi tidak konsisten antar parameter. Range yang masuk akal: `lr=3e-4` (Karpathy constant), `weight_decay=1e-4` sampai `1e-2`. Untuk fine-tuning pretrained model, pakai `lr` 10× lebih kecil dari training-dari-nol.
@@ -153,11 +153,11 @@ Di samping metrik, Anda juga perlu strategi validasi:
 
 Salah satu keputusan yang paling sering menentukan performa model bukan pilihan arsitektur, melainkan pilihan representasi. Keputusan ini diambil jauh sebelum training dimulai. Pada modalitas dan tugas yang sama, perbedaan representasi kerap menghasilkan selisih performa lebih besar daripada pergantian arsitektur.
 
-**Engineered** adalah representasi yang dirancang manusia dengan pengetahuan domain - statistik agregat, transformasi matematis, atau fitur klasik. Di gambar: histogram warna, HOG, SIFT. Di sinyal CGM: mean, koefisien variasi, *time-in-range*. Representasi *engineered* memiliki biaya komputasi rendah, mudah diinterpretasi, dan sering menjadi baseline yang sangat kuat ketika data latih terbatas.
+**Engineered** adalah representasi yang dirancang manusia dengan pengetahuan domain, berupa statistik agregat, transformasi matematis, atau fitur klasik. Pada gambar, contohnya adalah histogram warna, HOG, dan SIFT; pada sinyal CGM, contohnya adalah mean, koefisien variasi, dan *time-in-range*. Representasi *engineered* memiliki biaya komputasi rendah, mudah diinterpretasi, dan sering menjadi baseline yang sangat kuat ketika data latih terbatas.
 
-**Extracted** adalah representasi yang diambil dari *hidden layer* model *pretrained* yang di-freeze. Di visi: *hidden states* dari CNN atau ViT pretrained pada ImageNet. Di teks: token `[CLS]` atau mean pooling dari BERT. Kompromi yang menarik: Anda mendapat representasi dari model besar tanpa biaya training penuh, dengan syarat domain target tidak terlalu jauh dari domain pretraining.
+**Extracted** adalah representasi yang diambil dari *hidden layer* sebuah model *pretrained* yang di-freeze. Pada visi, contohnya adalah *hidden states* dari CNN atau ViT yang di-pretrain pada ImageNet; pada teks, contohnya adalah token `[CLS]` atau mean pooling dari BERT. Strategi ini menawarkan kompromi yang menarik: kita mendapat representasi dari model besar tanpa biaya training penuh, dengan syarat domain target tidak terlalu jauh dari domain pretraining.
 
-**Learned** adalah strategi di mana representasi dipelajari langsung dari data melalui training *end-to-end* atau *self-supervised*. Fine-tuning BERT, melatih 1D CNN dari nol pada sinyal ECG, atau fine-tune ResNet pada dataset medis semuanya termasuk kategori ini. Strategi ini biasanya paling kuat ketika data latih memadai, tetapi paling membutuhkan banyak data dan memiliki biaya training paling tinggi.
+**Learned** adalah strategi yang mempelajari representasi langsung dari data melalui training *end-to-end* atau *self-supervised*. Fine-tuning BERT, melatih 1D CNN dari nol pada sinyal ECG, atau fine-tune ResNet pada dataset medis semuanya termasuk kategori ini. Strategi ini biasanya paling kuat ketika data latih memadai, tetapi paling membutuhkan banyak data dan memiliki biaya training paling tinggi.
 
 
 | Domain | Engineered | Extracted | Learned |
@@ -232,7 +232,7 @@ Setelah training SimpleCNN dari [W2](02_W2_Images_CNN_Smoke_Test.md), ada tiga p
 
 1. **Overfitting?** Bandingkan train accuracy dengan val accuracy. Selisih > 10% biasanya sinyal overfitting.
 2. **Akurasi per kelas** perlu diperiksa secara terpisah. Pada CIFAR-10, kelas `cat` vs `dog` biasanya lebih sulit. Confusion matrix menunjukkan pola kesalahan.
-3. **Sampel yang salah.** Visualisasikan 10 gambar paling *confident* salah. Sering kali ada pola yang bisa dijelaskan.
+3. **Sampel yang salah** perlu divisualisasikan: ambil 10 gambar yang paling *confident* tetapi salah prediksi. Sering kali ada pola kesalahan yang bisa dijelaskan.
 
 ---
 
