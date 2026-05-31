@@ -31,12 +31,14 @@ import { slides00 } from "./slides-00";
 import { slides00a } from "./slides-00a";
 import { slides01 } from "./slides-01";
 import { slides02 } from "./slides-02";
+import { slides03 } from "./slides-03";
 
 export const SLIDE_DECKS: Record<string, SlideDeckData> = {
   "00": { chapterId: "00", slides: slides00 },
   "00a": { chapterId: "00a", slides: slides00a },
   "01": { chapterId: "01", slides: slides01 },
   "02": { chapterId: "02", slides: slides02 },
+  "03": { chapterId: "03", slides: slides03 },
 };
 
 export function getSlideDeck(chapterId: string): SlideDeckData | undefined {
