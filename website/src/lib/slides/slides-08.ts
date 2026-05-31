@@ -5,8 +5,8 @@ export const slides08: SlideSection[] = [
   {
     layout: "title",
     title: "W8: Foundation Models",
-    subtitle: "Memilih model pretrained yang tepat, membaca model card dengan kritis, dan menentukan strategi adaptasi antara frozen, LoRA, dan full fine-tuning.",
-    body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
+    subtitle: "Belajar memilih model pretrained yang sesuai, membaca batasan di model card, dan menentukan strategi adaptasi antara frozen, LoRA, dan full fine-tuning.",
+    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 08 - Minggu 8",
   },
 
@@ -191,7 +191,7 @@ export const slides08: SlideSection[] = [
       },
       {
         title: "Time Series",
-        body: "Chronos dan TimesFM untuk forecasting skala besar. Klaim zero-shot SOTA-nya masih area riset aktif, jadi pakai sebagai eksplorasi tambahan setelah baseline LSTM jalan.",
+        body: "Chronos dan TimesFM dipakai untuk forecasting skala besar. Klaim zero-shot SOTA-nya masih area riset aktif, jadi gunakan untuk eksplorasi tambahan setelah baseline LSTM jalan.",
       },
       {
         title: "Domain-Specific",
@@ -265,7 +265,7 @@ export const slides08: SlideSection[] = [
   {
     layout: "section",
     title: "Teacher Model dalam Training-Time Supervision",
-    body: "Foundation model tidak selalu dipakai untuk inference. Sebuah pola penting menempatkan foundation model sebagai teacher yang hanya hadir saat training, lalu absen dari model final.",
+    body: "Foundation model tidak selalu dipakai untuk inference. Salah satu pola penting memakai foundation model sebagai teacher saat training, lalu menghapusnya dari model final.",
     footnote: "Pola ini memberi manfaat foundation model tanpa menanggung biaya inference-nya.",
   },
 
@@ -275,7 +275,7 @@ export const slides08: SlideSection[] = [
     title: "Tiga Pola Teacher yang Hanya Hadir saat Training",
     body: "Foundation model bisa meningkatkan pelatihan tanpa ikut di-deploy lewat tiga pola berikut:",
     bullets: [
-      "**Knowledge distillation** memakai model besar sebagai teacher yang melatih model kecil dengan soft targets, bukan label keras.",
+      "**Knowledge distillation** memakai model besar untuk melatih model kecil dengan soft targets, bukan label keras.",
       "**Auxiliary supervision** memakai embedding dari CLIP sebagai target latih untuk network visual yang lebih kecil.",
       "**Pseudo-label generation** memanfaatkan foundation model untuk membuat pseudo-label pada data yang tidak berlabel.",
     ],
@@ -335,7 +335,7 @@ export const slides08: SlideSection[] = [
     bullets: [
       "**\"Foundation model selalu lebih baik\"** keliru pada dataset kecil dengan distribusi jauh dari pretraining, karena model kecil khusus kadang menang.",
       "**\"LoRA rank besar lebih baik\"** tidak benar karena hubungannya tidak linier - r=4 atau r=8 sering sudah cukup untuk dataset rata-rata.",
-      "**\"Model card selalu jujur dan lengkap\"** perlu diragukan, karena bagian Limitations sering kurang detail dibanding Performance.",
+      "**\"Model card selalu lengkap\"** perlu diragukan, karena bagian Limitations sering kurang detail dibanding Performance.",
     ],
     footnote: "Frozen features pada domain shift besar juga bisa kalah dari fine-tuned model kecil yang lebih relevan.",
   },

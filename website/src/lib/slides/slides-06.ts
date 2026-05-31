@@ -6,7 +6,7 @@ export const slides06: SlideSection[] = [
     layout: "title",
     title: "W6: Representations & Temporal Leakage",
     subtitle: "Memeriksa data sebelum mempercayai angka, mengenali lima jenis leakage, dan menjaga pipeline tetap valid secara temporal.",
-    body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
+    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 06 - Minggu 6",
   },
 
@@ -143,8 +143,8 @@ X_train, X_test = train_test_split(df, test_size=0.2,
   // ── 13: Section EDA ──
   {
     layout: "section",
-    title: "EDA sebagai Investigasi, Bukan Daftar",
-    body: "Exploratory Data Analysis sering diajarkan sebagai daftar langkah, padahal praktik yang benar dipandu oleh pertanyaan. Setiap angka atau plot yang Anda lihat harus memicu pertanyaan baru, bukan tanda centang.",
+    title: "EDA untuk Investigasi, Bukan Daftar",
+    body: "Exploratory Data Analysis sering diajarkan seperti daftar langkah, padahal praktik yang benar dipandu oleh pertanyaan. Setiap angka atau plot yang Anda lihat harus memicu pertanyaan baru, bukan tanda centang.",
     footnote: "Kerangka yang produktif menyusun pertanyaan dalam tiga lapis berurutan.",
   },
 
@@ -270,7 +270,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
   // ── 23: Section Etika ──
   {
     layout: "section",
-    title: "Negative Results sebagai Kewajiban",
+    title: "Negative Results Wajib Dicatat",
     body: "Data yang valid secara teknis belum tentu adil secara etis, dan ada satu kewajiban yang langsung terkait reproducibility: melaporkan hasil negatif. Krisis reproduksibilitas di ML sebagian dipicu oleh publication bias.",
     footnote: "Hasil positif dipublikasikan, hasil negatif tidak, sehingga banyak tim membuang waktu di arah yang sama.",
   },
@@ -342,7 +342,7 @@ print('Train-test overlap:', len(train_h & test_h))`,
   {
     layout: "section",
     title: "Pitfalls & Miskonsepsi",
-    body: "Beberapa keyakinan yang nyaman justru menunda pemeriksaan data yang penting. Mengenalinya lebih awal mencegah eksperimen turunan yang bergantung pada metrik palsu.",
+    body: "Beberapa keyakinan yang terasa aman justru menunda pemeriksaan data yang penting. Mengenalinya lebih awal mencegah eksperimen turunan yang bergantung pada metrik palsu.",
     footnote: "Sebagian besar berakar pada anggapan bahwa data sudah bersih dan tidak perlu diperiksa ulang.",
   },
 

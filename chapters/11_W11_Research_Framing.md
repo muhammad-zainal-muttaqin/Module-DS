@@ -76,7 +76,7 @@ Kerja minggu ini langsung menjadi input W12. Anda tiba di W12 dengan menu 3-5 fr
 
 ## 1. Paruh Depan Riset
 
-W1-W10 mengajarkan **paruh belakang** riset: diberi masalah yang sudah didefinisikan, dataset yang sudah ditentukan, dan tugas yang sudah dirumuskan - bagaimana membangun model, melatihnya dengan benar, mengevaluasinya secara jujur, dan melaporkan hasilnya dengan reproduksibilitas? Ini keterampilan yang sesungguhnya diperlukan dan wajib ada. Tanpa ini, Anda tidak bisa melakukan riset sama sekali.
+W1-W10 mengajarkan **paruh belakang** riset: diberi masalah yang sudah didefinisikan, dataset yang sudah ditentukan, dan tugas yang sudah dirumuskan - bagaimana membangun model, melatihnya dengan benar, mengevaluasinya tanpa menutupi kelemahan model, dan melaporkan hasilnya dengan reproduksibilitas? Ini keterampilan yang sesungguhnya diperlukan dan wajib ada. Tanpa ini, Anda tidak bisa melakukan riset sama sekali.
 
 Tapi ini bukan satu-satunya bagian dari riset. Ini adalah separuh eksekusi.
 
@@ -90,7 +90,7 @@ Di minggu ini, paruh depan dieksplisitkan. Kerangka dekomposisi, menu framing, d
 
 ## 2. Konteks Lab Kita
 
-Penting untuk jujur tentang kondisi yang kita hadapi, karena metodologi minggu ini dirancang spesifik untuk konteks semacam ini.
+Penting untuk realistis tentang kondisi yang kita hadapi, karena metodologi minggu ini dirancang spesifik untuk konteks semacam ini.
 
 Kita adalah lab kecil di universitas di Kalimantan. Pendanaan terbatas. Tim riset kecil. Akses ke kluster GPU besar, dataset berlabel besar, dan kolaborator domain yang dalam - semuanya terbatas. Kita bukan lab dengan lima puluh orang di institusi papan atas dengan kluster GPU khusus dan tim postdoc.
 
@@ -414,7 +414,7 @@ Tidak semua gap sama menariknya.
 
 Kalau Anda tidak bisa mengisi keempat slot dengan jelas, Anda belum punya klaim kebaruan yang valid.
 
-#### Kontrol: bagaimana Anda akan membuktikan gap-nya terisi?
+#### Kontrol: bagaimana cara membuktikan gap-nya terisi?
 
 Pipeline yang berfungsi membuktikan bahwa sebuah metode berhasil. Tidak membuktikan *mengapa* ia berhasil. Kontrol membuat "mengapa" itu terlihat.
 
@@ -447,11 +447,11 @@ Minggu ini punya dua fase yang tidak boleh dicampurkan:
 
 ## 5. Tentang Keahlian dan Pemeriksaan Literatur
 
-Anda akan menyadari, seiring bertambahnya pengalaman dalam beberapa tahun ke depan, bahwa peneliti senior bergerak melalui proses dekomposisi lebih cepat dari Anda sekarang. Peneliti berpengalaman melihat dataset dan dengan cepat menghasilkan beberapa framing yang menjanjikan. Mereka juga dengan cepat menolak yang lain sebagai jelas jenuh atau jelas sepele, tanpa memeriksa literatur untuk masing-masing. Pemeriksaan literatur, bagi mereka, lebih cepat dan lebih terarah karena bacaan sebelumnya sudah membangun peta tentang apa yang sudah diketahui.
+Seiring bertambahnya pengalaman dalam beberapa tahun ke depan, proses dekomposisi akan terasa lebih cepat. Peneliti berpengalaman melihat dataset dan dengan cepat menghasilkan beberapa framing yang menjanjikan. Mereka juga cepat menolak framing lain yang jelas jenuh atau jelas sepele, tanpa memeriksa literatur untuk masing-masing. Pemeriksaan literatur, bagi mereka, lebih cepat dan lebih terarah karena bacaan sebelumnya sudah membangun peta tentang apa yang sudah diketahui.
 
 Anda belum punya peta itu. Itu bukan kritikan. Itu hanya posisi Anda pada tahap karier ini, dan itu adalah titik awal yang normal.
 
-Pemeriksaan literatur paling penting justru karena Anda masih awal dalam karier riset. Saat membaca literatur tentang framing kandidat Anda, Anda akan terkadang melihat bahwa apa yang tampak sebagai ide baru ternyata sudah menjadi masalah yang dipelajari dengan baik - dengan dua puluh paper terbaru. Anda juga akan terkadang menemukan bahwa framing yang Anda ragukan ternyata punya gap yang sesungguhnya ada dan belum ditangani. Kedua penemuan ini tidak akan terjadi tanpa pemeriksaan.
+Pemeriksaan literatur paling penting justru karena Anda masih awal dalam karier riset. Saat membaca literatur tentang framing kandidat, kadang Anda melihat bahwa apa yang tampak seperti ide baru ternyata sudah menjadi masalah yang dipelajari dengan baik - dengan dua puluh paper terbaru. Kadang Anda juga menemukan bahwa framing yang semula diragukan ternyata punya gap yang benar-benar ada dan belum ditangani. Kedua penemuan ini tidak akan terjadi tanpa pemeriksaan.
 
 Kepekaan itu berkembang melalui latihan: membaca banyak paper, menjalankan banyak eksperimen, melihat framing mana yang menghasilkan sesuatu dan mana yang tidak, membangun pengetahuan domain dari waktu ke waktu. Mereka yang melakukan pemeriksaan literatur dengan sungguh-sungguh pada setiap framing - bukan hanya pada yang sudah diputuskan untuk dikejar - merekalah yang mengembangkan kepekaan itu lebih cepat. Melewati pemeriksaan tidak mempercepat perkembangan Anda; justru memperlambatnya.
 
@@ -705,7 +705,7 @@ Dataset di bawah ini untuk tugas di rumah, atau untuk putaran latihan kedua sete
 - Dataset mendukung tiga granularitas klasifikasi (19 / 73 / 893 kelas). Ini bukan sekadar tiga versi masalah yang sama. Mereka mewakili pertanyaan riset yang berbeda tentang aspek pengenalan makanan yang berbeda. Apa kasus penggunaan hilir yang realistis untuk setiap granularitas? Apakah kasus penggunaan menentukan entitasnya?
 - Taksonomi punya 6 tingkat nutrisi yang mengodekan informasi relevansi kesehatan (mis. "makan setiap hari" vs. "makan jarang"). Tingkat nutrisi ini bukan label klasifikasi dalam benchmark asli, tapi ada dalam data. Framing Output baru apa yang dimungkinkan ini? Apa entitas, bentuk output, dan Middle-nya?
 - Dataset dibuat dengan menyusun ulang 7 dataset yang sudah ada di bawah taksonomi bersama. Apa artinya ini untuk distribusi data? Apakah semua 893 kelas terwakili secara setara? Sudut riset apa yang diciptakan oleh komposisi ulang itu sendiri (petunjuk: domain shift antar dataset sumber)?
-- Seorang mahasiswa ingin memprediksi apakah makanan "sehat" (biner). Ini terdengar sederhana. Apakah lulus cek temporal/kausal? Apa masalah definitional dengan Output ini? Bagaimana Anda akan merumuskannya lebih tepat?
+- Seorang mahasiswa ingin memprediksi apakah makanan "sehat" (biner). Ini terdengar sederhana. Apakah lulus cek temporal/kausal? Apa masalah definitional dengan Output ini? Bagaimana rumusan yang lebih tepat?
 - Gambar dalam dataset adalah gambar produk makanan (item yang terisolasi), bukan makanan yang tersaji atau hidangan. Pelacak diet yang sebenarnya perlu menangani foto sepiring makanan campuran. Apa yang diciptakan oleh gap antara dataset dan penggunaan dunia nyata ini sebagai sudut riset?
 
 ---
@@ -855,7 +855,7 @@ Jika sebagian terjawab: ubah arah ke:
 
 2. **Kejenuhan vs. gap yang terverifikasi.** Pilih satu dari enam dataset di §8. Tanpa mencari literatur dulu, hasilkan tiga framing. Kemudian jalankan filter literatur cepat. Apakah ada yang jenuh? Apakah ada yang mengarah ke gap yang tampaknya ada?
 
-3. **Mengapa cek temporal itu penting.** Cari contoh paper yang kemungkinan punya masalah cek temporal. Apa yang salah dengan framing-nya? Bagaimana Anda akan memperbaikinya?
+3. **Mengapa cek temporal itu penting.** Cari contoh paper yang kemungkinan punya masalah cek temporal. Apa yang salah dengan framing-nya? Bagaimana cara memperbaikinya?
 
 ---
 

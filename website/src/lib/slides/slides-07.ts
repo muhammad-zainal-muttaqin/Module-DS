@@ -6,7 +6,7 @@ export const slides07: SlideSection[] = [
     layout: "title",
     title: "W7: Text, Transformers & Repo Adoption",
     subtitle: "Memahami cara kerja attention, memilih antara freeze dan fine-tune, serta membaca dan memodifikasi repo riset yang belum dikenal.",
-    body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
+    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 07 - Minggu 7",
   },
 
@@ -14,7 +14,7 @@ export const slides07: SlideSection[] = [
   {
     layout: "section",
     title: "Peta W7",
-    body: "W7 menggabungkan tiga tema yang saling memperkuat: teks dengan pretrained Transformer, alat AI sebagai pendukung dengan protokol verifikasi, dan pengantar adopsi repo riset yang belum dikenal.",
+    body: "W7 menggabungkan tiga tema yang saling memperkuat: teks dengan pretrained Transformer, alat AI untuk membantu riset dengan protokol verifikasi, dan pengantar adopsi repo riset yang belum dikenal.",
     footnote: "Ketiganya bertemu saat mengadopsi repo HuggingFace dengan bantuan alat AI dan membuat repo_map.md.",
   },
 
@@ -29,7 +29,7 @@ export const slides07: SlideSection[] = [
         body: "Tema ini membahas perjalanan dari TF-IDF ke contextual embeddings, cara kerja attention lewat Query-Key-Value, serta pilihan antara freeze dan fine-tune.",
       },
       {
-        title: "Alat AI sebagai Pendukung",
+        title: "Alat AI untuk Membantu Riset",
         body: "Tema ini mewajibkan protokol verifikasi kode AI dan sintesis dua sumber sebelum eksekusi, sehingga AI mempercepat kerja tanpa menghilangkan pemahaman.",
       },
       {
@@ -169,7 +169,7 @@ print(tok.convert_ids_to_tokens(ids))
       "**Pembagian dengan akar d_k** mencegah dot product membesar dan mendorong softmax ke titik jenuh yang mematikan gradient - bentuk baru dari vanishing gradient.",
       "**Softmax lalu kali V** mengubah tiap baris menjadi distribusi probabilitas, lalu menghasilkan rata-rata berbobot dari semua vektor Value.",
     ],
-    footnote: "Pembagian dengan akar d_k bersifat wajib, bukan opsional, agar gradient tetap mengalir saat dimensi besar.",
+    footnote: "Pembagian dengan akar d_k bersifat wajib, bukan opsional, agar gradient tetap stabil saat dimensi besar.",
   },
 
   // ── 15: Code attention ──
@@ -262,7 +262,7 @@ Output (T, d_model)`,
     body: "Setelah backbone menghasilkan embedding per token, satu vektor ringkasan perlu dipilih untuk classification head. Dua cara umum bekerja berbeda:",
     left: {
       title: "[CLS] Pooling",
-      body: "Memakai token [CLS] di awal sebagai representasi seluruh sequence.\n\nSelama pretraining, model belajar menaruh ringkasan global di posisi ini, sehingga [CLS] menjadi pilihan natural untuk classification.",
+      body: "Memakai token [CLS] di awal untuk mewakili seluruh sequence.\n\nSelama pretraining, model belajar menaruh ringkasan global di posisi ini, sehingga [CLS] menjadi pilihan natural untuk classification.",
     },
     right: {
       title: "Mean Pooling",
@@ -274,7 +274,7 @@ Output (T, d_model)`,
   // ── 22: Section AI ──
   {
     layout: "section",
-    title: "Alat AI sebagai Pendukung",
+    title: "Alat AI untuk Membantu Riset",
     body: "Modul ini tidak melarang AI coding tools, tetapi mewajibkan protokol verifikasi dan sintesis sebelum eksekusi. Tujuannya adalah mempercepat kerja tanpa kehilangan pemahaman atas kode sendiri.",
     footnote: "Kode yang tidak bisa Anda jelaskan bukan kode yang layak dikumpulkan dengan nama Anda.",
   },
@@ -310,7 +310,7 @@ Output (T, d_model)`,
     layout: "image",
     title: "Alur Kerja LLM dalam Riset",
     imageUrl: "/figures/fig05a_llm_workflow.svg",
-    caption: "Gambar ini menunjukkan alur kerja memakai LLM dalam riset ML: sintesis dari beberapa sumber, verifikasi terhadap kode dan data, lalu dokumentasi keputusan beserta alasannya. Alur ini menempatkan LLM sebagai pendukung di dalam siklus yang tetap dikendalikan oleh peneliti.",
+    caption: "Gambar ini menunjukkan alur kerja memakai LLM dalam riset ML: sintesis dari beberapa sumber, verifikasi terhadap kode dan data, lalu dokumentasi keputusan beserta alasannya. Dalam alur ini, peneliti tetap mengendalikan keputusan; LLM membantu bagian pencarian, peringkasan, dan pengecekan awal.",
     footnote: "Alat AI juga berguna di luar kode, untuk membaca paper, mendiskusikan hipotesis, dan menavigasi repo.",
   },
 

@@ -5,8 +5,8 @@ export const slides09: SlideSection[] = [
   {
     layout: "title",
     title: "W9: Multimodal Reasoning",
-    subtitle: "Menggabungkan beberapa modalitas, membuktikan model benar-benar memakai semuanya, dan menangani modalitas yang hilang.",
-    body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
+    subtitle: "Belajar menggabungkan beberapa modalitas, memeriksa apakah model memakai semuanya, dan menangani modalitas yang hilang.",
+    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 09 - Minggu 9",
   },
 
@@ -110,7 +110,7 @@ out = w @ V                  # (B, T_text, d)`,
   {
     layout: "section",
     title: "Failure Mode: Modalitas Terabaikan",
-    body: "Saat training multimodal, optimizer menemukan jalur gradient yang paling mudah. Jika satu modalitas lebih informatif atau lebih bersih, model belajar mengabaikan modalitas lain sambil loss tetap turun.",
+    body: "Saat training multimodal, optimizer mengikuti jalur yang paling mudah. Jika satu modalitas lebih bersih atau lebih mudah dipakai, model bisa mengabaikan modalitas lain sambil loss tetap turun.",
     footnote: "Performa tampak bagus, tetapi model sebenarnya single-modal tanpa Anda sadari.",
   },
 
@@ -164,7 +164,7 @@ out = w @ V                  # (B, T_text, d)`,
       },
       {
         title: "Fallback Single-Modal",
-        body: "Strategi ini mendesain model sebagai ensemble: pakai semua modalitas jika tersedia, lalu jatuh ke model unimodal saat satu modalitas hilang. Sederhana dan andal untuk produksi.",
+      body: "Strategi ini mendesain model dalam bentuk ensemble: pakai semua modalitas jika tersedia, lalu jatuh ke model unimodal saat satu modalitas hilang. Sederhana dan andal untuk produksi.",
       },
     ],
     footnote: "Learnable null token belajar merepresentasikan distribusi \"tidak ada\", bukan noise nol.",
@@ -195,9 +195,9 @@ out = w @ V                  # (B, T_text, d)`,
     bullets: [
       "**Resampling atau interpolasi** menurunkan semua stream ke resolusi temporal terendah - mudah tetapi kehilangan detail.",
       "**Event-to-window mapping** memetakan tiap event ke window dari stream kontinu terdekat, cocok untuk data berbasis event.",
-      "**Temporal position encoding** menyuntikkan waktu absolut sebagai fitur eksplisit dan membiarkan model belajar alignment sendiri.",
+      "**Temporal position encoding** menyuntikkan waktu absolut dalam fitur eksplisit dan membiarkan model belajar alignment sendiri.",
     ],
-    footnote: "Jika drift sudah terlanjur, sertakan koreksinya sebagai preprocessing terdokumentasi, bukan perbaikan diam-diam.",
+    footnote: "Jika drift sudah terlanjur, sertakan koreksinya dalam preprocessing yang terdokumentasi, bukan perbaikan diam-diam.",
   },
 
   // ── 18: Bullets worked drift ──
@@ -240,7 +240,7 @@ out = w @ V                  # (B, T_text, d)`,
       "**Pasangan modalitas** menjawab apakah modalitas ketiga benar-benar berkontribusi di atas dua modalitas lainnya.",
       "**Random image** mengganti satu modalitas dengan noise untuk memastikan model tidak diam-diam mengabaikannya.",
     ],
-    footnote: "Untuk capstone, lima kondisi minimum sudah informatif asalkan random image tetap disertakan.",
+    footnote: "Untuk capstone, lima kondisi minimum sudah cukup untuk membaca pola kontribusi asalkan random image tetap disertakan.",
   },
 
   // ── 22: Section Worked Example ──

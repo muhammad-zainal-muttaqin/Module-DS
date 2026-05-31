@@ -6,7 +6,7 @@ export const slides04: SlideSection[] = [
     layout: "title",
     title: "W4: Reproducibility & Matriks Eksperimen",
     subtitle: "Belajar merancang eksperimen sebelum menulis kode, mengontrol variabel, dan menyimpan jejak hasil agar bisa dicek ulang.",
-    body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
+    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 04 - Minggu 4",
   },
 
@@ -182,7 +182,7 @@ export const slides04: SlideSection[] = [
     title: "Desain Ablation: Satu Variabel Berubah per Kondisi",
     imageUrl: "/figures/fig02a_ablation_design.svg",
     caption: "Gambar ini menunjukkan desain ablation study dengan satu baseline dan tiga varian, di mana tiap varian hanya mengubah satu variabel dari baseline. Susunan seperti ini membuat setiap selisih performa bisa diatribusikan ke satu perubahan yang jelas, bukan ke campuran beberapa perubahan sekaligus.",
-    footnote: "Seed divariasikan sebagai replikasi untuk mengukur noise, bukan sebagai variabel eksperimen.",
+    footnote: "Seed divariasikan untuk replikasi agar noise terukur, bukan sebagai variabel eksperimen.",
   },
 
   // ── 17: Bullets baca tabel ──
@@ -193,7 +193,7 @@ export const slides04: SlideSection[] = [
     bullets: [
       "**Kolom yang seragam** seperti learning rate yang sama di semua run menandakan variabel itu sedang dikontrol, bukan diuji.",
       "**Kolom yang berubah** seperti loss dan freeze menandakan variabel yang sedang diuji - inilah yang menjadi fokus eksperimen.",
-      "**Kolom seed** divariasikan sebagai replikasi sehingga tiga run dengan seed berbeda mengukur seberapa besar hasil bergeser tanpa perubahan apapun.",
+      "**Kolom seed** divariasikan untuk replikasi sehingga tiga run dengan seed berbeda mengukur seberapa besar hasil bergeser tanpa perubahan apapun.",
     ],
     footnote: "Membaca vertikal mengubah tabel angka menjadi pernyataan tentang apa yang sedang dan tidak sedang diuji.",
   },

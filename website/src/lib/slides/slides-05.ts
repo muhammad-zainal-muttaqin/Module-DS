@@ -6,7 +6,7 @@ export const slides05: SlideSection[] = [
     layout: "title",
     title: "W5: Sequences - RNN & LSTM",
     subtitle: "Belajar melihat gejala vanishing gradient, memahami cara kerja gate LSTM, dan menentukan arsitektur recurrent sesuai panjang dependensi.",
-    body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
+    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 05 - Minggu 5",
   },
 
@@ -139,7 +139,7 @@ export const slides05: SlideSection[] = [
     layout: "section",
     title: "RNN Vanilla: Arsitektur Recurrent Dasar",
     body: "RNN vanilla memproses sequence satu langkah waktu demi satu. Di setiap timestep, ia menggabungkan input baru dengan hidden state sebelumnya lewat h_t = tanh(W_x x_t + W_h h_{t-1} + b).",
-    footnote: "Hidden state h_t berperan sebagai memori yang diperbarui setiap langkah.",
+    footnote: "Hidden state h_t menyimpan ringkasan yang diperbarui setiap langkah.",
   },
 
   // ── 14: Image fig05a ──
@@ -167,7 +167,7 @@ export const slides05: SlideSection[] = [
   // ── 16: Section LSTM ──
   {
     layout: "section",
-    title: "LSTM: Gate sebagai Solusi",
+    title: "LSTM: Gate Mengatur Informasi",
     body: "LSTM memperkenalkan cell state c_t yang terpisah dari hidden state, beserta tiga gate yang menentukan informasi mana yang dipertahankan atau ditulis. Sebuah gate adalah vektor bernilai 0 sampai 1 yang dikalikan element-wise sebagai masker numerik.",
     footnote: "Gate dihasilkan oleh sigmoid, sehingga setiap komponen vektor bisa disaring secara mandiri.",
   },
@@ -229,11 +229,11 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     body: "Dua memori di LSTM sering membingungkan pemula. Keduanya berbentuk (d_h,) per timestep tetapi punya peran yang berbeda:",
     left: {
       title: "Cell state c_t",
-      body: "Berperan sebagai memori jangka panjang berbasis update aditif.\n\nDiperbarui lewat dua gate (forget dan input) dengan jalur additive, sehingga gradientnya lebih stabil.\n\nSifatnya internal dan tidak diekspos langsung ke layer berikutnya.",
+      body: "Menyimpan ringkasan jangka panjang berbasis update aditif.\n\nDiperbarui lewat dua gate (forget dan input) dengan jalur additive, sehingga gradientnya lebih stabil.\n\nSifatnya internal dan tidak diekspos langsung ke layer berikutnya.",
     },
     right: {
       title: "Hidden state h_t",
-      body: "Berperan sebagai output sekaligus input ke timestep berikut.\n\nDiperbarui lewat satu gate (output) dari tanh(c_t), sehingga lebih dipengaruhi perkalian matriks.\n\nDiekspos sebagai input ke Linear head atau LSTM layer berikutnya.",
+      body: "Menjadi output sekaligus input ke timestep berikut.\n\nDiperbarui lewat satu gate (output) dari tanh(c_t), sehingga lebih dipengaruhi perkalian matriks.\n\nDiekspos sebagai input ke Linear head atau LSTM layer berikutnya.",
     },
     footnote: "Di PyTorch, nn.LSTM mengembalikan out, (h_n, c_n): out adalah h_t seluruh timestep, h_n dan c_n adalah keadaan terakhir.",
   },

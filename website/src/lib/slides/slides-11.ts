@@ -6,7 +6,7 @@ export const slides11: SlideSection[] = [
     layout: "title",
     title: "W11: Research Framing",
     subtitle: "Merumuskan pertanyaan riset sendiri lewat kerangka Input, Middle, Output, lalu memfilternya dengan literatur sebelum eksekusi capstone.",
-    body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
+    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 11 - Minggu 11",
   },
 
@@ -46,7 +46,7 @@ export const slides11: SlideSection[] = [
     body: "Kedua paruh sama-sama wajib, tetapi melatih keterampilan yang berbeda. Bootcamp menutup yang pertama; capstone menuntut yang kedua:",
     left: {
       title: "Paruh Belakang (W1-W10)",
-      body: "Masalah, dataset, dan tugas sudah didefinisikan.\n\nPertanyaannya adalah bagaimana membangun model, melatihnya dengan benar, dan mengevaluasinya secara jujur.\n\nTanpa ini, riset tidak bisa dilakukan sama sekali.",
+      body: "Masalah, dataset, dan tugas sudah didefinisikan.\n\nPertanyaannya adalah bagaimana membangun model, melatihnya dengan benar, dan mengevaluasinya tanpa menutupi kelemahan model.\n\nTanpa ini, riset tidak bisa dilakukan sama sekali.",
     },
     right: {
       title: "Paruh Depan (W11)",
@@ -58,7 +58,7 @@ export const slides11: SlideSection[] = [
   // ── 6: Section Konteks lab ──
   {
     layout: "section",
-    title: "Konteks Lab Kecil sebagai Keunggulan",
+    title: "Konteks Lab Kecil Bisa Menjadi Keunggulan",
     body: "Metodologi minggu ini dirancang untuk lab kecil dengan sumber daya terbatas. Saat sumber daya terbatas, aktivitas berdampak tertinggi adalah memilih pertanyaan yang tepat sebelum menghabiskan waktu eksekusi.",
     footnote: "Framing baik pada dataset kecil mengalahkan framing buruk pada dataset besar.",
   },
@@ -138,7 +138,7 @@ export const slides11: SlideSection[] = [
   // ── 14: Bullets entitas/output/input ──
   {
     layout: "bullets",
-    title: "Entitas, Output, dan Input sebagai Keputusan Desain",
+    title: "Entitas, Output, dan Input Perlu Diputuskan",
     body: "Ketiganya adalah pilihan yang membentuk masalah riset, bukan properti tetap dari dataset:",
     bullets: [
       "**Entitas** adalah unit yang satu prediksi mewakilinya, misalnya satu daun, satu tanaman, atau satu kunjungan lahan.",
@@ -192,7 +192,7 @@ export const slides11: SlideSection[] = [
         body: "Pasangan Input dan Output tidak punya solusi ML di level manapun. Ini jarang, dan biasanya berarti pasangannya belum terdefinisi dengan baik dan perlu direvisi.",
       },
     ],
-    footnote: "Kasus B yang dikenali jujur sebagai Kasus B adalah riset yang sah, berbeda dari mengklaim metode baru.",
+    footnote: "Kasus B yang dikenali dengan tepat adalah riset yang sah, berbeda dari mengklaim metode baru.",
   },
 
   // ── 18: Bullets menamai gap ──
@@ -313,7 +313,7 @@ export const slides11: SlideSection[] = [
       "**\"Satu dataset, satu proyek\"** salah karena satu dataset mendukung banyak pertanyaan riset yang sah lewat menu framing.",
       "**\"Saya susun framing sambil menulis kode\"** berbahaya karena framing buruk tidak membaik dengan eksekusi lebih banyak.",
     ],
-    footnote: "Gap di Middle tidak harus metode yang benar-benar baru - Kasus B yang dinamai jujur sudah cukup sebagai kontribusi.",
+    footnote: "Gap di Middle tidak harus metode yang benar-benar baru - Kasus B yang dinamai dengan tepat sudah cukup sebagai kontribusi.",
   },
 
   // ── 28: Bullets luaran ──

@@ -159,7 +159,7 @@ Aturan praktis: encoder-only untuk pemahaman, decoder-only untuk generasi, encod
 | TimesFM | Large-scale TS | General forecasting |
 
 > [!WARNING]
-> **Time series foundation models (Chronos, TimeGPT, TimesFM) adalah area riset aktif 2023-2024.** Klaim "zero-shot SOTA" sering belum direplikasi independen pada dataset di luar benchmark mereka. Untuk **capstone (W12-W15)**, gunakan ini sebagai *eksplorasi tambahan* setelah baseline LSTM/Transformer dari W5-W7 sudah jalan dan dapat dipertanggungjawabkan. Jangan jadikan time-series FM sebagai baseline tunggal di proposal capstone.
+> **Time series foundation models (Chronos, TimeGPT, TimesFM) adalah area riset aktif 2023-2024.** Klaim "zero-shot SOTA" sering belum direplikasi independen pada dataset di luar benchmark mereka. Untuk **capstone (W12-W15)**, gunakan ini sebagai *eksplorasi tambahan* setelah baseline LSTM/Transformer dari W5-W7 sudah berjalan dan punya catatan eksperimen yang jelas. Jangan jadikan time-series FM sebagai baseline tunggal di proposal capstone.
 
 #### Domain-Specific
 
@@ -297,7 +297,7 @@ Strategi ini menawarkan fleksibilitas tertinggi dengan potensi performa terbaik.
 
 **"LoRA rank besar lebih baik."** Hubungannya tidak linier. r=4 atau r=8 sering sudah cukup untuk dataset rata-rata. Rank lebih besar menambah parameter tetapi tidak selalu meningkatkan performa.
 
-**"Model Card selalu jujur dan lengkap."** Baca bagian "Limitations" dengan skeptis - bagian ini sering kurang detail dibanding bagian "Performance".
+**"Model Card selalu lengkap."** Baca bagian "Limitations" dengan skeptis - bagian ini sering kurang detail dibanding bagian "Performance".
 
 ---
 

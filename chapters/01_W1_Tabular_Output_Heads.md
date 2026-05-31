@@ -38,7 +38,7 @@
 
 ## 0. Peta Bab
 
-W1 adalah pintu masuk bootcamp. Bab ini memperkenalkan tiga ide fondasi: **MLP sebagai pengubah bentuk tensor**, **kecocokan output head dan loss**, dan **observasi sebelum kesimpulan**. Tiga tugas (regresi, klasifikasi biner, multiclass) dikerjakan pada satu dataset tabular yang sama, sehingga perbedaan antar tugas terlihat **bukan dari datanya**, melainkan dari pilihan output head dan loss. Pada akhir minggu, tersedia satu training end-to-end yang berhasil dan kebiasaan menuliskan apa yang *teramati* sebelum apa yang *disimpulkan*.
+W1 adalah pintu masuk bootcamp. Bab ini memperkenalkan tiga ide fondasi: **MLP mengubah bentuk tensor**, **output head harus cocok dengan loss**, dan **observasi ditulis sebelum kesimpulan**. Tiga tugas (regresi, klasifikasi biner, multiclass) dikerjakan pada satu dataset tabular yang sama, sehingga perbedaan antar tugas terlihat **bukan dari datanya**, melainkan dari pilihan output head dan loss. Pada akhir minggu, Anda punya satu training end-to-end yang berhasil dan kebiasaan menuliskan apa yang *teramati* sebelum apa yang *disimpulkan*.
 
 ---
 
@@ -59,7 +59,7 @@ Empat alasan tabular dipakai sebagai pintu masuk:
 
 ## 2. Konsep Inti
 
-### 2.1 MLP sebagai Pengubah Bentuk Tensor
+### 2.1 MLP Mengubah Bentuk Tensor
 
 Multilayer Perceptron (MLP) sederhana mengambil vektor `(F,)` dan menghasilkan vektor `(D_out,)`. Setiap layer `Linear(in, out)` menjalankan transformasi affine `y = W x + b`, lalu diikuti aktivasi non-linear seperti ReLU.
 
@@ -75,7 +75,7 @@ Perhatikan bahwa `D_out` ditentukan oleh **tugas**, bukan oleh data:
 - Binary classification menghasilkan `D_out = 1` (logit tunggal) atau `D_out = 2` (logits dua kelas).
 - Multiclass dengan N kelas menghasilkan `D_out = N`.
 
-Inilah maksud "MLP sebagai pengubah bentuk tensor": tubuh model tetap sama, kepala (head) berubah sesuai tugas.
+Inilah inti MLP pada W1: bagian utama model tetap sama, sedangkan head berubah mengikuti tugas.
 
 #### 2.1.1 Linear Layer: Mekanik dan Gambaran
 
@@ -96,7 +96,7 @@ y[1] = 2*3 + 1*4 +   0*2 + (-1)  = 9.0
 
 Jadi `Linear(3, 2)` dengan parameter di atas memetakan `[3, 4, 2]` ke `[1.5, 9.0]`. Dalam praktik, `W` dan `b` dipelajari otomatis lewat training; nilainya bukan ditebak manual.
 
-**Kenapa butuh ReLU (atau aktivasi non-linear lain)?** Stack dua `Linear` tanpa aktivasi sama dengan satu `Linear`: `W₂(W₁ x + b₁) + b₂ = (W₂ W₁) x + (W₂ b₁ + b₂)`. Walaupun lebih dalam secara struktur, kapasitas representasi tidak naik. Aktivasi non-linear menyisipkan "tekuk" di antara layer, sehingga komposisi dua layer bisa membentuk decision boundary lengkung.
+**Kenapa butuh ReLU (atau aktivasi non-linear lain)?** Stack dua `Linear` tanpa aktivasi sama dengan satu `Linear`: `W₂(W₁ x + b₁) + b₂ = (W₂ W₁) x + (W₂ b₁ + b₂)`. Walaupun lebih dalam secara struktur, kapasitas representasi tidak naik. Aktivasi non-linear menambahkan titik patah di antara layer, sehingga komposisi dua layer bisa membentuk decision boundary lengkung.
 
 `ReLU(x) = max(0, x)` adalah aktivasi paling sederhana: lewatkan input positif apa adanya, ubah input negatif menjadi nol. Visualnya menyerupai patahan di titik nol:
 

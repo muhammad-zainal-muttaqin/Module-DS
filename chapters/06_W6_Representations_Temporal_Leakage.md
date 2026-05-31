@@ -42,7 +42,7 @@ W6 menggabungkan dua tema yang saling terkait erat:
 
 - **0.5** Representasi Fitur: Recap dari W3 (konteks baru sequence/sensor)
 - **0.6** Temporal Leakage: Contoh Konkret yang Menipu
-- **2.1** EDA sebagai investigasi
+- **2.1** EDA untuk investigasi
 - **2.2** Data leakage - tiga jenis
 - **2.3** Kualitas label dan audit manual
 - **2.4** Pipeline pra-pemrosesan yang aman
@@ -119,7 +119,7 @@ Kewaspadaan terhadap data bukan tugas tambahan. Tanpanya, seluruh eksperimen ber
 
 ## 2. Konsep Inti
 
-### 2.1 EDA sebagai Investigasi
+### 2.1 EDA untuk Investigasi
 
 *Exploratory Data Analysis* sering diajarkan sebagai daftar langkah: "jalankan `df.describe()`, plot histogram, hitung korelasi, selesai". Praktik yang benar adalah sebaliknya - EDA dipandu oleh pertanyaan, bukan daftar. Setiap angka atau plot yang Anda lihat harus memicu pertanyaan baru, bukan tanda centang.
 
@@ -380,7 +380,7 @@ Sumber untuk pendalaman: *Fairness and Machine Learning* (Barocas, Hardt, Naraya
 
 </details>
 
-#### 2.6.3 Negative Results sebagai Kewajiban, Bukan Opsional
+#### 2.6.3 Negative Results Wajib Dicatat, Bukan Opsional
 
 W4 (Reproducibility) sudah menyinggung cara menangani hipotesis yang tidak terkonfirmasi. Di sini, kita melihatnya dari sudut etika riset.
 
@@ -391,7 +391,7 @@ Dalam lingkup lab Anda sendiri, praktiknya sederhana:
 - Eksperimen yang menghasilkan "focal loss tidak membantu" tetap bernilai - ia adalah satu titik data tentang batas efektivitas teknik.
 - Di akhir semester, portofolio Anda seharusnya berisi campuran hasil positif dan negatif. Jika semuanya positif, kemungkinan besar Anda hanya melaporkan yang berhasil.
 
-Eksperimen yang gagal dan didokumentasikan dengan jujur lebih melindungi reputasi riset Anda daripada eksperimen berhasil yang dilaporkan selektif. PI yang baik akan menaruh lebih banyak kepercayaan pada asisten yang berkata "saya sudah mencoba tiga arah, dua gagal, satu berhasil" daripada asisten yang hanya menampilkan keberhasilan.
+Eksperimen yang gagal dan didokumentasikan lengkap lebih melindungi reputasi riset Anda daripada eksperimen berhasil yang dilaporkan selektif. PI yang baik akan menaruh lebih banyak kepercayaan pada asisten yang berkata "saya sudah mencoba tiga arah, dua gagal, satu berhasil" daripada asisten yang hanya menampilkan keberhasilan.
 
 <details>
 <summary><strong>§2.6.4 Tanggung Jawab Asisten Riset (Pendalaman Opsional)</strong></summary>
@@ -618,9 +618,9 @@ Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasi
 
 2. Model Anda mencapai 99% akurasi pada val set di hari pertama. Apa lima hipotesis paling mungkin tentang penyebabnya, diurutkan dari yang paling membosankan ke yang paling tidak terduga? Untuk tiga hipotesis teratas, bagaimana Anda menguji masing-masing dalam waktu satu jam?
 
-3. Dataset PathMNIST yang Anda pakai di Lab 4 tidak memiliki informasi pasien - setiap sampel dianggap independen. Bagaimana Anda akan menangani ini jika dataset memiliki ID pasien dan setiap pasien memiliki beberapa slide? Jelaskan protokol split yang benar dan mengapa random split biasa akan gagal.
+3. Dataset PathMNIST yang Anda pakai di Lab 4 tidak memiliki informasi pasien - setiap sampel dianggap independen. Bagaimana cara menanganinya jika dataset memiliki ID pasien dan setiap pasien memiliki beberapa slide? Jelaskan protokol split yang benar dan mengapa random split biasa akan gagal.
 
-4. **Koneksi ke Capstone.** Pada Capstone (W12-W15), Anda akan memilih dataset - bisa dari paper, Kaggle, atau repo lab. Tuliskan checklist 5-layer EDA (lihat bagian 2) dalam format yang bisa Anda lampirkan ke draft proposal Capstone Anda. Bagian mana dari checklist yang paling mungkin Anda *skip* karena tekanan waktu, dan apa konsekuensi paling buruk dari skip itu di Capstone?
+4. **Koneksi ke Capstone.** Pada Capstone (W12-W15), pilih dataset dari paper, Kaggle, atau repo lab. Tuliskan checklist 5-layer EDA (lihat bagian 2) dalam format yang bisa dilampirkan ke draft proposal Capstone Anda. Bagian mana dari checklist yang paling mungkin Anda *skip* karena tekanan waktu, dan apa konsekuensi paling buruk dari skip itu di Capstone?
 
 ---
 

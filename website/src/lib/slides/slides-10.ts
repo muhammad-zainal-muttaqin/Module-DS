@@ -6,7 +6,7 @@ export const slides10: SlideSection[] = [
     layout: "title",
     title: "W10: Paper Reading & Implementation",
     subtitle: "Menyaring banjir paper menjadi aliran kecil, membaca dengan metode tiga putaran, dan menerjemahkan klaim paper menjadi kode yang bisa diuji.",
-    body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
+    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 10 - Minggu 10",
   },
 
@@ -124,7 +124,7 @@ export const slides10: SlideSection[] = [
     layout: "section",
     title: "Membaca Paper dalam Tiga Putaran",
     body: "Paper akademik tidak dirancang untuk dibaca linear. Metode tiga putaran dari Keshav 2007 membantu menyerap isinya dengan energi yang masuk akal, dari survei cepat sampai pemahaman mendalam.",
-    footnote: "Setiap putaran punya gerbang keputusan: lanjut ke putaran berikutnya, atau berhenti dan pilih paper lain.",
+    footnote: "Di akhir setiap putaran, pilih: lanjut ke putaran berikutnya, atau berhenti dan pilih paper lain.",
   },
 
   // ── 13: Grid 3 passes ──
@@ -271,7 +271,7 @@ export const slides10: SlideSection[] = [
   {
     layout: "section",
     title: "Worked Example: Dari Paper ke Kode dalam Satu Minggu",
-    body: "Rani ingin belajar focal loss dari paper Lin et al. 2017. Ia menjalankan seluruh alur W10 dalam satu minggu, dari kurasi sampai laporan yang jujur tentang batas klaim.",
+    body: "Rani ingin belajar focal loss dari paper Lin et al. 2017. Ia menjalankan seluruh alur W10 dalam satu minggu, dari kurasi sampai laporan yang jelas tentang batas klaim.",
     footnote: "Tujuannya bukan reproduksi penuh RetinaNet, melainkan memahami mekanisme loss intinya.",
   },
 
@@ -332,7 +332,7 @@ export const slides10: SlideSection[] = [
       "**Implementasikan metode inti** dalam src atau notebook, jalankan smoke test, dan lakukan parity check terhadap angka paper.",
       "**Jalankan satu ablation** lalu tulis experiment_report.md yang mencatat apa yang lebih sulit dari yang tampak di paper.",
     ],
-    footnote: "Target waktu 6-8 jam; checklist menuntut satu angka paper terproduksi atau selisih di bawah 2% dengan alasan.",
+    footnote: "Target waktu 6-8 jam; checklist menuntut satu angka paper terproduksi atau selisih di bawah 2% disertai penjelasan.",
   },
 
   // ── 29: Refleksi ──

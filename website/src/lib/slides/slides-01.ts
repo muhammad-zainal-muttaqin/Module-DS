@@ -5,7 +5,7 @@ export const slides01: SlideSection[] = [
   {
     layout: "title",
     title: "W1: Tabular, Output Heads & Pencocokan Loss",
-    subtitle: "MLP adalah pengubah bentuk tensor. Tugas menentukan head, head menentukan loss.",
+    subtitle: "MLP mengubah bentuk tensor. Tugas menentukan head, dan head menentukan loss.",
     body: "Lab 1a mencakup tiga perumusan tugas dan eksperimen ketidakcocokan head dan loss. Lab 1b membangun MLP dari nol menggunakan NumPy.",
     footnote: "Bab 01 - Minggu 1",
   },
@@ -51,7 +51,7 @@ export const slides01: SlideSection[] = [
     title: "Materi Bab Ini",
     body: "Minggu pertama membahas lima ide fondasi yang menjadi dasar seluruh bootcamp:",
     bullets: [
-      "**MLP sebagai pengubah bentuk tensor:** Rangkaian Linear dan ReLU memetakan input (F,) menjadi output (D_out,) melalui transformasi bertahap.",
+      "**MLP mengubah bentuk tensor:** Rangkaian Linear dan ReLU memetakan input (F,) menjadi output (D_out,) melalui transformasi bertahap.",
       "**Body dan Head:** Badan model bersama dipakai untuk semua tugas, sementara head berubah sesuai bentuk output yang dibutuhkan.",
       "**Pasangan output head dan loss:** Regresi cocok dengan MSE, biner cocok dengan BCE atau CrossEntropy, dan multikelas cocok dengan CrossEntropy.",
       "**Pipeline training PyTorch:** Lima langkah kunci berjalan berurutan setiap iterasi: forward, loss, zero_grad, backward, dan step.",
@@ -66,10 +66,10 @@ export const slides01: SlideSection[] = [
     title: "Objektif Belajar",
     body: "W1 ini mencakup empat capaian yang harus dikerjakan:",
     bullets: [
-      "Kamu akan **menerapkan tiga tugas berbeda** (regresi, biner, multikelas) pada satu dataset tabular yang sama.",
-      "Kamu akan **memilih output head dan loss** yang cocok dari tabel rujukan §2.2.4 di modul.",
-      "Kamu akan **sengaja salah-pasangkan loss dan head,** lalu mengamati bagaimana training gagal sebagai pelajaran konkret yang tidak bisa digantikan oleh teori.",
-      "Kamu akan **menulis observasi dan interpretasi** sebagai dua paragraf terpisah dalam catatan lab.",
+      "Kamu **menerapkan tiga tugas berbeda** (regresi, biner, multikelas) pada satu dataset tabular yang sama.",
+      "Kamu **memilih output head dan loss** yang cocok dari tabel rujukan §2.2.4 di modul.",
+      "Kamu **sengaja salah-pasangkan loss dan head,** lalu mengamati bagaimana training gagal. Pengalaman ini jauh lebih jelas daripada penjelasan teori saja.",
+      "Kamu **menulis observasi dan interpretasi** dalam dua paragraf terpisah di catatan lab.",
     ],
     footnote: "Lab W1 mencakup dua pelaksanaan: Lab 1a (3 tugas plus ketidakcocokan loss dan head) dan Lab 1b (MLP from scratch dengan NumPy).",
   },
@@ -113,10 +113,10 @@ export const slides01: SlideSection[] = [
     footnote: "Badan (body) sama - hanya head yang berbeda. Ini yang memungkinkan perbandingan yang setara.",
   },
 
-  // ── Slide 4: MLP sebagai pengubah bentuk ──
+  // ── Slide 4: MLP mengubah bentuk ──
   {
     layout: "split",
-    title: "MLP sebagai Pengubah Bentuk Tensor",
+    title: "MLP Mengubah Bentuk Tensor",
     left: {
       title: "Alur Shape",
       bullets: [
@@ -128,7 +128,7 @@ export const slides01: SlideSection[] = [
     },
     right: {
       title: "Mengapa Butuh Non-Linearitas?",
-      body: "Dua layer Linear tanpa aktivasi secara matematika setara dengan satu Linear saja, karena gabungannya tetap fungsi linier.\n\nReLU menyisipkan tikungan di antara lapisan, sehingga decision boundary bisa melengkung dan mengikuti data yang tidak linier.",
+      body: "Dua layer Linear tanpa aktivasi secara matematika setara dengan satu Linear saja, karena gabungannya tetap fungsi linier.\n\nReLU menambahkan titik patah di antara lapisan, sehingga decision boundary bisa melengkung dan mengikuti data yang tidak linier.",
     },
     footnote: "Fakta ini (non-linearitas wajib) akan muncul lagi di W2 (CNN) dan W5 (RNN).",
   },

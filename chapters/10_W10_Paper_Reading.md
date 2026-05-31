@@ -195,7 +195,7 @@ Ablation yang baik punya baseline jelas, satu variabel berubah, metrik sama, dan
 ### 2.7 Rutinitas Mingguan yang Tahan Lama
 
 > [!NOTE]
-> Rutinitas ini dirancang sebagai bekal mandiri **setelah modul berakhir**, bukan sebagai kewajiban tambahan di tengah semester. Selama kelas berjalan, Anda sudah punya lab, Komponen Mandiri, dan capstone sebagai latihan terjadwal. Gunakan bagian ini sebagai referensi untuk membangun kebiasaan jangka panjang setelah lulus atau setelah bootcamp selesai.
+> Rutinitas ini disiapkan untuk bekal mandiri **setelah modul berakhir**, bukan kewajiban tambahan di tengah semester. Selama kelas berjalan, Anda sudah punya lab, Komponen Mandiri, dan capstone sebagai latihan terjadwal. Gunakan bagian ini sebagai referensi untuk membangun kebiasaan jangka panjang setelah lulus atau setelah bootcamp selesai.
 
 Rutinitas praktis yang dapat Anda pakai sendiri setelah kelas berakhir:
 
@@ -222,7 +222,7 @@ Karena itu, bagian ini memberi Anda **peta mental** agar Anda bisa membaca paper
 
 | Keluarga | Ide inti | Training signal | Kapan dipakai | Failure mode khas | Paper pembuka |
 | --- | --- | --- | --- | --- | --- |
-| VAE | Encoder ke distribusi Gaussian, decoder dari sampel | Rekonstruksi + KL terhadap prior | Ketika butuh representasi kontinu yang bisa di-sampel; *conditional generation* | *Posterior collapse*: decoder mengabaikan z dan hanya mengandalkan decoder prior - terjadi saat KL term terlalu mendominasi loss, menyebabkan representasi latent tidak informatif | Kingma & Welling 2013 (*Auto-Encoding Variational Bayes*) |
+| VAE | Encoder ke distribusi Gaussian, decoder dari sampel | Rekonstruksi + KL terhadap prior | Ketika butuh representasi kontinu yang bisa di-sampel; *conditional generation* | *Posterior collapse*: decoder mengabaikan z dan hanya mengandalkan decoder prior - terjadi saat KL term terlalu mendominasi loss, sehingga representasi latent tidak membawa informasi berguna | Kingma & Welling 2013 (*Auto-Encoding Variational Bayes*) |
 | GAN | Generator vs discriminator, permainan minimax | Discriminator mengklasifikasi real/fake | Generasi gambar tajam, *style transfer*, *image-to-image* | *Mode collapse*: generator hanya menghasilkan subset kecil dari distribusi data (misalnya hanya wajah dengan ekspresi datar, bukan seluruh variasi) meski training loss terlihat stabil | Goodfellow et al. 2014 (*Generative Adversarial Nets*) |
 | Diffusion | Tambah noise bertahap, belajar un-noise | Prediksi noise pada setiap langkah | State-of-the-art image/video generation, kontrol *conditioning* | Inference lambat (banyak step), butuh compute besar | Ho et al. 2020 (*Denoising Diffusion Probabilistic Models*) |
 | Normalizing Flow | Transformasi bijeksi yang dibalik dari noise ke data | Likelihood eksak | Ketika butuh likelihood eksak (deteksi anomali, kompresi) | Arsitektur terbatas (harus invertible), kapasitas lebih kecil | Rezende & Mohamed 2015 (*Variational Inference with Normalizing Flows*) |
@@ -257,7 +257,7 @@ Jika `gamma=0` tidak identik dengan cross-entropy dalam toleransi numerik, imple
 
 **Sabtu - laporan.** Hasil focal loss sedikit lebih baik pada kelas minoritas tetapi akurasi total turun tipis. Rani menulis gap-nya: paper asli mengevaluasi object detection dengan extreme foreground/background imbalance, sedangkan lab memakai klasifikasi kecil. Ini bukan reproduksi penuh, tetapi cukup untuk memahami mekanisme loss dan batas transfer klaimnya.
 
-Rani telah melakukan keterampilan W10: memilih paper, membaca secara teknis, mengekstrak komponen inti, mengimplementasikan versi minimal, menjalankan ablation, dan menulis batas klaim dengan jujur.
+Rani telah melakukan keterampilan W10: memilih paper, membaca secara teknis, mengekstrak komponen inti, mengimplementasikan versi minimal, menjalankan ablation, dan menulis batas klaim secara jelas.
 
 ---
 
@@ -297,7 +297,7 @@ Buka [lab_w10_paper_to_code.ipynb](https://colab.research.google.com/github/muha
 **Checklist:**
 - [ ] Catatan tiga putaran tersimpan di `docs/papers/`.
 - [ ] Metode inti terimplementasi dan smoke test lulus.
-- [ ] Satu angka dari paper terproduksi (atau selisih < 2% dengan alasan).
+- [ ] Satu angka dari paper terproduksi (atau selisih < 2% disertai penjelasan).
 - [ ] Ablation menunjukkan dampak kontribusi inti.
 - [ ] `experiment_report.md` mencatat "apa yang lebih sulit dari yang tampak".
 

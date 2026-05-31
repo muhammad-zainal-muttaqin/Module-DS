@@ -6,7 +6,7 @@ export const slides03: SlideSection[] = [
     layout: "title",
     title: "W3: Loss, Optimizer & Evaluasi",
     subtitle: "Belajar membaca loss curve untuk mendiagnosis hasil training, menentukan loss dan optimizer yang sesuai, lalu mengevaluasi model dengan metrik yang sesuai.",
-    body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
+    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 03 - Minggu 3",
   },
 
@@ -116,7 +116,7 @@ export const slides03: SlideSection[] = [
   {
     layout: "section",
     title: "Loss: Memilih Apa yang Dianggap Salah",
-    body: "Loss menentukan apa yang dianggap salah oleh model, sehingga mengganti loss berarti mengubah arah yang dibaca model sebagai perbaikan. Loss adalah pilihan desain, bukan bawaan default.",
+    body: "Loss menentukan apa yang dianggap salah oleh model. Saat loss diganti, jenis kesalahan yang paling ditekan selama training ikut berubah.",
     footnote: "Rekap rumus MSE, BCE, dan CrossEntropy dengan contoh angka kecil ada di W1 §2.2.",
   },
 
@@ -166,7 +166,7 @@ export const slides03: SlideSection[] = [
   {
     layout: "bullets",
     title: "Pertanyaan Sebelum Mengganti Loss",
-    body: "Mengganti loss tanpa alasan jelas hanya menambah satu variabel yang harus dijelaskan di laporan. Satu pertanyaan menyaring keputusan ini:",
+    body: "Mengganti loss tanpa alasan yang jelas hanya menambah variabel baru di eksperimen. Satu pertanyaan membantu menyaring keputusan ini:",
     bullets: [
       "Apa jenis kesalahan dengan konsekuensi terbesar di aplikasi Anda - false negative pada kelas langka, atau prediksi yang meleset jauh?",
       "Jika false negative pada kelas minor paling mahal, focal loss atau pembobotan kelas langsung adalah kandidat yang masuk akal dicoba.",
@@ -301,9 +301,9 @@ export const slides03: SlideSection[] = [
   // ── 25: Section Diagnosis ──
   {
     layout: "section",
-    title: "Membaca Sinyal: Diagnosis dari Loss Curve",
-    body: "Kini kita kembali ke galeri lima training dengan kerangka diagnosis lengkap. Setiap pola punya hipotesis dan langkah tes yang spesifik, sehingga Anda berhenti menebak dan mulai menguji.",
-    footnote: "Alat paling penting di bagian ini adalah overfit satu batch.",
+    title: "Mendiagnosis Hasil Training dari Loss Curve",
+    body: "Kini kita kembali ke galeri lima training dengan peta diagnosis lengkap. Setiap pola punya hipotesis dan langkah tes yang spesifik, sehingga Anda berhenti menebak dan mulai menguji.",
+    footnote: "Pemeriksaan paling penting di bagian ini adalah overfit satu batch.",
   },
 
   // ── 26: Image lima pola ──
@@ -348,7 +348,7 @@ export const slides03: SlideSection[] = [
   {
     layout: "bullets",
     title: "Overfit Satu Batch: Pemeriksaan Terpenting",
-    body: "Jika loss curve Anda tidak cocok dengan kelima pola, jangan menebak. Kembali ke simpul paling atas peta diagnosis dan jalankan overfit satu batch:",
+    body: "Jika loss curve Anda tidak cocok dengan kelima pola, jangan menebak. Kembali ke titik awal peta diagnosis dan jalankan overfit satu batch:",
     bullets: [
       "Ambil 4-8 sampel saja, lalu jalankan ratusan iterasi hanya pada sampel itu tanpa augmentasi.",
       "Jika loss turun mendekati nol, model dan pipeline sehat - masalahnya ada di data, learning rate, atau regularisasi.",
@@ -419,7 +419,7 @@ export const slides03: SlideSection[] = [
     body: "Sebelum lanjut ke W4, renungkan tiga pertanyaan yang menghubungkan minggu ini dengan riset Anda nanti:",
     bullets: [
       "Saat mengganti cross-entropy menjadi focal loss, variabel apa saja yang ikut berubah secara implisit walau tidak Anda sentuh - learning rate efektif, tekanan pada kelas minor, stabilitas awal?",
-      "Dengan hanya 300 gambar per kelas untuk empat kelas, strategi representasi mana yang paling masuk akal dicoba lebih dulu, dan kapan Anda akan berpindah strategi?",
+      "Dengan hanya 300 gambar per kelas untuk empat kelas, strategi representasi mana yang paling masuk akal dicoba lebih dulu, dan kapan strategi perlu diganti?",
       "Saat membaca repo capstone nanti, pertanyaan pertama apa yang akan Anda ajukan ke diri sendiri tentang tensor input, arsitektur, dan representasi?",
     ],
     footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat capstone.",

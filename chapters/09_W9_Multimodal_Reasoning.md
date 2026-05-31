@@ -119,7 +119,7 @@ Cross-attention memungkinkan interaksi pada level yang lebih halus - misalnya to
 
 Ini adalah failure mode paling umum dan paling sering tidak terdeteksi dalam penelitian multimodal.
 
-**Mekanisme:** Ketika training multimodal, optimizer menemukan jalur gradient yang paling mudah. Jika satu modalitas lebih "informatif" atau lebih mudah dioptimasi (mis. gambar lebih bersih dibanding sensor yang *noisy*), model belajar mengabaikan modalitas lainnya. Loss tetap turun, performa tampak bagus - tapi model sebenarnya *single-modal*.
+**Mekanisme:** Ketika training multimodal, optimizer mengikuti jalur yang paling mudah. Jika satu modalitas lebih bersih atau lebih mudah dioptimasi (mis. gambar lebih bersih dibanding sensor yang *noisy*), model belajar mengabaikan modalitas lainnya. Loss tetap turun, performa tampak bagus - tapi model sebenarnya *single-modal*.
 
 **Cara mendeteksi:**
 
@@ -176,7 +176,7 @@ class MultimodalModel(nn.Module):
 Dengan ini model belajar prediksi yang lebih tahan gangguan bahkan ketika satu modalitas hilang.
 
 > [!NOTE]
-> **Kenapa `p_drop = 0.15`?** Bukan angka magis - aturan praktis dari literatur regularisasi (mirip dropout neuron 10-30%, mask language modeling BERT 15%). Rentang yang masuk akal: `p_drop ∈ [0.10, 0.25]`. Lebih kecil → *modality dropout* tidak cukup kuat untuk mencegah modalitas terabaikan. Lebih besar → model jarang melihat sampel multimodal lengkap, performa dengan modalitas lengkap menurun. Untuk dataset dengan satu modalitas yang jauh lebih dominan (mis. image jauh lebih informatif dari sensor), naikkan `p_drop` modalitas dominan ke 0.30-0.40 agar model dipaksa belajar dari sensor lebih sering. Ini hyperparameter yang layak dieksplorasi sebagai pertanyaan Komponen Mandiri minggu ini.
+> **Kenapa `p_drop = 0.15`?** Bukan angka magis - aturan praktis dari literatur regularisasi (mirip dropout neuron 10-30%, mask language modeling BERT 15%). Rentang yang masuk akal: `p_drop ∈ [0.10, 0.25]`. Lebih kecil → *modality dropout* tidak cukup kuat untuk mencegah modalitas terabaikan. Lebih besar → model jarang melihat sampel multimodal lengkap, performa dengan modalitas lengkap menurun. Untuk dataset dengan satu modalitas yang jauh lebih dominan (mis. image lebih bersih daripada sensor), naikkan `p_drop` modalitas dominan ke 0.30-0.40 agar model dipaksa belajar dari sensor lebih sering. Ini hyperparameter yang layak dieksplorasi sebagai pertanyaan Komponen Mandiri minggu ini.
 
 #### Strategi 2: Learnable Null Token
 
@@ -272,7 +272,7 @@ Setiap paper dan laporan multimodal harus menjalankan ablation ini sebelum klaim
 Template protokol ini tersedia di [Lampiran C.14](14_Lampiran.md#c14-per-modalitas-ablation-protocol).
 
 > [!NOTE]
-> **Kelayakan untuk capstone 3-4 minggu.** 7 kondisi sebelumnya adalah protokol penuh (rekomendasi untuk paper atau laporan akhir). Jika waktu terbatas, **5 kondisi minimum** sudah informatif:
+> **Kelayakan untuk capstone 3-4 minggu.** 7 kondisi sebelumnya adalah protokol penuh (rekomendasi untuk paper atau laporan akhir). Jika waktu terbatas, **5 kondisi minimum** sudah cukup untuk membaca pola kontribusi:
 > 1. Full model (semua modalitas)
 > 2. Image only
 > 3. Sensor only
@@ -388,7 +388,7 @@ Pilih satu pertanyaan dari materi W9 yang ingin Anda jelajahi lebih dalam. Boleh
 
 **Beberapa pertanyaan pemantik** (tidak wajib salah satunya):
 - Apakah cross-attention fusion benar-benar lebih baik dari late fusion - dalam kondisi ablasi per modalitas yang mana?
-- Dari 2 paper multimodal di arXiv, seberapa jujur pelaporan ablasi per modalitasnya - adakah tanda modalitas terabaikan?
+- Dari 2 paper multimodal di arXiv, seberapa lengkap pelaporan ablasi per modalitasnya - adakah tanda modalitas terabaikan?
 - Bagaimana cara merancang sistem yang bisa mendeteksi modalitas hilang secara otomatis saat inference?
 - Apakah *modality dropout* saat training meningkatkan robustness - seberapa besar perbedaannya di 7 kondisi ablation?
 

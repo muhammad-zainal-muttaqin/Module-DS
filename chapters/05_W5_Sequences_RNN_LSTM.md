@@ -159,7 +159,7 @@ Hidden state `h_t` berperan sebagai "memori" yang diperbarui setiap langkah. Ini
 
 **Vanishing gradient secara konkret.** Sudah dibahas di §1.5.2 dengan tabel angka: dengan `|w_h| = 0.5`, gradient setelah 10 langkah mundur ≈ 0.001; setelah 50 langkah ≈ `9e-16`. Lab 3b memvisualisasikan gejala ini dengan plot log-scale gradient norm per timestep. Penurunan eksponensial terlihat jelas pada RNN vanilla; LSTM menjaga gradient relatif flat.
 
-### 2.3 LSTM: Gate sebagai Solusi
+### 2.3 LSTM: Gate Mengatur Informasi
 
 Long Short-Term Memory (LSTM) memperkenalkan **cell state** `c_t` yang terpisah dari hidden state, dan tiga **gate** yang menentukan komponen informasi mana yang dipertahankan atau ditulis. Gate adalah vektor bernilai 0 sampai 1 (hasil dari `σ` = sigmoid) yang dikalikan element-wise (`⊙`, lihat §1.5.3) ke vektor lain untuk memilih komponen vektor.
 
@@ -245,7 +245,7 @@ hidden state: h_t = (1 - z_t) ⊙ h_{t-1} + z_t ⊙ h̃_t
 | Anggaran parameter ketat | GRU | ~25% lebih ringan |
 | Tidak yakin | Coba keduanya | Keduanya sebanding di banyak benchmark; bedanya sering <2% |
 
-Aturan praktis: coba LSTM dulu sebagai default, GRU sebagai alternatif kalau training time atau parameter budget jadi pertimbangan. Di lab minggu ini, Anda akan membandingkan RNN vs LSTM vs GRU pada sequence sintetis.
+Aturan praktis: coba LSTM dulu sebagai default, GRU sebagai alternatif kalau training time atau parameter budget jadi pertimbangan. Di lab minggu ini, bandingkan RNN, LSTM, dan GRU pada sequence sintetis.
 
 ### 2.5 Sequence Model dalam Bentuk Alaminya
 

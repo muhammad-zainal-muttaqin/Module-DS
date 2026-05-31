@@ -41,10 +41,10 @@
 W7 menggabungkan tiga tema yang saling memperkuat:
 
 - **1. Text & Transformers** - dari TF-IDF ke contextual embeddings, tokenization, cara kerja attention (QKV, Transformer block), frozen vs fine-tune, [CLS] vs mean pool
-- **2. Alat AI sebagai Pendukung** - verifikasi kode AI, protokol synthesis, kapan trust copilot
+- **2. Alat AI untuk Membantu Riset** - verifikasi kode AI, protokol synthesis, kapan trust copilot
 - **3. Pengantar Adopsi Repo** - membaca repo yang belum dikenal, `repo_map.md`, modifikasi seminimal mungkin
 
-Ketiga tema bertemu dalam satu alur kerja: mengadopsi repo HuggingFace, memakai alat AI untuk memahami bagian yang belum dikenal, dan membuat `repo_map.md` sebagai dokumentasi pemahaman Anda.
+Ketiga tema bertemu dalam satu alur kerja: mengadopsi repo HuggingFace, memakai alat AI untuk memahami bagian yang belum dikenal, dan membuat `repo_map.md` untuk mendokumentasikan pemahaman Anda.
 
 ---
 
@@ -147,7 +147,7 @@ Input (T, d_model)
 Output (T, d_model)
 ```
 
-Dimensi input dan *output* selalu sama, itulah sebabnya blok ini dapat ditumpuk hingga 12 atau 24 lapis tanpa memerlukan perubahan di antaranya. Perhatikan bahwa layer *feed-forward* tidak mencampur token, hanya layer attention yang melakukannya. Dalam praktiknya, model menjalankan operasi attention paralel sebanyak $h$ kali (*multi-head attention*). Masing-masing berjalan pada subruang representasi dengan dimensi yang lebih rendah, kemudian menggabungkan dan memproyeksikan hasilnya. Setiap *head* dapat menangkap pola struktural yang berbeda, meskipun spesialisasi yang rapi tidak secara otomatis dijamin oleh rancangannya. Saat satu sekuens memperhatikan sekuens lain (misalnya Q dari satu sekuens, lalu K dan V dari sekuens lainnya), proses ini disebut *cross-attention*. Anda akan melihat penerapannya di W9 untuk fusi multimodal.
+Dimensi input dan *output* selalu sama, itulah sebabnya blok ini dapat ditumpuk hingga 12 atau 24 lapis tanpa memerlukan perubahan di antaranya. Perhatikan bahwa layer *feed-forward* tidak mencampur token, hanya layer attention yang melakukannya. Dalam praktiknya, model menjalankan operasi attention paralel sebanyak $h$ kali (*multi-head attention*). Masing-masing berjalan pada subruang representasi dengan dimensi yang lebih rendah, kemudian menggabungkan dan memproyeksikan hasilnya. Setiap *head* dapat menangkap pola struktural yang berbeda, meskipun spesialisasi yang rapi tidak secara otomatis dijamin oleh rancangannya. Saat satu sekuens memperhatikan sekuens lain (misalnya Q dari satu sekuens, lalu K dan V dari sekuens lainnya), proses ini disebut *cross-attention*. Penerapannya muncul lagi di W9 untuk fusi multimodal.
 
 **Mengapa Transformer memerlukan *positional encoding*.** Perhatikan apa yang tidak dilakukan attention: ia tidak memiliki konsep urutan. Skor antara token *i* dan token *j* hanya bergantung pada vektor Q dan K keduanya, bukan pada posisi mereka dalam sekuens. Artinya, "anjing menggigit orang" dan "orang menggigit anjing" menghasilkan input attention yang identik - himpunan token yang sama, tanpa urutan. RNN tidak pernah menghadapi masalah ini karena ia memproses token satu langkah demi satu langkah dan secara implisit mengetahui posisi. Karena Transformer memproses semua token secara paralel, informasi posisi harus disuntikkan secara eksplisit. *Positional encoding* menambahkan vektor yang bergantung pada posisi ke setiap *token embedding* sebelum masuk ke blok pertama, sehingga model mendapatkan informasi urutan sekuens yang tidak bisa diperoleh dari attention saja.
 
@@ -170,7 +170,7 @@ Dua keputusan yang perlu dibandingkan:
 > 
 > Aturan praktis: kalau dataset < 5k sampel atau Anda butuh prototype cepat, **frozen** dulu. Kalau dataset > 20k atau butuh squeeze last 3-5% performa, **fine-tune**. Antara keduanya: PEFT seperti LoRA (W8) sebagai jalan tengah.
 
-**[CLS] pooling** menggunakan token `[CLS]` sebagai representasi seluruh sequence. Token ini adalah token spesial yang ditambahkan otomatis di awal setiap input oleh tokenizer keluarga BERT. Selama pretraining, model belajar menaruh ringkasan global di posisi ini lewat objective next-sentence prediction; itu sebabnya `[CLS]` jadi pilihan natural untuk classification head.
+**[CLS] pooling** memakai token `[CLS]` untuk mewakili seluruh sequence. Token ini adalah token spesial yang ditambahkan otomatis di awal setiap input oleh tokenizer keluarga BERT. Selama pretraining, model belajar menaruh ringkasan global di posisi ini lewat objective next-sentence prediction; itu sebabnya `[CLS]` jadi pilihan natural untuk classification head.
 
 **Mean pooling** mengambil rata-rata embedding semua token (kecuali padding). Pendekatan ini sering lebih robust untuk sentence similarity tasks karena representasi tidak terlalu "berat sebelah" ke satu posisi, tetapi bisa kehilangan ketegasan kalau hanya sebagian token yang relevan untuk tugas tersebut. Untuk classification, [CLS] dan mean pool biasanya berbeda 1-3 poin F1; mana yang menang bergantung dataset. Lab 5b menjalankan 2×2 ini secara eksplisit supaya Anda bisa melihat sendiri pada dataset Indonesia.
 
@@ -193,7 +193,7 @@ Tiga formulasi umum di domain teks:
 
 ---
 
-## 2. Alat AI sebagai Pendukung (Ringkasan Protokol)
+## 2. Alat AI untuk Membantu Riset (Ringkasan Protokol)
 
 Modul ini tidak melarang AI coding tools. Ia mewajibkan **protokol verifikasi** dan **synthesis sebelum eksekusi**.
 
@@ -238,7 +238,7 @@ Konten repo adoption dari bab ini (urutan membaca, environment setup, modifikasi
 
 **Urutan baca** yang dianjurkan adalah: README → paper/laporan → struktur folder → entry point (`train.py`) → model & loss → DataLoader.
 
-**`repo_map.md`** adalah dokumen yang merekam pemahaman Anda tentang repo baru. Dokumentasikan pemahaman tersebut dalam file `repo_map.md` menggunakan template di [Lampiran C.12](14_Lampiran.md#c12-template-repo-map). Anda akan membuat `repo_map.md` dua kali: satu di W7 (repo teks/transformer), satu di W9 (repo multimodal).
+**`repo_map.md`** adalah dokumen yang merekam pemahaman Anda tentang repo baru. Dokumentasikan pemahaman tersebut dalam file `repo_map.md` menggunakan template di [Lampiran C.12](14_Lampiran.md#c12-template-repo-map). Dokumen ini dibuat dua kali: satu di W7 (repo teks/transformer), satu di W9 (repo multimodal).
 
 **Modifikasi seminimal mungkin** berarti membuat branch baru, membuat perubahan sekecil mungkin untuk menjalankan eksperimen Anda, dan mendokumentasikan diff. Pendekatan ini memudahkan merge kembali dan memudahkan debugging saat sesuatu rusak.
 
@@ -561,7 +561,7 @@ Banyak repo riset hanya punya README satu paragraf. Taktik saat Anda harus memak
 
 **Coba `--help`.** Banyak repo punya argparse yang dokumentasi-dirinya sendiri. `python train.py --help` sering memberi peta yang cukup.
 
-**Hubungi penulis.** Repo akademik biasanya punya email kontak. Satu pesan singkat dan jujur ("saya mahasiswa, mencoba mereproduksi hasil pada dataset X, stuck di Y") sering dijawab. Berikan konteks yang cukup; jangan minta bantuan generik.
+**Hubungi penulis.** Repo akademik biasanya punya email kontak. Satu pesan singkat dan jelas ("saya mahasiswa, mencoba mereproduksi hasil pada dataset X, stuck di Y") sering dijawab. Berikan konteks yang cukup; jangan minta bantuan generik.
 
 ### 2.7 Menyumbang Kembali
 
@@ -876,7 +876,7 @@ Setelah Anda lancar membaca repo orang lain, latihan berikutnya adalah membantu 
 - [ ] Minimal 3 temuan konkret per orang (bukan "kode sudah rapi").
 - [ ] `peer_review_log.md` di-commit ke repo masing-masing.
 
-**Mengapa ini penting:** Di lab riset, Anda akan jauh lebih sering *mendiskusikan* kode dengan rekan daripada menulis kode sendirian. Peer review adalah keterampilan yang sama pentingnya dengan menulis kode - dan modul ini memberi Anda satu latihan formal sebelum Anda melakukannya secara informal sepanjang sisa semester.
+**Mengapa ini penting:** Di lab riset, diskusi kode dengan rekan biasanya lebih sering terjadi daripada menulis kode sendirian. Peer review adalah keterampilan yang sama pentingnya dengan menulis kode - dan modul ini memberi Anda satu latihan formal sebelum praktik informal sepanjang sisa semester.
 
 ---
 
@@ -895,11 +895,11 @@ Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://githu
 
 ## D6. Refleksi Pendalaman
 
-1. Anda baru menerima akses ke repo lab dengan 150 file Python. Di mana Anda akan memulai, dan apa batasan waktu yang akan Anda tetapkan untuk fase membaca sebelum menjalankan?
+1. Anda baru menerima akses ke repo lab dengan 150 file Python. Dari mana pembacaan dimulai, dan berapa batas waktu untuk fase membaca sebelum menjalankan?
 2. Setelah setup environment, Anda menemukan bahwa hasil reproduksi menyimpang 2% dari angka paper. Apa tiga hipotesis paling mungkin, dan bagaimana Anda menginvestigasinya tanpa menghubungi penulis paper?
 3. Dosen pembimbing meminta Anda "pakai repo X untuk dataset kita". Repo tersebut didesain untuk dataset berbeda. Bagaimana Anda mengevaluasi, dalam satu hari, apakah adaptasi lebih cepat daripada menulis ulang dari template?
 
-4. **Koneksi ke Capstone.** Capstone (W12-W15) kemungkinan besar akan dimulai dari repo orang lain, bukan dari nol. Pilih satu repo kandidat (misalnya `rwightman/pytorch-image-models`, `huggingface/transformers`, atau repo khusus domain lab Anda). Tulis satu paragraf "laporan bacaan pertama": entrypoint training, cara config di-load, dan di mana Anda akan menyisipkan modifikasi. Latihan ini akan menghemat satu hari penuh Capstone.
+4. **Koneksi ke Capstone.** Capstone (W12-W15) kemungkinan besar dimulai dari repo orang lain, bukan dari nol. Pilih satu repo kandidat (misalnya `rwightman/pytorch-image-models`, `huggingface/transformers`, atau repo khusus domain lab Anda). Tulis satu paragraf "laporan bacaan pertama": entrypoint training, cara config di-load, dan tempat modifikasi akan disisipkan. Latihan ini akan menghemat satu hari penuh Capstone.
 
 ---
 

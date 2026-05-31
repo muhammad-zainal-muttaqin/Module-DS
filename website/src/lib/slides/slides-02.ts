@@ -6,7 +6,7 @@ export const slides02: SlideSection[] = [
     layout: "title",
     title: "W2: Images, CNN & Smoke Test",
     subtitle: "Tensor citra, filter lokal yang berbagi bobot, dan tiga kebiasaan debugging yang dipakai sepanjang bootcamp.",
-    body: "Presentasi ini dirancang sebagai sumber mandiri - tidak membutuhkan bacaan terpisah.",
+    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 02 - Minggu 2",
   },
 
@@ -106,9 +106,9 @@ print(y.shape)   # torch.Size([32])
   // ── 10: Image MLP Foundation ──
   {
     layout: "image",
-    title: "MLP sebagai Fondasi Tiga Keluarga Arsitektur",
+    title: "MLP Menjadi Fondasi Tiga Keluarga Arsitektur",
     imageUrl: "/figures/fig02b_mlp_foundation.png",
-    caption: "Diagram ini menunjukkan MLP sebagai arsitektur dasar di tengah, dengan tiga anak panah menuju CNN (batasan: parameter sharing spasial), RNN/LSTM (batasan: parameter sharing temporal), dan Transformer (batasan: self-attention menggantikan rekursi). Semua keluarga mewarisi mekanisme backpropagation yang sama.",
+    caption: "Diagram ini menempatkan MLP sebagai arsitektur dasar di tengah, dengan tiga anak panah menuju CNN (batasan: parameter sharing spasial), RNN/LSTM (batasan: parameter sharing temporal), dan Transformer (batasan: self-attention menggantikan rekursi). Semua keluarga mewarisi mekanisme backpropagation yang sama.",
     footnote: "Semua arsitektur pada akhirnya belajar dengan cara yang sama: hitung loss, jalankan backward, perbarui bobot.",
   },
 
@@ -348,8 +348,8 @@ for i in range(100):
   // ── 29: Section Layer Transformasi ──
   {
     layout: "section",
-    title: "Layer sebagai Transformasi Representasi",
-    body: "Setiap layer mengubah representasi data menjadi bentuk yang lebih berguna bagi layer berikutnya. Tiga komponen menentukan stabilitas training: inisialisasi bobot, normalisasi, dan fungsi aktivasi.",
+    title: "Layer Mengubah Representasi",
+    body: "Setiap layer mengubah representasi data agar lebih mudah dipakai layer berikutnya. Tiga komponen menentukan stabilitas training: inisialisasi bobot, normalisasi, dan fungsi aktivasi.",
     footnote: "Memilih ketiga komponen ini sembarangan adalah sumber bug yang sering tidak terdeteksi di smoke test.",
   },
 
@@ -357,7 +357,7 @@ for i in range(100):
   {
     layout: "split",
     title: "Inisialisasi Bobot: Kaiming vs Xavier",
-    body: "Memilih nol atau nilai terlalu besar menghancurkan aliran gradient sejak iterasi pertama. Dua skema standar menyelesaikan masalah ini:",
+    body: "Memilih nol atau nilai terlalu besar membuat gradient tidak stabil sejak iterasi pertama. Dua skema standar menyelesaikan masalah ini:",
     left: {
       title: "Kaiming (He) Initialization",
       body: "Dipakai untuk layer dengan aktivasi **ReLU**: `σ² = 2/fan_in`.\n\nAlasan faktor 2: ReLU mematikan sekitar separuh aktivasi (nilai negatif → 0), sehingga variansi menyusut separuh. Faktor 2 mengompensasi agar sinyal tetap stabil.\n\nPyTorch menerapkannya otomatis untuk `nn.Conv2d` dan `nn.Linear`.",
@@ -424,7 +424,7 @@ for i in range(100):
     layout: "section",
     title: "SimpleCNN: Worked Example pada CIFAR-10",
     body: "Seluruh konsep W2 - Conv2d, BatchNorm, ReLU, MaxPool, Dropout - bersatu dalam satu model konkret yang bisa dilatih penuh pada CIFAR-10.",
-    footnote: "SimpleCNN adalah titik awal Lab W2. Setelah memahami setiap keputusan desain, kamu akan membandingkannya dengan ResNet-18 yang di-pretrain.",
+    footnote: "SimpleCNN adalah titik awal Lab W2. Setelah memahami setiap keputusan desain, bandingkan dengan ResNet-18 yang di-pretrain.",
   },
 
   // ── 37: Code SimpleCNN Definisi ──
@@ -514,7 +514,7 @@ optimizer = torch.optim.AdamW(model.parameters(),
       "**SimpleCNN terlatih 30 epoch** pada CIFAR-10 dengan val_acc > 0.70. Kurva loss diplot dan gap train-val di-flag.",
       "**Dokumentasi dan analisis selesai:** tabel error-level smoke test terisi, confusion matrix diinterpretasi, dan 10 prediksi confident-salah dianalisis polanya.",
     ],
-    footnote: "Setelah W2 selesai, lanjutkan ke Lab W3. Lab 1c (backprop numpy) tersedia kapan saja sebagai breadth opsional.",
+    footnote: "Setelah W2 selesai, lanjutkan ke Lab W3. Lab 1c (backprop numpy) tersedia kapan saja untuk breadth opsional.",
   },
 
   // ── 42: CTA ──

@@ -90,9 +90,9 @@ Tiga skenario di atas bukan pengecualian - mereka adalah rutinitas riset sehari-
 
 ## 2. Konsep Inti
 
-### 2.1 Loss sebagai Pilihan
+### 2.1 Memilih Loss yang Sesuai
 
-Loss menentukan *apa yang dianggap salah oleh model*. Mengganti loss berarti mengubah arah yang dibaca model sebagai "perbaikan".
+Loss menentukan *apa yang dianggap salah oleh model*. Mengganti loss berarti mengubah jenis kesalahan yang paling ditekan selama training.
 
 > [!NOTE]
 > Untuk rekap rumus dan cara kerja MSE / BCE / CrossEntropy dengan contoh angka kecil, lihat [W1 §2.2.1-§2.2.3](01_W1_Tabular_Output_Heads.md). Bagian ini fokus pada **kapan memilih loss tertentu** dan dua varian lanjutan (focal loss, label smoothing).
@@ -110,7 +110,7 @@ Loss menentukan *apa yang dianggap salah oleh model*. Mengganti loss berarti men
 - **MAE** mengukur residu secara linear. Loss ini lebih robust terhadap outlier, tetapi gradientnya konstan di sekitar nol sehingga konvergensi sering lebih lambat.
 - **Huber loss** menggabungkan keduanya: kuadratik untuk `|residu| < δ` dan linear untuk residu yang lebih besar. Default δ = 1.0 di PyTorch.
 
-Pertanyaan yang selalu relevan sebelum mengganti loss: *apa jenis kesalahan dengan konsekuensi terbesar di aplikasi Anda?* Jika konsekuensi false negative pada kelas minor lebih besar, focal loss atau pembobotan kelas langsung membantu. Mengganti loss tanpa alasan jelas menambah satu variabel yang harus dijelaskan di laporan.
+Pertanyaan yang selalu relevan sebelum mengganti loss: *jenis kesalahan apa yang konsekuensinya paling besar di aplikasi Anda?* Jika false negative pada kelas minor lebih mahal, focal loss atau pembobotan kelas langsung layak dicoba. Jika tidak ada alasan yang jelas, pertahankan loss baseline agar eksperimen tidak menambah variabel baru.
 
 ### 2.2 Optimizer: Bagaimana Langkah Diputuskan
 
@@ -174,7 +174,7 @@ Setelah memilih jalur utama, beberapa keputusan turunan segera mengikuti: apakah
 
 Taksonomi ini penting saat merumuskan variabel eksperimen. Membandingkan "BERT frozen + head kecil" dengan "BERT fine-tune penuh" bukan sekadar membandingkan dua model - Anda membandingkan dua strategi representasi dengan tingkat kebebasan yang sangat berbeda.
 
-### 2.5 Membaca Sinyal: Diagnosis dari Loss Curve
+### 2.5 Mendiagnosis Hasil Training dari Loss Curve
 
 Lima pola berikut paling sering ditemui, masing-masing dengan hipotesis dan langkah tes. Diagram di bawah adalah peta diagnosis cepat; jika Anda baru pertama kali mendiagnosis, mulai dari pertanyaan di simpul paling atas dan ikuti cabang sesuai kondisi Anda.
 
@@ -278,7 +278,7 @@ Jawab pertanyaan berikut setelah menyelesaikan lab: Pada dataset terbatas (500 s
 ## 6. Refleksi
 
 1. Saat Anda mengganti `CrossEntropyLoss` menjadi `FocalLoss`, apa saja variabel yang *secara implisit* juga berubah walaupun Anda tidak menyentuhnya? (Petunjuk: pikirkan learning rate efektif, tekanan pada kelas minor, stabilitas awal training.) Bagaimana ini memengaruhi cara Anda merancang perbandingan?
-2. Anda ditugaskan membangun klasifikasi kualitas biji kopi dari foto *close-up* dengan hanya 300 gambar per kelas untuk empat kelas. Bandingkan tiga strategi representasi secara singkat. Manakah yang paling masuk akal dicoba terlebih dahulu dan mengapa? Pada penambahan data sejumlah berapa Anda akan mempertimbangkan berpindah strategi?
+2. Anda ditugaskan membangun klasifikasi kualitas biji kopi dari foto *close-up* dengan hanya 300 gambar per kelas untuk empat kelas. Bandingkan tiga strategi representasi secara singkat. Manakah yang paling masuk akal dicoba terlebih dahulu dan mengapa? Pada penambahan data sejumlah berapa strategi perlu dipertimbangkan ulang?
 3. **Koneksi ke Capstone:** Saat masuk Capstone (W12-W15) nanti, Anda diminta memilih topik dan membangun baseline. Dari kerangka tensor input → output, empat keluarga arsitektur, dan tiga strategi representasi, tuliskan satu kalimat: *"Saat membaca repo Capstone nanti, pertanyaan pertama yang saya ajukan ke diri sendiri adalah ..."*.
 
 ---

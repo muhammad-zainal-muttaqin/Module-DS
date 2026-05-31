@@ -45,8 +45,8 @@ W2 memperkenalkan tensor citra, arsitektur CNN, dan tiga kebiasaan debugging ter
 - **2.3** Smoke Test Tiga Level
 - **2.4** Galeri Training: sebelum membaca teori
 - **2.5** Conv2d: gambaran sebelum kode (kernel, stride, padding, output shape)
-- **2.6** Empat keluarga arsitektur sebagai asumsi tentang data
-- **2.7** Layer sebagai transformasi representasi: inisialisasi, normalisasi, aktivasi
+- **2.6** Empat keluarga arsitektur dan asumsi datanya
+- **2.7** Cara layer mengubah representasi: inisialisasi, normalisasi, aktivasi
 - **2.8** Augmentation, Dropout, dan Regularization
 - **Lampiran A.1** Backpropagation derivasi manual (opsional, tersedia setelah W2)
 
@@ -304,7 +304,7 @@ Ukuran area input yang dilihat satu pixel di feature map disebut **receptive fie
 > [!NOTE]
 > Receptive field tumbuh kira-kira `1 + L*(k-1)` untuk `L` layer Conv `k×k` tanpa pooling, dan tumbuh berlipat saat ada pooling. Detail rumus tersedia di paper [*A guide to convolution arithmetic*](https://arxiv.org/abs/1603.07285) (Dumoulin & Visin, 2016).
 
-### 2.6 Arsitektur sebagai Asumsi tentang Data
+### 2.6 Arsitektur dan Asumsi tentang Data
 
 Empat keluarga yang paling sering muncul di paper dan repositori riset.
 
@@ -326,9 +326,9 @@ Transformer menggantikan rekursi dengan *self-attention*: setiap elemen urutan s
 
 ![Lima keluarga arsitektur neural network: MLP, CNN, RNN/LSTM, Transformer, dan Autoencoder - masing-masing dengan inductive bias dan domain khasnya](../figures/fig01a_nn_families.png)
 
-Setiap keluarga di atas dapat Anda baca sebagai "MLP + asumsi spesifik domain". Ketika asumsi cocok dengan data, model belajar lebih efisien.
+Setiap keluarga di atas dapat dibaca sebagai "MLP + asumsi spesifik domain". Ketika asumsi cocok dengan data, model belajar lebih efisien.
 
-### 2.7 Layer sebagai Transformasi Representasi
+### 2.7 Layer Mengubah Representasi
 
 Setiap layer adalah *fungsi* yang mengubah representasi data menjadi bentuk yang lebih berguna bagi layer berikutnya. Di CNN, layer awal belajar detail kecil (tepi, tekstur), layer dalam menggabungkannya menjadi konsep lebih tinggi. Dalam praktiknya, saat *fine-tune* model pretrained, layer awal biasanya aman di-*freeze*, sedangkan layer akhir perlu beradaptasi dengan domain baru.
 
@@ -342,7 +342,7 @@ Sebelum membahas dua skema standar, perjelas notasinya:
 
 Dua skema utama:
 
-- **Kaiming (He) initialization** dipakai untuk layer dengan aktivasi ReLU: `σ² = 2/fan_in`, jadi `σ = sqrt(2/fan_in)`. Kenapa angka 2? Karena ReLU mematikan kira-kira separuh aktivasi (yang negatif menjadi 0), variansi sinyal di output layer menyusut menjadi separuh. Mengompensasi dengan faktor 2 di variansi inisialisasi menjaga aliran sinyal stabil lewat banyak layer ReLU. PyTorch menerapkannya otomatis untuk `nn.Conv2d` dan `nn.Linear`.
+- **Kaiming (He) initialization** dipakai untuk layer dengan aktivasi ReLU: `σ² = 2/fan_in`, jadi `σ = sqrt(2/fan_in)`. Kenapa angka 2? Karena ReLU mematikan kira-kira separuh aktivasi (yang negatif menjadi 0), variansi output layer menyusut menjadi separuh. Faktor 2 pada variansi inisialisasi menjaga nilai aktivasi tetap stabil lewat banyak layer ReLU. PyTorch menerapkannya otomatis untuk `nn.Conv2d` dan `nn.Linear`.
 - **Xavier (Glorot) initialization** dipakai untuk aktivasi simetris (Tanh, Sigmoid): `σ² = 2/(fan_in + fan_out)`. Skema ini sering dipakai di Transformer yang banyak memakai LayerNorm + GELU.
 
 Anda jarang perlu menginisialisasi sendiri. Tapi ketika mendefinisikan layer kustom atau mendebug model yang tidak mau belajar dari epoch pertama, ini relevan:

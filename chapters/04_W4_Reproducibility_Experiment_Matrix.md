@@ -172,7 +172,7 @@ Tabel konfigurasi adalah alat sederhana yang kuat:
 | focal_s44    | Focal | 2.0 | block1 | 3e-4 | 44   | ...      |
 
 
-Baca secara vertikal: kolom `LR` seragam, berarti learning rate bukan variabel. Kolom `Loss` dan `Freeze` berubah bersamaan - inilah yang sedang Anda uji. Seed divariasikan sebagai *replikasi*, bukan sebagai variabel eksperimen.
+Baca secara vertikal: kolom `LR` seragam, berarti learning rate bukan variabel. Kolom `Loss` dan `Freeze` berubah bersamaan - inilah yang sedang Anda uji. Seed divariasikan untuk *replikasi*, bukan menjadi variabel eksperimen.
 
 ![Desain ablation study: baseline dan tiga varian dengan satu variabel berubah per kondisi](../figures/fig02a_ablation_design.svg)
 
@@ -510,7 +510,7 @@ Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://githu
 1. Anda mendapati bahwa baseline di repo riset lab Anda memakai `lr=1e-3`, padahal pengalaman Anda bilang `3e-4` lebih stabil dengan AdamW. Anda ingin membandingkan focal loss dengan baseline. Tuliskan dua rencana eksperimen alternatif untuk menangani ketidakselarasan ini, beserta argumen kapan masing-masing lebih tepat.
 2. Hipotesis Anda gagal: F1 kelas minor tidak naik, akurasi keseluruhan turun. Apa tiga pertanyaan berikutnya yang akan Anda kejar? Urutkan dari yang paling ringan (tidak perlu training baru) ke yang paling berat (butuh training baru atau inspeksi manual panjang).
 3. Dosen pembimbing meminta Anda "cari teknik mitigasi imbalance yang paling ampuh untuk dataset kita". Instruksi ini jauh lebih terbuka daripada email di bagian 1. Tulis lima pertanyaan klarifikasi yang paling penting Anda ajukan *sebelum* memilih teknik apapun.
-4. **Koneksi ke Capstone.** Di W11 Anda akan menulis proposal capstone lengkap untuk topik Anda sendiri. Latihan sekarang: untuk satu topik kandidat Capstone yang Anda pikirkan, tuliskan draft 3 bagian protokol (tujuan, variabel, hipotesis) hanya dalam satu paragraf. Bagian mana yang paling sulit Anda tulis sekarang, dan apa yang perlu Anda pelajari di bab-bab berikutnya agar bagian itu menjadi mudah?
+4. **Koneksi ke Capstone.** Di W11, proposal capstone lengkap akan ditulis untuk topik Anda sendiri. Latihan sekarang: untuk satu topik kandidat Capstone yang Anda pikirkan, tuliskan draft 3 bagian protokol (tujuan, variabel, hipotesis) hanya dalam satu paragraf. Bagian mana yang paling sulit Anda tulis sekarang, dan apa yang perlu Anda pelajari di bab-bab berikutnya agar bagian itu menjadi mudah?
 
 ---
 
