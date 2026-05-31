@@ -55,7 +55,7 @@ Setelah W6, Anda memeriksa setiap pipeline preprocessing dengan pertanyaan: "Apa
 
 ## 0.5 Representasi Fitur dalam Konteks Sequence dan Sensor
 
-Di W3, Anda belajar tiga strategi representasi fitur: **engineered**, **extracted**, dan **learned**. Di W6, ketiga strategi ini muncul dalam konteks yang berbeda - domain sensor dan time series - di mana pilihannya jauh lebih menentukan karena ada dimensi temporal yang perlu dijaga.
+Di W3, Anda belajar tiga strategi representasi fitur: **engineered**, **extracted**, dan **learned**. Di W6, ketiga strategi ini muncul dalam konteks yang berbeda - domain sensor dan time series - dan di sini pilihannya jauh lebih menentukan karena ada dimensi temporal yang perlu dijaga.
 
 | Strategi | Contoh di sensor/time-series | Kekuatan | Risiko leakage |
 |---|---|---|---|
@@ -218,7 +218,7 @@ Protokol audit label untuk dataset klasifikasi:
 1. **Periksa distribusi label.** `value_counts()`. Kelas dengan frekuensi sangat rendah (< 1%) mungkin tidak praktis untuk model klasifikasi biasa - pertimbangkan menggabung ke kelas lain atau memakai pendekatan *few-shot*.
 2. **Periksa ejaan/konsistensi kategori.** `df['label'].unique()`. Sering ditemukan 'Positif', 'positif', 'Positive', 'POS' yang seharusnya satu kelas.
 3. **Lakukan inspeksi manual pada sampel.** Ambil 50 sampel acak, periksa labelnya dengan pemahaman domain. Jika Anda bukan ahli domain, minta bantuan.
-4. **Inspeksi kesalahan model sebagai audit tambahan.** Setelah baseline training, ambil 20 "kesalahan paling percaya diri" yaitu prediksi di mana model yakin tetapi salah. Sering kali *labelnya* yang salah, bukan modelnya.
+4. **Inspeksi kesalahan model sebagai audit tambahan.** Setelah baseline training, ambil 20 "kesalahan paling percaya diri" yaitu prediksi saat model yakin tetapi salah. Sering kali *labelnya* yang salah, bukan modelnya.
 
 Contoh pada dataset gambar:
 
@@ -317,15 +317,15 @@ Untuk model PyTorch yang memakai augmentasi, prinsip sama: augmentasi hanya di t
 
 Data di dunia nyata sering berbeda dari data training. Tiga bentuk perubahan:
 
-**Covariate shift** adalah kondisi di mana distribusi fitur `P(x)` berubah, tetapi hubungan fitur→target `P(y|x)` tetap. Model masih bisa di-deploy kalau fitur baru tidak terlalu jauh dari yang dilihat saat training.
+**Covariate shift** adalah kondisi saat distribusi fitur `P(x)` berubah, tetapi hubungan fitur→target `P(y|x)` tetap. Model masih bisa di-deploy kalau fitur baru tidak terlalu jauh dari yang dilihat saat training.
 - *Contoh konkret:* model klasifikasi daun penyakit dilatih di musim kemarau (warna lebih kekuningan), dipakai di musim hujan (warna lebih gelap dan basah). Pola visual penyakit yang sama, tetapi distribusi warna pixel bergeser.
 - *Deteksi:* histogram per-channel train vs deploy berbeda; uji KS pada distribusi fitur.
 
-**Label shift** adalah kondisi di mana distribusi target `P(y)` berubah, tetapi `P(x|y)` tetap. Mengetahui shift jenis ini penting karena solusinya berbeda dari covariate shift.
+**Label shift** adalah kondisi saat distribusi target `P(y)` berubah, tetapi `P(x|y)` tetap. Mengetahui shift jenis ini penting karena solusinya berbeda dari covariate shift.
 - *Contoh konkret:* model deteksi spam dilatih saat spam = 5% dari email, di-deploy saat campaign besar membuat spam = 30%. Tampilan spam tetap sama; hanya proporsinya berubah. Threshold default akan menghasilkan banyak false negative.
 - *Deteksi:* bandingkan `value_counts` label di sample produksi (ground-truth atau proxy lemah) vs train.
 
-**Concept drift** adalah kondisi di mana `P(y|x)` itu sendiri berubah. Hubungan fitur→target tidak lagi yang sama. Jenis ini paling sulit ditangani dan biasanya butuh re-training periodik.
+**Concept drift** adalah kondisi saat `P(y|x)` itu sendiri berubah. Hubungan fitur→target tidak lagi yang sama. Jenis ini paling sulit ditangani dan biasanya butuh re-training periodik.
 - *Contoh konkret:* model prediksi churn pelanggan dilatih sebelum app rilis fitur baru. Setelah rilis, pengguna yang sebelumnya churn karena fitur kurang sekarang loyal - dengan fitur input identik, label berubah.
 - *Deteksi:* metrik di production turun walau distribusi fitur stabil; bandingkan akurasi window sliding bulanan.
 
@@ -351,7 +351,7 @@ Ketidakseimbangan kelas bukan satu-satunya bentuk bias dalam dataset. Empat jeni
 
 **Measurement bias** terjadi ketika fitur atau label mengukur konstruk yang berbeda dari yang dimaksud. Contoh terkenal: model prediksi "risiko kriminal" COMPAS (ProPublica, 2016) - label "residivis" ternyata sangat berkorelasi dengan intensitas patroli polisi di lingkungan tertentu, bukan risiko aktual. Pertanyaan yang harus diajukan: "apakah yang kita ukur benar-benar merepresentasikan konstruk yang kita klaim?"
 
-**Label bias** terjadi ketika bias manusia pemberi label tercermin dalam *ground truth*. Contoh: dataset klasifikasi teks "toxic" di mana komentar dalam dialek tertentu (AAVE) diberi label toxic lebih sering daripada komentar serupa dalam bahasa Inggris standar. Deteksi awal: periksa apakah distribusi label berbeda signifikan antar subgrup yang seharusnya mirip.
+**Label bias** terjadi ketika bias manusia pemberi label tercermin dalam *ground truth*. Contoh: dataset klasifikasi teks "toxic" yang lebih sering memberi label toxic pada komentar dalam dialek tertentu (AAVE) daripada komentar serupa dalam bahasa Inggris standar. Deteksi awal: periksa apakah distribusi label berbeda signifikan antar subgrup yang seharusnya mirip.
 
 **Historical bias** terjadi ketika ketidaksetaraan yang sudah ada di dunia nyata tercermin dalam data. Contoh: dataset *resume screening* yang dilatih pada data historis perekrutan di masa lalu akan mewarisi bias gender atau ras pada keputusan perekrutan masa itu. Jenis ini berbeda dari label bias karena *dunia nyata memang bias*, bukan pemberi label yang keliru.
 
