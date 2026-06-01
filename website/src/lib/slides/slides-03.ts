@@ -10,6 +10,49 @@ export const slides03: SlideSection[] = [
     footnote: "Bab 03 - Minggu 3",
   },
 
+  // ── 1b: Kilas Balik (napas) ──
+  {
+    layout: "section",
+    title: "Kilas Balik: W0, W1, W2",
+    body: "Sebelum masuk ke loss, optimizer, dan evaluasi, kita rangkum dulu tiga minggu pertama secara singkat. Bekal dari W0 sampai W2 dipakai langsung di sepanjang W3, jadi pengingat ini bukan formalitas.",
+    footnote: "Kilas balik ini sengaja singkat - penjelasan penuh tiap minggu ada di deck W0, W1, dan W2 masing-masing.",
+  },
+
+  // ── 1c: Grid kilas balik W0-W2 ──
+  {
+    layout: "grid",
+    title: "Apa yang Sudah Dibangun di W0, W1, dan W2",
+    body: "Ketiga minggu pertama membangun fondasi yang berbeda tetapi saling menumpuk. Berikut inti dari masing-masing:",
+    gridItems: [
+      {
+        title: "W0 - Orientasi & Prasyarat",
+        body: "W0 menetapkan arah bootcamp lewat tiga pilar kompetensi dan empat sikap riset (Curiosity, Rigor, Skepticism, Ownership). Bab prasyarat membekali kosakata dasar: cara membaca shape tensor (B, C, H, W), arti notasi panah antar-layer, dan tiga operasi PyTorch inti termasuk `loss.backward()`.",
+      },
+      {
+        title: "W1 - Tabular & Pencocokan Head-Loss",
+        body: "W1 menunjukkan bahwa MLP pada dasarnya hanya mengubah bentuk tensor. Tugas menentukan output head dan head menentukan loss, sehingga salah memasangkan keduanya membuat loss tetap turun tetapi model belajar hal yang keliru. Di sini juga ditanamkan kebiasaan menulis observasi sebelum kesimpulan.",
+      },
+      {
+        title: "W2 - Citra, CNN & Smoke Test",
+        body: "W2 memperkenalkan tensor citra (B, C, H, W), Conv2d dengan parameter sharing, dan smoke test tiga level (import, dummy forward, overfit satu batch) yang menjadi kebiasaan debugging. Galeri empat pola loss mulai dikenalkan di sini dan dituntaskan minggu ini.",
+      },
+    ],
+    footnote: "Tiga minggu ini membawa kita dari membaca shape tensor sampai melatih CNN penuh dengan disiplin debugging.",
+  },
+
+  // ── 1d: Jembatan kilas balik ke W3 ──
+  {
+    layout: "bullets",
+    title: "Tiga Bekal W0-W2 yang Dipakai di W3",
+    body: "Tiga hal dari minggu-minggu sebelumnya langsung dipakai begitu W3 dimulai, bukan sekadar materi lama yang sudah lewat:",
+    bullets: [
+      "**Kebiasaan observasi sebelum kesimpulan** dari W1 menjadi cara kita membaca galeri lima loss curve di awal W3 tanpa langsung menebak penyebabnya.",
+      "**Galeri empat pola loss** yang dikenalkan di W2 dilengkapi minggu ini menjadi peta diagnosis lima pola dengan hipotesis dan langkah tes yang spesifik.",
+      "**Pencocokan head dan loss** dari W1 menjadi titik awal saat W3 membahas kapan focal loss atau label smoothing layak menggantikan cross-entropy.",
+    ],
+    footnote: "Setelah kilas balik singkat ini, kita masuk ke peta W3 dan galeri lima training.",
+  },
+
   // ── 2: Peta W3 ──
   {
     layout: "section",
