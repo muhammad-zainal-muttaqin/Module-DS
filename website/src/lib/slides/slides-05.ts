@@ -1,4 +1,4 @@
-import type { SlideSection } from "./index";
+﻿import type { SlideSection } from "./index";
 
 export const slides05: SlideSection[] = [
   // ── 1: Title ──
@@ -26,7 +26,7 @@ export const slides05: SlideSection[] = [
     bullets: [
       "**Tensor sequence** berbentuk (T, F) masuk sebagai input, dengan T sebagai panjang waktu dan F jumlah fitur per timestep.",
       "**Kebiasaan riset** minggu ini adalah mendiagnosis sequence panjang dan menulis alasan memilih arsitektur secara jelas.",
-      "**Lab 3b wajib** di W5 karena sekaligus memenuhi Breadth Check untuk keluarga RNN/LSTM, salah satu dari lima keluarga arsitektur.",
+      "**Lab W5 wajib** karena sekaligus memenuhi Breadth Check untuk keluarga RNN/LSTM, salah satu dari lima keluarga arsitektur.",
     ],
     footnote: "Lab utama minggu ini adalah lab_w5_lstm_sequence.ipynb.",
   },
@@ -206,7 +206,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     title: "Vanishing Gradient: RNN vs LSTM",
     imageUrl: "/figures/fig05b_gradient_flow.svg",
     caption: "Gambar ini menunjukkan norma gradient per timestep saat backpropagation pada RNN vanilla dibandingkan LSTM. Kurva RNN turun secara eksponensial sehingga gradient di timestep awal nyaris hilang, sedangkan kurva LSTM tetap relatif datar sehingga gradient dari timestep awal masih dapat dihitung.",
-    footnote: "Lab 3b memvisualisasikan gejala ini dengan plot log-scale gradient norm per timestep.",
+    footnote: "Lab W5 memvisualisasikan gejala ini dengan plot log-scale gradient norm per timestep.",
   },
 
   // ── 20: Kenapa LSTM memutus ──
@@ -433,17 +433,17 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Panggil clip_grad_norm_(model.parameters(), max_norm=1.0) tepat sebelum optimizer.step().",
   },
 
-  // ── 37: Bullets Lab 3b ──
+  // ── 37: Bullets Lab W5 ──
   {
     layout: "bullets",
-    title: "Lab 3b: RNN vs LSTM Gradient Flow (Wajib)",
+    title: "Lab W5: RNN vs LSTM Gradient Flow (Wajib)",
     body: "Lab wajib minggu ini membandingkan tiga arsitektur recurrent dan memvisualisasikan vanishing gradient secara langsung:",
     bullets: [
       "**Latih RNN vs LSTM** pada seq_len=50 lalu seq_len=200, dan amati selisih performa membesar saat sequence memanjang.",
       "**Plot gradient norm per timestep** untuk keduanya, sehingga kurva vanishing pada RNN terlihat jelas dibanding LSTM yang datar.",
       "**Tulis pernyataan justifikasi** arsitektur dengan template §2.6, lalu coba GRU sebagai alternatif ketiga.",
     ],
-    footnote: "Lab 3b memenuhi Breadth Check keluarga RNN/LSTM dengan smoke test dan gradient clipping aktif di semua model.",
+    footnote: "Lab W5 memenuhi Breadth Check keluarga RNN/LSTM dengan smoke test dan gradient clipping aktif di semua model.",
   },
 
   // ── 38: Refleksi ──
@@ -453,7 +453,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     body: "Sebelum lanjut ke W6, renungkan tiga pertanyaan yang menghubungkan minggu ini dengan keputusan riset Anda nanti:",
     bullets: [
       "Untuk dataset EKG 5000 titik per sampel dengan target 4 kelas aritmia, apakah LSTM arsitektur pertama Anda, dan dua alternatif apa beserta trade-off-nya?",
-      "Setelah melihat plot gradient flow di Lab 3b, pada panjang berapa RNN vanilla mulai kehilangan sinyal, dan bagaimana angka itu mengubah keputusan Anda?",
+      "Setelah melihat plot gradient flow di Lab W5, pada panjang berapa RNN vanilla mulai kehilangan sinyal, dan bagaimana angka itu mengubah keputusan Anda?",
       "Bagaimana strategi engineered, extracted, dan learned features muncul dalam konteks sequence, dengan satu contoh konkret untuk masing-masing di domain sensor?",
     ],
     footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya akan dipakai lagi saat menentukan arsitektur capstone.",

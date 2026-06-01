@@ -1,4 +1,4 @@
-import type { SlideSection } from "./index";
+﻿import type { SlideSection } from "./index";
 
 export const slides10: SlideSection[] = [
   // ── 1: Title ──
@@ -264,7 +264,7 @@ export const slides10: SlideSection[] = [
         body: "Transformasi bijeksi yang bisa dibalik dari noise ke data memberi likelihood eksak, berguna untuk deteksi anomali. Kelemahannya adalah arsitektur terbatas karena harus invertible.",
       },
     ],
-    footnote: "Autoencoder dari Lab 7b adalah langkah pertama menuju VAE: tinggal menambah (mu, sigma), reparameterization, dan loss KL.",
+    footnote: "Autoencoder dari lab breadth autoencoder adalah langkah pertama menuju VAE: tinggal menambah (mu, sigma), reparameterization, dan loss KL.",
   },
 
   // ── 23: Section Worked Example ──

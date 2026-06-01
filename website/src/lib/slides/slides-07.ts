@@ -1,4 +1,4 @@
-import type { SlideSection } from "./index";
+﻿import type { SlideSection } from "./index";
 
 export const slides07: SlideSection[] = [
   // ── 1: Title ──
@@ -156,7 +156,7 @@ print(tok.convert_ids_to_tokens(ids))
     title: "Scaled Dot-Product Attention",
     imageUrl: "/figures/fig06a_attention_sdp.png",
     caption: "Gambar ini menunjukkan alur perhitungan scaled dot-product attention: Query dan Key dikalikan menghasilkan matriks skor, skor dibagi akar dimensi lalu dilewatkan softmax menjadi bobot, dan bobot dikalikan Value menghasilkan output. Setiap baris matriks bobot adalah distribusi probabilitas yang menunjukkan seberapa besar satu token memperhatikan token lain.",
-    footnote: "Lab 6b menugaskan Anda menerapkan scaled_dot_product_attention dari nol dan memverifikasinya.",
+    footnote: "Lab W7b menugaskan Anda menerapkan scaled_dot_product_attention dari nol dan memverifikasinya.",
   },
 
   // ── 14: Bullets formula ──
@@ -235,7 +235,7 @@ Output (T, d_model)`,
   {
     layout: "section",
     title: "Frozen vs Fine-tuned: Eksperimen 2x2",
-    body: "Dua keputusan perlu dibandingkan: apakah backbone di-freeze atau di-fine-tune, dan apakah pooling memakai token [CLS] atau rata-rata semua token. Lab 5b menjalankan keduanya sebagai grid 2x2.",
+    body: "Dua keputusan perlu dibandingkan: apakah backbone di-freeze atau di-fine-tune, dan apakah pooling memakai token [CLS] atau rata-rata semua token. Lab W7 menjalankan keduanya sebagai grid 2x2.",
     footnote: "Pilihan ini menentukan biaya komputasi sekaligus performa akhir pada dataset Anda.",
   },
 
@@ -453,11 +453,11 @@ Output (T, d_model)`,
     title: "Lab W7: Teks, Repo, dan Transformer dari Nol",
     body: "Tiga lab minggu ini melatih ketiga tema sekaligus, dari klasifikasi teks sampai membangun Transformer dari nol:",
     bullets: [
-      "**Lab 5b** memuat dataset sentimen IndoNLU, menginspeksi tokenizer IndoBERT, dan menjalankan grid 2x2 frozen/fine-tune kali [CLS]/mean-pool.",
-      "**Lab 6** mengadopsi repo eksternal: menulis repo_map.md, menjalankan smoke test tiga level, dan menambah satu fitur seminimal mungkin.",
-      "**Lab 6b breadth** menulis scaled dot-product attention dari nol dan memverifikasinya terhadap nn.TransformerEncoderLayer untuk Breadth Check Transformer.",
+      "**Lab W7 teks** memuat dataset sentimen IndoNLU, menginspeksi tokenizer IndoBERT, dan menjalankan grid 2x2 frozen/fine-tune kali [CLS]/mean-pool.",
+      "**Lab W7 repo** mengadopsi repo eksternal: menulis repo_map.md, menjalankan smoke test tiga level, dan menambah satu fitur seminimal mungkin.",
+      "**Lab W7b breadth** menulis scaled dot-product attention dari nol dan memverifikasinya terhadap nn.TransformerEncoderLayer untuk Breadth Check Transformer.",
     ],
-    footnote: "Lab 6b wajib untuk memenuhi Breadth Check keluarga Transformer sebelum capstone.",
+    footnote: "Lab W7b wajib untuk memenuhi Breadth Check keluarga Transformer sebelum capstone.",
   },
 
   // ── 38: Refleksi ──

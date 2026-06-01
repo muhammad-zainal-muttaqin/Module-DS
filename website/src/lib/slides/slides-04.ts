@@ -1,4 +1,4 @@
-import type { SlideSection } from "./index";
+﻿import type { SlideSection } from "./index";
 
 export const slides04: SlideSection[] = [
   // ── 1: Title ──
@@ -28,7 +28,7 @@ export const slides04: SlideSection[] = [
       "**Dataset** yang dipakai adalah dataset baru, berbeda dari W2-W3, untuk menguji disiplin alur kerja di luar data yang sudah dikenal.",
       "**Reproduksibilitas** adalah syarat utama - hasil yang tidak bisa diulang oleh orang lain belum dianggap selesai.",
     ],
-    footnote: "Lab utama minggu ini adalah Lab 3 (lab_w4_experiment_tracking.ipynb).",
+    footnote: "Lab utama minggu ini adalah Lab W4 (lab_w4_experiment_tracking.ipynb).",
   },
 
   // ── 4: Section Motivasi ──
@@ -329,7 +329,7 @@ export const slides04: SlideSection[] = [
     title: "Empat Pilar Reproduksibilitas",
     imageUrl: "/figures/fig03a_reproducibility_sources.svg",
     caption: "Gambar ini menunjukkan empat pilar reproduksibilitas yang saling mengunci: config YAML yang menyimpan seluruh hyperparameter, penguncian seed di awal training, checkpoint yang menyertakan metadata lengkap, dan git hash yang mengikat tiap run ke commit penghasilnya. Keempatnya bersama-sama membuat satu hasil bisa ditelusuri balik ke kondisi persis yang menghasilkannya.",
-    footnote: "Implementasi keempat pilar tersedia di template/src/utils.py dan dibangun bertahap di Lab 3.",
+    footnote: "Implementasi keempat pilar tersedia di template/src/utils.py dan dibangun bertahap di Lab W4.",
   },
 
   // ── 29: Grid empat pilar ──
@@ -529,7 +529,7 @@ optim:
   {
     layout: "bullets",
     title: "Lab W4: Config, Logging, dan Reproducibility",
-    body: "Dari gambar tersebut, Lab 3 membangun infrastruktur reproduksibilitas di atas struktur folder itu lewat enam langkah:",
+    body: "Dari gambar tersebut, Lab W4 membangun infrastruktur reproduksibilitas di atas struktur folder itu lewat enam langkah bottom-up:",
     bullets: [
       "**Refaktor konfigurasi** dari nilai hardcoded menjadi YAML, lalu tambahkan set_seed() dan get_git_hash() ke training loop.",
       "**Logging dan checkpoint** mencatat loss, accuracy, dan LR per epoch ke TensorBoard, dengan checkpoint bermetadata lengkap yang bisa di-resume.",

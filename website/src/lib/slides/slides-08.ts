@@ -1,4 +1,4 @@
-import type { SlideSection } from "./index";
+﻿import type { SlideSection } from "./index";
 
 export const slides08: SlideSection[] = [
   // ── 1: Title ──
@@ -302,7 +302,7 @@ export const slides08: SlideSection[] = [
   {
     layout: "section",
     title: "Worked Example: IndoBERT dengan Tiga Strategi",
-    body: "Pada dataset IndoNLU SmSA yang sama dari Lab 5b, tiga strategi adaptasi dijalankan untuk memperlihatkan trade-off antara kecepatan dan performa secara langsung.",
+    body: "Pada dataset IndoNLU SmSA yang sama dari Lab W7, tiga strategi adaptasi dijalankan untuk memperlihatkan trade-off antara kecepatan dan performa secara langsung.",
     footnote: "Memakai satu dataset untuk ketiganya menjaga perbandingan tetap setara.",
   },
 
@@ -350,7 +350,7 @@ export const slides08: SlideSection[] = [
       "**Tulis selection memo** satu paragraf per model: mengapa model ini, asumsi apa yang dibawanya, dan apa batasannya.",
       "**Simpan sebagai foundation_model_map.md** di folder eksperimen W8 sebagai dasar pemilihan model capstone nanti.",
     ],
-    footnote: "Lab penunjang opsional lab_w8_remote_training.ipynb melatih menjalankan training di cloud GPU.",
+    footnote: "Lab W8 penunjang `lab_w8_remote_training.ipynb` melatih menjalankan training di cloud GPU.",
   },
 
   // ── 30: Refleksi ──
