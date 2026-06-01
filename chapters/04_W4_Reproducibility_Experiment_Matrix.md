@@ -458,25 +458,26 @@ Di luar update rutin, ada tiga alat yang membentuk kebiasaan komunikasi seorang 
 
 ## 5. Lab
 
-### 5.1 Focal Loss + Freeze Layer dengan Ablation
+### 5.1 Aktivitas Pembuka - Presentasi Bridge CIFAR-10 dari W3
 
-Buka [lab_w3_loss_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb).
+Sebelum membuka notebook Lab W4, kelas memakai 20-30 menit pertama untuk bridge assignment dari W3. Beberapa mahasiswa mempresentasikan satu slide diagnosis CIFAR-10 dari baseline W2.
 
-Tugas:
+Setiap slide memuat:
 
-1. Tulis `protocol.md` di `experiments/lab2/` dengan lima bagian (variabel, hipotesis, metrik, eksekusi, waktu) *sebelum* menyentuh kode training.
-2. Implementasi `FocalLoss` di [src/losses.py](../template/src/losses.py), sertakan uji: ketika γ=0 hasilnya identik dengan `CrossEntropyLoss`.
-3. Jalankan enam run (3 seed × 2 kondisi) memakai `SimpleCNN` pada CIFAR-10.
-4. Hasilkan tabel agregat dan plot F1 per kelas (baseline vs focal+freeze).
-5. Tulis laporan singkat (1 halaman): hipotesis, hasil, interpretasi, langkah berikutnya.
+1. loss curve train/validation,
+2. satu bukti evaluasi tambahan, misalnya confusion matrix, akurasi per kelas, atau contoh prediksi *confident* tetapi salah,
+3. diagnosis 3-5 kalimat,
+4. satu usulan ablation,
+5. satu hipotesis pendek.
 
-**Checklist verifikasi**:
+Tugas kelas adalah mengubah diagnosis tersebut menjadi matriks eksperimen. Aktivitas ini belum menuntut run CIFAR-10 baru. Fokusnya adalah menerjemahkan gejala menjadi rencana eksperimen: variabel yang diuji, baseline yang setara, seed, metrik utama, dan threshold sukses.
 
-- `protocol.md` ditulis *sebelum* run pertama (periksa timestamp).
-- FocalLoss dengan γ=0 reproduksi tepat baseline (selisih akurasi < 0.1%).
-- Enam run selesai, metrik tersimpan dalam `results.csv`.
-- Laporan mengacu spesifik pada hipotesis; hasil dinyatakan sebagai konfirmasi atau sanggahan, bukan netral.
-- Ablation yang tidak direncanakan (jika ada) dijelaskan motivasinya.
+Contoh hasil diskusi:
+
+| Diagnosis | Hipotesis | Variabel ablation | Baseline setara |
+| --- | --- | --- | --- |
+| Train accuracy jauh lebih tinggi daripada validation accuracy | Model overfit karena regularisasi kurang | `dropout=0.3` atau augmentasi ringan | Konfigurasi W2 tanpa perubahan lain |
+| Kelas `cat` dan `dog` sering tertukar | Representasi visual baseline belum cukup membedakan tekstur dan bentuk | augmentasi crop/flip | Arsitektur, optimizer, epoch, dan seed tetap sama |
 
 ---
 
@@ -484,21 +485,24 @@ Tugas:
 
 ![Struktur Folder Eksperimen: config.yaml, train.log, checkpoint, summary.json, TensorBoard](../figures/fig03b_experiment_folder.svg)
 
-Buka [lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb). Tugas:
+Buka [lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb). Lab ini tidak menggantikan bridge CIFAR-10; lab ini membangun infrastruktur reproduksibilitas yang nanti dipakai untuk menjalankan ablation dari bridge tersebut.
 
-1. Tulis `protocol.md` + matriks eksperimen sebelum menyentuh kode.
-2. Refaktor konfigurasi dari hardcoded ke YAML.
-3. Tambahkan `set_seed()` dan `get_git_hash()` ke training loop.
-4. Logging TensorBoard per epoch (loss, accuracy, LR).
-5. Checkpoint dengan metadata lengkap; verifikasi bisa di-resume.
-6. Jalankan 3 seed per kondisi, buat tabel `results.csv`.
+Tugas:
+
+1. Tulis `protocol.md` + matriks eksperimen dari salah satu hipotesis bridge sebelum menyentuh kode training baru.
+2. Jalankan dua dry-run dengan seed dan config yang sama, lalu bandingkan `best_val_acc`.
+3. Buka checkpoint dan periksa metadata: `config`, `git_hash`, `epoch`, `metrics`, dan dirty flag.
+4. Uji dirty flag detection saat repo memiliki perubahan yang belum di-commit.
+5. Verifikasi resume state dari checkpoint: model, optimizer, scheduler, dan epoch lanjutan.
+6. Jika tersedia beberapa run seed berbeda, plot variasi validation accuracy sebagai estimasi seed variance.
 
 **Checklist:**
-- [ ] `protocol.md` ditulis sebelum run (timestamp sebelum checkpoint).
-- [ ] Config YAML + checkpoint disimpan bersamaan.
-- [ ] Git hash tercatat di checkpoint.
-- [ ] Training bisa dilanjutkan dari checkpoint (`--resume` flag).
-- [ ] 3 seed berhasil; rata-rata ± std ada di `summary.json`.
+- [ ] `protocol.md` dan matriks eksperimen ditulis sebelum run baru.
+- [ ] Dua dry-run seed sama menghasilkan `val_acc` identik atau hampir identik.
+- [ ] Config dan checkpoint tersimpan bersama.
+- [ ] Git hash atau dirty flag tercatat di checkpoint.
+- [ ] Resume dari checkpoint melanjutkan epoch, bukan memulai dari epoch 1.
+- [ ] Jika ada beberapa seed, ringkasan mean ± std ditulis dalam laporan.
 
 ---
 

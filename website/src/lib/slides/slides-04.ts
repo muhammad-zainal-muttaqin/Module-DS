@@ -542,13 +542,13 @@ optim:
   {
     layout: "bullets",
     title: "Lab W4: Config, Logging, dan Reproducibility",
-    body: "Dari gambar tersebut, Lab W4 membangun infrastruktur reproduksibilitas di atas struktur folder itu lewat enam langkah bottom-up:",
+    body: "Dari gambar tersebut, Lab W4 membangun infrastruktur reproduksibilitas yang nanti dipakai untuk menjalankan ablation dari bridge CIFAR-10:",
     bullets: [
-      "**Refaktor konfigurasi** dari nilai hardcoded menjadi YAML, lalu tambahkan set_seed() dan get_git_hash() ke training loop.",
-      "**Logging dan checkpoint** mencatat loss, accuracy, dan LR per epoch ke TensorBoard, dengan checkpoint bermetadata lengkap yang bisa di-resume.",
-      "**Tiga seed per kondisi** dijalankan dan hasilnya dirangkum sebagai rata-rata ± std di results.csv.",
+      "**Protocol dan matriks** ditulis dari salah satu hipotesis bridge sebelum run baru dijalankan.",
+      "**Dry-run seed sama** dipakai untuk memeriksa apakah config dan seed menghasilkan validation accuracy yang identik atau hampir identik.",
+      "**Checkpoint dan resume** diperiksa lewat metadata config, git hash, dirty flag, optimizer state, scheduler state, dan epoch lanjutan.",
     ],
-    footnote: "Checklist utama: protocol.md ditulis sebelum run, dan git hash tercatat di setiap checkpoint.",
+    footnote: "Jika beberapa seed tersedia, hasilnya diringkas sebagai mean ± std untuk membaca seed variance.",
   },
 
   // ── 44: Bullets Refleksi ──
@@ -581,7 +581,7 @@ optim:
   {
     layout: "cta",
     title: "Mulai Lab W4",
-    body: "Semua konsep di presentasi ini ada dalam lab notebook lengkap: refaktor config ke YAML, penguncian seed, checkpoint bermetadata, dan multi-seed dengan tabel agregat.\n\nEstimasi waktu: 4-6 jam termasuk menulis protokol, menjalankan run, dan menyusun laporan.",
+    body: "Semua konsep di presentasi ini ada dalam lab notebook lengkap: protocol dan matriks, penguncian seed, dry-run reproducibility, checkpoint bermetadata, dirty flag, resume state, dan pembacaan variasi antar seed.\n\nEstimasi waktu: 3-4 jam termasuk inspeksi checkpoint dan refleksi.",
     ctaText: "Buka Lab W4 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb",
   },
