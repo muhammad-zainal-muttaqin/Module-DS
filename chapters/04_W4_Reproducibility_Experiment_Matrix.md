@@ -71,7 +71,7 @@ Bab ini membangun kebiasaan itu.
 
 ### 2.0 Matriks Eksperimen Sebelum Coding
 
-Sebelum menyentuh kode, tulis **matriks eksperimen** - tabel yang mendaftar semua run yang akan Anda jalankan beserta konfigurasi masing-masing. Ini bukan formalitas; ini alat bantu berpikir yang mencegah tiga masalah umum:
+Sebelum menyentuh kode, tulis **matriks eksperimen** - tabel yang mendaftar semua run yang akan Anda jalankan beserta konfigurasi masing-masing. Ini bukan formalitas; ini cara memperjelas rencana yang mencegah tiga masalah umum:
 1. lupa menjalankan satu kondisi penting,
 2. baru menyadari di tengah jalan bahwa dua kondisi tidak sebanding,
 3. tidak bisa menjelaskan apa yang berubah di antara run.

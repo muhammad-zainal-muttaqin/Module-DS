@@ -5,7 +5,7 @@ export const slides09: SlideSection[] = [
   {
     layout: "title",
     title: "W9: Multimodal Reasoning",
-    subtitle: "Belajar menggabungkan beberapa modalitas, memeriksa apakah model memakai semuanya, dan menangani modalitas yang hilang.",
+    subtitle: "Bagaimana menggabungkan beberapa modalitas, cara memastikan model benar-benar memakai semuanya, dan apa yang dilakukan saat satu modalitas hilang.",
     body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 09 - Minggu 9",
   },

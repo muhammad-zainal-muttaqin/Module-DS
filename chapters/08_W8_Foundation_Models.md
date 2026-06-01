@@ -70,7 +70,7 @@ W8 memberi kerangka untuk menjawab ketiga pertanyaan ini.
 
 ### 2.0 Dari Pretraining ke Foundation Model
 
-Sebelum masuk ke "apa itu foundation model", mari kita lihat bagaimana kita sampai di sini. Sejarah ini penting karena menunjukkan bahwa foundation model bukanlah lompatan magis, melainkan akumulasi dari pola yang sudah terbentuk selama satu dekade.
+Sebelum masuk ke "apa itu foundation model", mari kita lihat bagaimana kita sampai di sini. Sejarah ini penting karena menunjukkan bahwa foundation model bukanlah kemunculan tiba-tiba, melainkan akumulasi dari pola yang sudah terbentuk selama satu dekade.
 
 **Fase 1: Training dari nol per tugas (sebelum 2012).** Setiap tugas dimulai dari bobot acak. Tidak ada berbagi representasi antar tugas; model untuk klasifikasi gambar tidak membantu model untuk deteksi objek. Ini seperti setiap kali belajar membaca, Anda harus belajar alfabet ulang.
 

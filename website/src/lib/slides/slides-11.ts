@@ -5,7 +5,7 @@ export const slides11: SlideSection[] = [
   {
     layout: "title",
     title: "W11: Research Framing",
-    subtitle: "Merumuskan pertanyaan riset sendiri lewat kerangka Input, Middle, Output, lalu memfilternya dengan literatur sebelum eksekusi capstone.",
+    subtitle: "Merumuskan pertanyaan riset sendiri lewat kerangka Input, Middle, Output, lalu menyaringnya dengan literatur sebelum capstone dimulai.",
     body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 11 - Minggu 11",
   },

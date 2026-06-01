@@ -5,7 +5,7 @@ export const slides07: SlideSection[] = [
   {
     layout: "title",
     title: "W7: Text, Transformers & Repo Adoption",
-    subtitle: "Memahami cara kerja attention, memilih antara freeze dan fine-tune, serta membaca dan memodifikasi repo riset yang belum dikenal.",
+    subtitle: "Bagaimana attention bekerja, kapan memilih freeze atau fine-tune, dan cara membaca serta memodifikasi repo riset yang belum dikenal.",
     body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 07 - Minggu 7",
   },

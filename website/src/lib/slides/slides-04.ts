@@ -5,7 +5,7 @@ export const slides04: SlideSection[] = [
   {
     layout: "title",
     title: "W4: Reproducibility & Matriks Eksperimen",
-    subtitle: "Belajar merancang eksperimen sebelum menulis kode, mengontrol variabel, dan menyimpan jejak hasil agar bisa dicek ulang.",
+    subtitle: "W4 mengubah \"bisa training\" menjadi \"bisa riset\": merancang eksperimen sebelum menulis kode, mengubah satu variabel setiap kali, lalu menyimpan jejak tiap run agar hasilnya bisa dicek ulang.",
     body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 04 - Minggu 4",
   },
@@ -80,7 +80,7 @@ export const slides04: SlideSection[] = [
   {
     layout: "section",
     title: "Matriks Eksperimen Sebelum Coding",
-    body: "Sebelum menyentuh kode, tulis matriks eksperimen - tabel yang mendaftar semua run beserta konfigurasinya. Ini bukan formalitas, melainkan alat bantu berpikir yang dipakai sebelum baris kode pertama.",
+    body: "Sebelum menyentuh kode, tulis matriks eksperimen - tabel yang mendaftar semua run beserta konfigurasinya. Ini bukan formalitas, melainkan cara memperjelas rencana sebelum baris kode pertama.",
     footnote: "Matriks ditulis di protocol.md, dan timestamp file menjadi bukti perencanaan.",
   },
 

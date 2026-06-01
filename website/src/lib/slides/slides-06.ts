@@ -5,7 +5,7 @@ export const slides06: SlideSection[] = [
   {
     layout: "title",
     title: "W6: Representations & Temporal Leakage",
-    subtitle: "Memeriksa data sebelum mempercayai angka, mengenali lima jenis leakage, dan menjaga pipeline tetap valid secara temporal.",
+    subtitle: "Kenapa angka tinggi belum tentu bisa dipercaya, bagaimana lima jenis leakage menyusup ke pipeline, dan cara menjaga data tetap valid secara temporal.",
     body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 06 - Minggu 6",
   },

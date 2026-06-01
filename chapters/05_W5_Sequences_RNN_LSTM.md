@@ -38,7 +38,7 @@
 
 ## 0. Peta Bab
 
-W5 memperluas Big Map ke domain sequence. Setelah W5, Anda memahami tiga keluarga output head untuk tugas sequence, mampu membangun dan melatih RNN vanilla serta LSTM/GRU, melihat gejala vanishing gradient dari satu perbandingan, menentukan arsitektur sequence berdasarkan panjang dependensi, dan menulis alasan pemilihan arsitektur dengan jelas.
+W5 memperluas Big Map ke domain sequence. Di akhir minggu, Anda bisa membangun dan melatih RNN vanilla serta LSTM/GRU, mengenali gejala vanishing gradient dari satu perbandingan langsung, lalu memilih arsitektur sequence sesuai panjang dependensi dan menuliskan alasan pemilihannya dengan jelas. Anda juga mengenal tiga keluarga output head untuk tugas sequence.
 
 ---
 
@@ -101,9 +101,9 @@ Tiga rezim:
 - Ketika **|w_h| > 1**, gradient meledak (*exploding*): nilai loss tiba-tiba menjadi NaN. Solusi praktisnya adalah gradient clipping (lihat §4).
 - Ketika **|w_h| ≈ 1**, model berada di titik kritis: kondisi stabil hanya di pinggiran dan sulit dipertahankan tanpa intervensi (LSTM gate, residual connection, normalization).
 
-Inilah "vanishing gradient problem" - bukan masalah teori abstrak, tetapi konsekuensi langsung perkalian berulang di chain rule. LSTM (§2.3) dirancang khusus untuk memutus rantai perkalian ini.
+Inilah "vanishing gradient problem" - bukan masalah teori abstrak, tetapi konsekuensi langsung perkalian berulang di chain rule. LSTM (§2.3) dirancang khusus untuk mengatasi rantai perkalian ini.
 
-*Cell state* LSTM memutus rantai ini dengan cara yang spesifik: `c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t`. Turunan `∂c_t/∂c_{t-1} = f_t` adalah hasil elemen per elemen dengan forget gate, bukan perkalian dengan matriks rekurens `W_h` secara penuh. Gradient pada timestep awal tetap dapat dihitung tanpa cepat teredam. Cara kerjanya secara rinci ada di §2.3.
+*Cell state* LSTM menghindari perkalian matriks berulang ini dengan cara yang spesifik: `c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t`. Turunan `∂c_t/∂c_{t-1} = f_t` adalah hasil elemen per elemen dengan forget gate, bukan perkalian dengan matriks rekurens `W_h` secara penuh. Gradient pada timestep awal tetap dapat dihitung tanpa cepat teredam. Cara kerjanya secara rinci ada di §2.3.
 
 Prinsip yang sama berlaku pada **residual connections** yang akan Anda jumpai di W7 dan W8: alih-alih mempelajari `H(x)` langsung, blok residual mempelajari `F(x) = H(x) - x`, sehingga output menjadi `F(x) + x`. Penambahan `x` menciptakan jalur langsung bagi gradient dari loss ke layer sebelumnya, tanpa harus melalui transformasi dalam blok. *Cell state* LSTM, residual connections di ResNet, dan skip connections di blok Transformer adalah satu prinsip yang sama: **pembaruan aditif mengurangi perkalian berulang pada gradient**. Memahami prinsip ini sekali sudah cukup untuk mengenali bentuknya di W7 dan W8.
 

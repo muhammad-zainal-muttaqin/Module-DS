@@ -5,7 +5,7 @@ export const slides10: SlideSection[] = [
   {
     layout: "title",
     title: "W10: Paper Reading & Implementation",
-    subtitle: "Menyaring banjir paper menjadi aliran kecil, membaca dengan metode tiga putaran, dan menerjemahkan klaim paper menjadi kode yang bisa diuji.",
+    subtitle: "Cara mempersempit banyak paper menjadi sedikit yang relevan, membacanya dengan metode tiga putaran, dan menerjemahkan klaimnya menjadi kode yang bisa diuji.",
     body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 10 - Minggu 10",
   },

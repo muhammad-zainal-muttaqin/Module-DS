@@ -5,7 +5,7 @@ export const slides08: SlideSection[] = [
   {
     layout: "title",
     title: "W8: Foundation Models",
-    subtitle: "Belajar memilih model pretrained yang sesuai, membaca batasan di model card, dan menentukan strategi adaptasi antara frozen, LoRA, dan full fine-tuning.",
+    subtitle: "Cara memilih model pretrained yang sesuai, membaca batasannya di model card, dan menentukan adaptasi yang tepat antara frozen, LoRA, dan full fine-tuning.",
     body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 08 - Minggu 8",
   },
@@ -72,7 +72,7 @@ export const slides08: SlideSection[] = [
   {
     layout: "section",
     title: "Dari Pretraining ke Foundation Model",
-    body: "Foundation model bukan lompatan magis, melainkan akumulasi pola selama satu dekade. Lima fase evolusi menunjukkan bagaimana paradigma bergeser dari training per tugas menjadi adaptasi representasi.",
+    body: "Foundation model bukan kemunculan tiba-tiba, melainkan akumulasi pola selama satu dekade. Lima fase evolusi menunjukkan bagaimana paradigma bergeser dari training per tugas menjadi adaptasi representasi.",
     footnote: "Memahami sejarah ini menjelaskan mengapa pertanyaan riset hari ini berbeda dari satu dekade lalu.",
   },
 

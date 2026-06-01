@@ -5,7 +5,7 @@ export const slides05: SlideSection[] = [
   {
     layout: "title",
     title: "W5: Sequences - RNN & LSTM",
-    subtitle: "Belajar melihat gejala vanishing gradient, memahami cara kerja gate LSTM, dan menentukan arsitektur recurrent sesuai panjang dependensi.",
+    subtitle: "Kenapa RNN sulit mengingat konteks yang jauh, bagaimana gate LSTM mengatasinya, dan kapan tiap arsitektur recurrent dipakai.",
     body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
     footnote: "Bab 05 - Minggu 5",
   },
@@ -118,7 +118,7 @@ export const slides05: SlideSection[] = [
       "**Saat |w_h| > 1**, gradient meledak (*exploding*) sehingga loss tiba-tiba menjadi NaN, dan solusinya adalah gradient clipping.",
       "**Saat |w_h| mendekati 1**, model berada di titik kritis yang stabil hanya di pinggiran dan sulit dipertahankan tanpa intervensi seperti gate LSTM atau residual connection.",
     ],
-    footnote: "LSTM dirancang khusus untuk memutus rantai perkalian berulang yang menyebabkan vanishing ini.",
+    footnote: "LSTM dirancang khusus untuk mengatasi rantai perkalian berulang yang menyebabkan vanishing ini.",
   },
 
   // ── 12: Update aditif ──
