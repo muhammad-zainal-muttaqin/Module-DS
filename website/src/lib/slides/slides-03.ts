@@ -437,9 +437,9 @@ export const slides03: SlideSection[] = [
   // ── 35: CTA ──
   {
     layout: "cta",
-    title: "Mulai Lab W3",
-    body: "Semua konsep di presentasi ini ada dalam lab notebook Colab mandiri dengan kode siap pakai, sanity check focal loss, ablation 2×2, beberapa seed, dan panduan analisis.\n\nEstimasi waktu: 30-60 menit termasuk menjalankan ablation dan menulis refleksi.",
-    ctaText: "Buka Lab W3 di Colab",
-    ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb",
+    title: "Siapkan Bridge ke W4",
+    body: "Setelah menyelesaikan Lab W3, kembali ke baseline CIFAR-10 dari W2. Siapkan satu slide ringkas berisi loss curve, satu bukti evaluasi tambahan, diagnosis 3-5 kalimat, satu usulan ablation, dan satu hipotesis pendek.\n\nEstimasi waktu: 20-30 menit jika output W2 sudah tersedia.",
+    ctaText: "Buka W4: Matriks Eksperimen",
+    ctaTarget: "#/modul/04",
   },
 ];
