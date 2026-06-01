@@ -264,6 +264,12 @@ export default function SlideDeck() {
       slideNumber: "c/t",
       controls: true,
       progress: true,
+      // disableLayout: turn off Reveal's fit-to-viewport transform scaling so the
+      // deck flows as normal HTML. This is what makes browser zoom (Ctrl/+) actually
+      // enlarge the slides instead of being cancelled out by a re-fit on resize.
+      // Sizing + centering is now handled in reveal-custom.css; width/height/margin/
+      // minScale/maxScale/center below are inert under disableLayout, kept for clarity.
+      disableLayout: true,
       center: true,
       // "fade" avoids the ugly 3D slide transforms that clip content
       transition: "fade",

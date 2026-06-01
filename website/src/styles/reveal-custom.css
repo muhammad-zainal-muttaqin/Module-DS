@@ -44,24 +44,38 @@
 
 .reveal {
   font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  font-size: 24px;
+  /* Base size scales with viewport height (bigger on a projector) while the px
+     bounds keep browser zoom (Ctrl/+) working - everything else is in em. */
+  font-size: clamp(24px, 2.6vh, 44px);
   line-height: 1.45;
   color: inherit;
 }
 
+/* With disableLayout, Reveal no longer transform-scales the deck, so the slides
+   container must fill the viewport on its own. */
 .reveal .slides {
   text-align: left;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transform: none !important;
 }
 
-/* Direct section padding - NO inner card wrapper */
+/* Direct section padding - NO inner card wrapper.
+   Each section is its own scroll viewport: it fills the screen and centers
+   content when it fits, but stays scrollable (top-aligned) when zoomed content
+   is taller than the viewport. */
 .reveal .slides section {
-  padding: 2rem 2.5rem;
+  padding: 2.2rem 2.5rem;
   box-sizing: border-box;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
+  justify-content: safe center;
+  overflow-y: auto;
 }
 
 /* ═══════════════════════════════════════════
@@ -710,7 +724,9 @@
 }
 
 .slide-figure {
-  max-height: 55vh;
+  /* em-based (not vh) so the image grows together with text under browser zoom;
+     overflow is handled by the section's own scroll. */
+  max-height: 22em;
   max-width: 90%;
   object-fit: contain;
   border-radius: 8px;
@@ -779,9 +795,8 @@
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  .reveal {
-    font-size: 20px;
-  }
+  /* No font-size override here: it would shrink text exactly when zooming in
+     (zoom narrows the CSS-px viewport). Base font already scales via clamp(). */
 }
 
 @media (max-width: 600px) {
