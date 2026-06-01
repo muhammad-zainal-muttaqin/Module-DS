@@ -408,20 +408,7 @@ export const slides03: SlideSection[] = [
     footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat capstone.",
   },
 
-  // ── 33: Bridge assignment W3 ke W4 ──
-  {
-    layout: "bullets",
-    title: "Bridge ke W4: Diagnosis CIFAR-10",
-    body: "Lab W3 memakai dataset toy agar siklus ablation bisa selesai cepat. Sebelum W4, terapkan bahasa W3 ke baseline CIFAR-10 dari W2 dan siapkan satu slide ringkas:",
-    bullets: [
-      "**Baca loss curve** dari baseline CIFAR-10: apakah train dan validation turun bersama, overfit, stagnan, atau tidak stabil?",
-      "**Periksa evaluasi** lewat akurasi per kelas, confusion matrix, atau contoh prediksi confident tetapi salah.",
-      "**Bawa satu hipotesis ablation** ke W4, misalnya focal loss, dropout, augmentasi, AdamW vs SGD, atau freeze blok awal.",
-    ],
-    footnote: "Di awal W4, diagnosis ini dipresentasikan singkat lalu diubah menjadi matriks eksperimen yang reproducible.",
-  },
-
-  // ── 34: Lanjut ke W4 ──
+  // ── 33: Lanjut ke W4 ──
   {
     layout: "bullets",
     title: "Lanjut ke W4: dari Memahami ke Merancang",
@@ -434,12 +421,25 @@ export const slides03: SlideSection[] = [
     footnote: "Kebiasaan mengubah satu hal pada satu waktu di W3 menjadi fondasi disiplin eksperimen di W4.",
   },
 
-  // ── 35: CTA ──
+  // ── 34: CTA Lab W3 ──
   {
     layout: "cta",
-    title: "Siapkan Bridge ke W4",
-    body: "Setelah menyelesaikan Lab W3, kembali ke baseline CIFAR-10 dari W2. Siapkan satu slide ringkas berisi loss curve, satu bukti evaluasi tambahan, diagnosis 3-5 kalimat, satu usulan ablation, dan satu hipotesis pendek.\n\nEstimasi waktu: 20-30 menit jika output W2 sudah tersedia.",
-    ctaText: "Buka W4: Matriks Eksperimen",
-    ctaTarget: "#/modul/04",
+    title: "Mulai Lab W3",
+    body: "Semua konsep di presentasi ini ada dalam lab notebook Colab mandiri dengan kode siap pakai, sanity check focal loss, ablation 2×2, beberapa seed, dan panduan analisis.\n\nEstimasi waktu: 30-60 menit termasuk menjalankan ablation dan menulis refleksi.",
+    ctaText: "Buka Lab W3 di Colab",
+    ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb",
+  },
+
+  // ── 35: Bridge assignment W3 ke W4 ──
+  {
+    layout: "bullets",
+    title: "Tugas Setelah Lab W3: Diagnosis CIFAR-10 untuk Awal W4",
+    body: "Setelah tombol Lab W3 ini, ada satu tugas jembatan sebelum masuk W4. Lab W3 tetap memakai dataset toy; tugas tambahan ini memakai baseline CIFAR-10 dari W2 untuk bahan presentasi singkat di awal W4:",
+    bullets: [
+      "**Baca loss curve** dari baseline CIFAR-10: apakah train dan validation turun bersama, overfit, stagnan, atau tidak stabil?",
+      "**Periksa evaluasi** lewat akurasi per kelas, confusion matrix, atau contoh prediksi confident tetapi salah.",
+      "**Bawa satu hipotesis ablation** ke W4, misalnya focal loss, dropout, augmentasi, AdamW vs SGD, atau freeze blok awal.",
+    ],
+    footnote: "Siapkan satu slide ringkas. Slide ini dipresentasikan di awal W4 sebelum materi matriks eksperimen dimulai.",
   },
 ];
