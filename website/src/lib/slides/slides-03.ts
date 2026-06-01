@@ -14,30 +14,44 @@ export const slides03: SlideSection[] = [
   {
     layout: "section",
     title: "Kilas Balik: W0, W1, W2",
-    body: "Sebelum masuk ke loss, optimizer, dan evaluasi, kita rangkum dulu tiga minggu pertama secara singkat. Bekal dari W0 sampai W2 dipakai langsung di sepanjang W3, jadi pengingat ini bukan formalitas.",
-    footnote: "Kilas balik ini sengaja singkat - penjelasan penuh tiap minggu ada di deck W0, W1, dan W2 masing-masing.",
+    body: "Sebelum masuk ke loss, optimizer, dan evaluasi, kita lihat lagi empat contoh konkret dari tiga minggu pertama. Semua bekal ini dipakai langsung di sepanjang W3, jadi pengingat ini bukan formalitas.",
+    footnote: "Tiap gambar berikut diambil dari deck W0, W1, dan W2 - buka deck minggu terkait untuk penjelasan penuh.",
   },
 
-  // ── 1c: Grid kilas balik W0-W2 ──
+  // ── 1c: W0 - contoh membaca shape tensor ──
   {
-    layout: "grid",
-    title: "Apa yang Sudah Dibangun di W0, W1, dan W2",
-    body: "Ketiga minggu pertama membangun fondasi yang berbeda tetapi saling menumpuk. Berikut inti dari masing-masing:",
-    gridItems: [
-      {
-        title: "W0 - Orientasi & Prasyarat",
-        body: "W0 menetapkan arah bootcamp lewat tiga pilar kompetensi dan empat sikap riset (Curiosity, Rigor, Skepticism, Ownership). Bab prasyarat membekali kosakata dasar: cara membaca shape tensor (B, C, H, W), arti notasi panah antar-layer, dan tiga operasi PyTorch inti termasuk `loss.backward()`.",
-      },
-      {
-        title: "W1 - Tabular & Pencocokan Head-Loss",
-        body: "W1 menunjukkan bahwa MLP pada dasarnya hanya mengubah bentuk tensor. Tugas menentukan output head dan head menentukan loss, sehingga salah memasangkan keduanya membuat loss tetap turun tetapi model belajar hal yang keliru. Di sini juga ditanamkan kebiasaan menulis observasi sebelum kesimpulan.",
-      },
-      {
-        title: "W2 - Citra, CNN & Smoke Test",
-        body: "W2 memperkenalkan tensor citra (B, C, H, W), Conv2d dengan parameter sharing, dan smoke test tiga level (import, dummy forward, overfit satu batch) yang menjadi kebiasaan debugging. Galeri empat pola loss mulai dikenalkan di sini dan dituntaskan minggu ini.",
-      },
-    ],
-    footnote: "Tiga minggu ini membawa kita dari membaca shape tensor sampai melatih CNN penuh dengan disiplin debugging.",
+    layout: "image",
+    title: "W0 - Membaca Shape Tensor (B, C, H, W)",
+    imageUrl: "/figures/fig00a_tensor_nchw.jpeg",
+    caption: "Contoh dari W0: satu citra RGB berukuran 32x32 piksel punya shape (3, 32, 32), dan menumpuk 64 citra menjadi satu batch memberi shape (64, 3, 32, 32). Membaca shape dari kiri ke kanan - batch, channel, tinggi, lebar - adalah keterampilan dasar yang dipakai di setiap minggu.",
+    footnote: "Tampilan tensor yang sama ini dipakai lagi di W2 untuk tensor citra dan minggu ini untuk batch CIFAR-10.",
+  },
+
+  // ── 1d: W0 - apa yang dilakukan loss.backward() ──
+  {
+    layout: "image",
+    title: "W0 - Apa yang Dilakukan loss.backward()",
+    imageUrl: "/figures/fig00a_chain_rule.svg",
+    caption: "Contoh dari W0: saat backward pass, gradient dihitung dari loss di ujung, dikalikan turunan lokal di tiap node mundur sampai input, lalu disimpan di .grad setiap parameter. Inilah salah satu dari tiga operasi PyTorch inti yang dikenalkan di prasyarat.",
+    footnote: "Di W3 kita memakai gradient ini untuk memahami kenapa optimizer memperbarui parameter ke arah tertentu.",
+  },
+
+  // ── 1e: W1 - menentukan output head dan loss ──
+  {
+    layout: "image",
+    title: "W1 - Menentukan Output Head dan Loss-nya",
+    imageUrl: "/figures/fig01h_output_head_loss.png",
+    caption: "Contoh dari W1: regresi memakai 1 output linear dengan MSE, klasifikasi biner memakai 1-2 output dengan BCE atau cross-entropy, dan multikelas memakai K output dengan cross-entropy. Tugas menentukan head, dan head menentukan loss - salah memasangkan keduanya membuat model belajar hal yang keliru meski loss tetap turun.",
+    footnote: "Pencocokan head dan loss inilah titik awal saat W3 membahas kapan focal loss atau label smoothing layak dipakai.",
+  },
+
+  // ── 1f: W2 - galeri empat pola loss curve ──
+  {
+    layout: "image",
+    title: "W2 - Galeri Empat Pola Loss Curve",
+    imageUrl: "/figures/fig01c_loss_curves_diagnostic.png",
+    caption: "Contoh dari W2: Run A turun sehat (train dan val sejajar), Run B overfitting (val mulai naik lagi), Run C stagnan sejak epoch pertama, dan Run D meledak ke NaN. Empat pola ini dikenalkan di W2 sebagai dasar smoke test, lalu dilengkapi menjadi lima pola diagnosis lengkap minggu ini.",
+    footnote: "Membaca bentuk kurva untuk mendiagnosis training adalah inti dari galeri lima training di W3.",
   },
 
   // ── 1d: Jembatan kilas balik ke W3 ──
