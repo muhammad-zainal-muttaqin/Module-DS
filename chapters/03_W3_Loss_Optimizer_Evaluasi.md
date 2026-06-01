@@ -38,7 +38,7 @@
 
 ## 0. Peta Bab
 
-W3 adalah minggu berbasis contoh. Sebelum membaca teori tentang loss dan optimizer, Anda mengamati lima contoh training konkret dan diminta mengidentifikasi apa yang terjadi. Baru setelah itu kita menarik pola dan penjelasannya.
+W3 berangkat dari contoh, bukan dari teori. Sebelum membahas loss dan optimizer, kita mengamati lima contoh training konkret lalu mencoba mengidentifikasi apa yang terjadi. Pola umum dan penjelasannya baru ditarik setelah pengamatan itu.
 
 - **§1.5** memulai dengan galeri lima training konkret (sebelum teori).
 - **§2.1** membahas cara memilih loss yang sesuai, bukan sekadar memakai bawaan default.

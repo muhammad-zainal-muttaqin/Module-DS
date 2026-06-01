@@ -509,7 +509,7 @@ export const SLIDE_DECKS: Record<string, SlideDeckData> = {
 - Slide terakhir: `layout: "cta"` + `ctaTarget`.
 - **Max 3 bullet per slide.** Lebih dari 3 = pecah jadi dua slide terpisah.
 - **Bold lead-in** di bullets untuk scanning cepat.
-- `layout: "section"` sebagai "napas" di awal setiap topik besar - wajib ada sebelum konten topik baru dimulai.
+- `layout: "section"` hanya untuk **pembatas babak besar**, bukan tiap topik. Targetkan 3-5 pembatas untuk deck standalone, 0-1 untuk trailer. Memberi pembatas di tiap sub-topik membuat hampir sepertiga deck terasa kosong saat diklik satu per satu - hindari. Tiap pembatas wajib punya `body` yang berdiri sendiri dan **tidak boleh** mendeskripsikan konten yang baru muncul di slide berikutnya (mis. jangan janjikan kurva yang gambarnya ada di slide setelahnya). Jika sebuah pembatas hanya berisi satu kalimat situasi, lebur kalimat itu menjadi pembuka slide isi pertama topik tersebut alih-alih membuat slide pembatas terpisah.
 - `layout: "grid"` untuk 3-6 item paralel.
 - `layout: "split"` untuk perbandingan 2 hal yang kontras sifatnya.
 - `layout: "code"` untuk snippet max 8-10 baris.

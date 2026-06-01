@@ -10,33 +10,24 @@ export const slides03: SlideSection[] = [
     footnote: "Bab 03 - Minggu 3",
   },
 
-  // ── 1b: Kilas Balik (napas) ──
+  // ── 2: Kilas Balik (DIVIDER 1) ──
   {
     layout: "section",
     title: "Kilas Balik: W0, W1, W2",
-    body: "Sebelum masuk ke loss, optimizer, dan evaluasi, kita lihat lagi empat contoh konkret dari tiga minggu pertama. Semua bekal ini dipakai langsung di sepanjang W3, jadi pengingat ini bukan formalitas.",
-    footnote: "Tiap gambar berikut diambil dari deck W0, W1, dan W2 - buka deck minggu terkait untuk penjelasan penuh.",
+    body: "Sebelum masuk ke loss, optimizer, dan evaluasi, kita lihat lagi dua contoh konkret dari minggu-minggu pertama. Kedua bekal ini dipakai langsung di sepanjang W3, jadi pengingat ini bukan formalitas.",
+    footnote: "Tiap gambar berikut diambil dari deck W0 dan W1 - buka deck minggu terkait untuk penjelasan penuh.",
   },
 
-  // ── 1c: W0 - contoh membaca shape tensor ──
+  // ── 3: W0 - membaca shape tensor (Pola B) ──
   {
     layout: "image",
-    title: "W0 - Membaca Shape Tensor (B, C, H, W)",
+    title: "W0 - Membaca Shape Tensor: dari Satu Gambar ke Satu Batch",
     imageUrl: "/figures/fig00a_tensor_nchw.jpeg",
-    caption: "Contoh dari W0: satu citra RGB berukuran 32x32 piksel punya shape (3, 32, 32), dan menumpuk 64 citra menjadi satu batch memberi shape (64, 3, 32, 32). Membaca shape dari kiri ke kanan - batch, channel, tinggi, lebar - adalah keterampilan dasar yang dipakai di setiap minggu.",
-    footnote: "Tampilan tensor yang sama ini dipakai lagi di W2 untuk tensor citra dan minggu ini untuk batch CIFAR-10.",
+    caption: "Kita mulai dari objek yang sudah dikenal. Satu citra RGB berukuran 32x32 piksel tersimpan sebagai tiga lapisan angka untuk warna merah, hijau, dan biru, sehingga shape-nya adalah (3, 32, 32). Ketika 64 citra dilatih sekaligus sebagai satu batch, shape-nya bertambah satu sumbu di depan menjadi (64, 3, 32, 32). Cara membacanya berlaku untuk shape apa pun: dalam satu batch ada 64 gambar, tiap gambar punya 3 channel, dan tiap channel berukuran 32 piksel tinggi dan 32 piksel lebar. Nama B, C, H, W hanyalah label untuk keempat sumbu itu.",
+    footnote: "Indeks mengikuti urutan sumbu yang sama: x[0] mengambil gambar pertama dengan shape (3, 32, 32), lalu x[0][0] mengambil channel pertamanya dengan shape (32, 32).",
   },
 
-  // ── 1d: W0 - apa yang dilakukan loss.backward() ──
-  {
-    layout: "image",
-    title: "W0 - Apa yang Dilakukan loss.backward()",
-    imageUrl: "/figures/fig00a_chain_rule.svg",
-    caption: "Contoh dari W0: saat backward pass, gradient dihitung dari loss di ujung, dikalikan turunan lokal di tiap node mundur sampai input, lalu disimpan di .grad setiap parameter. Inilah salah satu dari tiga operasi PyTorch inti yang dikenalkan di prasyarat.",
-    footnote: "Di W3 kita memakai gradient ini untuk memahami kenapa optimizer memperbarui parameter ke arah tertentu.",
-  },
-
-  // ── 1e: W1 - menentukan output head dan loss ──
+  // ── 4: W1 - menentukan output head dan loss ──
   {
     layout: "image",
     title: "W1 - Menentukan Output Head dan Loss-nya",
@@ -45,16 +36,7 @@ export const slides03: SlideSection[] = [
     footnote: "Pencocokan head dan loss inilah titik awal saat W3 membahas kapan focal loss atau label smoothing layak dipakai.",
   },
 
-  // ── 1f: W2 - galeri empat pola loss curve ──
-  {
-    layout: "image",
-    title: "W2 - Galeri Empat Pola Loss Curve",
-    imageUrl: "/figures/fig01c_loss_curves_diagnostic.png",
-    caption: "Contoh dari W2: Run A turun sehat (train dan val sejajar), Run B overfitting (val mulai naik lagi), Run C stagnan sejak epoch pertama, dan Run D meledak ke NaN. Empat pola ini dikenalkan di W2 sebagai dasar smoke test, lalu dilengkapi menjadi lima pola diagnosis lengkap minggu ini.",
-    footnote: "Membaca bentuk kurva untuk mendiagnosis training adalah inti dari galeri lima training di W3.",
-  },
-
-  // ── 1d: Jembatan kilas balik ke W3 ──
+  // ── 5: Jembatan kilas balik ke W3 ──
   {
     layout: "bullets",
     title: "Tiga Bekal W0-W2 yang Dipakai di W3",
@@ -67,40 +49,32 @@ export const slides03: SlideSection[] = [
     footnote: "Setelah kilas balik singkat ini, kita masuk ke peta W3 dan galeri lima training.",
   },
 
-  // ── 2: Peta W3 ──
-  {
-    layout: "section",
-    title: "Peta W3",
-    body: "W3 dimulai dari lima contoh training. Dari contoh itu, kita belajar kapan sebuah loss cocok dipakai, bagaimana optimizer memperbarui parameter, mengapa satu angka akurasi sering belum cukup, dan bagaimana loss curve membantu diagnosis.",
-    footnote: "Baris peta besar minggu ini adalah (C, H, W) -> (N,), melanjutkan W2 dengan fokus pada alur kerja.",
-  },
-
-  // ── 3: Apa yang berubah dari W2 ──
+  // ── 6: Peta W3 + geser fokus (gabungan) ──
   {
     layout: "bullets",
-    title: "Dari W2 ke W3: Geser Fokus ke Alur Kerja",
-    body: "W2 membangun model dan smoke test; W3 mengajarkan cara membaca apa yang model lakukan saat dilatih. Tiga hal menjadi fokus minggu ini:",
+    title: "Peta W3: Geser Fokus ke Alur Kerja",
+    body: "W3 dimulai dari lima contoh training, lalu menarik kapan sebuah loss cocok dipakai, bagaimana optimizer memperbarui parameter, kenapa satu angka akurasi sering belum cukup, dan bagaimana loss curve membantu diagnosis. Bedanya dengan W2: fokus bergeser dari membangun model ke membaca apa yang model lakukan saat dilatih.",
     bullets: [
       "**Kebiasaan riset** yang ditanamkan minggu ini adalah mengubah satu hal pada satu waktu, sehingga setiap perubahan performa bisa dijelaskan penyebabnya.",
       "**Dataset** yang dipakai tetap CIFAR-10 dari W2, sehingga kita bisa fokus pada loss, optimizer, dan evaluasi tanpa terganggu domain baru.",
       "**Loss curve** dibaca untuk mendiagnosis hasil training, bukan hanya dilihat sekilas apakah naik atau turun.",
     ],
-    footnote: "Lab minggu ini: Lab 1 (baseline CNN) diselesaikan, lalu Lab 2 (ablation loss).",
+    footnote: "Baris peta besar minggu ini adalah (C, H, W) -> (N,). Lab: Lab 1 (baseline CNN) diselesaikan, lalu Lab 2 (ablation loss).",
   },
 
-  // ── 4: Section Galeri ──
+  // ── 7: Amati Dulu (DIVIDER 2) ──
   {
     layout: "section",
-    title: "Galeri Lima Training: Amati Sebelum Teori",
-    body: "Sebelum membaca teori loss dan optimizer, kita melihat lima loss curve konkret dan mencoba mendiagnosis hasil training dari bentuk kurvanya.",
-    footnote: "Masing-masing menampilkan train loss dan val loss selama 20 epoch.",
+    title: "Amati Dulu, Teori Belakangan",
+    body: "Sebelum menyentuh teori loss dan optimizer, kita amati dulu. Loss yang stagnan, meledak ke NaN, atau tidak bergerak sama sekali bukan kejadian langka, melainkan rutinitas riset sehari-hari. Lima contoh berikut melatih mata Anda membaca gejalanya sebelum tahu namanya.",
+    footnote: "Kelima pola ini kembali dengan kerangka diagnosis lengkap di bagian akhir presentasi.",
   },
 
-  // ── 5: Grid lima run ──
+  // ── 8: Grid lima run ──
   {
     layout: "grid",
-    title: "Lima Loss Curve, Lima Cerita Berbeda",
-    body: "Berikut lima pola training yang paling sering muncul. Bacalah tiap pola dan tebak apa yang terjadi sebelum melihat penjelasannya di bagian diagnosis:",
+    title: "Lima Loss Curve, Lima Situasi Berbeda",
+    body: "Tiap kurva di bawah menampilkan train loss dan val loss selama 20 epoch. Baca tiap pola dan tebak apa yang terjadi sebelum melihat penjelasannya di bagian diagnosis:",
     gridItems: [
       {
         title: "Run 1 - Konvergensi Normal",
@@ -123,31 +97,23 @@ export const slides03: SlideSection[] = [
         body: "Train loss turun tetapi sangat bising, naik-turun di tiap epoch. Val loss cenderung turun meski fluktuatif dari epoch ke epoch.",
       },
     ],
-    footnote: "Kelima pola ini kembali dibahas dengan kerangka diagnosis lengkap di bagian akhir presentasi.",
+    footnote: "Kelima pola ini kembali dibahas dengan kerangka diagnosis lengkap, hipotesis, dan langkah tes di bagian akhir.",
   },
 
-  // ── 6: Pertanyaan diagnostik ──
+  // ── 9: Pertanyaan diagnostik ──
   {
     layout: "bullets",
-    title: "Empat Pertanyaan Diagnostik untuk Galeri",
-    body: "Sebelum lanjut, jawab empat pertanyaan ini secara tertulis. Tujuannya melatih penilaian, bukan mencari jawaban yang sempurna:",
+    title: "Tiga Pertanyaan Diagnostik untuk Galeri",
+    body: "Sebelum lanjut, jawab tiga pertanyaan ini secara tertulis. Tujuannya melatih penilaian, bukan mencari jawaban yang sempurna:",
     bullets: [
       "Run mana yang paling mengkhawatirkan, dan apa alasan teknis di baliknya?",
       "Untuk Run 3 yang tidak belajar sama sekali, apa hipotesis pertama yang akan Anda uji?",
       "Untuk Run 5 yang bising, kapan sebenarnya noise di loss curve mulai menjadi masalah nyata?",
     ],
-    footnote: "Tuliskan jawaban singkat sekarang; kita bandingkan dengan kerangka diagnosis di bagian §2.5.",
+    footnote: "Tuliskan jawaban singkat sekarang; kita bandingkan dengan kerangka diagnosis di bagian diagnosis.",
   },
 
-  // ── 7: Section Motivasi ──
-  {
-    layout: "section",
-    title: "Motivasi: Saat Training Terasa Aneh",
-    body: "Loss yang stagnan, loss yang meledak ke NaN, atau loss yang tidak bergerak sama sekali bukan pengecualian langka. Ketiganya adalah rutinitas riset sehari-hari yang perlu nama dan langkah penanganan.",
-    footnote: "Bab ini memberi bahasa untuk menamai masalah tersebut dan prosedur sistematis untuk menanganinya.",
-  },
-
-  // ── 8: Image siklus training ──
+  // ── 10: Image siklus training ──
   {
     layout: "image",
     title: "Siklus Training PyTorch: Enam Langkah yang Berulang",
@@ -156,7 +122,7 @@ export const slides03: SlideSection[] = [
     footnote: "Setiap bug training pada akhirnya bisa dilacak ke salah satu dari enam langkah ini.",
   },
 
-  // ── 9: Enam langkah teks ──
+  // ── 11: Enam langkah teks ──
   {
     layout: "bullets",
     title: "Membaca Siklus: dari Data sampai Update Parameter",
@@ -169,19 +135,19 @@ export const slides03: SlideSection[] = [
     footnote: "Loss curve adalah cara tercepat membaca gejala dari keenam langkah ini tanpa membuka kode satu per satu.",
   },
 
-  // ── 10: Section Loss ──
+  // ── 12: Tiga Keputusan (DIVIDER 3) ──
   {
     layout: "section",
-    title: "Loss: Memilih Apa yang Dianggap Salah",
-    body: "Loss menentukan apa yang dianggap salah oleh model. Saat loss diganti, jenis kesalahan yang paling ditekan selama training ikut berubah.",
-    footnote: "Rekap rumus MSE, BCE, dan CrossEntropy dengan contoh angka kecil ada di W1 §2.2.",
+    title: "Tiga Keputusan: Loss, Optimizer, Evaluasi",
+    body: "Setelah bisa membaca gejala dari loss curve, kita masuk ke tiga keputusan yang membentuk training. Loss menentukan apa yang dianggap salah, optimizer menentukan bagaimana parameter digeser, dan evaluasi menentukan apakah angka akhir bisa dipercaya. Pilihan representasi fitur menutup bagian ini.",
+    footnote: "Tiap keputusan dibuka dari satu situasi nyata, bukan dari definisi.",
   },
 
-  // ── 11: Loss klasifikasi ──
+  // ── 13: Loss klasifikasi (situasi penyakit langka di pembuka) ──
   {
     layout: "bullets",
     title: "Tiga Loss untuk Klasifikasi",
-    body: "Untuk tugas klasifikasi, tiga loss berikut mencakup hampir semua kebutuhan dari kasus standar sampai kelas yang sangat tidak seimbang:",
+    body: "Bayangkan model deteksi penyakit langka: akurasinya 97 persen, tetapi model tidak pernah menandai satu pasien sakit pun. Loss-lah yang menentukan jenis kesalahan mana yang paling ditekan selama training. Untuk klasifikasi, tiga loss berikut mencakup hampir semua kebutuhan, dari kasus standar sampai kelas yang sangat tidak seimbang:",
     bullets: [
       "**Cross-entropy** adalah pilihan default yang mengukur jarak antara distribusi probabilitas prediksi dan label - pakai `CrossEntropyLoss` yang otomatis menggabungkan softmax dan log-likelihood.",
       "**Focal loss** adalah modifikasi cross-entropy yang menurunkan bobot sampel mudah dan menaikkan bobot sampel sulit, sehingga berguna saat satu kelas jauh lebih jarang dari yang lain.",
@@ -190,7 +156,7 @@ export const slides03: SlideSection[] = [
     footnote: "Focal loss dan label smoothing adalah varian lanjutan - cross-entropy tetap titik awal yang benar untuk kebanyakan kasus.",
   },
 
-  // ── 12: Focal loss numeric ──
+  // ── 14: Focal loss numeric ──
   {
     layout: "split",
     title: "Focal Loss: Mengapa Sampel Mudah Diberi Bobot Kecil",
@@ -206,7 +172,7 @@ export const slides03: SlideSection[] = [
     footnote: "Selisihnya 256×: sampel sulit memberi kontribusi gradient 256 kali lebih besar dari sampel mudah di iterasi yang sama.",
   },
 
-  // ── 13: Loss regresi ──
+  // ── 15: Loss regresi ──
   {
     layout: "bullets",
     title: "Tiga Loss untuk Regresi",
@@ -219,7 +185,7 @@ export const slides03: SlideSection[] = [
     footnote: "Tidak ada loss yang unggul universal - pilihan bergantung pada seberapa berbahaya outlier di data Anda.",
   },
 
-  // ── 14: Pertanyaan sebelum ganti loss ──
+  // ── 16: Pertanyaan sebelum ganti loss ──
   {
     layout: "bullets",
     title: "Pertanyaan Sebelum Mengganti Loss",
@@ -232,19 +198,11 @@ export const slides03: SlideSection[] = [
     footnote: "Aturan ini menjaga setiap perbandingan tetap punya satu variabel yang berubah.",
   },
 
-  // ── 15: Section Optimizer ──
-  {
-    layout: "section",
-    title: "Optimizer: Bagaimana Langkah Diputuskan",
-    body: "Optimizer mengubah gradient menjadi langkah pembaruan pada parameter. Pilihan optimizer menentukan seberapa cepat training konvergen dan seberapa banyak tuning yang dibutuhkan.",
-    footnote: "Tiga pilihan mencakup hampir semua kebutuhan: SGD, AdamW, dan LAMB.",
-  },
-
-  // ── 16: Tiga optimizer ──
+  // ── 17: Tiga optimizer (situasi 10 vs 60 epoch di pembuka) ──
   {
     layout: "bullets",
     title: "SGD, AdamW, dan LAMB: Tiga Titik di Spektrum",
-    body: "Ketiga optimizer ini berbeda pada cara menyesuaikan learning rate per parameter dan pada skala data yang mereka tuju:",
+    body: "Dua orang melatih model yang sama dengan loss dan data yang sama: satu konvergen dalam 10 epoch, satu lagi butuh 60 epoch dengan tuning yang melelahkan. Bedanya ada di optimizer, yang memutuskan dari gradient yang sama seberapa besar dan ke arah mana tiap parameter digeser. Ketiga optimizer ini berbeda pada cara menyesuaikan learning rate per parameter dan pada skala data yang mereka tuju:",
     bullets: [
       "**SGD dengan momentum** adalah optimizer paling sederhana yang sering menang setelah tuning tekun, tetapi membutuhkan learning rate schedule yang dirancang hati-hati - banyak paper visi state-of-the-art tetap memakainya.",
       "**Adam dan AdamW** bersifat adaptif sehingga setiap parameter mendapat learning rate sendiri dan konvergen cepat di epoch awal, dengan AdamW memisahkan weight decay dari momentum gradient.",
@@ -253,11 +211,11 @@ export const slides03: SlideSection[] = [
     footnote: "Default modern untuk training dari nol adalah AdamW; SGD menjadi pilihan saat Anda punya anggaran tuning yang besar.",
   },
 
-  // ── 17: weight decay AdamW ──
+  // ── 18: weight decay AdamW (situasi salah-salin di pembuka) ──
   {
     layout: "split",
     title: "weight_decay di AdamW Bukan L2 Regularisasi",
-    body: "Pada SGD, menambahkan L2 ke loss ekuivalen dengan mengurangi λw dari setiap parameter. Pada Adam, kesetaraan ini tidak berlaku, dan di sinilah AdamW memperbaiki keadaan:",
+    body: "Anda menyalin weight_decay yang berhasil di SGD ke Adam, berharap efek regularisasi yang sama, tetapi hasilnya justru tidak konsisten antar parameter. Penyebabnya: pada SGD, menambahkan L2 ke loss setara dengan mengurangi λw dari tiap parameter, sedangkan pada Adam kesetaraan itu tidak berlaku. Di sinilah AdamW memperbaiki keadaan:",
     left: {
       title: "Masalah pada Adam",
       body: "Adam membagi gradient dengan estimasi variansi tiap parameter.\n\nAkibatnya, penalti L2 yang ditambahkan ke loss mendapat efek yang tidak proporsional antar parameter.\n\nRegularisasi menjadi tidak konsisten dan sulit ditebak.",
@@ -269,7 +227,7 @@ export const slides03: SlideSection[] = [
     footnote: "Hindari pola Adam + L2 manual yang ditambahkan ke loss - itu sumber regularisasi yang tidak konsisten.",
   },
 
-  // ── 18: scheduler + aturan praktis ──
+  // ── 19: scheduler + aturan praktis ──
   {
     layout: "bullets",
     title: "Scheduler dan Aturan Praktis Learning Rate",
@@ -282,19 +240,11 @@ export const slides03: SlideSection[] = [
     footnote: "Di W3, learning rate konstan sudah cukup untuk Lab 2; scheduler dan warmup dibahas di W4.",
   },
 
-  // ── 19: Section Evaluasi ──
-  {
-    layout: "section",
-    title: "Evaluasi: Bukan Satu Angka",
-    body: "Membanggakan akurasi 95% tanpa menyadari kelas positif hanya 5% adalah kesalahan klasik. Dalam kondisi itu, dummy classifier yang selalu memprediksi negatif juga mencapai 95%.",
-    footnote: "Pilih metrik yang sesuai dengan kondisi data, bukan metrik yang membuat hasil terlihat paling bagus.",
-  },
-
-  // ── 20: Metrik ──
+  // ── 20: Metrik (situasi akurasi 95% di pembuka) ──
   {
     layout: "bullets",
     title: "Memilih Metrik Sesuai Kondisi Data",
-    body: "Tidak ada metrik tunggal yang benar untuk semua kasus. Pilih berdasarkan keseimbangan kelas dan apa yang ingin dijamin:",
+    body: "Akurasi 95 persen terdengar hebat sampai Anda sadar kelas positif hanya 5 persen, dan model yang selalu menebak negatif pun mencapai angka itu. Tidak ada metrik tunggal yang benar untuk semua kasus. Pilih berdasarkan keseimbangan kelas dan apa yang ingin dijamin:",
     bullets: [
       "**Accuracy** layak dipakai hanya saat kelas seimbang, karena ia menyesatkan begitu satu kelas mendominasi data.",
       "**Precision, recall, dan F1** dipakai saat kelas tidak seimbang dan fokusnya pada satu kelas tertentu, dengan konsekuensi harus memilih ambang batas.",
@@ -316,15 +266,7 @@ export const slides03: SlideSection[] = [
     footnote: "Untuk dataset kecil yang tidak seimbang, stratified k-fold adalah kombinasi yang paling sering tepat.",
   },
 
-  // ── 22: Section Representasi ──
-  {
-    layout: "section",
-    title: "Representasi Fitur: Tiga Pilihan Desain",
-    body: "Keputusan yang paling sering menentukan performa bukan pilihan arsitektur, melainkan pilihan representasi - dan keputusan itu diambil jauh sebelum training dimulai.",
-    footnote: "Pada modalitas dan tugas yang sama, perbedaan representasi kerap berdampak lebih besar daripada pergantian arsitektur.",
-  },
-
-  // ── 23: Image tiga strategi ──
+  // ── 22: Image tiga strategi ──
   {
     layout: "image",
     title: "Engineered, Extracted, Learned: Tiga Jalur Representasi",
@@ -333,11 +275,11 @@ export const slides03: SlideSection[] = [
     footnote: "Ketiga jalur ini menjadi sumbu utama saat Anda merumuskan variabel eksperimen di capstone.",
   },
 
-  // ── 24: Grid tiga strategi ──
+  // ── 23: Grid tiga strategi (situasi dua tim di pembuka) ──
   {
     layout: "grid",
     title: "Membandingkan Tiga Strategi Representasi",
-    body: "Dari gambar tersebut, ketiga strategi menempati posisi berbeda pada trade-off antara kebutuhan data dan biaya komputasi:",
+    body: "Dua tim mengerjakan dataset yang sama: satu mencoba berganti-ganti arsitektur selama dua minggu dan akurasinya nyaris diam, satu lagi mengubah cara data dijadikan angka dan akurasinya naik tajam. Pada modalitas dan tugas yang sama, pilihan representasi sering lebih menentukan daripada arsitektur. Dari gambar sebelumnya, ketiga strategi menempati posisi berbeda pada trade-off antara kebutuhan data dan biaya komputasi:",
     gridItems: [
       {
         title: "Engineered: Dirancang Manusia",
@@ -355,7 +297,7 @@ export const slides03: SlideSection[] = [
     footnote: "Membandingkan BERT frozen + head kecil dengan BERT fine-tune penuh berarti membandingkan dua strategi representasi, bukan sekadar dua model.",
   },
 
-  // ── 25: Section Diagnosis ──
+  // ── 24: Mendiagnosis (DIVIDER 4) ──
   {
     layout: "section",
     title: "Mendiagnosis Hasil Training dari Loss Curve",
@@ -363,7 +305,7 @@ export const slides03: SlideSection[] = [
     footnote: "Pemeriksaan paling penting di bagian ini adalah overfit satu batch.",
   },
 
-  // ── 26: Image lima pola ──
+  // ── 25: Image lima pola ──
   {
     layout: "image",
     title: "Lima Pola Loss Curve untuk Diagnosis",
@@ -372,7 +314,7 @@ export const slides03: SlideSection[] = [
     footnote: "Salah mendiagnosis pola berarti membuang waktu training pada perbaikan yang tidak relevan.",
   },
 
-  // ── 27: Pola 1-2 ──
+  // ── 26: Pola 1-2 ──
   {
     layout: "split",
     title: "Pola 1 dan Pola 2: Tidak Belajar vs Overfit Cepat",
@@ -388,7 +330,7 @@ export const slides03: SlideSection[] = [
     footnote: "Pola 1 memisahkan bug kode dari masalah hiperparameter; Pola 2 mengarahkan Anda ke data atau kapasitas.",
   },
 
-  // ── 28: Pola 3-4-5 ──
+  // ── 27: Pola 3-4-5 ──
   {
     layout: "bullets",
     title: "Pola 3, 4, dan 5: Overfit Klasik, Underfit, dan Ledakan",
@@ -401,7 +343,7 @@ export const slides03: SlideSection[] = [
     footnote: "Untuk RNN dan Transformer di minggu-minggu berikutnya, gradient clipping hampir selalu diperlukan.",
   },
 
-  // ── 29: Overfit one batch ──
+  // ── 28: Overfit one batch ──
   {
     layout: "bullets",
     title: "Overfit Satu Batch: Pemeriksaan Terpenting",
@@ -414,19 +356,11 @@ export const slides03: SlideSection[] = [
     footnote: "Karpathy menyebut overfit satu batch sebagai pemeriksaan debugging terpenting dalam melatih neural network.",
   },
 
-  // ── 30: Section Worked Example ──
-  {
-    layout: "section",
-    title: "Worked Example: Evaluasi dengan Metrik yang Sesuai",
-    body: "Setelah training SimpleCNN dari W2, ada tiga pemeriksaan yang perlu selesai sebelum satu angka pun ditulis di laporan. Angka tanpa pemeriksaan ini mudah menyesatkan.",
-    footnote: "Tujuannya bukan mencari angka yang bagus, melainkan memastikan angka itu sesuai dengan kondisi data.",
-  },
-
-  // ── 31: Tiga pemeriksaan ──
+  // ── 29: Tiga pemeriksaan (situasi worked example di pembuka) ──
   {
     layout: "bullets",
     title: "Tiga Pemeriksaan Sebelum Menulis Angka",
-    body: "Ketiga pemeriksaan ini mengubah satu angka akurasi menjadi laporan yang menunjukkan kekuatan dan kelemahan model:",
+    body: "Setelah melatih SimpleCNN dari W2, jangan langsung menulis angka di laporan, karena angka tanpa pemeriksaan mudah menyesatkan. Ketiga pemeriksaan ini mengubah satu angka akurasi menjadi laporan yang menunjukkan kekuatan dan kelemahan model:",
     bullets: [
       "**Periksa overfitting** dengan membandingkan train accuracy dan val accuracy; selisih lebih dari 10% biasanya menjadi sinyal model menghafal, bukan belajar.",
       "**Periksa akurasi per kelas** secara terpisah lewat confusion matrix; pada CIFAR-10, pasangan `cat` dan `dog` biasanya paling sering tertukar.",
@@ -435,19 +369,11 @@ export const slides03: SlideSection[] = [
     footnote: "Ketiga pemeriksaan ini adalah inti Lab 1 yang diselesaikan minggu ini.",
   },
 
-  // ── 32: Section Pitfalls ──
-  {
-    layout: "section",
-    title: "Pitfalls & Miskonsepsi",
-    body: "Tiga keyakinan yang terdengar masuk akal justru paling sering menyesatkan pemula saat membaca hasil training. Mengenalinya lebih awal menghemat banyak waktu.",
-    footnote: "Setiap pitfall di sini punya akar yang sama: menyimpulkan terlalu cepat dari satu angka.",
-  },
-
-  // ── 33: Tiga miskonsepsi ──
+  // ── 30: Tiga miskonsepsi (framing pitfalls di pembuka) ──
   {
     layout: "bullets",
     title: "Tiga Keyakinan yang Perlu Diluruskan",
-    body: "Ketiga pernyataan berikut benar dalam kondisi sempit, tetapi berbahaya jika dianggap berlaku universal:",
+    body: "Tiga keyakinan berikut terdengar masuk akal dan justru paling sering menyesatkan pemula. Ketiganya benar dalam kondisi sempit, tetapi berbahaya jika dianggap berlaku universal:",
     bullets: [
       "**\"Loss turun berarti model membaik\"** keliru tanpa memantau validasi - turunnya train loss saja bisa berarti model menghafal, bukan belajar.",
       "**\"Mengganti loss pasti meningkatkan performa\"** tidak benar - focal loss membantu pada imbalance ekstrem tetapi bisa memperburuk performa pada kelas seimbang.",
@@ -456,7 +382,7 @@ export const slides03: SlideSection[] = [
     footnote: "Pola umum: sebuah pernyataan benar dalam konteks tertentu menjadi salah saat dipakai sebagai aturan mutlak.",
   },
 
-  // ── 34: Lab W3 ──
+  // ── 31: Lab W3 ──
   {
     layout: "bullets",
     title: "Lab W3: Baseline Selesai dan Ablation Loss",
@@ -469,7 +395,7 @@ export const slides03: SlideSection[] = [
     footnote: "Checklist Lab 1: train acc ≥ 75%, val acc ≥ 70%, dan notebook bisa dijalankan ulang dari atas ke bawah tanpa error.",
   },
 
-  // ── 35: Refleksi ──
+  // ── 32: Refleksi ──
   {
     layout: "bullets",
     title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
@@ -482,7 +408,7 @@ export const slides03: SlideSection[] = [
     footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat capstone.",
   },
 
-  // ── 36: Lanjut ke W4 ──
+  // ── 33: Lanjut ke W4 ──
   {
     layout: "bullets",
     title: "Lanjut ke W4: dari Memahami ke Merancang",
@@ -495,7 +421,7 @@ export const slides03: SlideSection[] = [
     footnote: "Kebiasaan mengubah satu hal pada satu waktu di W3 menjadi fondasi disiplin eksperimen di W4.",
   },
 
-  // ── 37: CTA ──
+  // ── 34: CTA ──
   {
     layout: "cta",
     title: "Mulai Lab W3",
