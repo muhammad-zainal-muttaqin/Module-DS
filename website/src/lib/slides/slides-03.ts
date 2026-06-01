@@ -408,7 +408,20 @@ export const slides03: SlideSection[] = [
     footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat capstone.",
   },
 
-  // ── 33: Lanjut ke W4 ──
+  // ── 33: Bridge assignment W3 ke W4 ──
+  {
+    layout: "bullets",
+    title: "Bridge ke W4: Diagnosis CIFAR-10",
+    body: "Lab W3 memakai dataset toy agar siklus ablation bisa selesai cepat. Sebelum W4, terapkan bahasa W3 ke baseline CIFAR-10 dari W2 dan siapkan satu slide ringkas:",
+    bullets: [
+      "**Baca loss curve** dari baseline CIFAR-10: apakah train dan validation turun bersama, overfit, stagnan, atau tidak stabil?",
+      "**Periksa evaluasi** lewat akurasi per kelas, confusion matrix, atau contoh prediksi confident tetapi salah.",
+      "**Bawa satu hipotesis ablation** ke W4, misalnya focal loss, dropout, augmentasi, AdamW vs SGD, atau freeze blok awal.",
+    ],
+    footnote: "Di awal W4, diagnosis ini dipresentasikan singkat lalu diubah menjadi matriks eksperimen yang reproducible.",
+  },
+
+  // ── 34: Lanjut ke W4 ──
   {
     layout: "bullets",
     title: "Lanjut ke W4: dari Memahami ke Merancang",
@@ -421,7 +434,7 @@ export const slides03: SlideSection[] = [
     footnote: "Kebiasaan mengubah satu hal pada satu waktu di W3 menjadi fondasi disiplin eksperimen di W4.",
   },
 
-  // ── 34: CTA ──
+  // ── 35: CTA ──
   {
     layout: "cta",
     title: "Mulai Lab W3",

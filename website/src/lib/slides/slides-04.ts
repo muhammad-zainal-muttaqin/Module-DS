@@ -21,17 +21,30 @@ export const slides04: SlideSection[] = [
   // ── 3: Dari W3 ke W4 ──
   {
     layout: "bullets",
-    title: "Dari W3 ke W4: Geser Fokus ke Merancang",
-    body: "W3 mengajarkan cara membaca apa yang model lakukan saat dilatih; W4 mengajarkan cara merancang eksperimen sebelum satu baris kode ditulis. Tiga hal menjadi fokus minggu ini:",
+    title: "Dari Diagnosis W3 ke Eksperimen W4",
+    body: "W4 dimulai dari diagnosis CIFAR-10 yang Anda bawa dari W3. Hari ini kita mengubah dugaan seperti \"model overfit\" atau \"focal loss mungkin membantu\" menjadi eksperimen yang bisa diulang dan dibandingkan setara.",
     bullets: [
-      "**Kebiasaan riset** yang ditanamkan minggu ini adalah menyusun matriks eksperimen sebelum menulis kode, sehingga tidak ada run yang dijalankan tanpa rencana tertulis.",
-      "**Dataset** yang dipakai adalah dataset baru, berbeda dari W2-W3, untuk menguji disiplin alur kerja di luar data yang sudah dikenal.",
-      "**Reproduksibilitas** adalah syarat utama - hasil yang tidak bisa diulang oleh orang lain belum dianggap selesai.",
+      "**Diagnosis** menjelaskan gejala dari loss curve, confusion matrix, atau error analysis.",
+      "**Hipotesis** mengubah gejala menjadi dugaan yang bisa diuji dengan variabel yang jelas.",
+      "**Matriks eksperimen** memastikan setiap run hanya mengubah satu variabel dan punya catatan yang bisa dicek ulang.",
     ],
-    footnote: "Lab utama minggu ini adalah Lab W4 (lab_w4_experiment_tracking.ipynb).",
+    footnote: "Dataset pembuka adalah CIFAR-10 dari W2; Lab W4 tetap melatih alur reproducibility yang berlaku untuk dataset lain.",
   },
 
-  // ── 4: Section Motivasi ──
+  // ── 4: Contoh transformasi bridge ──
+  {
+    layout: "bullets",
+    title: "Contoh Transformasi: Gejala Menjadi Rencana",
+    body: "Bridge assignment W3 menjadi bahan mentah untuk W4. Tugas kita adalah mengubah observasi menjadi eksperimen dengan baseline, variabel, seed, dan metrik yang jelas:",
+    bullets: [
+      "**Val loss naik saat train loss turun** menjadi hipotesis overfitting, lalu variabel yang diuji adalah dropout atau augmentasi.",
+      "**Loss tidak stabil** menjadi hipotesis learning rate terlalu besar, lalu variabel yang diuji adalah nilai learning rate.",
+      "**Kelas tertentu sering tertukar** menjadi hipotesis representasi visual belum cukup, lalu variabel yang diuji adalah augmentasi atau arsitektur.",
+    ],
+    footnote: "Setelah contoh ini, W4 masuk ke protokol, pre-registration, seed variance, dan YAML config.",
+  },
+
+  // ── 5: Section Motivasi ──
   {
     layout: "section",
     title: "Motivasi: Dua Cara Menjawab Email",

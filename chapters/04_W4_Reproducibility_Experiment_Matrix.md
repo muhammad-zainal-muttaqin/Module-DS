@@ -31,14 +31,14 @@
 
 **Baris peta besar** mencakup keluarga model yang sama dari W2-W3, kini dilengkapi dengan disiplin alur kerja riset.
 **Kebiasaan riset** yang dibangun minggu ini adalah menyusun matriks eksperimen sebelum menulis kode.
-**Dataset** yang dipakai adalah dataset baru (berbeda dari W2-W3) untuk menguji disiplin alur kerja di luar dataset yang sudah dikenal.
-**Lab utama** minggu ini adalah Lab 3 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb)).
+**Dataset pembuka** adalah CIFAR-10 dari W2, dipakai untuk mempresentasikan bridge assignment W3 dan mengubah diagnosis menjadi rencana eksperimen. Setelah itu, Lab W4 boleh memakai dataset baru untuk menguji disiplin alur kerja di luar dataset yang sudah dikenal.
+**Lab utama** minggu ini adalah Lab W4 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb)).
 
 ---
 
 ## 0. Peta Bab
 
-W4 adalah transisi dari "bisa training" menuju "bisa riset". Minggu ini membangun tiga lapis disiplin: merancang dulu (matriks eksperimen, lima pertanyaan sebelum kode, protokol satu halaman, hipotesis falsifiable), menjalankan dengan kontrol (satu variabel per waktu, replikasi seed, ambang signifikansi praktis), lalu mengikat hasil pada infrastruktur reproduksibilitas (YAML, seed lock, checkpoint metadata, git hash). Setelah W4, setiap eksperimen yang Anda laporkan punya jejak yang bisa ditunjukkan kepada siapapun.
+W4 adalah transisi dari "bisa training" menuju "bisa riset". Minggu ini dimulai dari bridge assignment W3: diagnosis CIFAR-10 yang Anda bawa dari baseline W2. Dari sana, W4 membangun tiga lapis disiplin: merancang dulu (matriks eksperimen, lima pertanyaan sebelum kode, protokol satu halaman, hipotesis falsifiable), menjalankan dengan kontrol (satu variabel per waktu, replikasi seed, ambang signifikansi praktis), lalu mengikat hasil pada infrastruktur reproduksibilitas (YAML, seed lock, checkpoint metadata, git hash). Setelah W4, setiap eksperimen yang Anda laporkan punya jejak yang bisa ditunjukkan kepada siapapun.
 
 ---
 
@@ -55,6 +55,20 @@ Ingat email PI dari Bab 00:
 Kedua cara menghasilkan angka. Hanya Cara B menghasilkan *eksperimen* - hasil yang bisa dijelaskan ketika PI bertanya "kenapa kenaikan 1.7% ini bisa dipercaya?" Perbedaannya bukan kecerdasan; perbedaannya adalah *kebiasaan merancang sebelum menjalankan*.
 
 Bab ini membangun kebiasaan itu.
+
+### 1.1 Bridge dari W3: Dari Diagnosis ke Eksperimen
+
+Sebelum masuk ke YAML, seed, dan checkpoint, W4 dimulai dari diagnosis CIFAR-10 yang Anda bawa dari W3. Diagnosis menjelaskan gejala, sedangkan eksperimen menguji dugaan penyebabnya. Perbedaan ini penting: kalimat "model overfit" belum menjadi eksperimen sampai Anda menentukan variabel yang diuji, baseline yang setara, seed, metrik, dan threshold sukses.
+
+| Diagnosis dari W3 | Hipotesis yang bisa diuji | Variabel ablation di W4 |
+| --- | --- | --- |
+| Train accuracy tinggi, validation accuracy rendah | Model overfit karena regularisasi kurang | Dropout atau augmentasi |
+| Loss train dan validation tidak stabil | Learning rate terlalu besar | Nilai learning rate |
+| Kelas tertentu sering tertukar di confusion matrix | Representasi visual baseline belum cukup membedakan kelas tersebut | Augmentasi atau arsitektur |
+| Kelas minor sering salah | Loss belum cukup menekan kelas sulit | Focal loss atau class weight |
+| Hasil antar run berbeda jauh | Seed variance besar | Multi-seed dengan konfigurasi identik |
+
+Di kelas, beberapa diagnosis CIFAR-10 dipresentasikan singkat. Setelah itu, satu atau dua contoh diubah menjadi matriks eksperimen. Dengan cara ini, reproducibility tidak dibahas sebagai aturan administratif, tetapi sebagai jawaban atas pertanyaan nyata: "Bagaimana saya tahu dugaan saya benar dan bisa dicek ulang?"
 
 ---
 
@@ -250,7 +264,7 @@ Skenario ini *terutama* membutuhkan skeptisisme. Jika hipotesis "naik 3 poin" ta
 
 Reproduksibilitas bertumpu pada empat pilar yang saling mengunci. Hyperparameter hidup di config YAML deklaratif, bukan di angka hardcoded yang berserakan di kode; config disimpan bersama checkpoint sehingga setiap hasil bisa ditelusuri ke konfigurasi persis yang menghasilkannya. Seed dikunci di awal training dengan `set_seed(cfg['seed'])` sebelum operasi apapun, dan untuk reproduksibilitas ketat di GPU disertai `torch.backends.cudnn.deterministic = True`; satu seed per run, variasi seed dipakai antar replikasi sebagai pengukur noise.
 
-Dua pilar berikutnya mengikat hasil pada jejak yang bisa diaudit. Checkpoint menyimpan lebih dari sekadar `model.state_dict()` - di dalamnya ada `config`, `git_hash`, `epoch`, `metrics`, dan `timestamp`, karena checkpoint tanpa config hanyalah setengah bukti. Git hash mengikat setiap run ke commit yang menghasilkannya lewat `get_git_hash()`, dan flag "dirty" memperingatkan ketika ada perubahan yang belum di-commit. Implementasi keempat pilar tersedia di [`template/src/utils.py`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/src/utils.py); Lab 3 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb)) membangun keempatnya secara berurutan.
+Dua pilar berikutnya mengikat hasil pada jejak yang bisa diaudit. Checkpoint menyimpan lebih dari sekadar `model.state_dict()` - di dalamnya ada `config`, `git_hash`, `epoch`, `metrics`, dan `timestamp`, karena checkpoint tanpa config hanyalah setengah bukti. Git hash mengikat setiap run ke commit yang menghasilkannya lewat `get_git_hash()`, dan flag "dirty" memperingatkan ketika ada perubahan yang belum di-commit. Implementasi keempat pilar tersedia di [`template/src/utils.py`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/src/utils.py); Lab W4 ([lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb)) membangun keempatnya secara berurutan.
 
 **Seperti apa bentuk YAML config yang akan Anda pakai?** Di bawah ini adalah `configs/baseline.yaml` dari template repo, contoh konkret yang dipakai di seluruh modul:
 

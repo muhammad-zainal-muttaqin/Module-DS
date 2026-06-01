@@ -277,6 +277,22 @@ Buka [lab_w6_feature_representation.ipynb](https://colab.research.google.com/git
 
 Jawab pertanyaan berikut setelah menyelesaikan lab: Pada dataset terbatas (500 sampel per kelas), strategi mana yang paling menguntungkan? Pada dataset penuh, apakah jawabannya berubah?
 
+### Bridge Assignment W3 → W4 - CIFAR-10 Diagnostic Brief
+
+Lab W3 sengaja memakai dataset toy agar seluruh siklus ablation bisa dijalankan cepat. Sebelum W4, kembali ke baseline CIFAR-10 dari W2 dan terapkan bahasa diagnosis W3 pada hasil training tersebut. Siapkan satu slide atau satu halaman ringkas untuk dipresentasikan singkat di awal W4.
+
+Luaran minimal:
+
+1. **Loss curve train/val** dari baseline CIFAR-10.
+2. **Satu bukti evaluasi tambahan**, misalnya confusion matrix, akurasi per kelas, atau contoh prediksi *confident* tetapi salah.
+3. **Diagnosis 3-5 kalimat** yang menjelaskan gejala utama, misalnya overfitting, stagnasi, kelas yang sering tertukar, atau training yang tidak stabil.
+4. **Satu usulan ablation** yang masuk akal, misalnya focal loss, dropout, augmentasi, AdamW vs SGD, atau freeze blok awal.
+5. **Satu hipotesis pendek** yang bisa diuji pada W4.
+
+Contoh hipotesis: "Karena train accuracy jauh lebih tinggi daripada validation accuracy, saya menduga model overfit. Ablation yang saya usulkan adalah membandingkan baseline dengan dropout 0.3 atau augmentasi ringan."
+
+Di awal W4, diagnosis ini akan diubah menjadi matriks eksperimen yang reproducible.
+
 ---
 
 ## 6. Refleksi
