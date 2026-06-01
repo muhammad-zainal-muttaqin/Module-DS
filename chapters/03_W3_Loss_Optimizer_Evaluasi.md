@@ -31,8 +31,8 @@
 
 **Baris peta besar** adalah `(C, H, W) -> (N,)` (lanjutan W2, fokus alur kerja).
 **Kebiasaan riset** yang ditanamkan minggu ini adalah: ubah satu hal pada satu waktu.
-**Dataset** yang dipakai adalah CIFAR-10 (reuse dari W2).
-**Lab utama** minggu ini adalah Lab 1 selesai + Lab 2 ([lab_w3_loss_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb)).
+**Dataset** konsep tetap mengacu pada CIFAR-10 dari W2, tetapi lab utama memakai dataset toy yang sengaja dibuat kecil agar ablation bisa dijalankan cepat di Colab.
+**Lab utama** minggu ini adalah Lab W3: Loss + Freeze Ablation ([lab_w3_loss_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb)).
 
 ---
 
@@ -129,7 +129,7 @@ Optimizer dipasangkan dengan *scheduler*, yaitu mekanisme yang menurunkan (atau 
 > **Aturan praktis Adam vs AdamW.** Pakai **AdamW** sebagai default untuk training dari nol modern (CNN, Transformer). Hindari "Adam + L2 manual ditambahkan ke loss" - itu yang membuat regularisasi tidak konsisten antar parameter. Range yang masuk akal: `lr=3e-4` (Karpathy constant), `weight_decay=1e-4` sampai `1e-2`. Untuk fine-tuning pretrained model, pakai `lr` 10× lebih kecil dari training-dari-nol.
 
 > [!NOTE]
-> **Tentang scheduler dan warmup.** Untuk Lab 2 di W3, learning rate **konstan** sudah cukup; `OneCycleLR`/`CosineAnnealingLR`/`ReduceLROnPlateau` dan **warmup** (naikkan lr dari 0 ke target di beberapa epoch awal) baru dibahas di W4 saat matriks eksperimen mulai melibatkan banyak run. Sekarang fokus dulu ke pasangan dasar loss dan optimizer.
+> **Tentang scheduler dan warmup.** Untuk Lab W3, learning rate **konstan** sudah cukup; `OneCycleLR`/`CosineAnnealingLR`/`ReduceLROnPlateau` dan **warmup** (naikkan lr dari 0 ke target di beberapa epoch awal) baru dibahas di W4 saat matriks eksperimen mulai melibatkan banyak run. Sekarang fokus dulu ke pasangan dasar loss dan optimizer.
 
 ### 2.3 Evaluasi: Bukan Satu Angka
 
@@ -248,24 +248,28 @@ Setelah training SimpleCNN dari [W2](02_W2_Images_CNN_Smoke_Test.md), ada tiga p
 
 ## 5. Lab
 
-### Lab 1 - Baseline CNN (selesai Minggu 3)
+### Lab W3 - Loss + Freeze Ablation
 
-Buka [lab_w2_cnn_baseline.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w2_cnn_baseline.ipynb). Selesaikan empat tugas:
+Buka [lab_w3_loss_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb). Lab ini memakai dataset toy yang learnable, bukan training CIFAR-10 penuh. Tujuannya adalah melatih cara merancang ablation kecil, membaca hasil beberapa seed, dan membatasi klaim sesuai skala eksperimen.
 
-1. Lengkapi training loop dengan evaluasi pada validation set setiap epoch.
-2. Simpan `train_loss`, `val_loss`, `train_acc`, `val_acc` per epoch, lalu plotkan.
-3. Hitung dan plot confusion matrix pada test set.
-4. Pilih 10 kesalahan dengan confidence tertinggi, visualisasikan, lalu tulis 3-4 kalimat amatan tentang pola kesalahan.
+Selesaikan lima tugas:
+
+1. Jalankan sanity check bahwa `FocalLoss(gamma=0)` setara dengan `CrossEntropyLoss`.
+2. Jalankan ablation 2×2 antara pilihan loss dan status freeze pada model kecil.
+3. Ulangi setiap kondisi dengan beberapa seed, lalu simpan hasil ke `lab3_outputs/lab3_results.csv`.
+4. Buat ringkasan mean/std dan bar chart dengan error bar.
+5. Tulis interpretasi singkat tentang main effect, interaksi, dan batas klaim karena eksperimen ini memakai dataset toy.
 
 **Checklist verifikasi:**
-- [ ] Train accuracy ≥ 75%, val accuracy ≥ 70% setelah 20 epoch.
-- [ ] Selisih train - val accuracy dilaporkan; jika > 10% dijelaskan.
-- [ ] Confusion matrix tersimpan sebagai gambar di `experiments/lab1/`.
-- [ ] Notebook dapat dijalankan ulang dari atas ke bawah tanpa error.
+- [ ] Sanity check focal loss `gamma=0` lolos.
+- [ ] Semua kondisi ablation 2×2 berjalan tanpa error.
+- [ ] Hasil tersimpan di `lab3_outputs/lab3_results.csv`.
+- [ ] Interpretasi menyebut mean/std, bukan hanya satu angka terbaik.
+- [ ] Kesimpulan tidak mengklaim bahwa focal loss atau freeze pasti unggul di dataset nyata.
 
-### Lab 1b - Membandingkan Tiga Strategi Representasi (opsional, sangat dianjurkan)
+### Lab Penunjang - Membandingkan Tiga Strategi Representasi (opsional, sangat dianjurkan)
 
-Buka [lab_w6_feature_representation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w6_feature_representation.ipynb). Pada CIFAR-10 yang sama, bandingkan tiga strategi:
+Buka [lab_w6_feature_representation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w6_feature_representation.ipynb). Pada CIFAR-10, bandingkan tiga strategi:
 
 1. **Engineered**: pakai HOG manual + MLP kecil (tanpa pretrained weights apapun).
 2. **Extracted**: pakai ResNet-18 pretrained pada ImageNet yang di-freeze seluruhnya - hanya linear probe.

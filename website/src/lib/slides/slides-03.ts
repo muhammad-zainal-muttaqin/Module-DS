@@ -56,10 +56,10 @@ export const slides03: SlideSection[] = [
     body: "W3 dimulai dari lima contoh training, lalu menarik kapan sebuah loss cocok dipakai, bagaimana optimizer memperbarui parameter, kenapa satu angka akurasi sering belum cukup, dan bagaimana loss curve membantu diagnosis. Bedanya dengan W2: fokus bergeser dari membangun model ke membaca apa yang model lakukan saat dilatih.",
     bullets: [
       "**Kebiasaan riset** yang ditanamkan minggu ini adalah mengubah satu hal pada satu waktu, sehingga setiap perubahan performa bisa dijelaskan penyebabnya.",
-      "**Dataset** yang dipakai tetap CIFAR-10 dari W2, sehingga kita bisa fokus pada loss, optimizer, dan evaluasi tanpa terganggu domain baru.",
+      "**Dataset konsep** tetap mengacu pada CIFAR-10 dari W2, sedangkan lab utama memakai dataset toy agar ablation cepat dijalankan di Colab.",
       "**Loss curve** dibaca untuk mendiagnosis hasil training, bukan hanya dilihat sekilas apakah naik atau turun.",
     ],
-    footnote: "Baris peta besar minggu ini adalah (C, H, W) -> (N,). Lab: Lab 1 (baseline CNN) diselesaikan, lalu Lab 2 (ablation loss).",
+    footnote: "Baris peta besar minggu ini adalah (C, H, W) -> (N,). Lab utama: Lab W3 Loss + Freeze Ablation.",
   },
 
   // ── 7: Amati Dulu (DIVIDER 2) ──
@@ -237,7 +237,7 @@ export const slides03: SlideSection[] = [
       "**Titik awal AdamW** yang masuk akal adalah `lr=3e-4` dengan `weight_decay` antara `1e-4` dan `1e-2` untuk training dari nol.",
       "**Untuk fine-tuning** model pretrained, pakai learning rate sekitar 10× lebih kecil dari training-dari-nol agar bobot yang sudah baik tidak rusak.",
     ],
-    footnote: "Di W3, learning rate konstan sudah cukup untuk Lab 2; scheduler dan warmup dibahas di W4.",
+    footnote: "Di W3, learning rate konstan sudah cukup untuk Lab W3; scheduler dan warmup dibahas di W4.",
   },
 
   // ── 20: Metrik (situasi akurasi 95% di pembuka) ──
@@ -366,7 +366,7 @@ export const slides03: SlideSection[] = [
       "**Periksa akurasi per kelas** secara terpisah lewat confusion matrix; pada CIFAR-10, pasangan `cat` dan `dog` biasanya paling sering tertukar.",
       "**Periksa sampel yang salah** dengan memvisualisasikan 10 gambar yang paling confident tetapi keliru - sering kali ada pola kesalahan yang bisa dijelaskan.",
     ],
-    footnote: "Ketiga pemeriksaan ini adalah inti Lab 1 yang diselesaikan minggu ini.",
+    footnote: "Ketiga pemeriksaan ini tetap menjadi bekal evaluasi W3, sedangkan lab utama minggu ini berfokus pada ablation loss dan freeze."
   },
 
   // ── 30: Tiga miskonsepsi (framing pitfalls di pembuka) ──
@@ -385,14 +385,14 @@ export const slides03: SlideSection[] = [
   // ── 31: Lab W3 ──
   {
     layout: "bullets",
-    title: "Lab W3: Baseline Selesai dan Ablation Loss",
-    body: "Lab minggu ini menutup baseline CNN dari W2 lalu menjalankan ablation loss yang terkontrol:",
+    title: "Lab W3: Toy Ablation Loss + Freeze",
+    body: "Lab minggu ini menjalankan ablation mandiri yang kecil tetapi lengkap, sehingga fokusnya berada pada metode eksperimen dan interpretasi hasil:",
     bullets: [
-      "**Lab 1** menuntaskan training loop dengan evaluasi per epoch, plot loss curve, confusion matrix, dan analisis 10 prediksi confident-salah.",
-      "**Lab 2** menjalankan ablation 2×2 antara cross-entropy dan focal loss, lengkap dengan bar chart yang menyertakan error bar dari beberapa seed.",
-      "**Lab 1b (opsional)** membandingkan tiga strategi representasi pada CIFAR-10 yang sama untuk melihat mana yang menang pada data terbatas.",
+      "**Sanity check FocalLoss** memastikan `gamma=0` setara dengan cross-entropy sebelum loss dipakai di ablation.",
+      "**Ablation 2×2** menguji pilihan loss dan status freeze dengan beberapa seed, lalu merangkum mean/std dalam bar chart ber-error bar.",
+      "**Interpretasi hasil** membahas main effect, interaksi, dan batas klaim karena dataset yang dipakai adalah dataset toy.",
     ],
-    footnote: "Checklist Lab 1: train acc ≥ 75%, val acc ≥ 70%, dan notebook bisa dijalankan ulang dari atas ke bawah tanpa error.",
+    footnote: "Lab penunjang representasi fitur pada CIFAR-10 tetap tersedia sebagai latihan opsional, bukan syarat utama Lab W3.",
   },
 
   // ── 32: Refleksi ──
@@ -425,7 +425,7 @@ export const slides03: SlideSection[] = [
   {
     layout: "cta",
     title: "Mulai Lab W3",
-    body: "Semua konsep di presentasi ini ada dalam lab notebook lengkap dengan kode siap pakai, ablation loss yang terkontrol, dan panduan analisis.\n\nEstimasi waktu: 3-5 jam termasuk training, ablation, dan refleksi.",
+    body: "Semua konsep di presentasi ini ada dalam lab notebook Colab mandiri dengan kode siap pakai, sanity check focal loss, ablation 2×2, beberapa seed, dan panduan analisis.\n\nEstimasi waktu: 30-60 menit termasuk menjalankan ablation dan menulis refleksi.",
     ctaText: "Buka Lab W3 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb",
   },
