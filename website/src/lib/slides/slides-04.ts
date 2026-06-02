@@ -1,7 +1,7 @@
-﻿import type { SlideSection } from "./index";
+import type { SlideSection } from "./index";
 
 export const slides04: SlideSection[] = [
-  // ── 1: Title ──
+  // -- 1: W4: Reproducibility & Matriks Eksperimen --
   {
     layout: "title",
     title: "W4: Reproducibility & Matriks Eksperimen",
@@ -10,7 +10,7 @@ export const slides04: SlideSection[] = [
     footnote: "Bab 04 - Minggu 4",
   },
 
-  // ── 2: Peta W4 ──
+  // -- 2: Peta W4 --
   {
     layout: "section",
     title: "Peta W4",
@@ -18,7 +18,7 @@ export const slides04: SlideSection[] = [
     footnote: "Setelah W4, setiap eksperimen yang Anda laporkan punya jejak yang bisa ditunjukkan kepada siapapun.",
   },
 
-  // ── 3: Dari W3 ke W4 ──
+  // -- 3: Dari Diagnosis W3 ke Eksperimen W4 --
   {
     layout: "bullets",
     title: "Dari Diagnosis W3 ke Eksperimen W4",
@@ -31,7 +31,7 @@ export const slides04: SlideSection[] = [
     footnote: "Dataset pembuka adalah CIFAR-10 dari W2; Lab W4 tetap melatih alur reproducibility yang berlaku untuk dataset lain.",
   },
 
-  // ── 4: Contoh transformasi bridge ──
+  // -- 4: Contoh Transformasi: Gejala Menjadi Rencana --
   {
     layout: "bullets",
     title: "Contoh Transformasi: Gejala Menjadi Rencana",
@@ -44,7 +44,7 @@ export const slides04: SlideSection[] = [
     footnote: "Setelah contoh ini, W4 masuk ke protokol, pre-registration, seed variance, dan YAML config.",
   },
 
-  // ── 5: Section Motivasi ──
+  // -- 5: Motivasi: Dua Cara Menjawab Email --
   {
     layout: "section",
     title: "Motivasi: Dua Cara Menjawab Email",
@@ -52,7 +52,7 @@ export const slides04: SlideSection[] = [
     footnote: "Hanya satu dari keduanya menghasilkan eksperimen yang bisa dicek ulang.",
   },
 
-  // ── 5: Split Cara A vs Cara B ──
+  // -- 6: Cara A vs Cara B: Langsung Kerja atau Merancang Dulu --
   {
     layout: "split",
     title: "Cara A vs Cara B: Langsung Kerja atau Merancang Dulu",
@@ -68,7 +68,7 @@ export const slides04: SlideSection[] = [
     footnote: "Kedua cara menghasilkan angka, tetapi hanya Cara B menghasilkan eksperimen.",
   },
 
-  // ── 6: Section Tiga Istilah ──
+  // -- 7: Tiga Istilah yang Dipakai Berulang --
   {
     layout: "section",
     title: "Tiga Istilah yang Dipakai Berulang",
@@ -76,20 +76,7 @@ export const slides04: SlideSection[] = [
     footnote: "Pre-registration, seed variance, dan effect size menjadi kosakata inti minggu ini.",
   },
 
-  // ── 7: Bullets tiga istilah ──
-  {
-    layout: "bullets",
-    title: "Pre-registration, Seed Variance, Effect Size",
-    body: "Ketiga istilah berikut menjelaskan apa yang ditulis sebelum eksperimen, seberapa besar noise yang wajar, dan seberapa besar selisih yang dianggap bermakna:",
-    bullets: [
-      "**Pre-registration** adalah dokumen yang berisi hipotesis, variabel, metrik, dan threshold sukses yang ditulis sebelum eksperimen dijalankan, sehingga timestamp-nya menjadi bukti rencana mendahului hasil.",
-      "**Seed variance** adalah selisih hasil antar run yang konfigurasinya identik kecuali RNG seed, dan pada CIFAR-10 baseline biasanya berada di kisaran ±0.5-1.5% akurasi.",
-      "**Effect size** adalah selisih metrik antara dua kondisi, dan threshold-nya ditetapkan di pre-reg untuk menjawab seberapa besar selisih yang dianggap bermakna sebelum angka terlihat.",
-    ],
-    footnote: "Klaim \"naik 1.7%\" dengan seed variance ±1.5% bisa sekadar noise, bukan sinyal sebenarnya.",
-  },
-
-  // ── 8: Section Matriks ──
+  // -- 8: Matriks Eksperimen Sebelum Coding --
   {
     layout: "section",
     title: "Matriks Eksperimen Sebelum Coding",
@@ -97,20 +84,7 @@ export const slides04: SlideSection[] = [
     footnote: "Matriks ditulis di protocol.md, dan timestamp file menjadi bukti perencanaan.",
   },
 
-  // ── 9: Bullets tiga masalah ──
-  {
-    layout: "bullets",
-    title: "Tiga Masalah yang Dicegah Matriks Eksperimen",
-    body: "Matriks eksperimen mencegah tiga masalah yang sering muncul saat run dijalankan tanpa rencana tertulis:",
-    bullets: [
-      "**Lupa satu kondisi penting** terjadi saat run direncanakan di kepala saja, dan matriks memaksa seluruh kondisi tertulis sebelum dijalankan.",
-      "**Menyadari dua kondisi tidak sebanding di tengah jalan** bisa membuang berjam-jam training, dan matriks menampakkan ketidaksetaraan itu sejak awal.",
-      "**Tidak bisa menjelaskan apa yang berubah antar run** adalah kegagalan atribusi, dan matriks mencatat persis satu variabel yang berbeda per baris.",
-    ],
-    footnote: "Setiap eksperimen yang dilaporkan setelah W4 harus punya matriks tertulis.",
-  },
-
-  // ── 10: Code matriks ──
+  // -- 9: Bentuk Minimal Matriks Eksperimen --
   {
     layout: "code",
     title: "Bentuk Minimal Matriks Eksperimen",
@@ -124,41 +98,7 @@ export const slides04: SlideSection[] = [
     footnote: "Kolom Seed dan Status membuat replikasi dan kemajuan terlacak dalam satu pandangan.",
   },
 
-  // ── 11: Section Lima Pertanyaan ──
-  {
-    layout: "section",
-    title: "Lima Pertanyaan Sebelum Menyentuh Kode",
-    body: "Sebelum membuka editor, jawab lima pertanyaan ini dan tulis jawabannya di protocol.md. Lima pertanyaan ini menutup ambiguitas yang biasanya baru muncul di tengah eksperimen.",
-    footnote: "Jawaban yang ditulis di awal menjadi kontrak yang menahan godaan mengubah cerita di akhir.",
-  },
-
-  // ── 12: Pertanyaan 1-3 ──
-  {
-    layout: "bullets",
-    title: "Pertanyaan 1 sampai 3: Variabel, Baseline, Hipotesis",
-    body: "Tiga pertanyaan pertama mengunci apa yang berubah, apa pembandingnya, dan prediksi apa yang sedang diuji:",
-    bullets: [
-      "**Variabel apa yang berubah?** Jawabannya harus spesifik, bukan \"loss\" tetapi \"CrossEntropyLoss menjadi FocalLoss(gamma=2.0)\", dengan satu eksperimen per variabel agar atribusinya jelas.",
-      "**Apa baseline yang setara?** Baseline harus identik pada semua variabel lain - arsitektur, data, augmentasi, optimizer, learning rate, seed, dan jumlah epoch.",
-      "**Apa hipotesis yang dapat dipalsukan?** Hipotesis yang baik berbentuk pernyataan empiris yang bisa salah, misalnya \"F1 kelas minor naik minimal 3 poin tanpa menurunkan akurasi lebih dari 1 poin\".",
-    ],
-    footnote: "Hipotesis buruk berbunyi \"focal loss lebih baik\" - lebih baik pada metrik apa, seberapa besar, pada kondisi apa?",
-  },
-
-  // ── 13: Pertanyaan 4-5 ──
-  {
-    layout: "bullets",
-    title: "Pertanyaan 4 dan 5: Metrik dan Bentuk Hasil",
-    body: "Dua pertanyaan terakhir menentukan apa yang diukur dan apa yang Anda bayangkan akan terlihat sebelum run berjalan:",
-    bullets: [
-      "**Metrik sukses apa?** Tetapkan sebelum melihat hasil dan urutkan: metrik utama, metrik sekunder, lalu metrik pengaman yang tidak boleh memburuk seperti akurasi keseluruhan dan train/val gap.",
-      "**Bentuk hasil apa yang diharapkan?** Bayangkan dua kemungkinan sebelum menjalankan - hipotesis benar atau salah - dan apa yang akan terlihat di log pada masing-masing.",
-      "**Jika kedua kemungkinan tidak terbayang**, rancangan eksperimen belum cukup jelas dan perlu dipertajam sebelum kode ditulis.",
-    ],
-    footnote: "Metrik yang dipilih setelah melihat hasil adalah bentuk bias konfirmasi yang halus.",
-  },
-
-  // ── 14: Code protokol ──
+  // -- 10: Protokol Eksperimen Satu Halaman --
   {
     layout: "code",
     title: "Protokol Eksperimen Satu Halaman",
@@ -181,7 +121,7 @@ export const slides04: SlideSection[] = [
     footnote: "Satu halaman ini mengubah instruksi samar menjadi rancangan yang bisa dibaca, didiskusikan, dan dijalankan.",
   },
 
-  // ── 15: Section Mengendalikan Variabel ──
+  // -- 11: Mengendalikan Variabel: Ubah Satu Hal pada Satu Waktu --
   {
     layout: "section",
     title: "Mengendalikan Variabel: Ubah Satu Hal pada Satu Waktu",
@@ -189,7 +129,7 @@ export const slides04: SlideSection[] = [
     footnote: "Tabel konfigurasi adalah alat sederhana yang membuat variabel yang berubah terbaca sekilas.",
   },
 
-  // ── 16: Image ablation design ──
+  // -- 12: Desain Ablation: Satu Variabel Berubah per Kondisi --
   {
     layout: "image",
     title: "Desain Ablation: Satu Variabel Berubah per Kondisi",
@@ -198,7 +138,184 @@ export const slides04: SlideSection[] = [
     footnote: "Seed divariasikan untuk replikasi agar noise terukur, bukan sebagai variabel eksperimen.",
   },
 
-  // ── 17: Bullets baca tabel ──
+  // -- 13: Noise, Seed, dan Kapan Perbedaan Bermakna --
+  {
+    layout: "section",
+    title: "Noise, Seed, dan Kapan Perbedaan Bermakna",
+    body: "Model dengan inisialisasi berbeda sering menghasilkan akurasi yang berbeda beberapa poin persen, bahkan tanpa perubahan apapun. Tanpa replikasi, Anda tidak bisa membedakan sinyal dari variasi seed.",
+    footnote: "Inilah alasan satu run tidak pernah cukup untuk menarik kesimpulan.",
+  },
+
+  // -- 14: Hipotesis yang Dapat Dipalsukan vs Harapan --
+  {
+    layout: "section",
+    title: "Hipotesis yang Dapat Dipalsukan vs Harapan",
+    body: "Ada perbedaan halus antara hipotesis dan harapan. Hipotesis berisi prediksi spesifik seperti \"F1 kelas minor naik minimal 3 poin\", sedangkan harapan berisi keinginan samar seperti \"focal loss akan membantu\".",
+    footnote: "Hipotesis yang spesifik melindungi Anda dari dua bahaya yang sulit disadari sendiri.",
+  },
+
+  // -- 15: Infrastruktur Reproduksibilitas --
+  {
+    layout: "section",
+    title: "Infrastruktur Reproduksibilitas",
+    body: "Setelah rancangan dan kontrol siap, hasil perlu diikat pada jejak yang bisa diaudit. Reproduksibilitas bertumpu pada empat pilar yang saling mengunci.",
+    footnote: "Tanpa keempatnya, sebuah hasil hanya bisa dipercaya selama Anda mengingat cara membuatnya.",
+  },
+
+  // -- 16: Empat Pilar Reproduksibilitas --
+  {
+    layout: "image",
+    title: "Empat Pilar Reproduksibilitas",
+    imageUrl: "/figures/fig03a_reproducibility_sources.svg",
+    caption: "Gambar ini menunjukkan empat pilar reproduksibilitas yang saling mengunci: config YAML yang menyimpan seluruh hyperparameter, penguncian seed di awal training, checkpoint yang menyertakan metadata lengkap, dan git hash yang mengikat tiap run ke commit penghasilnya. Keempatnya bersama-sama membuat satu hasil bisa ditelusuri balik ke kondisi persis yang menghasilkannya.",
+    footnote: "Implementasi keempat pilar tersedia di template/src/utils.py dan dibangun bertahap di Lab W4.",
+  },
+
+  // -- 17: Worked Example: Menerjemahkan Instruksi PI --
+  {
+    layout: "section",
+    title: "Worked Example: Menerjemahkan Instruksi PI",
+    body: "Mari kerjakan email PI langkah demi langkah, dari instruksi yang ambigu sampai laporan yang bisa dipakai untuk keputusan berikutnya. Tahap pertama adalah membaca instruksi dengan cermat.",
+    footnote: "Instruksi \"uji focal loss dan freeze blok awal\" menyembunyikan empat ambiguitas yang harus dibereskan.",
+  },
+
+  // -- 18: Menjalankan dan Melaporkan: Angka plus Interpretasi --
+  {
+    layout: "split",
+    title: "Menjalankan dan Melaporkan: Angka plus Interpretasi",
+    body: "Enam run menghasilkan tabel agregat, tetapi tabel saja tidak cukup. Tulis interpretasi sebelum PI bertanya, bukan setelah diminta:",
+    left: {
+      title: "Tabel Agregat (mean ± std)",
+      body: "Baseline (CE): F1 minor 0.612 ± 0.018, akurasi 0.781.\n\nFocal+Freeze: F1 minor 0.672 ± 0.014, akurasi 0.774.\n\nKetiga seed konsisten dengan std yang kecil.",
+    },
+    right: {
+      title: "Interpretasi yang Menyertai",
+      body: "H1 terkonfirmasi: F1 minor naik 6 poin, melampaui ambang 3 poin.\n\nH2 terkonfirmasi: akurasi turun 0.7 poin, masih di bawah ambang 1 poin.\n\nCatatan pengaman: train/val gap naik tipis 0.09 ke 0.11, perlu dipantau.",
+    },
+    footnote: "Bandingkan dengan laporan Cara A: \"baseline 78.4%, mod 80.1%, naik 1.7%\" tanpa konteks apapun.",
+  },
+
+  // -- 19: Tiga Alat Komunikasi dengan Dosen Pembimbing --
+  {
+    layout: "bullets",
+    title: "Tiga Alat Komunikasi dengan Dosen Pembimbing",
+    body: "Riset berlangsung berminggu-minggu, bukan satu email. Tiga alat berikut membentuk kebiasaan komunikasi seorang asisten riset:",
+    bullets: [
+      "**Update mingguan** berisi empat bagian - progress, kendala, rencana, satu pertanyaan - dan dikirim sebelum diminta, karena konsistensi membangun kepercayaan lebih cepat daripada hasil spektakuler yang mendadak.",
+      "**Kerangka SQRC** (Situation, Question, Resolution attempt, Call) memandu Anda menulis pertanyaan teknis yang menunjukkan Anda sudah berusaha sebelum meminta bantuan.",
+      "**Ekspresi ketidakpastian yang baik** berarti menyebut keterbatasan dan menyertai \"saya tidak tahu\" dengan langkah konkret berikutnya.",
+    ],
+    footnote: "Template dan contoh lengkap tersedia di Lampiran C.11 dan D.8.",
+  },
+
+  // -- 20: Lab W4: Config, Logging, dan Reproducibility --
+  {
+    layout: "bullets",
+    title: "Lab W4: Config, Logging, dan Reproducibility",
+    body: "Dari gambar tersebut, Lab W4 membangun infrastruktur reproduksibilitas yang nanti dipakai untuk menjalankan ablation dari bridge CIFAR-10:",
+    bullets: [
+      "**Protocol dan matriks** ditulis dari salah satu hipotesis bridge sebelum run baru dijalankan.",
+      "**Dry-run seed sama** dipakai untuk memeriksa apakah config dan seed menghasilkan validation accuracy yang identik atau hampir identik.",
+      "**Checkpoint dan resume** diperiksa lewat metadata config, git hash, dirty flag, optimizer state, scheduler state, dan epoch lanjutan.",
+    ],
+    footnote: "Jika beberapa seed tersedia, hasilnya diringkas sebagai mean ± std untuk membaca seed variance.",
+  },
+
+  // -- 21: Refleksi: Tiga Pertanyaan untuk Dibawa Pulang --
+  {
+    layout: "bullets",
+    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
+    body: "Sebelum lanjut ke W5, renungkan tiga pertanyaan yang menghubungkan disiplin minggu ini dengan riset Anda nanti:",
+    bullets: [
+      "Saat baseline repo memakai lr=1e-3 tetapi pengalaman Anda bilang 3e-4 lebih stabil, dua rencana eksperimen alternatif apa yang akan Anda pakai, dan kapan masing-masing lebih tepat?",
+      "Saat hipotesis gagal dan akurasi justru turun, tiga pertanyaan berikutnya apa yang akan Anda kejar, diurutkan dari yang tidak perlu training baru sampai yang perlu inspeksi panjang?",
+      "Saat PI meminta \"cari teknik mitigasi imbalance yang paling ampuh\", lima pertanyaan klarifikasi apa yang paling penting Anda ajukan sebelum memilih teknik apapun?",
+    ],
+    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat capstone.",
+  },
+
+  // -- 22: Lanjut ke W5: dari Alur Kerja ke Sequence --
+  {
+    layout: "bullets",
+    title: "Lanjut ke W5: dari Alur Kerja ke Sequence",
+    body: "Dengan W4 selesai, alur kerja reproduksibel kini terbangun dan setiap eksperimen punya jejak yang bisa diaudit. W5 memperluas Big Map ke domain baru:",
+    bullets: [
+      "**Tensor sequence** berbentuk (T, F) masuk sebagai input, berbeda dari tensor citra (C, H, W) yang dipakai sampai W4.",
+      "**Arsitektur recurrent** seperti RNN dan LSTM muncul karena urutan data kini menjadi informasi yang penting.",
+      "**Diagnosis gradient flow** menjadi kebiasaan baru, melanjutkan disiplin eksperimen terkontrol yang dibangun minggu ini.",
+    ],
+    footnote: "Disiplin matriks eksperimen dan replikasi seed dari W4 tetap berlaku di semua minggu berikutnya.",
+  },
+
+  // -- 23: Lampiran Opsional --
+  {
+    layout: "section",
+    title: "Lampiran Opsional",
+    body: "Slide berikutnya menyimpan pendalaman dan contoh tambahan untuk W4. Alur utama kelas sudah selesai; pakai bagian ini hanya jika waktu cukup atau saat ada pertanyaan dari mahasiswa.",
+    footnote: "Lampiran menjaga materi referensi tetap tersedia tanpa memutus jalur belajar utama.",
+  },
+
+  // -- 24: Pre-registration, Seed Variance, Effect Size --
+  {
+    layout: "bullets",
+    title: "Pre-registration, Seed Variance, Effect Size",
+    body: "Ketiga istilah berikut menjelaskan apa yang ditulis sebelum eksperimen, seberapa besar noise yang wajar, dan seberapa besar selisih yang dianggap bermakna:",
+    bullets: [
+      "**Pre-registration** adalah dokumen yang berisi hipotesis, variabel, metrik, dan threshold sukses yang ditulis sebelum eksperimen dijalankan, sehingga timestamp-nya menjadi bukti rencana mendahului hasil.",
+      "**Seed variance** adalah selisih hasil antar run yang konfigurasinya identik kecuali RNG seed, dan pada CIFAR-10 baseline biasanya berada di kisaran ±0.5-1.5% akurasi.",
+      "**Effect size** adalah selisih metrik antara dua kondisi, dan threshold-nya ditetapkan di pre-reg untuk menjawab seberapa besar selisih yang dianggap bermakna sebelum angka terlihat.",
+    ],
+    footnote: "Klaim \"naik 1.7%\" dengan seed variance ±1.5% bisa sekadar noise, bukan sinyal sebenarnya.",
+  },
+
+  // -- 25: Tiga Masalah yang Dicegah Matriks Eksperimen --
+  {
+    layout: "bullets",
+    title: "Tiga Masalah yang Dicegah Matriks Eksperimen",
+    body: "Matriks eksperimen mencegah tiga masalah yang sering muncul saat run dijalankan tanpa rencana tertulis:",
+    bullets: [
+      "**Lupa satu kondisi penting** terjadi saat run direncanakan di kepala saja, dan matriks memaksa seluruh kondisi tertulis sebelum dijalankan.",
+      "**Menyadari dua kondisi tidak sebanding di tengah jalan** bisa membuang berjam-jam training, dan matriks menampakkan ketidaksetaraan itu sejak awal.",
+      "**Tidak bisa menjelaskan apa yang berubah antar run** adalah kegagalan atribusi, dan matriks mencatat persis satu variabel yang berbeda per baris.",
+    ],
+    footnote: "Setiap eksperimen yang dilaporkan setelah W4 harus punya matriks tertulis.",
+  },
+
+  // -- 26: Lima Pertanyaan Sebelum Menyentuh Kode --
+  {
+    layout: "section",
+    title: "Lima Pertanyaan Sebelum Menyentuh Kode",
+    body: "Sebelum membuka editor, jawab lima pertanyaan ini dan tulis jawabannya di protocol.md. Lima pertanyaan ini menutup ambiguitas yang biasanya baru muncul di tengah eksperimen.",
+    footnote: "Jawaban yang ditulis di awal menjadi kontrak yang menahan godaan mengubah cerita di akhir.",
+  },
+
+  // -- 27: Pertanyaan 1 sampai 3: Variabel, Baseline, Hipotesis --
+  {
+    layout: "bullets",
+    title: "Pertanyaan 1 sampai 3: Variabel, Baseline, Hipotesis",
+    body: "Tiga pertanyaan pertama mengunci apa yang berubah, apa pembandingnya, dan prediksi apa yang sedang diuji:",
+    bullets: [
+      "**Variabel apa yang berubah?** Jawabannya harus spesifik, bukan \"loss\" tetapi \"CrossEntropyLoss menjadi FocalLoss(gamma=2.0)\", dengan satu eksperimen per variabel agar atribusinya jelas.",
+      "**Apa baseline yang setara?** Baseline harus identik pada semua variabel lain - arsitektur, data, augmentasi, optimizer, learning rate, seed, dan jumlah epoch.",
+      "**Apa hipotesis yang dapat dipalsukan?** Hipotesis yang baik berbentuk pernyataan empiris yang bisa salah, misalnya \"F1 kelas minor naik minimal 3 poin tanpa menurunkan akurasi lebih dari 1 poin\".",
+    ],
+    footnote: "Hipotesis buruk berbunyi \"focal loss lebih baik\" - lebih baik pada metrik apa, seberapa besar, pada kondisi apa?",
+  },
+
+  // -- 28: Pertanyaan 4 dan 5: Metrik dan Bentuk Hasil --
+  {
+    layout: "bullets",
+    title: "Pertanyaan 4 dan 5: Metrik dan Bentuk Hasil",
+    body: "Dua pertanyaan terakhir menentukan apa yang diukur dan apa yang Anda bayangkan akan terlihat sebelum run berjalan:",
+    bullets: [
+      "**Metrik sukses apa?** Tetapkan sebelum melihat hasil dan urutkan: metrik utama, metrik sekunder, lalu metrik pengaman yang tidak boleh memburuk seperti akurasi keseluruhan dan train/val gap.",
+      "**Bentuk hasil apa yang diharapkan?** Bayangkan dua kemungkinan sebelum menjalankan - hipotesis benar atau salah - dan apa yang akan terlihat di log pada masing-masing.",
+      "**Jika kedua kemungkinan tidak terbayang**, rancangan eksperimen belum cukup jelas dan perlu dipertajam sebelum kode ditulis.",
+    ],
+    footnote: "Metrik yang dipilih setelah melihat hasil adalah bentuk bias konfirmasi yang halus.",
+  },
+
+  // -- 29: Membaca Tabel Konfigurasi secara Vertikal --
   {
     layout: "bullets",
     title: "Membaca Tabel Konfigurasi secara Vertikal",
@@ -211,7 +328,7 @@ export const slides04: SlideSection[] = [
     footnote: "Membaca vertikal mengubah tabel angka menjadi pernyataan tentang apa yang sedang dan tidak sedang diuji.",
   },
 
-  // ── 18: Split batch-LR ──
+  // -- 30: Variabel yang Saling Bergantung: Batch Size dan LR --
   {
     layout: "split",
     title: "Variabel yang Saling Bergantung: Batch Size dan LR",
@@ -227,7 +344,7 @@ export const slides04: SlideSection[] = [
     footnote: "Mengubah batch size diam-diam mengubah dinamika training jika LR tidak ikut disesuaikan.",
   },
 
-  // ── 19: Bullets tiga strategi baseline ──
+  // -- 31: Tiga Strategi Menginisialisasi Baseline Hyperparameter --
   {
     layout: "bullets",
     title: "Tiga Strategi Menginisialisasi Baseline Hyperparameter",
@@ -240,15 +357,7 @@ export const slides04: SlideSection[] = [
     footnote: "Ketiganya jauh lebih cepat daripada menebak LR lalu menjalankan training penuh berkali-kali.",
   },
 
-  // ── 20: Section Noise ──
-  {
-    layout: "section",
-    title: "Noise, Seed, dan Kapan Perbedaan Bermakna",
-    body: "Model dengan inisialisasi berbeda sering menghasilkan akurasi yang berbeda beberapa poin persen, bahkan tanpa perubahan apapun. Tanpa replikasi, Anda tidak bisa membedakan sinyal dari variasi seed.",
-    footnote: "Inilah alasan satu run tidak pernah cukup untuk menarik kesimpulan.",
-  },
-
-  // ── 21: Bullets replikasi ──
+  // -- 32: Replikasi Seed: Minimal Tiga, Idealnya Lima --
   {
     layout: "bullets",
     title: "Replikasi Seed: Minimal Tiga, Idealnya Lima",
@@ -261,7 +370,7 @@ export const slides04: SlideSection[] = [
     footnote: "Reproduksibilitas ketat di GPU menambah torch.backends.cudnn.deterministic = True.",
   },
 
-  // ── 22: Split 2sigma vs effect size ──
+  // -- 33: Kapan Perbedaan Cukup Besar untuk Diklaim --
   {
     layout: "split",
     title: "Kapan Perbedaan Cukup Besar untuk Diklaim",
@@ -277,15 +386,7 @@ export const slides04: SlideSection[] = [
     footnote: "Untuk laporan formal dengan >= 5 seed, pertimbangkan paired t-test atau Wilcoxon signed-rank test.",
   },
 
-  // ── 23: Section Hipotesis vs Harapan ──
-  {
-    layout: "section",
-    title: "Hipotesis yang Dapat Dipalsukan vs Harapan",
-    body: "Ada perbedaan halus antara hipotesis dan harapan. Hipotesis berisi prediksi spesifik seperti \"F1 kelas minor naik minimal 3 poin\", sedangkan harapan berisi keinginan samar seperti \"focal loss akan membantu\".",
-    footnote: "Hipotesis yang spesifik melindungi Anda dari dua bahaya yang sulit disadari sendiri.",
-  },
-
-  // ── 24: Bullets dua bahaya ──
+  // -- 34: Dua Bahaya yang Dicegah Hipotesis Spesifik --
   {
     layout: "bullets",
     title: "Dua Bahaya yang Dicegah Hipotesis Spesifik",
@@ -298,7 +399,7 @@ export const slides04: SlideSection[] = [
     footnote: "Laboratorium paling produktif memperlakukan hipotesis salah sebagai bahan analisis, bukan aib.",
   },
 
-  // ── 25: Section Hipotesis tidak terkonfirmasi ──
+  // -- 35: Ketika Hipotesis Tidak Terkonfirmasi --
   {
     layout: "section",
     title: "Ketika Hipotesis Tidak Terkonfirmasi",
@@ -306,7 +407,7 @@ export const slides04: SlideSection[] = [
     footnote: "Cara menangani hasil yang tidak sesuai prediksi adalah pembeda asisten riset yang matang.",
   },
 
-  // ── 26: Grid tiga skenario ──
+  // -- 36: Tiga Skenario Hasil di Luar Prediksi --
   {
     layout: "grid",
     title: "Tiga Skenario Hasil di Luar Prediksi",
@@ -328,24 +429,7 @@ export const slides04: SlideSection[] = [
     footnote: "Hasil negatif yang terdokumentasi dengan baik mencegah orang lain membuang waktu di arah yang sama.",
   },
 
-  // ── 27: Section Infrastruktur ──
-  {
-    layout: "section",
-    title: "Infrastruktur Reproduksibilitas",
-    body: "Setelah rancangan dan kontrol siap, hasil perlu diikat pada jejak yang bisa diaudit. Reproduksibilitas bertumpu pada empat pilar yang saling mengunci.",
-    footnote: "Tanpa keempatnya, sebuah hasil hanya bisa dipercaya selama Anda mengingat cara membuatnya.",
-  },
-
-  // ── 28: Image empat pilar ──
-  {
-    layout: "image",
-    title: "Empat Pilar Reproduksibilitas",
-    imageUrl: "/figures/fig03a_reproducibility_sources.svg",
-    caption: "Gambar ini menunjukkan empat pilar reproduksibilitas yang saling mengunci: config YAML yang menyimpan seluruh hyperparameter, penguncian seed di awal training, checkpoint yang menyertakan metadata lengkap, dan git hash yang mengikat tiap run ke commit penghasilnya. Keempatnya bersama-sama membuat satu hasil bisa ditelusuri balik ke kondisi persis yang menghasilkannya.",
-    footnote: "Implementasi keempat pilar tersedia di template/src/utils.py dan dibangun bertahap di Lab W4.",
-  },
-
-  // ── 29: Grid empat pilar ──
+  // -- 37: Apa yang Dilakukan Tiap Pilar --
   {
     layout: "grid",
     title: "Apa yang Dilakukan Tiap Pilar",
@@ -371,7 +455,7 @@ export const slides04: SlideSection[] = [
     footnote: "Keempat pilar mengubah \"saya ingat menjalankan ini\" menjadi \"ini commit, config, dan seed yang menghasilkannya\".",
   },
 
-  // ── 30: Code YAML ──
+  // -- 38: Seperti Apa Bentuk YAML Config --
   {
     layout: "code",
     title: "Seperti Apa Bentuk YAML Config",
@@ -394,7 +478,7 @@ optim:
     footnote: "Untuk ablation, Anda membuat YAML baru yang hanya mengubah bagian relevan; arsitektur dan data tetap identik.",
   },
 
-  // ── 31: Section Platform ──
+  // -- 39: Platform: Kapan Pindah ke RunPod --
   {
     layout: "section",
     title: "Platform: Kapan Pindah ke RunPod",
@@ -402,7 +486,7 @@ optim:
     footnote: "Pemicu lain adalah dataset yang tidak muat di RAM atau kebutuhan VRAM lebih dari 8 GB.",
   },
 
-  // ── 32: Image cloud workflow ──
+  // -- 40: Alur Kerja Cloud GPU: Pod Lifecycle --
   {
     layout: "image",
     title: "Alur Kerja Cloud GPU: Pod Lifecycle",
@@ -411,7 +495,7 @@ optim:
     footnote: "Konfigurasi minimal dan cara push/pull checkpoint tersedia di Lampiran D.1.",
   },
 
-  // ── 33: Bullets matikan pod ──
+  // -- 41: Disiplin Cloud GPU: Matikan Pod Setelah Selesai --
   {
     layout: "bullets",
     title: "Disiplin Cloud GPU: Matikan Pod Setelah Selesai",
@@ -424,15 +508,7 @@ optim:
     footnote: "Satu pod yang terlupa semalaman bisa menghabiskan anggaran beberapa hari eksperimen.",
   },
 
-  // ── 34: Section Worked Example ──
-  {
-    layout: "section",
-    title: "Worked Example: Menerjemahkan Instruksi PI",
-    body: "Mari kerjakan email PI langkah demi langkah, dari instruksi yang ambigu sampai laporan yang bisa dipakai untuk keputusan berikutnya. Tahap pertama adalah membaca instruksi dengan cermat.",
-    footnote: "Instruksi \"uji focal loss dan freeze blok awal\" menyembunyikan empat ambiguitas yang harus dibereskan.",
-  },
-
-  // ── 35: Bullets membaca instruksi ──
+  // -- 42: Empat Ambiguitas yang Harus Dikonfirmasi --
   {
     layout: "bullets",
     title: "Empat Ambiguitas yang Harus Dikonfirmasi",
@@ -445,7 +521,7 @@ optim:
     footnote: "Jika PI menjawab singkat \"pakai default\", tulis asumsi Anda di protokol dan kirim satu kalimat konfirmasi.",
   },
 
-  // ── 36: Code FocalLoss ──
+  // -- 43: Menulis Kode dengan Uji Minimal Bawaan --
   {
     layout: "code",
     title: "Menulis Kode dengan Uji Minimal Bawaan",
@@ -466,36 +542,7 @@ optim:
     footnote: "Saat gamma=0, hasil harus sama persis dengan baseline - uji termurah untuk memastikan implementasi benar.",
   },
 
-  // ── 37: Split hasil agregat ──
-  {
-    layout: "split",
-    title: "Menjalankan dan Melaporkan: Angka plus Interpretasi",
-    body: "Enam run menghasilkan tabel agregat, tetapi tabel saja tidak cukup. Tulis interpretasi sebelum PI bertanya, bukan setelah diminta:",
-    left: {
-      title: "Tabel Agregat (mean ± std)",
-      body: "Baseline (CE): F1 minor 0.612 ± 0.018, akurasi 0.781.\n\nFocal+Freeze: F1 minor 0.672 ± 0.014, akurasi 0.774.\n\nKetiga seed konsisten dengan std yang kecil.",
-    },
-    right: {
-      title: "Interpretasi yang Menyertai",
-      body: "H1 terkonfirmasi: F1 minor naik 6 poin, melampaui ambang 3 poin.\n\nH2 terkonfirmasi: akurasi turun 0.7 poin, masih di bawah ambang 1 poin.\n\nCatatan pengaman: train/val gap naik tipis 0.09 ke 0.11, perlu dipantau.",
-    },
-    footnote: "Bandingkan dengan laporan Cara A: \"baseline 78.4%, mod 80.1%, naik 1.7%\" tanpa konteks apapun.",
-  },
-
-  // ── 38: Bullets komunikasi PI ──
-  {
-    layout: "bullets",
-    title: "Tiga Alat Komunikasi dengan Dosen Pembimbing",
-    body: "Riset berlangsung berminggu-minggu, bukan satu email. Tiga alat berikut membentuk kebiasaan komunikasi seorang asisten riset:",
-    bullets: [
-      "**Update mingguan** berisi empat bagian - progress, kendala, rencana, satu pertanyaan - dan dikirim sebelum diminta, karena konsistensi membangun kepercayaan lebih cepat daripada hasil spektakuler yang mendadak.",
-      "**Kerangka SQRC** (Situation, Question, Resolution attempt, Call) memandu Anda menulis pertanyaan teknis yang menunjukkan Anda sudah berusaha sebelum meminta bantuan.",
-      "**Ekspresi ketidakpastian yang baik** berarti menyebut keterbatasan dan menyertai \"saya tidak tahu\" dengan langkah konkret berikutnya.",
-    ],
-    footnote: "Template dan contoh lengkap tersedia di Lampiran C.11 dan D.8.",
-  },
-
-  // ── 39: Section Pitfalls ──
+  // -- 44: Pitfalls & Miskonsepsi --
   {
     layout: "section",
     title: "Pitfalls & Miskonsepsi",
@@ -503,7 +550,7 @@ optim:
     footnote: "Setiap pitfall punya penangkal yang sudah dibahas di bagian sebelumnya.",
   },
 
-  // ── 40: Bullets pitfall 1-3 ──
+  // -- 45: Tiga Jebakan Pertama saat Menarik Kesimpulan --
   {
     layout: "bullets",
     title: "Tiga Jebakan Pertama saat Menarik Kesimpulan",
@@ -516,7 +563,7 @@ optim:
     footnote: "Metrik baru boleh ditambahkan sebagai pengamatan, tetapi metrik utama tetap yang ditulis lebih dulu.",
   },
 
-  // ── 41: Bullets pitfall 4-6 ──
+  // -- 46: Tiga Jebakan Berikutnya saat Membandingkan Run --
   {
     layout: "bullets",
     title: "Tiga Jebakan Berikutnya saat Membandingkan Run",
@@ -529,7 +576,7 @@ optim:
     footnote: "Laporkan semua yang Anda jalankan - ablation yang gagal adalah data, bukan aib.",
   },
 
-  // ── 42: Image folder eksperimen ──
+  // -- 47: Struktur Folder Eksperimen yang Terlacak --
   {
     layout: "image",
     title: "Struktur Folder Eksperimen yang Terlacak",
@@ -538,51 +585,12 @@ optim:
     footnote: "Lab W4 membangun struktur folder ini langkah demi langkah.",
   },
 
-  // ── 43: Bullets Lab W4 ──
-  {
-    layout: "bullets",
-    title: "Lab W4: Config, Logging, dan Reproducibility",
-    body: "Dari gambar tersebut, Lab W4 membangun infrastruktur reproduksibilitas yang nanti dipakai untuk menjalankan ablation dari bridge CIFAR-10:",
-    bullets: [
-      "**Protocol dan matriks** ditulis dari salah satu hipotesis bridge sebelum run baru dijalankan.",
-      "**Dry-run seed sama** dipakai untuk memeriksa apakah config dan seed menghasilkan validation accuracy yang identik atau hampir identik.",
-      "**Checkpoint dan resume** diperiksa lewat metadata config, git hash, dirty flag, optimizer state, scheduler state, dan epoch lanjutan.",
-    ],
-    footnote: "Jika beberapa seed tersedia, hasilnya diringkas sebagai mean ± std untuk membaca seed variance.",
-  },
-
-  // ── 44: Bullets Refleksi ──
-  {
-    layout: "bullets",
-    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
-    body: "Sebelum lanjut ke W5, renungkan tiga pertanyaan yang menghubungkan disiplin minggu ini dengan riset Anda nanti:",
-    bullets: [
-      "Saat baseline repo memakai lr=1e-3 tetapi pengalaman Anda bilang 3e-4 lebih stabil, dua rencana eksperimen alternatif apa yang akan Anda pakai, dan kapan masing-masing lebih tepat?",
-      "Saat hipotesis gagal dan akurasi justru turun, tiga pertanyaan berikutnya apa yang akan Anda kejar, diurutkan dari yang tidak perlu training baru sampai yang perlu inspeksi panjang?",
-      "Saat PI meminta \"cari teknik mitigasi imbalance yang paling ampuh\", lima pertanyaan klarifikasi apa yang paling penting Anda ajukan sebelum memilih teknik apapun?",
-    ],
-    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat capstone.",
-  },
-
-  // ── 45: Bullets Lanjut W5 ──
-  {
-    layout: "bullets",
-    title: "Lanjut ke W5: dari Alur Kerja ke Sequence",
-    body: "Dengan W4 selesai, alur kerja reproduksibel kini terbangun dan setiap eksperimen punya jejak yang bisa diaudit. W5 memperluas Big Map ke domain baru:",
-    bullets: [
-      "**Tensor sequence** berbentuk (T, F) masuk sebagai input, berbeda dari tensor citra (C, H, W) yang dipakai sampai W4.",
-      "**Arsitektur recurrent** seperti RNN dan LSTM muncul karena urutan data kini menjadi informasi yang penting.",
-      "**Diagnosis gradient flow** menjadi kebiasaan baru, melanjutkan disiplin eksperimen terkontrol yang dibangun minggu ini.",
-    ],
-    footnote: "Disiplin matriks eksperimen dan replikasi seed dari W4 tetap berlaku di semua minggu berikutnya.",
-  },
-
-  // ── 46: CTA ──
+  // -- 48: Mulai Lab W4 --
   {
     layout: "cta",
     title: "Mulai Lab W4",
     body: "Semua konsep di presentasi ini ada dalam lab notebook lengkap: protocol dan matriks, penguncian seed, dry-run reproducibility, checkpoint bermetadata, dirty flag, resume state, dan pembacaan variasi antar seed.\n\nEstimasi waktu: 3-4 jam termasuk inspeksi checkpoint dan refleksi.",
     ctaText: "Buka Lab W4 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb",
-  },
+  }
 ];

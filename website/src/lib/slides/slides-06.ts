@@ -1,7 +1,7 @@
 import type { SlideSection } from "./index";
 
 export const slides06: SlideSection[] = [
-  // ── 1: Title ──
+  // -- 1: W6: Representations & Temporal Leakage --
   {
     layout: "title",
     title: "W6: Representations & Temporal Leakage",
@@ -10,7 +10,7 @@ export const slides06: SlideSection[] = [
     footnote: "Bab 06 - Minggu 6",
   },
 
-  // ── 2: Peta W6 ──
+  // -- 2: Peta W6 --
   {
     layout: "section",
     title: "Peta W6",
@@ -18,7 +18,7 @@ export const slides06: SlideSection[] = [
     footnote: "Skeptisisme terhadap angka sendiri adalah sikap yang memisahkan peneliti dari operator model.",
   },
 
-  // ── 3: Dari W5 ke W6 ──
+  // -- 3: Dari W5 ke W6: dari Arsitektur ke Validitas Data --
   {
     layout: "bullets",
     title: "Dari W5 ke W6: dari Arsitektur ke Validitas Data",
@@ -31,7 +31,7 @@ export const slides06: SlideSection[] = [
     footnote: "Lab utama minggu ini adalah lab_w6_temporal_leakage.ipynb dan lab_w6_eda_leakage.ipynb.",
   },
 
-  // ── 4: Section Representasi ──
+  // -- 4: Representasi Fitur dalam Konteks Sensor --
   {
     layout: "section",
     title: "Representasi Fitur dalam Konteks Sensor",
@@ -39,7 +39,7 @@ export const slides06: SlideSection[] = [
     footnote: "Engineered features yang tampak netral bisa membawa informasi dari masa depan tanpa disadari.",
   },
 
-  // ── 5: Grid 3 strategi ──
+  // -- 5: Tiga Strategi Representasi dan Risiko Leakage-nya --
   {
     layout: "grid",
     title: "Tiga Strategi Representasi dan Risiko Leakage-nya",
@@ -61,7 +61,7 @@ export const slides06: SlideSection[] = [
     footnote: "Thread Representation Choice dari W3 kini menentukan apakah hasil Anda valid secara temporal.",
   },
 
-  // ── 6: Section Temporal Leakage ──
+  // -- 6: Temporal Leakage: Contoh Konkret yang Menipu --
   {
     layout: "section",
     title: "Temporal Leakage: Contoh Konkret yang Menipu",
@@ -69,7 +69,7 @@ export const slides06: SlideSection[] = [
     footnote: "Hasilnya adalah angka yang terlihat bagus tetapi runtuh saat dipakai di produksi.",
   },
 
-  // ── 7: Code wrong split ──
+  // -- 7: Pipeline yang Tampak Wajar tetapi Bocor --
   {
     layout: "code",
     title: "Pipeline yang Tampak Wajar tetapi Bocor",
@@ -84,20 +84,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Dua keputusan ini bersama-sama membuat data setelah titik test ikut terlihat saat training.",
   },
 
-  // ── 8: Bullets dua masalah ──
-  {
-    layout: "bullets",
-    title: "Dua Sumber Kebocoran dalam Satu Pipeline",
-    body: "Kode tadi mengandung dua masalah yang masing-masing cukup untuk membuat metrik menipu:",
-    bullets: [
-      "**Random split** membuat sampel jam 14:00 masuk train sementara sampel jam 13:00 hari yang sama masuk test, sehingga model melihat data setelah titik test saat training.",
-      "**Rolling feature melampaui batas** karena nilai pada titik T dihitung dari T-23 hingga T, sehingga fitur training bisa mengandung titik yang ada di test set.",
-      "**Akibatnya** model mencapai F1 0.92 saat evaluasi, tetapi hanya 0.63 saat dipakai di produksi.",
-    ],
-    footnote: "Solusi yang benar adalah split berdasarkan waktu dan menghitung rolling feature secara causal.",
-  },
-
-  // ── 9: Image fig06c ──
+  // -- 8: Split Temporal yang Benar vs Data Leakage --
   {
     layout: "image",
     title: "Split Temporal yang Benar vs Data Leakage",
@@ -106,7 +93,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Cutoff berbasis quantile timestamp menjaga seluruh data train berada sebelum seluruh data test.",
   },
 
-  // ── 10: Bullets inflasi ──
+  // -- 9: Mengapa Angka Bocor Justru Berbahaya --
   {
     layout: "bullets",
     title: "Mengapa Angka Bocor Justru Berbahaya",
@@ -119,28 +106,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Selisih F1 0.92 ke 0.63 adalah harga yang dibayar saat leakage baru ketahuan di produksi.",
   },
 
-  // ── 11: Section Motivasi ──
-  {
-    layout: "section",
-    title: "Motivasi: Data yang Terlihat Baik Bisa Menipu",
-    body: "Seorang mahasiswa melatih model deteksi penyakit paru dari rontgen dada dan mencapai akurasi 97%. Saat review, seorang kolega bertanya apakah model belajar mengenali penyakit, atau mengenali rumah sakitnya.",
-    footnote: "Kewaspadaan terhadap data bukan tugas tambahan, melainkan dasar yang menopang seluruh eksperimen.",
-  },
-
-  // ── 12: Bullets X-ray ──
-  {
-    layout: "bullets",
-    title: "Model yang Mengklasifikasi Sumber, Bukan Penyakit",
-    body: "Investigasi kasus rontgen tadi mengungkap mengapa akurasi 97% justru menjadi alarm:",
-    bullets: [
-      "**Setiap rumah sakit memakai mesin rontgen berbeda** dengan ciri visual khas di sudut gambar, sehingga sumber gambar bisa ditebak dari artefak teknis.",
-      "**Data positif dan negatif berasal dari sumber berbeda**, sehingga model bisa mencapai akurasi tinggi hanya dengan mengenali rumah sakit asal.",
-      "**Model tidak pernah melihat paru-paru** dalam arti yang dimaksud, dan enam bulan kerja terpaksa diulang setelah kebocoran ini disadari.",
-    ],
-    footnote: "Pertanyaan \"apa sebenarnya yang dipelajari model?\" adalah kebiasaan skeptisisme yang menyelamatkan waktu.",
-  },
-
-  // ── 13: Section EDA ──
+  // -- 10: EDA untuk Investigasi, Bukan Daftar --
   {
     layout: "section",
     title: "EDA untuk Investigasi, Bukan Daftar",
@@ -148,7 +114,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Kerangka yang produktif menyusun pertanyaan dalam tiga lapis berurutan.",
   },
 
-  // ── 14: Grid 3 lapis EDA ──
+  // -- 11: Tiga Lapis Pertanyaan dalam EDA --
   {
     layout: "grid",
     title: "Tiga Lapis Pertanyaan dalam EDA",
@@ -170,7 +136,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Laporan otomatis seperti ydata-profiling menunjukkan apa; Anda yang bertanya mengapa.",
   },
 
-  // ── 15: Section Jenis leakage ──
+  // -- 12: Lima Jenis Data Leakage --
   {
     layout: "section",
     title: "Lima Jenis Data Leakage",
@@ -178,7 +144,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Mengenali jenisnya membantu memilih tes deteksi dan solusi yang tepat.",
   },
 
-  // ── 16: Image fig04a ──
+  // -- 13: Lima Jenis Leakage dan Cara Mendeteksinya --
   {
     layout: "image",
     title: "Lima Jenis Leakage dan Cara Mendeteksinya",
@@ -187,7 +153,133 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Tanda umum semua leakage adalah akurasi yang terlalu bagus dibanding ekspektasi wajar.",
   },
 
-  // ── 17: Bullets leakage 1-3 ──
+  // -- 14: Verifikasi Pipeline: Fit Hanya pada Train --
+  {
+    layout: "section",
+    title: "Verifikasi Pipeline: Fit Hanya pada Train",
+    body: "Pipeline preprocessing harus fit pada training set saja, lalu transform train, val, dan test dengan parameter yang sudah di-fit. Aturan ini mencegah statistik test bocor ke training.",
+    footnote: "Efeknya kecil di dataset besar yang stabil, tetapi nyata di dataset kecil atau heterogen.",
+  },
+
+  // -- 15: Domain Shift: Saat Distribusi Berubah --
+  {
+    layout: "section",
+    title: "Domain Shift: Saat Distribusi Berubah",
+    body: "Data di dunia nyata sering berbeda dari data training. Mengenali bentuk perubahannya penting karena tiga bentuk shift menuntut solusi yang berbeda.",
+    footnote: "Diagnosis awal selalu sama: bandingkan histogram tiap fitur antara train dan produksi.",
+  },
+
+  // -- 16: Negative Results Wajib Dicatat --
+  {
+    layout: "section",
+    title: "Negative Results Wajib Dicatat",
+    body: "Data yang valid secara teknis belum tentu adil secara etis, dan ada satu kewajiban yang langsung terkait reproducibility: melaporkan hasil negatif. Krisis reproduksibilitas di ML sebagian dipicu oleh publication bias.",
+    footnote: "Hasil positif dipublikasikan, hasil negatif tidak, sehingga banyak tim membuang waktu di arah yang sama.",
+  },
+
+  // -- 17: Worked Example: Audit Dataset PathMNIST --
+  {
+    layout: "section",
+    title: "Worked Example: Audit Dataset PathMNIST",
+    body: "PathMNIST adalah dataset histopatologi kolon dengan sembilan kelas dan resolusi 28x28. Sebelum melatih model apapun, kita mengaudit dataset ini lewat enam pemeriksaan berurutan.",
+    footnote: "Audit ditulis ke experiments/lab4/audit.md dan dibaca bersama protokol eksperimen.",
+  },
+
+  // -- 18: Audit Berakhir dengan Keputusan, Bukan Hanya Temuan --
+  {
+    layout: "bullets",
+    title: "Audit Berakhir dengan Keputusan, Bukan Hanya Temuan",
+    body: "Laporan audit yang berguna menerjemahkan temuan menjadi keputusan eksperimen yang konkret:",
+    bullets: [
+      "**Temuan distribusi dan overlap** dicatat apa adanya, misalnya imbalance sekitar 4x dan overlap antar split nol.",
+      "**Keputusan preprocessing** mengikuti temuan, misalnya normalisasi per channel dengan statistik training dan augmentasi ringan rotasi 15 derajat.",
+      "**Pilihan metrik** dibenarkan oleh data, misalnya F1 macro dipilih karena imbalance moderat antar sembilan kelas.",
+    ],
+    footnote: "Audit yang berhenti di temuan tanpa keputusan belum menyelesaikan tugasnya.",
+  },
+
+  // -- 19: Lab W6: Audit EDA dan Demonstrasi Temporal Leakage --
+  {
+    layout: "bullets",
+    title: "Lab W6: Audit EDA dan Demonstrasi Temporal Leakage",
+    body: "Dua lab minggu ini melatih audit data menyeluruh sekaligus mengukur dampak leakage secara langsung:",
+    bullets: [
+      "**Lab EDA** menjalankan tiga lapis EDA pada PathMNIST, cek overlap antar split dengan hashing, dan membangun pipeline fit-only-on-train.",
+      "**Lab temporal leakage** membandingkan pipeline causal dan leaky pada data sensor, lalu menghitung leakage inflation sebagai F1 leaky dikurangi F1 causal.",
+      "**Threshold peringatan** modul ini adalah inflation 0.05 absolut atau 10% relatif sebagai leakage signifikan yang wajib dilaporkan eksplisit.",
+    ],
+    footnote: "Luaran utama adalah audit.md satu halaman dan tabel perbandingan F1 causal vs leaky.",
+  },
+
+  // -- 20: Refleksi: Tiga Pertanyaan untuk Dibawa Pulang --
+  {
+    layout: "bullets",
+    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
+    body: "Sebelum lanjut ke W7, renungkan tiga pertanyaan yang menguji kewaspadaan data Anda:",
+    bullets: [
+      "Saat mewarisi proyek dengan akurasi test terlaporkan 91%, tiga pemeriksaan apa yang Anda lakukan sebelum memakai ulang angka itu di laporan sendiri?",
+      "Saat model mencapai 99% akurasi di hari pertama, lima hipotesis apa yang paling mungkin, diurutkan dari yang paling membosankan ke yang paling tak terduga?",
+      "Jika dataset punya ID pasien dengan beberapa slide per pasien, protokol split apa yang benar dan mengapa random split biasa akan gagal?",
+    ],
+    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat memilih dataset capstone.",
+  },
+
+  // -- 21: Lanjut ke W7: Teks, Transformer, dan Repo Adoption --
+  {
+    layout: "bullets",
+    title: "Lanjut ke W7: Teks, Transformer, dan Repo Adoption",
+    body: "Dengan W6 selesai, Anda punya kewaspadaan data yang solid. W7 memperluas Big Map ke domain teks dan memperkenalkan alat baru:",
+    bullets: [
+      "**Pretrained Transformer** masuk sebagai alat, dan W7 membahas mekanisme attention beserta cara memilih antara freeze dan fine-tune.",
+      "**Repo adoption** melatih cara membaca dan memodifikasi repo riset yang belum dikenal, termasuk memverifikasi kode yang ditulis AI.",
+      "**Disiplin validasi data** dari W6 tetap berlaku, karena teks juga rawan leakage lewat duplikasi dokumen dan kontaminasi pretraining.",
+    ],
+    footnote: "Kewaspadaan terhadap kontaminasi pretraining menjadi tema baru saat memakai model pretrained di W7.",
+  },
+
+  // -- 22: Lampiran Opsional --
+  {
+    layout: "section",
+    title: "Lampiran Opsional",
+    body: "Slide berikutnya menyimpan pendalaman dan contoh tambahan untuk W6. Alur utama kelas sudah selesai; pakai bagian ini hanya jika waktu cukup atau saat ada pertanyaan dari mahasiswa.",
+    footnote: "Lampiran menjaga materi referensi tetap tersedia tanpa memutus jalur belajar utama.",
+  },
+
+  // -- 23: Dua Sumber Kebocoran dalam Satu Pipeline --
+  {
+    layout: "bullets",
+    title: "Dua Sumber Kebocoran dalam Satu Pipeline",
+    body: "Kode tadi mengandung dua masalah yang masing-masing cukup untuk membuat metrik menipu:",
+    bullets: [
+      "**Random split** membuat sampel jam 14:00 masuk train sementara sampel jam 13:00 hari yang sama masuk test, sehingga model melihat data setelah titik test saat training.",
+      "**Rolling feature melampaui batas** karena nilai pada titik T dihitung dari T-23 hingga T, sehingga fitur training bisa mengandung titik yang ada di test set.",
+      "**Akibatnya** model mencapai F1 0.92 saat evaluasi, tetapi hanya 0.63 saat dipakai di produksi.",
+    ],
+    footnote: "Solusi yang benar adalah split berdasarkan waktu dan menghitung rolling feature secara causal.",
+  },
+
+  // -- 24: Motivasi: Data yang Terlihat Baik Bisa Menipu --
+  {
+    layout: "section",
+    title: "Motivasi: Data yang Terlihat Baik Bisa Menipu",
+    body: "Seorang mahasiswa melatih model deteksi penyakit paru dari rontgen dada dan mencapai akurasi 97%. Saat review, seorang kolega bertanya apakah model belajar mengenali penyakit, atau mengenali rumah sakitnya.",
+    footnote: "Kewaspadaan terhadap data bukan tugas tambahan, melainkan dasar yang menopang seluruh eksperimen.",
+  },
+
+  // -- 25: Model yang Mengklasifikasi Sumber, Bukan Penyakit --
+  {
+    layout: "bullets",
+    title: "Model yang Mengklasifikasi Sumber, Bukan Penyakit",
+    body: "Investigasi kasus rontgen tadi mengungkap mengapa akurasi 97% justru menjadi alarm:",
+    bullets: [
+      "**Setiap rumah sakit memakai mesin rontgen berbeda** dengan ciri visual khas di sudut gambar, sehingga sumber gambar bisa ditebak dari artefak teknis.",
+      "**Data positif dan negatif berasal dari sumber berbeda**, sehingga model bisa mencapai akurasi tinggi hanya dengan mengenali rumah sakit asal.",
+      "**Model tidak pernah melihat paru-paru** dalam arti yang dimaksud, dan enam bulan kerja terpaksa diulang setelah kebocoran ini disadari.",
+    ],
+    footnote: "Pertanyaan \"apa sebenarnya yang dipelajari model?\" adalah kebiasaan skeptisisme yang menyelamatkan waktu.",
+  },
+
+  // -- 26: Leakage 1 sampai 3: Target, Contamination, Temporal --
   {
     layout: "bullets",
     title: "Leakage 1 sampai 3: Target, Contamination, Temporal",
@@ -200,7 +292,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Tes cepat target leakage: latih model dengan satu fitur itu saja - jika akurasi sudah tinggi, curigai.",
   },
 
-  // ── 18: Bullets leakage 4-5 ──
+  // -- 27: Leakage 4 dan 5: Group dan Preprocessing --
   {
     layout: "bullets",
     title: "Leakage 4 dan 5: Group dan Preprocessing",
@@ -213,15 +305,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Group leakage membuat val acc tinggi tetapi performa pada subjek baru rendah.",
   },
 
-  // ── 19: Section Pipeline aman ──
-  {
-    layout: "section",
-    title: "Verifikasi Pipeline: Fit Hanya pada Train",
-    body: "Pipeline preprocessing harus fit pada training set saja, lalu transform train, val, dan test dengan parameter yang sudah di-fit. Aturan ini mencegah statistik test bocor ke training.",
-    footnote: "Efeknya kecil di dataset besar yang stabil, tetapi nyata di dataset kecil atau heterogen.",
-  },
-
-  // ── 20: Split salah vs benar ──
+  // -- 28: Salah vs Benar: Urutan Fit dan Split --
   {
     layout: "split",
     title: "Salah vs Benar: Urutan Fit dan Split",
@@ -237,15 +321,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "sklearn.pipeline.Pipeline dan ColumnTransformer memastikan urutan fit/transform ini terjaga otomatis.",
   },
 
-  // ── 21: Section Domain shift ──
-  {
-    layout: "section",
-    title: "Domain Shift: Saat Distribusi Berubah",
-    body: "Data di dunia nyata sering berbeda dari data training. Mengenali bentuk perubahannya penting karena tiga bentuk shift menuntut solusi yang berbeda.",
-    footnote: "Diagnosis awal selalu sama: bandingkan histogram tiap fitur antara train dan produksi.",
-  },
-
-  // ── 22: Grid 3 shift ──
+  // -- 29: Tiga Bentuk Perubahan Distribusi --
   {
     layout: "grid",
     title: "Tiga Bentuk Perubahan Distribusi",
@@ -267,15 +343,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Uji Kolmogorov-Smirnov dapat membuat deteksi perbedaan distribusi menjadi lebih formal.",
   },
 
-  // ── 23: Section Etika ──
-  {
-    layout: "section",
-    title: "Negative Results Wajib Dicatat",
-    body: "Data yang valid secara teknis belum tentu adil secara etis, dan ada satu kewajiban yang langsung terkait reproducibility: melaporkan hasil negatif. Krisis reproduksibilitas di ML sebagian dipicu oleh publication bias.",
-    footnote: "Hasil positif dipublikasikan, hasil negatif tidak, sehingga banyak tim membuang waktu di arah yang sama.",
-  },
-
-  // ── 24: Bullets negative results ──
+  // -- 30: Mendokumentasikan yang Gagal di Lab Sendiri --
   {
     layout: "bullets",
     title: "Mendokumentasikan yang Gagal di Lab Sendiri",
@@ -288,15 +356,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "PI lebih percaya pada asisten yang berkata \"tiga arah dicoba, dua gagal\" daripada yang hanya menampilkan keberhasilan.",
   },
 
-  // ── 25: Section Worked Example ──
-  {
-    layout: "section",
-    title: "Worked Example: Audit Dataset PathMNIST",
-    body: "PathMNIST adalah dataset histopatologi kolon dengan sembilan kelas dan resolusi 28x28. Sebelum melatih model apapun, kita mengaudit dataset ini lewat enam pemeriksaan berurutan.",
-    footnote: "Audit ditulis ke experiments/lab4/audit.md dan dibaca bersama protokol eksperimen.",
-  },
-
-  // ── 26: Bullets audit steps ──
+  // -- 31: Tiga Pemeriksaan Awal Audit Dataset --
   {
     layout: "bullets",
     title: "Tiga Pemeriksaan Awal Audit Dataset",
@@ -309,7 +369,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Inspeksi visual sering menangkap masalah yang tidak terlihat dari statistik ringkas.",
   },
 
-  // ── 27: Code MD5 overlap ──
+  // -- 32: Cek Leakage: Overlap Hash Antar Split --
   {
     layout: "code",
     title: "Cek Leakage: Overlap Hash Antar Split",
@@ -325,20 +385,7 @@ print('Train-test overlap:', len(train_h & test_h))`,
     footnote: "Untuk dataset publik matang overlap biasanya 0, tetapi periksa selalu - jangan percaya begitu saja.",
   },
 
-  // ── 28: Bullets laporan audit ──
-  {
-    layout: "bullets",
-    title: "Audit Berakhir dengan Keputusan, Bukan Hanya Temuan",
-    body: "Laporan audit yang berguna menerjemahkan temuan menjadi keputusan eksperimen yang konkret:",
-    bullets: [
-      "**Temuan distribusi dan overlap** dicatat apa adanya, misalnya imbalance sekitar 4x dan overlap antar split nol.",
-      "**Keputusan preprocessing** mengikuti temuan, misalnya normalisasi per channel dengan statistik training dan augmentasi ringan rotasi 15 derajat.",
-      "**Pilihan metrik** dibenarkan oleh data, misalnya F1 macro dipilih karena imbalance moderat antar sembilan kelas.",
-    ],
-    footnote: "Audit yang berhenti di temuan tanpa keputusan belum menyelesaikan tugasnya.",
-  },
-
-  // ── 29: Section Pitfalls ──
+  // -- 33: Pitfalls & Miskonsepsi --
   {
     layout: "section",
     title: "Pitfalls & Miskonsepsi",
@@ -346,7 +393,7 @@ print('Train-test overlap:', len(train_h & test_h))`,
     footnote: "Sebagian besar berakar pada anggapan bahwa data sudah bersih dan tidak perlu diperiksa ulang.",
   },
 
-  // ── 30: Pitfalls 1-3 ──
+  // -- 34: Tiga Keyakinan tentang Data yang Perlu Diluruskan --
   {
     layout: "bullets",
     title: "Tiga Keyakinan tentang Data yang Perlu Diluruskan",
@@ -359,7 +406,7 @@ print('Train-test overlap:', len(train_h & test_h))`,
     footnote: "Akurasi tinggi akibat leakage membuat seluruh eksperimen turunan bergantung pada metrik palsu.",
   },
 
-  // ── 31: Pitfalls 4-6 ──
+  // -- 35: Tiga Keyakinan tentang Penanganan yang Perlu Diluruskan --
   {
     layout: "bullets",
     title: "Tiga Keyakinan tentang Penanganan yang Perlu Diluruskan",
@@ -372,51 +419,12 @@ print('Train-test overlap:', len(train_h & test_h))`,
     footnote: "Sebelum mengurangi parameter karena overfitting, periksa dulu apakah training set bersih dari label salah.",
   },
 
-  // ── 32: Bullets Lab W6 ──
-  {
-    layout: "bullets",
-    title: "Lab W6: Audit EDA dan Demonstrasi Temporal Leakage",
-    body: "Dua lab minggu ini melatih audit data menyeluruh sekaligus mengukur dampak leakage secara langsung:",
-    bullets: [
-      "**Lab EDA** menjalankan tiga lapis EDA pada PathMNIST, cek overlap antar split dengan hashing, dan membangun pipeline fit-only-on-train.",
-      "**Lab temporal leakage** membandingkan pipeline causal dan leaky pada data sensor, lalu menghitung leakage inflation sebagai F1 leaky dikurangi F1 causal.",
-      "**Threshold peringatan** modul ini adalah inflation 0.05 absolut atau 10% relatif sebagai leakage signifikan yang wajib dilaporkan eksplisit.",
-    ],
-    footnote: "Luaran utama adalah audit.md satu halaman dan tabel perbandingan F1 causal vs leaky.",
-  },
-
-  // ── 33: Refleksi ──
-  {
-    layout: "bullets",
-    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
-    body: "Sebelum lanjut ke W7, renungkan tiga pertanyaan yang menguji kewaspadaan data Anda:",
-    bullets: [
-      "Saat mewarisi proyek dengan akurasi test terlaporkan 91%, tiga pemeriksaan apa yang Anda lakukan sebelum memakai ulang angka itu di laporan sendiri?",
-      "Saat model mencapai 99% akurasi di hari pertama, lima hipotesis apa yang paling mungkin, diurutkan dari yang paling membosankan ke yang paling tak terduga?",
-      "Jika dataset punya ID pasien dengan beberapa slide per pasien, protokol split apa yang benar dan mengapa random split biasa akan gagal?",
-    ],
-    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat memilih dataset capstone.",
-  },
-
-  // ── 34: Lanjut W7 ──
-  {
-    layout: "bullets",
-    title: "Lanjut ke W7: Teks, Transformer, dan Repo Adoption",
-    body: "Dengan W6 selesai, Anda punya kewaspadaan data yang solid. W7 memperluas Big Map ke domain teks dan memperkenalkan alat baru:",
-    bullets: [
-      "**Pretrained Transformer** masuk sebagai alat, dan W7 membahas mekanisme attention beserta cara memilih antara freeze dan fine-tune.",
-      "**Repo adoption** melatih cara membaca dan memodifikasi repo riset yang belum dikenal, termasuk memverifikasi kode yang ditulis AI.",
-      "**Disiplin validasi data** dari W6 tetap berlaku, karena teks juga rawan leakage lewat duplikasi dokumen dan kontaminasi pretraining.",
-    ],
-    footnote: "Kewaspadaan terhadap kontaminasi pretraining menjadi tema baru saat memakai model pretrained di W7.",
-  },
-
-  // ── 35: CTA ──
+  // -- 36: Mulai Lab W6 --
   {
     layout: "cta",
     title: "Mulai Lab W6",
     body: "Semua konsep di presentasi ini ada dalam lab notebook lengkap: audit EDA tiga lapis, cek overlap hashing, pipeline fit-only-on-train, dan demonstrasi inflasi leakage temporal.\n\nEstimasi waktu: 4-6 jam termasuk audit dataset dan perbandingan pipeline causal vs leaky.",
     ctaText: "Buka Lab W6 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w6_temporal_leakage.ipynb",
-  },
+  }
 ];

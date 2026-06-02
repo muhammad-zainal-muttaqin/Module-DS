@@ -1,7 +1,7 @@
-﻿import type { SlideSection } from "./index";
+import type { SlideSection } from "./index";
 
 export const slides08: SlideSection[] = [
-  // ── 1: Title ──
+  // -- 1: W8: Foundation Models --
   {
     layout: "title",
     title: "W8: Foundation Models",
@@ -10,7 +10,7 @@ export const slides08: SlideSection[] = [
     footnote: "Bab 08 - Minggu 8",
   },
 
-  // ── 2: Peta W8 ──
+  // -- 2: Peta W8 --
   {
     layout: "section",
     title: "Peta W8",
@@ -18,7 +18,7 @@ export const slides08: SlideSection[] = [
     footnote: "Pertanyaan intinya bukan apakah boleh memakainya, melainkan adaptasi apa yang paling masuk akal.",
   },
 
-  // ── 3: Dari W7 ke W8 ──
+  // -- 3: Dari W7 ke W8: dari Satu Model ke Lanskap Penuh --
   {
     layout: "bullets",
     title: "Dari W7 ke W8: dari Satu Model ke Lanskap Penuh",
@@ -31,7 +31,7 @@ export const slides08: SlideSection[] = [
     footnote: "Tugas utama minggu ini adalah Foundation Model Map beserta selection memo.",
   },
 
-  // ── 4: Section Motivasi ──
+  // -- 4: Motivasi: Jangan Mulai dari Nol --
   {
     layout: "section",
     title: "Motivasi: Jangan Mulai dari Nol",
@@ -39,7 +39,7 @@ export const slides08: SlideSection[] = [
     footnote: "Foundation model menawarkan titik mulai yang sudah memahami bahasa dari jutaan kalimat.",
   },
 
-  // ── 5: Split dari nol vs FM ──
+  // -- 5: Dari Nol vs Memakai Foundation Model --
   {
     layout: "split",
     title: "Dari Nol vs Memakai Foundation Model",
@@ -55,7 +55,7 @@ export const slides08: SlideSection[] = [
     footnote: "Pergeseran mindset: tanyakan apakah sudah ada representasi relevan, bukan arsitektur apa yang harus dibangun.",
   },
 
-  // ── 6: Bullets tiga pertanyaan ──
+  // -- 6: Tiga Pertanyaan Sebelum Memilih Model --
   {
     layout: "bullets",
     title: "Tiga Pertanyaan Sebelum Memilih Model",
@@ -68,7 +68,7 @@ export const slides08: SlideSection[] = [
     footnote: "W8 memberi kerangka untuk menjawab ketiganya secara sistematis, bukan dengan tebakan.",
   },
 
-  // ── 7: Section evolusi ──
+  // -- 7: Dari Pretraining ke Foundation Model --
   {
     layout: "section",
     title: "Dari Pretraining ke Foundation Model",
@@ -76,33 +76,7 @@ export const slides08: SlideSection[] = [
     footnote: "Memahami sejarah ini menjelaskan mengapa pertanyaan riset hari ini berbeda dari satu dekade lalu.",
   },
 
-  // ── 8: Bullets fase 1-3 ──
-  {
-    layout: "bullets",
-    title: "Fase 1 sampai 3: dari Nol ke Pretraining Teks",
-    body: "Tiga fase pertama menandai pergeseran dari training per tugas menuju berbagi representasi lintas tugas:",
-    bullets: [
-      "**Fase 1 sebelum 2012** memulai setiap tugas dari bobot acak tanpa berbagi representasi, sehingga tidak ada transfer antar tugas.",
-      "**Fase 2 antara 2012-2017** memperkenalkan fine-tuning dari bobot ImageNet, karena representasi visual tingkat rendah bersifat universal.",
-      "**Fase 3 antara 2018-2020** memindahkan paradigma ini ke teks lewat pretraining self-supervised BERT dan GPT pada miliaran token tanpa label.",
-    ],
-    footnote: "Pretraining self-supervised belajar dengan memprediksi token tersembunyi atau token berikutnya, tanpa anotasi manual.",
-  },
-
-  // ── 9: Bullets fase 4-5 ──
-  {
-    layout: "bullets",
-    title: "Fase 4 dan 5: Multimodal dan Lahirnya Istilah",
-    body: "Dua fase terakhir membawa pretraining ke banyak modalitas sekaligus dan memberi nama resmi pada fenomena ini:",
-    bullets: [
-      "**Fase 4 sejak 2020** menghasilkan model multimodal seperti CLIP yang melakukan zero-shot klasifikasi gambar, dan Whisper untuk audio ke teks.",
-      "**Fase 5 pada 2021** memperkenalkan istilah foundation model lewat paper Bommasani et al. sebagai model skala besar yang dapat diadaptasi ke banyak tugas.",
-      "**Dua properti kunci** adalah emergence, yaitu kemampuan yang muncul dari skala, dan homogenization, yaitu banyak aplikasi bertumpu pada model yang sama.",
-    ],
-    footnote: "Homogenization menciptakan efisiensi sekaligus risiko, karena kelemahan satu model menyebar ke banyak aplikasi.",
-  },
-
-  // ── 10: Section apa itu FM ──
+  // -- 8: Apa Itu Foundation Model dalam Praktik --
   {
     layout: "section",
     title: "Apa Itu Foundation Model dalam Praktik",
@@ -110,20 +84,7 @@ export const slides08: SlideSection[] = [
     footnote: "Ketiga ciri ini mengubah pertanyaan pertama riset dari membangun menjadi mengadaptasi.",
   },
 
-  // ── 11: Bullets tiga properti ──
-  {
-    layout: "bullets",
-    title: "Tiga Ciri Foundation Model",
-    body: "Sebuah model disebut foundation model dalam praktik jika memenuhi tiga ciri berikut:",
-    bullets: [
-      "**Pretrained pada data besar** dalam skala yang tidak praktis untuk dilatih sendiri, baik teks, gambar, audio, maupun multimodal.",
-      "**Representasi yang dapat ditransfer**, sehingga hidden states atau embeddings-nya berguna untuk banyak tugas hilir.",
-      "**Dapat diadaptasi tanpa training penuh**, lewat frozen extraction, adapter ringan seperti LoRA, atau fine-tuning sebagian.",
-    ],
-    footnote: "Konsekuensinya, pertanyaan pertama saat dapat tugas adalah apakah ada foundation model yang relevan.",
-  },
-
-  // ── 12: Section Taksonomi ──
+  // -- 9: Taksonomi: Modalitas x Keluarga x Adaptasi --
   {
     layout: "section",
     title: "Taksonomi: Modalitas x Keluarga x Adaptasi",
@@ -131,7 +92,7 @@ export const slides08: SlideSection[] = [
     footnote: "Peta ini mencegah pemilihan model berdasarkan popularitas semata.",
   },
 
-  // ── 13: Image taksonomi ──
+  // -- 10: Tiga Dimensi Pilihan Foundation Model --
   {
     layout: "image",
     title: "Tiga Dimensi Pilihan Foundation Model",
@@ -140,7 +101,7 @@ export const slides08: SlideSection[] = [
     footnote: "Memilih model berarti menentukan posisi pada ketiga sumbu, bukan hanya menyebut satu nama.",
   },
 
-  // ── 14: Grid tiga mode adaptasi ──
+  // -- 11: Tiga Mode Adaptasi yang Dipakai Berulang --
   {
     layout: "grid",
     title: "Tiga Mode Adaptasi yang Dipakai Berulang",
@@ -162,7 +123,7 @@ export const slides08: SlideSection[] = [
     footnote: "LoRA menjadi jalan tengah yang sering tepat antara frozen yang murah dan full FT yang fleksibel.",
   },
 
-  // ── 15: Bullets taksonomi teks ──
+  // -- 12: Keluarga Model Teks dan Peruntukannya --
   {
     layout: "bullets",
     title: "Keluarga Model Teks dan Peruntukannya",
@@ -175,7 +136,7 @@ export const slides08: SlideSection[] = [
     footnote: "Aturan praktis: encoder untuk pemahaman, decoder untuk generasi, encoder-decoder untuk transformasi.",
   },
 
-  // ── 16: Grid modalitas lain ──
+  // -- 13: Foundation Model di Luar Teks --
   {
     layout: "grid",
     title: "Foundation Model di Luar Teks",
@@ -201,7 +162,7 @@ export const slides08: SlideSection[] = [
     footnote: "Untuk capstone, jangan jadikan time-series foundation model sebagai baseline tunggal yang belum tervalidasi.",
   },
 
-  // ── 17: Section Model Card ──
+  // -- 14: Mengevaluasi Model Card --
   {
     layout: "section",
     title: "Mengevaluasi Model Card",
@@ -209,7 +170,117 @@ export const slides08: SlideSection[] = [
     footnote: "SOTA di benchmark X tidak berarti terbaik untuk tugas Anda jika domainnya berbeda signifikan.",
   },
 
-  // ── 18: Bullets model card 1-4 ──
+  // -- 15: Pohon Keputusan Pemilihan Adaptasi --
+  {
+    layout: "section",
+    title: "Pohon Keputusan Pemilihan Adaptasi",
+    body: "Pilihan adaptasi bergantung pada tiga faktor: compute budget, jumlah labeled data, dan seberapa jauh domain target dari pretraining. Ketiganya menyusun satu pohon keputusan yang ringkas.",
+    footnote: "Menjawab ketiga faktor ini lebih dulu mencegah memilih full fine-tuning saat frozen sudah cukup.",
+  },
+
+  // -- 16: Teacher Model dalam Training-Time Supervision --
+  {
+    layout: "section",
+    title: "Teacher Model dalam Training-Time Supervision",
+    body: "Foundation model tidak selalu dipakai untuk inference. Salah satu pola penting memakai foundation model sebagai teacher saat training, lalu menghapusnya dari model final.",
+    footnote: "Pola ini memberi manfaat foundation model tanpa menanggung biaya inference-nya.",
+  },
+
+  // -- 17: Worked Example: IndoBERT dengan Tiga Strategi --
+  {
+    layout: "section",
+    title: "Worked Example: IndoBERT dengan Tiga Strategi",
+    body: "Pada dataset IndoNLU SmSA yang sama dari Lab W7, tiga strategi adaptasi dijalankan untuk memperlihatkan trade-off antara kecepatan dan performa secara langsung.",
+    footnote: "Memakai satu dataset untuk ketiganya menjaga perbandingan tetap setara.",
+  },
+
+  // -- 18: Tugas W8: Foundation Model Map --
+  {
+    layout: "bullets",
+    title: "Tugas W8: Foundation Model Map",
+    body: "Tugas utama minggu ini adalah menyusun peta foundation model untuk domain riset Anda, lengkap dengan justifikasi:",
+    bullets: [
+      "**Petakan 3-4 model** yang relevan dengan kolom modalitas, pretraining, downstream role, adaptasi, dan status teacher-only.",
+      "**Tulis selection memo** satu paragraf per model: mengapa model ini, asumsi apa yang dibawanya, dan apa batasannya.",
+      "**Simpan sebagai foundation_model_map.md** di folder eksperimen W8 sebagai dasar pemilihan model capstone nanti.",
+    ],
+    footnote: "Lab W8 penunjang `lab_w8_remote_training.ipynb` melatih menjalankan training di cloud GPU.",
+  },
+
+  // -- 19: Refleksi: Tiga Pertanyaan untuk Dibawa Pulang --
+  {
+    layout: "bullets",
+    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
+    body: "Sebelum lanjut ke W9, renungkan tiga pertanyaan yang menguji pemahaman Anda tentang pemilihan dan adaptasi model:",
+    bullets: [
+      "Untuk deteksi emosi dari rekaman suara Indonesia, dua kandidat foundation model apa dari taksonomi, dengan dua argumen pendukung dan satu risiko masing-masing?",
+      "Saat kolaborator berkata \"model X SOTA di benchmark Y, jadi kita pakai\", tiga pertanyaan apa yang Anda ajukan sebelum menyetujui?",
+      "LoRA termasuk kategori mana dalam taksonomi extracted vs learned dari W3, dan mengapa perbedaan ini penting untuk keputusan adaptasi?",
+    ],
+    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat memilih model capstone.",
+  },
+
+  // -- 20: Lanjut ke W9: Multimodal Reasoning --
+  {
+    layout: "bullets",
+    title: "Lanjut ke W9: Multimodal Reasoning",
+    body: "Dengan W8 selesai, Anda bisa memilih dan mengadaptasi foundation model untuk satu modalitas. W9 memperluas ke wilayah yang lebih kompleks:",
+    bullets: [
+      "**Menggabungkan dua modalitas atau lebih** lewat strategi fusion yang berbeda, melanjutkan cross-attention dari W7.",
+      "**Mendeteksi apakah model benar-benar memakai semua modalitas** lewat ablation per modalitas.",
+      "**Menangani situasi saat satu modalitas hilang**, yang sering terjadi di data dunia nyata.",
+    ],
+    footnote: "Pilihan adaptasi dari W8 tetap berlaku saat menggabungkan beberapa foundation model di W9.",
+  },
+
+  // -- 21: Lampiran Opsional --
+  {
+    layout: "section",
+    title: "Lampiran Opsional",
+    body: "Slide berikutnya menyimpan pendalaman dan contoh tambahan untuk W8. Alur utama kelas sudah selesai; pakai bagian ini hanya jika waktu cukup atau saat ada pertanyaan dari mahasiswa.",
+    footnote: "Lampiran menjaga materi referensi tetap tersedia tanpa memutus jalur belajar utama.",
+  },
+
+  // -- 22: Fase 1 sampai 3: dari Nol ke Pretraining Teks --
+  {
+    layout: "bullets",
+    title: "Fase 1 sampai 3: dari Nol ke Pretraining Teks",
+    body: "Tiga fase pertama menandai pergeseran dari training per tugas menuju berbagi representasi lintas tugas:",
+    bullets: [
+      "**Fase 1 sebelum 2012** memulai setiap tugas dari bobot acak tanpa berbagi representasi, sehingga tidak ada transfer antar tugas.",
+      "**Fase 2 antara 2012-2017** memperkenalkan fine-tuning dari bobot ImageNet, karena representasi visual tingkat rendah bersifat universal.",
+      "**Fase 3 antara 2018-2020** memindahkan paradigma ini ke teks lewat pretraining self-supervised BERT dan GPT pada miliaran token tanpa label.",
+    ],
+    footnote: "Pretraining self-supervised belajar dengan memprediksi token tersembunyi atau token berikutnya, tanpa anotasi manual.",
+  },
+
+  // -- 23: Fase 4 dan 5: Multimodal dan Lahirnya Istilah --
+  {
+    layout: "bullets",
+    title: "Fase 4 dan 5: Multimodal dan Lahirnya Istilah",
+    body: "Dua fase terakhir membawa pretraining ke banyak modalitas sekaligus dan memberi nama resmi pada fenomena ini:",
+    bullets: [
+      "**Fase 4 sejak 2020** menghasilkan model multimodal seperti CLIP yang melakukan zero-shot klasifikasi gambar, dan Whisper untuk audio ke teks.",
+      "**Fase 5 pada 2021** memperkenalkan istilah foundation model lewat paper Bommasani et al. sebagai model skala besar yang dapat diadaptasi ke banyak tugas.",
+      "**Dua properti kunci** adalah emergence, yaitu kemampuan yang muncul dari skala, dan homogenization, yaitu banyak aplikasi bertumpu pada model yang sama.",
+    ],
+    footnote: "Homogenization menciptakan efisiensi sekaligus risiko, karena kelemahan satu model menyebar ke banyak aplikasi.",
+  },
+
+  // -- 24: Tiga Ciri Foundation Model --
+  {
+    layout: "bullets",
+    title: "Tiga Ciri Foundation Model",
+    body: "Sebuah model disebut foundation model dalam praktik jika memenuhi tiga ciri berikut:",
+    bullets: [
+      "**Pretrained pada data besar** dalam skala yang tidak praktis untuk dilatih sendiri, baik teks, gambar, audio, maupun multimodal.",
+      "**Representasi yang dapat ditransfer**, sehingga hidden states atau embeddings-nya berguna untuk banyak tugas hilir.",
+      "**Dapat diadaptasi tanpa training penuh**, lewat frozen extraction, adapter ringan seperti LoRA, atau fine-tuning sebagian.",
+    ],
+    footnote: "Konsekuensinya, pertanyaan pertama saat dapat tugas adalah apakah ada foundation model yang relevan.",
+  },
+
+  // -- 25: Empat Pertanyaan Pertama pada Model Card --
   {
     layout: "bullets",
     title: "Empat Pertanyaan Pertama pada Model Card",
@@ -222,7 +293,7 @@ export const slides08: SlideSection[] = [
     footnote: "Pertanyaan keempat: berapa besar modelnya, karena parameter count menentukan biaya inference dan kelayakan fine-tuning.",
   },
 
-  // ── 19: Bullets model card 5-7 ──
+  // -- 26: Tiga Pertanyaan Berikutnya pada Model Card --
   {
     layout: "bullets",
     title: "Tiga Pertanyaan Berikutnya pada Model Card",
@@ -235,15 +306,7 @@ export const slides08: SlideSection[] = [
     footnote: "Baca bagian Limitations dengan skeptis - bagian ini sering kurang detail dibanding bagian Performance.",
   },
 
-  // ── 20: Section Pohon keputusan ──
-  {
-    layout: "section",
-    title: "Pohon Keputusan Pemilihan Adaptasi",
-    body: "Pilihan adaptasi bergantung pada tiga faktor: compute budget, jumlah labeled data, dan seberapa jauh domain target dari pretraining. Ketiganya menyusun satu pohon keputusan yang ringkas.",
-    footnote: "Menjawab ketiga faktor ini lebih dulu mencegah memilih full fine-tuning saat frozen sudah cukup.",
-  },
-
-  // ── 21: Code pohon keputusan ──
+  // -- 27: Pohon Keputusan dalam Bentuk Ringkas --
   {
     layout: "code",
     title: "Pohon Keputusan dalam Bentuk Ringkas",
@@ -261,15 +324,7 @@ export const slides08: SlideSection[] = [
     footnote: "Pada dataset kecil, full fine-tuning berisiko overfitting, sehingga frozen atau LoRA lebih aman.",
   },
 
-  // ── 22: Section Teacher model ──
-  {
-    layout: "section",
-    title: "Teacher Model dalam Training-Time Supervision",
-    body: "Foundation model tidak selalu dipakai untuk inference. Salah satu pola penting memakai foundation model sebagai teacher saat training, lalu menghapusnya dari model final.",
-    footnote: "Pola ini memberi manfaat foundation model tanpa menanggung biaya inference-nya.",
-  },
-
-  // ── 23: Bullets teacher patterns ──
+  // -- 28: Tiga Pola Teacher yang Hanya Hadir saat Training --
   {
     layout: "bullets",
     title: "Tiga Pola Teacher yang Hanya Hadir saat Training",
@@ -282,7 +337,7 @@ export const slides08: SlideSection[] = [
     footnote: "Dalam semua pola ini, foundation model tidak ada di model final yang di-deploy.",
   },
 
-  // ── 24: Split soft vs hard target ──
+  // -- 29: Soft Target dan Peran Temperature --
   {
     layout: "split",
     title: "Soft Target dan Peran Temperature",
@@ -298,15 +353,7 @@ export const slides08: SlideSection[] = [
     footnote: "Pola ini membuat DistilBERT dengan 40% parameter BERT mencapai 95% lebih performa teacher.",
   },
 
-  // ── 25: Section Worked Example ──
-  {
-    layout: "section",
-    title: "Worked Example: IndoBERT dengan Tiga Strategi",
-    body: "Pada dataset IndoNLU SmSA yang sama dari Lab W7, tiga strategi adaptasi dijalankan untuk memperlihatkan trade-off antara kecepatan dan performa secara langsung.",
-    footnote: "Memakai satu dataset untuk ketiganya menjaga perbandingan tetap setara.",
-  },
-
-  // ── 26: Bullets tiga strategi + F1 ──
+  // -- 30: Tiga Strategi dan Ekspektasi Hasilnya --
   {
     layout: "bullets",
     title: "Tiga Strategi dan Ekspektasi Hasilnya",
@@ -319,7 +366,7 @@ export const slides08: SlideSection[] = [
     footnote: "LoRA memberi keseimbangan efisiensi dan performa yang paling sering tepat untuk proyek kuliah.",
   },
 
-  // ── 27: Section Pitfalls ──
+  // -- 31: Pitfalls & Miskonsepsi --
   {
     layout: "section",
     title: "Pitfalls & Miskonsepsi",
@@ -327,7 +374,7 @@ export const slides08: SlideSection[] = [
     footnote: "Sebagian besar berakar pada anggapan bahwa lebih besar atau lebih baru selalu lebih baik.",
   },
 
-  // ── 28: Bullets pitfalls ──
+  // -- 32: Empat Keyakinan yang Perlu Diluruskan --
   {
     layout: "bullets",
     title: "Empat Keyakinan yang Perlu Diluruskan",
@@ -340,51 +387,12 @@ export const slides08: SlideSection[] = [
     footnote: "Frozen features pada domain shift besar juga bisa kalah dari fine-tuned model kecil yang lebih relevan.",
   },
 
-  // ── 29: Bullets FM Map ──
-  {
-    layout: "bullets",
-    title: "Tugas W8: Foundation Model Map",
-    body: "Tugas utama minggu ini adalah menyusun peta foundation model untuk domain riset Anda, lengkap dengan justifikasi:",
-    bullets: [
-      "**Petakan 3-4 model** yang relevan dengan kolom modalitas, pretraining, downstream role, adaptasi, dan status teacher-only.",
-      "**Tulis selection memo** satu paragraf per model: mengapa model ini, asumsi apa yang dibawanya, dan apa batasannya.",
-      "**Simpan sebagai foundation_model_map.md** di folder eksperimen W8 sebagai dasar pemilihan model capstone nanti.",
-    ],
-    footnote: "Lab W8 penunjang `lab_w8_remote_training.ipynb` melatih menjalankan training di cloud GPU.",
-  },
-
-  // ── 30: Refleksi ──
-  {
-    layout: "bullets",
-    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
-    body: "Sebelum lanjut ke W9, renungkan tiga pertanyaan yang menguji pemahaman Anda tentang pemilihan dan adaptasi model:",
-    bullets: [
-      "Untuk deteksi emosi dari rekaman suara Indonesia, dua kandidat foundation model apa dari taksonomi, dengan dua argumen pendukung dan satu risiko masing-masing?",
-      "Saat kolaborator berkata \"model X SOTA di benchmark Y, jadi kita pakai\", tiga pertanyaan apa yang Anda ajukan sebelum menyetujui?",
-      "LoRA termasuk kategori mana dalam taksonomi extracted vs learned dari W3, dan mengapa perbedaan ini penting untuk keputusan adaptasi?",
-    ],
-    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat memilih model capstone.",
-  },
-
-  // ── 31: Lanjut W9 ──
-  {
-    layout: "bullets",
-    title: "Lanjut ke W9: Multimodal Reasoning",
-    body: "Dengan W8 selesai, Anda bisa memilih dan mengadaptasi foundation model untuk satu modalitas. W9 memperluas ke wilayah yang lebih kompleks:",
-    bullets: [
-      "**Menggabungkan dua modalitas atau lebih** lewat strategi fusion yang berbeda, melanjutkan cross-attention dari W7.",
-      "**Mendeteksi apakah model benar-benar memakai semua modalitas** lewat ablation per modalitas.",
-      "**Menangani situasi saat satu modalitas hilang**, yang sering terjadi di data dunia nyata.",
-    ],
-    footnote: "Pilihan adaptasi dari W8 tetap berlaku saat menggabungkan beberapa foundation model di W9.",
-  },
-
-  // ── 32: CTA ──
+  // -- 33: Mulai Tugas W8 --
   {
     layout: "cta",
     title: "Mulai Tugas W8",
     body: "Susun Foundation Model Map untuk domain riset Anda, lalu coba tiga strategi adaptasi pada dataset yang sama lewat lab penunjang remote training di cloud GPU.\n\nEstimasi waktu: 3-5 jam termasuk menyusun peta dan menjalankan perbandingan adaptasi.",
     ctaText: "Buka Lab W8 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w8_remote_training.ipynb",
-  },
+  }
 ];

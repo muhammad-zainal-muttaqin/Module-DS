@@ -1,7 +1,7 @@
-﻿import type { SlideSection } from "./index";
+import type { SlideSection } from "./index";
 
 export const slides07: SlideSection[] = [
-  // ── 1: Title ──
+  // -- 1: W7: Text, Transformers & Repo Adoption --
   {
     layout: "title",
     title: "W7: Text, Transformers & Repo Adoption",
@@ -10,7 +10,7 @@ export const slides07: SlideSection[] = [
     footnote: "Bab 07 - Minggu 7",
   },
 
-  // ── 2: Peta W7 ──
+  // -- 2: Peta W7 --
   {
     layout: "section",
     title: "Peta W7",
@@ -18,7 +18,7 @@ export const slides07: SlideSection[] = [
     footnote: "Ketiganya bertemu saat mengadopsi repo HuggingFace dengan bantuan alat AI dan membuat repo_map.md.",
   },
 
-  // ── 3: Tiga tema ──
+  // -- 3: Tiga Tema yang Bertemu dalam Satu Alur Kerja --
   {
     layout: "grid",
     title: "Tiga Tema yang Bertemu dalam Satu Alur Kerja",
@@ -40,7 +40,7 @@ export const slides07: SlideSection[] = [
     footnote: "Kebiasaan riset minggu ini adalah memverifikasi kode AI, memeriksa tokenisasi, dan memetakan repo eksternal.",
   },
 
-  // ── 4: Section Contextual ──
+  // -- 4: Mengapa Contextual Embeddings --
   {
     layout: "section",
     title: "Mengapa Contextual Embeddings",
@@ -48,7 +48,7 @@ export const slides07: SlideSection[] = [
     footnote: "TF-IDF menunjukkan kata apa yang ada; contextual embeddings menunjukkan apa yang dimaksud kata itu.",
   },
 
-  // ── 5: Split TF-IDF vs contextual ──
+  // -- 5: Dua Kelemahan TF-IDF yang Diatasi Attention --
   {
     layout: "split",
     title: "Dua Kelemahan TF-IDF yang Diatasi Attention",
@@ -64,20 +64,7 @@ export const slides07: SlideSection[] = [
     footnote: "Transformers mengubah teks bukan menjadi fitur, melainkan menjadi makna yang bisa dibandingkan.",
   },
 
-  // ── 6: Bullets transfer ──
-  {
-    layout: "bullets",
-    title: "Mengapa Model Teks Umum Membantu Tugas Spesifik",
-    body: "Model yang dilatih pada miliaran token Wikipedia bisa membantu sentimen Indonesia karena struktur lapisannya membagi pengetahuan secara bertingkat:",
-    bullets: [
-      "**Layer awal** mempelajari pola umum lintas domain seperti semantik subkata, sintaksis dasar subjek-verba, dan cara negasi mengubah makna.",
-      "**Layer dalam** baru mempelajari hal yang lebih spesifik domain, sehingga adaptasi terbesar terjadi di bagian akhir model.",
-      "**Saat memuat bobot pretrained**, layer awal sudah paham bahasa, dan tugas Anda tinggal melatih layer akhir agar memetakan pemahaman itu ke label.",
-    ],
-    footnote: "Pembagian ini juga mendasari pilihan freeze vs fine-tune: seberapa banyak lapisan yang perlu beradaptasi?",
-  },
-
-  // ── 7: Section Tokenization ──
+  // -- 6: Tokenization: Sebelum Pelatihan Dimulai --
   {
     layout: "section",
     title: "Tokenization: Sebelum Pelatihan Dimulai",
@@ -85,20 +72,7 @@ export const slides07: SlideSection[] = [
     footnote: "Bug paling umum memakai pretrained model adalah ketidakcocokan antara tokenizer model dan cara teks diproses.",
   },
 
-  // ── 8: Bullets tiga gaya ──
-  {
-    layout: "bullets",
-    title: "Tiga Gaya Tokenisasi",
-    body: "Ketiga gaya berbeda pada trade-off antara ukuran vocab dan panjang sequence yang dihasilkan:",
-    bullets: [
-      "**Word-level** memetakan satu token per kata, sederhana tetapi membuat vocab besar dan rentan out-of-vocabulary untuk kata baru.",
-      "**Character-level** memetakan satu token per karakter, sehingga vocab kecil tetapi sequence menjadi sangat panjang.",
-      "**Subword** mengambil jalan tengah dengan menjadikan kata umum satu token dan memecah kata jarang menjadi sub-unit - inilah yang dipakai BERT, GPT, dan IndoBERT.",
-    ],
-    footnote: "Kata \"tertangkap\" mungkin terpecah menjadi [\"ter\", \"tangkap\"], sedangkan \"tidak\" tetap satu token.",
-  },
-
-  // ── 9: Code tokenizer ──
+  // -- 7: Menginspeksi Tokenizer Sebelum Melatih --
   {
     layout: "code",
     title: "Menginspeksi Tokenizer Sebelum Melatih",
@@ -116,20 +90,7 @@ print(tok.convert_ids_to_tokens(ids))
     footnote: "Token spesial [CLS] dan [SEP] ditambahkan otomatis oleh tokenizer keluarga BERT.",
   },
 
-  // ── 10: Bullets tugas inspeksi ──
-  {
-    layout: "bullets",
-    title: "Tiga Hal yang Diperiksa saat Inspeksi Tokenizer",
-    body: "Inspeksi 5 sampai 10 sampel dari dataset Anda sebelum pelatihan menjawab tiga pertanyaan penting:",
-    bullets: [
-      "**Kata domain-spesifik** perlu dicek apakah ditokenisasi dengan benar dan tidak terpecah berlebihan menjadi banyak sub-unit.",
-      "**Panjang sequence** setelah tokenisasi perlu dipastikan masih masuk dalam batas max_length model.",
-      "**Subword splits** perlu diperiksa apakah ada pemecahan yang berpotensi menghilangkan makna penting.",
-    ],
-    footnote: "Memakai tokenizer yang salah menghasilkan input yang tidak cocok dengan apa yang dilihat model saat pretraining.",
-  },
-
-  // ── 11: Section Attention ──
+  // -- 8: Cara Kerja Attention --
   {
     layout: "section",
     title: "Cara Kerja Attention",
@@ -137,7 +98,7 @@ print(tok.convert_ids_to_tokens(ids))
     footnote: "Setiap token dapat membaca dari semua token lain dalam satu langkah, dibobot berdasarkan relevansinya.",
   },
 
-  // ── 12: Bullets QKV ──
+  // -- 9: Query, Key, Value: Tiga Peran Setiap Token --
   {
     layout: "bullets",
     title: "Query, Key, Value: Tiga Peran Setiap Token",
@@ -150,7 +111,7 @@ print(tok.convert_ids_to_tokens(ids))
     footnote: "Proyeksi ini dihasilkan tiga matriks bobot W_Q, W_K, W_V yang dipelajari dan disimpan ke checkpoint.",
   },
 
-  // ── 13: Image attention ──
+  // -- 10: Scaled Dot-Product Attention --
   {
     layout: "image",
     title: "Scaled Dot-Product Attention",
@@ -159,36 +120,7 @@ print(tok.convert_ids_to_tokens(ids))
     footnote: "Lab W7b menugaskan Anda menerapkan scaled_dot_product_attention dari nol dan memverifikasinya.",
   },
 
-  // ── 14: Bullets formula ──
-  {
-    layout: "bullets",
-    title: "Membaca Rumus Attention",
-    body: "Dari gambar tersebut, rumus Attention(Q,K,V) = softmax(QK^T / akar d_k) V terdiri dari tiga operasi yang berurutan:",
-    bullets: [
-      "**QK^T** menghasilkan matriks T kali T berisi semua skor berpasangan antar token dalam sequence sepanjang T.",
-      "**Pembagian dengan akar d_k** mencegah dot product membesar dan mendorong softmax ke titik jenuh yang mematikan gradient - bentuk baru dari vanishing gradient.",
-      "**Softmax lalu kali V** mengubah tiap baris menjadi distribusi probabilitas, lalu menghasilkan rata-rata berbobot dari semua vektor Value.",
-    ],
-    footnote: "Pembagian dengan akar d_k bersifat wajib, bukan opsional, agar gradient tetap stabil saat dimensi besar.",
-  },
-
-  // ── 15: Code attention ──
-  {
-    layout: "code",
-    title: "Attention Tanpa Abstraksi Library",
-    body: "Tanpa abstraksi library, attention hanyalah beberapa operasi matriks yang bisa ditulis dalam beberapa baris:",
-    lang: "python",
-    code: `X = torch.randn(5, 16)              # 5 token, 16-dim
-W_Q, W_K, W_V = (torch.randn(16, 16) for _ in range(3))
-
-Q, K, V = X @ W_Q, X @ W_K, X @ W_V
-scores  = Q @ K.T / Q.shape[-1] ** 0.5   # (5, 5)
-weights = F.softmax(scores, dim=-1)      # tiap baris = 1
-output  = weights @ V                    # (5, 16)`,
-    footnote: "Output berdimensi sama dengan input, itulah sebabnya blok ini bisa ditumpuk berkali-kali.",
-  },
-
-  // ── 16: Code transformer block ──
+  // -- 11: Posisi Attention dalam Blok Transformer --
   {
     layout: "code",
     title: "Posisi Attention dalam Blok Transformer",
@@ -205,33 +137,7 @@ Output (T, d_model)`,
     footnote: "Layer feed-forward tidak mencampur token; hanya layer attention yang melakukannya.",
   },
 
-  // ── 17: Bullets multi-head + positional ──
-  {
-    layout: "bullets",
-    title: "Multi-Head Attention dan Positional Encoding",
-    body: "Dua mekanisme melengkapi attention dasar agar model menangkap banyak pola dan mengetahui urutan:",
-    bullets: [
-      "**Multi-head attention** menjalankan attention paralel sebanyak h kali pada subruang berdimensi lebih rendah, sehingga tiap head dapat menangkap pola struktural berbeda.",
-      "**Positional encoding** menambahkan vektor yang bergantung posisi ke setiap token embedding, karena attention sendiri tidak punya konsep urutan.",
-      "**Tanpa positional encoding**, \"anjing menggigit orang\" dan \"orang menggigit anjing\" menghasilkan input attention yang identik.",
-    ],
-    footnote: "Saat satu sequence memperhatikan sequence lain, prosesnya disebut cross-attention dan dipakai di W9.",
-  },
-
-  // ── 18: Bullets freeze dampak ──
-  {
-    layout: "bullets",
-    title: "Dampak Freeze dan Fine-tune pada Matriks Attention",
-    body: "Pilihan freeze atau fine-tune sebenarnya adalah keputusan tentang apakah matriks proyeksi attention boleh berubah:",
-    bullets: [
-      "**Freeze** mengunci W_Q, W_K, dan W_V, sehingga kalkulasi attention tetap berjalan tetapi tidak bisa beradaptasi dengan domain Anda.",
-      "**Fine-tune** memungkinkan matriks-matriks ini beradaptasi agar bobot attention menangkap hubungan yang dibutuhkan tugas Anda.",
-      "**Matematika attention tidak pernah berubah** dalam kedua kasus - yang berubah hanya matriks proyeksinya.",
-    ],
-    footnote: "Karena itu, freeze vs fine-tune adalah keputusan tentang berapa banyak lapisan yang perlu beradaptasi.",
-  },
-
-  // ── 19: Section Frozen vs Fine-tune ──
+  // -- 12: Frozen vs Fine-tuned: Eksperimen 2x2 --
   {
     layout: "section",
     title: "Frozen vs Fine-tuned: Eksperimen 2x2",
@@ -239,7 +145,7 @@ Output (T, d_model)`,
     footnote: "Pilihan ini menentukan biaya komputasi sekaligus performa akhir pada dataset Anda.",
   },
 
-  // ── 20: Split frozen vs fine-tune ──
+  // -- 13: Frozen vs Fine-tune: Biaya dan Performa --
   {
     layout: "split",
     title: "Frozen vs Fine-tune: Biaya dan Performa",
@@ -255,7 +161,202 @@ Output (T, d_model)`,
     footnote: "PEFT seperti LoRA yang dibahas di W8 menjadi jalan tengah antara kedua ekstrem ini.",
   },
 
-  // ── 21: Split CLS vs mean pool ──
+  // -- 14: Alat AI untuk Membantu Riset --
+  {
+    layout: "section",
+    title: "Alat AI untuk Membantu Riset",
+    body: "Modul ini tidak melarang AI coding tools, tetapi mewajibkan protokol verifikasi dan sintesis sebelum eksekusi. Tujuannya adalah mempercepat kerja tanpa kehilangan pemahaman atas kode sendiri.",
+    footnote: "Kode yang tidak bisa Anda jelaskan bukan kode yang layak dikumpulkan dengan nama Anda.",
+  },
+
+  // -- 15: Tiga Aturan Verifikasi Kode AI --
+  {
+    layout: "bullets",
+    title: "Tiga Aturan Verifikasi Kode AI",
+    body: "Setiap kode yang dihasilkan AI harus melewati tiga pemeriksaan sebelum dipakai:",
+    bullets: [
+      "**Verifikasi bentuk tensor** memastikan input dan output shape yang diklaim benar-benar cocok dengan kode.",
+      "**Uji kasus tepi** menjalankan kode dengan satu sampel lalu memeriksa hasilnya secara manual.",
+      "**Baca baris per baris** memastikan Anda bisa menjelaskan fungsi setiap baris - jika tidak bisa setelah dua kali baca, kode itu belum layak dipakai.",
+    ],
+    footnote: "Verifikasi ini mengubah AI dari sumber jawaban menjadi alat yang tetap di bawah kendali Anda.",
+  },
+
+  // -- 16: Adopsi Repo: Membaca Sebelum Menjalankan --
+  {
+    layout: "section",
+    title: "Adopsi Repo: Membaca Sebelum Menjalankan",
+    body: "Seorang asisten menghabiskan dua minggu hanya untuk membuat repo orang lain berjalan, sementara asisten kedua menyelesaikannya dalam beberapa hari. Perbedaan tujuh kali lipat ini bukan soal bakat.",
+    footnote: "Perbedaannya adalah strategi membaca repo sebelum menjalankan apapun.",
+  },
+
+  // -- 17: Urutan Membaca Repo: dari Luar ke Dalam --
+  {
+    layout: "image",
+    title: "Urutan Membaca Repo: dari Luar ke Dalam",
+    imageUrl: "/figures/fig06a_repo_navigation.svg",
+    caption: "Gambar ini menunjukkan tujuh langkah membaca repo riset secara berurutan dari luar ke dalam: README, paper terkait, struktur folder, entry point, model dan loss, data loader, lalu config. Setiap langkah membangun pemahaman yang dipakai langkah berikutnya, dan seluruhnya selesai dalam 30-60 menit sebelum perintah install pertama.",
+    footnote: "Membaca dengan urutan ini mengubah repo asing menjadi peta yang bisa dirujuk berulang.",
+  },
+
+  // -- 18: Smoke Test Sebelum Pelatihan Penuh --
+  {
+    layout: "section",
+    title: "Smoke Test Sebelum Pelatihan Penuh",
+    body: "Setelah environment terpasang, jangan langsung training dengan dataset penuh. Jalankan smoke test berjenjang yang memverifikasi seluruh pipeline berjalan tanpa error dalam hitungan detik.",
+    footnote: "Training penuh 8 jam yang gagal di menit ke-10 karena bug dimensi adalah delapan jam yang hilang.",
+  },
+
+  // -- 19: Empat Kategori Error --
+  {
+    layout: "section",
+    title: "Empat Kategori Error",
+    body: "Ketika adopsi repo gagal, respons \"coba-coba sampai ketemu\" tidak efisien. Lebih cepat mengidentifikasi kategori error dulu, karena tiap kategori punya diagnosis yang berbeda.",
+    footnote: "Mengenali kategori mengubah debugging acak menjadi pemeriksaan yang terarah.",
+  },
+
+  // -- 20: Lab W7: Teks, Repo, dan Transformer dari Nol --
+  {
+    layout: "bullets",
+    title: "Lab W7: Teks, Repo, dan Transformer dari Nol",
+    body: "Tiga lab minggu ini melatih ketiga tema sekaligus, dari klasifikasi teks sampai membangun Transformer dari nol:",
+    bullets: [
+      "**Lab W7 teks** memuat dataset sentimen IndoNLU, menginspeksi tokenizer IndoBERT, dan menjalankan grid 2x2 frozen/fine-tune kali [CLS]/mean-pool.",
+      "**Lab W7 repo** mengadopsi repo eksternal: menulis repo_map.md, menjalankan smoke test tiga level, dan menambah satu fitur seminimal mungkin.",
+      "**Lab W7b breadth** menulis scaled dot-product attention dari nol dan memverifikasinya terhadap nn.TransformerEncoderLayer untuk Breadth Check Transformer.",
+    ],
+    footnote: "Lab W7b wajib untuk memenuhi Breadth Check keluarga Transformer sebelum capstone.",
+  },
+
+  // -- 21: Refleksi: Tiga Pertanyaan untuk Dibawa Pulang --
+  {
+    layout: "bullets",
+    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
+    body: "Sebelum lanjut ke W8, renungkan tiga pertanyaan yang menghubungkan minggu ini dengan keputusan riset Anda:",
+    bullets: [
+      "Untuk dataset teks medis Indonesia dengan 10 ribu sampel dan 5 kelas, IndoBERT atau BioBERT yang Anda coba pertama, dan apa justifikasinya?",
+      "Saat AI memberi kode tokenisasi yang menghilangkan token [CLS] sebelum pooling, apakah ini selalu salah, dan kapan bisa diterima?",
+      "Seberapa berbeda repo_map.md yang Anda tulis di W7 dari yang akan Anda tulis di W9 saat ada lebih dari satu modalitas?",
+    ],
+    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat mengadopsi repo capstone.",
+  },
+
+  // -- 22: Lanjut ke W8: Foundation Models --
+  {
+    layout: "bullets",
+    title: "Lanjut ke W8: Foundation Models",
+    body: "Dengan W7 selesai, Anda bisa memakai pretrained Transformer, mengadopsi repo asing, dan memakai alat AI secara bertanggung jawab. W8 memperluas pemahaman ke lanskap foundation model:",
+    bullets: [
+      "**Taksonomi foundation model** mencakup bukan hanya teks, tetapi juga vision, audio, time series, dan multimodal.",
+      "**Strategi adaptasi** dari freeze dan fine-tune diperluas dengan PEFT seperti LoRA sebagai jalan tengah.",
+      "**Model card literacy** melatih membaca asumsi, batasan, dan bias model sebelum memakainya.",
+    ],
+    footnote: "Pilihan freeze vs fine-tune dari W7 menjadi satu cabang dari pohon keputusan adaptasi yang lebih lengkap di W8.",
+  },
+
+  // -- 23: Lampiran Opsional --
+  {
+    layout: "section",
+    title: "Lampiran Opsional",
+    body: "Slide berikutnya menyimpan pendalaman dan contoh tambahan untuk W7. Alur utama kelas sudah selesai; pakai bagian ini hanya jika waktu cukup atau saat ada pertanyaan dari mahasiswa.",
+    footnote: "Lampiran menjaga materi referensi tetap tersedia tanpa memutus jalur belajar utama.",
+  },
+
+  // -- 24: Mengapa Model Teks Umum Membantu Tugas Spesifik --
+  {
+    layout: "bullets",
+    title: "Mengapa Model Teks Umum Membantu Tugas Spesifik",
+    body: "Model yang dilatih pada miliaran token Wikipedia bisa membantu sentimen Indonesia karena struktur lapisannya membagi pengetahuan secara bertingkat:",
+    bullets: [
+      "**Layer awal** mempelajari pola umum lintas domain seperti semantik subkata, sintaksis dasar subjek-verba, dan cara negasi mengubah makna.",
+      "**Layer dalam** baru mempelajari hal yang lebih spesifik domain, sehingga adaptasi terbesar terjadi di bagian akhir model.",
+      "**Saat memuat bobot pretrained**, layer awal sudah paham bahasa, dan tugas Anda tinggal melatih layer akhir agar memetakan pemahaman itu ke label.",
+    ],
+    footnote: "Pembagian ini juga mendasari pilihan freeze vs fine-tune: seberapa banyak lapisan yang perlu beradaptasi?",
+  },
+
+  // -- 25: Tiga Gaya Tokenisasi --
+  {
+    layout: "bullets",
+    title: "Tiga Gaya Tokenisasi",
+    body: "Ketiga gaya berbeda pada trade-off antara ukuran vocab dan panjang sequence yang dihasilkan:",
+    bullets: [
+      "**Word-level** memetakan satu token per kata, sederhana tetapi membuat vocab besar dan rentan out-of-vocabulary untuk kata baru.",
+      "**Character-level** memetakan satu token per karakter, sehingga vocab kecil tetapi sequence menjadi sangat panjang.",
+      "**Subword** mengambil jalan tengah dengan menjadikan kata umum satu token dan memecah kata jarang menjadi sub-unit - inilah yang dipakai BERT, GPT, dan IndoBERT.",
+    ],
+    footnote: "Kata \"tertangkap\" mungkin terpecah menjadi [\"ter\", \"tangkap\"], sedangkan \"tidak\" tetap satu token.",
+  },
+
+  // -- 26: Tiga Hal yang Diperiksa saat Inspeksi Tokenizer --
+  {
+    layout: "bullets",
+    title: "Tiga Hal yang Diperiksa saat Inspeksi Tokenizer",
+    body: "Inspeksi 5 sampai 10 sampel dari dataset Anda sebelum pelatihan menjawab tiga pertanyaan penting:",
+    bullets: [
+      "**Kata domain-spesifik** perlu dicek apakah ditokenisasi dengan benar dan tidak terpecah berlebihan menjadi banyak sub-unit.",
+      "**Panjang sequence** setelah tokenisasi perlu dipastikan masih masuk dalam batas max_length model.",
+      "**Subword splits** perlu diperiksa apakah ada pemecahan yang berpotensi menghilangkan makna penting.",
+    ],
+    footnote: "Memakai tokenizer yang salah menghasilkan input yang tidak cocok dengan apa yang dilihat model saat pretraining.",
+  },
+
+  // -- 27: Membaca Rumus Attention --
+  {
+    layout: "bullets",
+    title: "Membaca Rumus Attention",
+    body: "Dari gambar tersebut, rumus Attention(Q,K,V) = softmax(QK^T / akar d_k) V terdiri dari tiga operasi yang berurutan:",
+    bullets: [
+      "**QK^T** menghasilkan matriks T kali T berisi semua skor berpasangan antar token dalam sequence sepanjang T.",
+      "**Pembagian dengan akar d_k** mencegah dot product membesar dan mendorong softmax ke titik jenuh yang mematikan gradient - bentuk baru dari vanishing gradient.",
+      "**Softmax lalu kali V** mengubah tiap baris menjadi distribusi probabilitas, lalu menghasilkan rata-rata berbobot dari semua vektor Value.",
+    ],
+    footnote: "Pembagian dengan akar d_k bersifat wajib, bukan opsional, agar gradient tetap stabil saat dimensi besar.",
+  },
+
+  // -- 28: Attention Tanpa Abstraksi Library --
+  {
+    layout: "code",
+    title: "Attention Tanpa Abstraksi Library",
+    body: "Tanpa abstraksi library, attention hanyalah beberapa operasi matriks yang bisa ditulis dalam beberapa baris:",
+    lang: "python",
+    code: `X = torch.randn(5, 16)              # 5 token, 16-dim
+W_Q, W_K, W_V = (torch.randn(16, 16) for _ in range(3))
+
+Q, K, V = X @ W_Q, X @ W_K, X @ W_V
+scores  = Q @ K.T / Q.shape[-1] ** 0.5   # (5, 5)
+weights = F.softmax(scores, dim=-1)      # tiap baris = 1
+output  = weights @ V                    # (5, 16)`,
+    footnote: "Output berdimensi sama dengan input, itulah sebabnya blok ini bisa ditumpuk berkali-kali.",
+  },
+
+  // -- 29: Multi-Head Attention dan Positional Encoding --
+  {
+    layout: "bullets",
+    title: "Multi-Head Attention dan Positional Encoding",
+    body: "Dua mekanisme melengkapi attention dasar agar model menangkap banyak pola dan mengetahui urutan:",
+    bullets: [
+      "**Multi-head attention** menjalankan attention paralel sebanyak h kali pada subruang berdimensi lebih rendah, sehingga tiap head dapat menangkap pola struktural berbeda.",
+      "**Positional encoding** menambahkan vektor yang bergantung posisi ke setiap token embedding, karena attention sendiri tidak punya konsep urutan.",
+      "**Tanpa positional encoding**, \"anjing menggigit orang\" dan \"orang menggigit anjing\" menghasilkan input attention yang identik.",
+    ],
+    footnote: "Saat satu sequence memperhatikan sequence lain, prosesnya disebut cross-attention dan dipakai di W9.",
+  },
+
+  // -- 30: Dampak Freeze dan Fine-tune pada Matriks Attention --
+  {
+    layout: "bullets",
+    title: "Dampak Freeze dan Fine-tune pada Matriks Attention",
+    body: "Pilihan freeze atau fine-tune sebenarnya adalah keputusan tentang apakah matriks proyeksi attention boleh berubah:",
+    bullets: [
+      "**Freeze** mengunci W_Q, W_K, dan W_V, sehingga kalkulasi attention tetap berjalan tetapi tidak bisa beradaptasi dengan domain Anda.",
+      "**Fine-tune** memungkinkan matriks-matriks ini beradaptasi agar bobot attention menangkap hubungan yang dibutuhkan tugas Anda.",
+      "**Matematika attention tidak pernah berubah** dalam kedua kasus - yang berubah hanya matriks proyeksinya.",
+    ],
+    footnote: "Karena itu, freeze vs fine-tune adalah keputusan tentang berapa banyak lapisan yang perlu beradaptasi.",
+  },
+
+  // -- 31: [CLS] Pooling vs Mean Pooling --
   {
     layout: "split",
     title: "[CLS] Pooling vs Mean Pooling",
@@ -271,28 +372,7 @@ Output (T, d_model)`,
     footnote: "Untuk klasifikasi, [CLS] dan mean pool biasanya berbeda 1-3 poin F1; pemenangnya bergantung dataset.",
   },
 
-  // ── 22: Section AI ──
-  {
-    layout: "section",
-    title: "Alat AI untuk Membantu Riset",
-    body: "Modul ini tidak melarang AI coding tools, tetapi mewajibkan protokol verifikasi dan sintesis sebelum eksekusi. Tujuannya adalah mempercepat kerja tanpa kehilangan pemahaman atas kode sendiri.",
-    footnote: "Kode yang tidak bisa Anda jelaskan bukan kode yang layak dikumpulkan dengan nama Anda.",
-  },
-
-  // ── 23: Bullets verifikasi ──
-  {
-    layout: "bullets",
-    title: "Tiga Aturan Verifikasi Kode AI",
-    body: "Setiap kode yang dihasilkan AI harus melewati tiga pemeriksaan sebelum dipakai:",
-    bullets: [
-      "**Verifikasi bentuk tensor** memastikan input dan output shape yang diklaim benar-benar cocok dengan kode.",
-      "**Uji kasus tepi** menjalankan kode dengan satu sampel lalu memeriksa hasilnya secara manual.",
-      "**Baca baris per baris** memastikan Anda bisa menjelaskan fungsi setiap baris - jika tidak bisa setelah dua kali baca, kode itu belum layak dipakai.",
-    ],
-    footnote: "Verifikasi ini mengubah AI dari sumber jawaban menjadi alat yang tetap di bawah kendali Anda.",
-  },
-
-  // ── 24: Bullets sintesis ──
+  // -- 32: Aturan Sintesis: Dua Sumber Sebelum Eksekusi --
   {
     layout: "bullets",
     title: "Aturan Sintesis: Dua Sumber Sebelum Eksekusi",
@@ -305,7 +385,7 @@ Output (T, d_model)`,
     footnote: "Paragraf sintesis bukan overhead, melainkan bukti Anda berpikir sebelum eksekusi.",
   },
 
-  // ── 25: Image LLM workflow ──
+  // -- 33: Alur Kerja LLM dalam Riset --
   {
     layout: "image",
     title: "Alur Kerja LLM dalam Riset",
@@ -314,7 +394,7 @@ Output (T, d_model)`,
     footnote: "Alat AI juga berguna di luar kode, untuk membaca paper, mendiskusikan hipotesis, dan menavigasi repo.",
   },
 
-  // ── 26: Bullets AI non-kode ──
+  // -- 34: AI untuk Tugas di Luar Kode --
   {
     layout: "bullets",
     title: "AI untuk Tugas di Luar Kode",
@@ -327,15 +407,7 @@ Output (T, d_model)`,
     footnote: "Memberi konteks yang cukup membuat jawaban AI jauh lebih akurat dan bisa diverifikasi.",
   },
 
-  // ── 27: Section Adopsi Repo ──
-  {
-    layout: "section",
-    title: "Adopsi Repo: Membaca Sebelum Menjalankan",
-    body: "Seorang asisten menghabiskan dua minggu hanya untuk membuat repo orang lain berjalan, sementara asisten kedua menyelesaikannya dalam beberapa hari. Perbedaan tujuh kali lipat ini bukan soal bakat.",
-    footnote: "Perbedaannya adalah strategi membaca repo sebelum menjalankan apapun.",
-  },
-
-  // ── 28: Bullets dua asisten ──
+  // -- 35: Dua Pendekatan, Dua Hasil yang Sangat Berbeda --
   {
     layout: "bullets",
     title: "Dua Pendekatan, Dua Hasil yang Sangat Berbeda",
@@ -348,16 +420,7 @@ Output (T, d_model)`,
     footnote: "Tahan godaan untuk langsung menjalankan; baca dulu dengan urutan yang dipikirkan.",
   },
 
-  // ── 29: Image repo navigation ──
-  {
-    layout: "image",
-    title: "Urutan Membaca Repo: dari Luar ke Dalam",
-    imageUrl: "/figures/fig06a_repo_navigation.svg",
-    caption: "Gambar ini menunjukkan tujuh langkah membaca repo riset secara berurutan dari luar ke dalam: README, paper terkait, struktur folder, entry point, model dan loss, data loader, lalu config. Setiap langkah membangun pemahaman yang dipakai langkah berikutnya, dan seluruhnya selesai dalam 30-60 menit sebelum perintah install pertama.",
-    footnote: "Membaca dengan urutan ini mengubah repo asing menjadi peta yang bisa dirujuk berulang.",
-  },
-
-  // ── 30: Bullets urutan baca ──
+  // -- 36: Tujuh Langkah Membaca yang Membangun Peta --
   {
     layout: "bullets",
     title: "Tujuh Langkah Membaca yang Membangun Peta",
@@ -370,15 +433,7 @@ Output (T, d_model)`,
     footnote: "Hasil pembacaan ini dirangkum dalam repo_map.md memakai template di Lampiran C.12.",
   },
 
-  // ── 31: Section Smoke Test ──
-  {
-    layout: "section",
-    title: "Smoke Test Sebelum Pelatihan Penuh",
-    body: "Setelah environment terpasang, jangan langsung training dengan dataset penuh. Jalankan smoke test berjenjang yang memverifikasi seluruh pipeline berjalan tanpa error dalam hitungan detik.",
-    footnote: "Training penuh 8 jam yang gagal di menit ke-10 karena bug dimensi adalah delapan jam yang hilang.",
-  },
-
-  // ── 32: Bullets tiga level ──
+  // -- 37: Tiga Level Smoke Test --
   {
     layout: "bullets",
     title: "Tiga Level Smoke Test",
@@ -391,7 +446,7 @@ Output (T, d_model)`,
     footnote: "Overfit one batch lebih kuat: jalankan training pada 4 sampel sampai loss mendekati nol untuk membuktikan tidak ada bug fundamental.",
   },
 
-  // ── 33: Bullets modifikasi minimal ──
+  // -- 38: Modifikasi Seminimal Mungkin --
   {
     layout: "bullets",
     title: "Modifikasi Seminimal Mungkin",
@@ -404,15 +459,7 @@ Output (T, d_model)`,
     footnote: "Modifikasi minimal memudahkan merge ulang, revert bersih, dan review pull request.",
   },
 
-  // ── 34: Section Kategori Error ──
-  {
-    layout: "section",
-    title: "Empat Kategori Error",
-    body: "Ketika adopsi repo gagal, respons \"coba-coba sampai ketemu\" tidak efisien. Lebih cepat mengidentifikasi kategori error dulu, karena tiap kategori punya diagnosis yang berbeda.",
-    footnote: "Mengenali kategori mengubah debugging acak menjadi pemeriksaan yang terarah.",
-  },
-
-  // ── 35: Image error categories ──
+  // -- 39: Empat Kuadran Diagnosis Error --
   {
     layout: "image",
     title: "Empat Kuadran Diagnosis Error",
@@ -421,7 +468,7 @@ Output (T, d_model)`,
     footnote: "Mencocokkan gejala ke kuadran yang tepat memangkas waktu diagnosis secara signifikan.",
   },
 
-  // ── 36: Grid kategori error ──
+  // -- 40: Tanda dan Tes Cepat Tiap Kategori --
   {
     layout: "grid",
     title: "Tanda dan Tes Cepat Tiap Kategori",
@@ -447,51 +494,12 @@ Output (T, d_model)`,
     footnote: "Gejala \"akurasi 99% tanpa training\" hampir selalu mengarah ke Data error berupa leakage.",
   },
 
-  // ── 37: Bullets Lab W7 ──
-  {
-    layout: "bullets",
-    title: "Lab W7: Teks, Repo, dan Transformer dari Nol",
-    body: "Tiga lab minggu ini melatih ketiga tema sekaligus, dari klasifikasi teks sampai membangun Transformer dari nol:",
-    bullets: [
-      "**Lab W7 teks** memuat dataset sentimen IndoNLU, menginspeksi tokenizer IndoBERT, dan menjalankan grid 2x2 frozen/fine-tune kali [CLS]/mean-pool.",
-      "**Lab W7 repo** mengadopsi repo eksternal: menulis repo_map.md, menjalankan smoke test tiga level, dan menambah satu fitur seminimal mungkin.",
-      "**Lab W7b breadth** menulis scaled dot-product attention dari nol dan memverifikasinya terhadap nn.TransformerEncoderLayer untuk Breadth Check Transformer.",
-    ],
-    footnote: "Lab W7b wajib untuk memenuhi Breadth Check keluarga Transformer sebelum capstone.",
-  },
-
-  // ── 38: Refleksi ──
-  {
-    layout: "bullets",
-    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
-    body: "Sebelum lanjut ke W8, renungkan tiga pertanyaan yang menghubungkan minggu ini dengan keputusan riset Anda:",
-    bullets: [
-      "Untuk dataset teks medis Indonesia dengan 10 ribu sampel dan 5 kelas, IndoBERT atau BioBERT yang Anda coba pertama, dan apa justifikasinya?",
-      "Saat AI memberi kode tokenisasi yang menghilangkan token [CLS] sebelum pooling, apakah ini selalu salah, dan kapan bisa diterima?",
-      "Seberapa berbeda repo_map.md yang Anda tulis di W7 dari yang akan Anda tulis di W9 saat ada lebih dari satu modalitas?",
-    ],
-    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat mengadopsi repo capstone.",
-  },
-
-  // ── 39: Lanjut W8 ──
-  {
-    layout: "bullets",
-    title: "Lanjut ke W8: Foundation Models",
-    body: "Dengan W7 selesai, Anda bisa memakai pretrained Transformer, mengadopsi repo asing, dan memakai alat AI secara bertanggung jawab. W8 memperluas pemahaman ke lanskap foundation model:",
-    bullets: [
-      "**Taksonomi foundation model** mencakup bukan hanya teks, tetapi juga vision, audio, time series, dan multimodal.",
-      "**Strategi adaptasi** dari freeze dan fine-tune diperluas dengan PEFT seperti LoRA sebagai jalan tengah.",
-      "**Model card literacy** melatih membaca asumsi, batasan, dan bias model sebelum memakainya.",
-    ],
-    footnote: "Pilihan freeze vs fine-tune dari W7 menjadi satu cabang dari pohon keputusan adaptasi yang lebih lengkap di W8.",
-  },
-
-  // ── 40: CTA ──
+  // -- 41: Mulai Lab W7 --
   {
     layout: "cta",
     title: "Mulai Lab W7",
     body: "Semua konsep di presentasi ini ada dalam lab notebook lengkap: klasifikasi teks IndoNLU dengan grid 2x2, inspeksi tokenizer, adopsi repo eksternal, dan Transformer-mini dari nol.\n\nEstimasi waktu: 5-7 jam termasuk eksperimen 2x2 dan implementasi attention.",
     ctaText: "Buka Lab W7 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_text_classification.ipynb",
-  },
+  }
 ];

@@ -1,7 +1,7 @@
-﻿import type { SlideSection } from "./index";
+import type { SlideSection } from "./index";
 
 export const slides05: SlideSection[] = [
-  // ── 1: Title ──
+  // -- 1: W5: Sequences - RNN & LSTM --
   {
     layout: "title",
     title: "W5: Sequences - RNN & LSTM",
@@ -10,7 +10,7 @@ export const slides05: SlideSection[] = [
     footnote: "Bab 05 - Minggu 5",
   },
 
-  // ── 2: Peta W5 ──
+  // -- 2: Peta W5 --
   {
     layout: "section",
     title: "Peta W5",
@@ -18,7 +18,7 @@ export const slides05: SlideSection[] = [
     footnote: "Baris peta besar minggu ini adalah (T, F) -> (1,), (N,), (T'', 1).",
   },
 
-  // ── 3: Dari W4 ke W5 ──
+  // -- 3: Dari W4 ke W5: Masuk ke Domain Sequence --
   {
     layout: "bullets",
     title: "Dari W4 ke W5: Masuk ke Domain Sequence",
@@ -31,7 +31,7 @@ export const slides05: SlideSection[] = [
     footnote: "Lab utama minggu ini adalah lab_w5_lstm_sequence.ipynb.",
   },
 
-  // ── 4: Section Motivasi ──
+  // -- 4: Motivasi: Data yang Urutannya Penting --
   {
     layout: "section",
     title: "Motivasi: Data yang Urutannya Penting",
@@ -39,7 +39,7 @@ export const slides05: SlideSection[] = [
     footnote: "Arsitektur recurrent hadir karena apa yang terjadi sebelumnya mengubah makna apa yang terjadi sekarang.",
   },
 
-  // ── 5: Tiga pertanyaan diagnostik ──
+  // -- 5: Tiga Pertanyaan untuk Setiap Dataset Sequence --
   {
     layout: "bullets",
     title: "Tiga Pertanyaan untuk Setiap Dataset Sequence",
@@ -52,7 +52,7 @@ export const slides05: SlideSection[] = [
     footnote: "Data yang \"berurutan\" tetapi bisa diacak tanpa kehilangan makna tidak membutuhkan arsitektur recurrent.",
   },
 
-  // ── 6: Section BPTT ──
+  // -- 6: BPTT dan Vanishing Gradient --
   {
     layout: "section",
     title: "BPTT dan Vanishing Gradient",
@@ -60,7 +60,7 @@ export const slides05: SlideSection[] = [
     footnote: "Backpropagation Through Time adalah chain rule yang dirantai sepanjang waktu, bukan hanya antar layer.",
   },
 
-  // ── 7: BPTT dua sumbu ──
+  // -- 7: BPTT: Chain Rule pada Dua Sumbu --
   {
     layout: "bullets",
     title: "BPTT: Chain Rule pada Dua Sumbu",
@@ -73,19 +73,7 @@ export const slides05: SlideSection[] = [
     footnote: "Namanya tampak menakutkan, tetapi intinya hanya chain rule yang dirantai pada sumbu waktu.",
   },
 
-  // ── 8: Code BPTT ──
-  {
-    layout: "code",
-    title: "BPTT untuk Sequence Tiga Timestep",
-    body: "Untuk sequence 3 timestep dengan loss L, gradient terhadap W_h adalah jumlah tiga jalur, dan jalur terpanjang melewati seluruh timestep:",
-    lang: "text",
-    code: `dL/dW_h = dL/dh_3 · dh_3/dW_h
-        + dL/dh_3 · dh_3/dh_2 · dh_2/dW_h
-        + dL/dh_3 · dh_3/dh_2 · dh_2/dh_1 · dh_1/dW_h`,
-    footnote: "Setiap suku adalah satu jalur perhitungan; gradient harus melewati beberapa timestep sebelum mencapai W_h.",
-  },
-
-  // ── 9: Section Vanishing ──
+  // -- 8: Vanishing Gradient dalam Angka --
   {
     layout: "section",
     title: "Vanishing Gradient dalam Angka",
@@ -93,48 +81,7 @@ export const slides05: SlideSection[] = [
     footnote: "Vanishing gradient bukan masalah teori abstrak, melainkan konsekuensi langsung perkalian berulang di chain rule.",
   },
 
-  // ── 10: Code tabel angka ──
-  {
-    layout: "code",
-    title: "Apa yang Terjadi Setelah T Langkah Mundur",
-    body: "Anggap w_h adalah skalar. Tabel berikut menunjukkan nilai w_h pangkat T untuk tiga nilai w_h yang berbeda:",
-    lang: "text",
-    code: `T (langkah)  | w_h=0.5   | w_h=0.9  | w_h=1.1
--------------|-----------|----------|--------
-1            | 0.5       | 0.9      | 1.1
-10           | 0.001     | 0.35     | 2.59
-50           | ~9e-16    | 0.005    | 117
-100          | ~8e-31    | 2.6e-5   | 13780`,
-    footnote: "Dengan w_h=0.5, gradient setelah 50 langkah praktis nol; dengan w_h=1.1, ia meledak menjadi ribuan.",
-  },
-
-  // ── 11: Tiga rezim ──
-  {
-    layout: "bullets",
-    title: "Tiga Rezim Gradient pada RNN Vanilla",
-    body: "Dari tabel tersebut, besar w_h menentukan nasib gradient ketika sequence menjadi panjang:",
-    bullets: [
-      "**Saat |w_h| < 1**, gradient menyusut (*vanishing*) sehingga setelah 50-100 langkah gradient praktis nol dan model tidak bisa belajar dependensi panjang.",
-      "**Saat |w_h| > 1**, gradient meledak (*exploding*) sehingga loss tiba-tiba menjadi NaN, dan solusinya adalah gradient clipping.",
-      "**Saat |w_h| mendekati 1**, model berada di titik kritis yang stabil hanya di pinggiran dan sulit dipertahankan tanpa intervensi seperti gate LSTM atau residual connection.",
-    ],
-    footnote: "LSTM dirancang khusus untuk mengatasi rantai perkalian berulang yang menyebabkan vanishing ini.",
-  },
-
-  // ── 12: Update aditif ──
-  {
-    layout: "bullets",
-    title: "Satu Prinsip: Pembaruan Aditif Mengurangi Perkalian Berulang",
-    body: "Cara LSTM, ResNet, dan Transformer mengatasi vanishing gradient adalah prinsip yang sama, yaitu menambah jalur aditif bagi gradient:",
-    bullets: [
-      "**Cell state LSTM** mengikuti c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t, sehingga turunan dc_t/dc_{t-1} = f_t adalah hasil element-wise dengan forget gate, bukan perkalian matriks penuh.",
-      "**Residual connection** mempelajari F(x) = H(x) - x lalu menghasilkan F(x) + x, dan penambahan x menciptakan jalur langsung bagi gradient ke layer sebelumnya.",
-      "**Skip connection di Transformer** memakai bentuk aditif yang sama, sehingga memahami prinsip ini sekali cukup untuk mengenalinya di W7 dan W8.",
-    ],
-    footnote: "Untuk matriks W_h, ukuran yang relevan adalah eigenvalue terbesar (spectral radius), tetapi prinsipnya sama.",
-  },
-
-  // ── 13: Section RNN ──
+  // -- 9: RNN Vanilla: Arsitektur Recurrent Dasar --
   {
     layout: "section",
     title: "RNN Vanilla: Arsitektur Recurrent Dasar",
@@ -142,7 +89,7 @@ export const slides05: SlideSection[] = [
     footnote: "Hidden state h_t menyimpan ringkasan yang diperbarui setiap langkah.",
   },
 
-  // ── 14: Image fig05a ──
+  // -- 10: RNN Vanilla vs LSTM Cell --
   {
     layout: "image",
     title: "RNN Vanilla vs LSTM Cell",
@@ -151,20 +98,7 @@ export const slides05: SlideSection[] = [
     footnote: "Warna amber dipakai konsisten untuk keluarga RNN/LSTM di seluruh modul.",
   },
 
-  // ── 15: Bullets RNN ──
-  {
-    layout: "bullets",
-    title: "Membaca Persamaan RNN Vanilla",
-    body: "Dari gambar tersebut, persamaan h_t = tanh(W_x x_t + W_h h_{t-1} + b) menggabungkan tiga komponen di setiap timestep:",
-    bullets: [
-      "**W_x x_t** memproyeksikan input baru pada timestep t ke ruang hidden, dengan W_x berukuran (d_h, F).",
-      "**W_h h_{t-1}** adalah perkalian matriks hidden-to-hidden yang membawa memori dari langkah sebelumnya, dan inilah sumber perkalian berulang penyebab vanishing.",
-      "**tanh** menjaga h_t berada di rentang (-1, 1), sehingga hidden state tidak meledak ke nilai besar.",
-    ],
-    footnote: "Untuk sequence classification, output diambil dari h_T; untuk forecasting, output dihitung di setiap timestep.",
-  },
-
-  // ── 16: Section LSTM ──
+  // -- 11: LSTM: Gate Mengatur Informasi --
   {
     layout: "section",
     title: "LSTM: Gate Mengatur Informasi",
@@ -172,22 +106,7 @@ export const slides05: SlideSection[] = [
     footnote: "Gate dihasilkan oleh sigmoid, sehingga setiap komponen vektor bisa disaring secara mandiri.",
   },
 
-  // ── 17: Code LSTM ──
-  {
-    layout: "code",
-    title: "Enam Persamaan LSTM yang Saling Terkait",
-    body: "Berikut rumus lengkap satu sel LSTM, dari forget gate sampai hidden state, dengan bentuk shape di tiap baris:",
-    lang: "text",
-    code: `f_t = σ(W_f [h_{t-1}, x_t] + b_f)    # forget gate, [0,1]
-i_t = σ(W_i [h_{t-1}, x_t] + b_i)    # input gate,  [0,1]
-g_t = tanh(W_g [h_{t-1}, x_t] + b_g) # cell update, (-1,1)
-c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t      # cell state
-o_t = σ(W_o [h_{t-1}, x_t] + b_o)    # output gate, [0,1]
-h_t = o_t ⊙ tanh(c_t)                # hidden state`,
-    footnote: "Notasi [h_{t-1}, x_t] adalah konkatenasi vektor, sehingga W_f berukuran (d_h, d_h + F).",
-  },
-
-  // ── 18: Tiga gate ──
+  // -- 12: Apa yang Diputuskan Tiap Gate --
   {
     layout: "bullets",
     title: "Apa yang Diputuskan Tiap Gate",
@@ -200,7 +119,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Cell state c_t menyimpan nilai internal yang diperbarui dari komponen lama dan komponen baru.",
   },
 
-  // ── 19: Image fig05b ──
+  // -- 13: Vanishing Gradient: RNN vs LSTM --
   {
     layout: "image",
     title: "Vanishing Gradient: RNN vs LSTM",
@@ -209,20 +128,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Lab W5 memvisualisasikan gejala ini dengan plot log-scale gradient norm per timestep.",
   },
 
-  // ── 20: Kenapa LSTM memutus ──
-  {
-    layout: "bullets",
-    title: "Mengapa Cell State Memutus Vanishing Gradient",
-    body: "Dari gambar tersebut, perbedaan kurva muncul karena gradient pada cell state LSTM dihitung lewat jalur yang berbeda dari hidden state RNN:",
-    bullets: [
-      "**Turunan dc_t/dc_{t-1} = f_t** hanya melibatkan forget gate, bukan perkalian matriks W_h yang berulang, sehingga tidak ada rantai perkalian matriks di cell state.",
-      "**Saat forget gate mendekati 1** di sepanjang sequence, gradient pada cell state tetap stabil tanpa cepat menyusut.",
-      "**RNN vanilla mengalikan gradient dengan W_h** di setiap langkah mundur, sehingga setelah 100 langkah gradient mendekati nol seperti terlihat pada kurva.",
-    ],
-    footnote: "Gate bisa belajar ke nilai 1 untuk mempertahankan kontribusi informasi lama secara selektif.",
-  },
-
-  // ── 21: Hidden vs cell ──
+  // -- 14: Hidden State vs Cell State: Dua Memori yang Berbeda --
   {
     layout: "split",
     title: "Hidden State vs Cell State: Dua Memori yang Berbeda",
@@ -238,20 +144,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Di PyTorch, nn.LSTM mengembalikan out, (h_n, c_n): out adalah h_t seluruh timestep, h_n dan c_n adalah keadaan terakhir.",
   },
 
-  // ── 22: Forget gate konkret ──
-  {
-    layout: "bullets",
-    title: "Forget Gate dalam Gambaran Konkret",
-    body: "Contoh konkretnya adalah sequence sensor glukosa pasien setiap 5 menit selama 24 jam. Cell state menyimpan kondisi stabil terakhir, lalu forget gate menentukan kapan kondisi lama masih relevan:",
-    bullets: [
-      "**Saat data tetap normal**, forget gate mendekati 1.0 sehingga cell state hampir tidak berubah dan gambaran kondisi stabil dipertahankan.",
-      "**Saat terjadi anomali** seperti lonjakan glukosa akibat makan berat, forget gate turun ke sekitar 0.3 untuk komponen terkait dan cell state diperbarui dengan informasi baru.",
-      "**Saat pasien tidur** dan sinyal sangat lambat, forget gate kembali mendekati 1.0 sehingga noise kecil tidak mengganggu gambaran kondisi tidur.",
-    ],
-    footnote: "Forget gate mempelajari kapan informasi lama harus dilupakan melalui backward pass sepanjang sequence.",
-  },
-
-  // ── 23: Section GRU ──
+  // -- 15: GRU: Alternatif Lebih Ringkas --
   {
     layout: "section",
     title: "GRU: Alternatif Lebih Ringkas",
@@ -259,36 +152,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Cho et al. memperkenalkan GRU pada 2014 sebagai alternatif yang lebih ringan.",
   },
 
-  // ── 24: GRU disederhanakan ──
-  {
-    layout: "bullets",
-    title: "Apa yang Disederhanakan GRU",
-    body: "GRU memangkas tiga hal dari LSTM tanpa banyak kehilangan kemampuan pada banyak kasus:",
-    bullets: [
-      "**GRU hanya punya dua gate**, bukan tiga, karena fungsi forget gate diserap oleh update gate z_t.",
-      "**GRU tidak punya cell state terpisah**, sehingga hanya hidden state h_t yang dipertahankan tanpa memori yang berbeda dari output.",
-      "**Jumlah parameter GRU sekitar 25% lebih sedikit** daripada LSTM karena satu gate dihapus seluruhnya.",
-    ],
-    footnote: "Lebih sedikit parameter berarti risiko overfitting yang lebih rendah pada dataset kecil.",
-  },
-
-  // ── 25: Kapan GRU vs LSTM ──
-  {
-    layout: "split",
-    title: "Kapan Memilih GRU dan Kapan LSTM",
-    body: "Tidak ada pemenang universal; pilihan bergantung pada ukuran data dan panjang sequence. Aturan praktisnya adalah mencoba LSTM dulu sebagai default:",
-    left: {
-      title: "Cenderung GRU",
-      body: "Dataset kecil di bawah 10 ribu sampel cocok karena parameter lebih sedikit.\n\nSequence pendek sampai sedang di bawah 200 timestep sering memberi performa sebanding.\n\nAnggaran parameter ketat terbantu oleh bobot yang sekitar 25% lebih ringan.",
-    },
-    right: {
-      title: "Cenderung LSTM",
-      body: "Sequence sangat panjang di atas 200 timestep terbantu oleh gating terpisah untuk dependensi jauh.\n\nSaat tidak yakin, coba keduanya karena bedanya sering di bawah 2% pada banyak benchmark.\n\nLSTM menjadi default sebelum tuning anggaran training.",
-    },
-    footnote: "Di lab minggu ini, Anda membandingkan RNN vs LSTM vs GRU pada sequence sintetis.",
-  },
-
-  // ── 26: Section Big Map ──
+  // -- 16: Big Map untuk Sequence: Empat Output Head --
   {
     layout: "section",
     title: "Big Map untuk Sequence: Empat Output Head",
@@ -296,7 +160,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Di W5 kita fokus pada tiga yang pertama; token classification dibahas di W7.",
   },
 
-  // ── 27: Grid output head ──
+  // -- 17: Empat Formulasi Output Sequence --
   {
     layout: "grid",
     title: "Empat Formulasi Output Sequence",
@@ -322,7 +186,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Memilih head yang tepat adalah keputusan pertama setelah memahami bentuk output yang diinginkan.",
   },
 
-  // ── 28: Code SequenceClassifier ──
+  // -- 18: Sequence Classifier dalam PyTorch --
   {
     layout: "code",
     title: "Sequence Classifier dalam PyTorch",
@@ -341,7 +205,62 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "batch_first=True membuat dimensi pertama adalah batch, sehingga input berbentuk (B, T, F).",
   },
 
-  // ── 29: Section Justifikasi ──
+  // -- 19: Long-Sequence Diagnosis --
+  {
+    layout: "section",
+    title: "Long-Sequence Diagnosis",
+    body: "Ketika model sequence tidak belajar dengan baik, ada lima hipotesis yang paling mungkin. Memeriksanya secara berurutan menghemat waktu sebelum mengganti arsitektur.",
+    footnote: "Diagnosis sequence panjang adalah kebiasaan riset utama yang dilatih minggu ini.",
+  },
+
+  // -- 20: Lab W5: RNN vs LSTM Gradient Flow (Wajib) --
+  {
+    layout: "bullets",
+    title: "Lab W5: RNN vs LSTM Gradient Flow (Wajib)",
+    body: "Lab wajib minggu ini membandingkan tiga arsitektur recurrent dan memvisualisasikan vanishing gradient secara langsung:",
+    bullets: [
+      "**Latih RNN vs LSTM** pada seq_len=50 lalu seq_len=200, dan amati selisih performa membesar saat sequence memanjang.",
+      "**Plot gradient norm per timestep** untuk keduanya, sehingga kurva vanishing pada RNN terlihat jelas dibanding LSTM yang datar.",
+      "**Tulis pernyataan justifikasi** arsitektur dengan template §2.6, lalu coba GRU sebagai alternatif ketiga.",
+    ],
+    footnote: "Lab W5 memenuhi Breadth Check keluarga RNN/LSTM dengan smoke test dan gradient clipping aktif di semua model.",
+  },
+
+  // -- 21: Refleksi: Tiga Pertanyaan untuk Dibawa Pulang --
+  {
+    layout: "bullets",
+    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
+    body: "Sebelum lanjut ke W6, renungkan tiga pertanyaan yang menghubungkan minggu ini dengan keputusan riset Anda nanti:",
+    bullets: [
+      "Untuk dataset EKG 5000 titik per sampel dengan target 4 kelas aritmia, apakah LSTM arsitektur pertama Anda, dan dua alternatif apa beserta trade-off-nya?",
+      "Setelah melihat plot gradient flow di Lab W5, pada panjang berapa RNN vanilla mulai kehilangan sinyal, dan bagaimana angka itu mengubah keputusan Anda?",
+      "Bagaimana strategi engineered, extracted, dan learned features muncul dalam konteks sequence, dengan satu contoh konkret untuk masing-masing di domain sensor?",
+    ],
+    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya akan dipakai lagi saat menentukan arsitektur capstone.",
+  },
+
+  // -- 22: Lanjut ke W6: Representasi dan Temporal Leakage --
+  {
+    layout: "bullets",
+    title: "Lanjut ke W6: Representasi dan Temporal Leakage",
+    body: "Dengan W5 selesai, Anda bisa membangun dan mendiagnosis arsitektur recurrent. W6 menggabungkan dua tema yang menentukan validitas hasil:",
+    bullets: [
+      "**Representasi fitur** dalam konteks sequence melanjutkan tema engineered, extracted, dan learned dari minggu-minggu awal.",
+      "**Temporal leakage** dibahas sebagai salah satu bug paling berbahaya yang menghasilkan angka bagus tetapi hasil yang tidak valid.",
+      "**Disiplin diagnosis** dari W5 menjadi bekal untuk menelusuri dari mana angka evaluasi yang terlalu bagus sebenarnya berasal.",
+    ],
+    footnote: "Leakage temporal yang disinggung di diagnosis W5 menjadi fokus utama W6.",
+  },
+
+  // -- 23: Lampiran Opsional --
+  {
+    layout: "section",
+    title: "Lampiran Opsional",
+    body: "Slide berikutnya menyimpan pendalaman dan contoh tambahan untuk W5. Alur utama kelas sudah selesai; pakai bagian ini hanya jika waktu cukup atau saat ada pertanyaan dari mahasiswa.",
+    footnote: "Lampiran menjaga materi referensi tetap tersedia tanpa memutus jalur belajar utama.",
+  },
+
+  // -- 24: Justifikasi Arsitektur: Kebiasaan Menjelaskan Pilihan --
   {
     layout: "section",
     title: "Justifikasi Arsitektur: Kebiasaan Menjelaskan Pilihan",
@@ -349,7 +268,143 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Template ini dipakai kembali di W7 untuk Transformer dan W9 untuk multimodal.",
   },
 
-  // ── 30: Bullets template justifikasi ──
+  // -- 25: BPTT untuk Sequence Tiga Timestep --
+  {
+    layout: "code",
+    title: "BPTT untuk Sequence Tiga Timestep",
+    body: "Untuk sequence 3 timestep dengan loss L, gradient terhadap W_h adalah jumlah tiga jalur, dan jalur terpanjang melewati seluruh timestep:",
+    lang: "text",
+    code: `dL/dW_h = dL/dh_3 · dh_3/dW_h
+        + dL/dh_3 · dh_3/dh_2 · dh_2/dW_h
+        + dL/dh_3 · dh_3/dh_2 · dh_2/dh_1 · dh_1/dW_h`,
+    footnote: "Setiap suku adalah satu jalur perhitungan; gradient harus melewati beberapa timestep sebelum mencapai W_h.",
+  },
+
+  // -- 26: Apa yang Terjadi Setelah T Langkah Mundur --
+  {
+    layout: "code",
+    title: "Apa yang Terjadi Setelah T Langkah Mundur",
+    body: "Anggap w_h adalah skalar. Tabel berikut menunjukkan nilai w_h pangkat T untuk tiga nilai w_h yang berbeda:",
+    lang: "text",
+    code: `T (langkah)  | w_h=0.5   | w_h=0.9  | w_h=1.1
+-------------|-----------|----------|--------
+1            | 0.5       | 0.9      | 1.1
+10           | 0.001     | 0.35     | 2.59
+50           | ~9e-16    | 0.005    | 117
+100          | ~8e-31    | 2.6e-5   | 13780`,
+    footnote: "Dengan w_h=0.5, gradient setelah 50 langkah praktis nol; dengan w_h=1.1, ia meledak menjadi ribuan.",
+  },
+
+  // -- 27: Tiga Rezim Gradient pada RNN Vanilla --
+  {
+    layout: "bullets",
+    title: "Tiga Rezim Gradient pada RNN Vanilla",
+    body: "Dari tabel tersebut, besar w_h menentukan nasib gradient ketika sequence menjadi panjang:",
+    bullets: [
+      "**Saat |w_h| < 1**, gradient menyusut (*vanishing*) sehingga setelah 50-100 langkah gradient praktis nol dan model tidak bisa belajar dependensi panjang.",
+      "**Saat |w_h| > 1**, gradient meledak (*exploding*) sehingga loss tiba-tiba menjadi NaN, dan solusinya adalah gradient clipping.",
+      "**Saat |w_h| mendekati 1**, model berada di titik kritis yang stabil hanya di pinggiran dan sulit dipertahankan tanpa intervensi seperti gate LSTM atau residual connection.",
+    ],
+    footnote: "LSTM dirancang khusus untuk mengatasi rantai perkalian berulang yang menyebabkan vanishing ini.",
+  },
+
+  // -- 28: Satu Prinsip: Pembaruan Aditif Mengurangi Perkalian Berulang --
+  {
+    layout: "bullets",
+    title: "Satu Prinsip: Pembaruan Aditif Mengurangi Perkalian Berulang",
+    body: "Cara LSTM, ResNet, dan Transformer mengatasi vanishing gradient adalah prinsip yang sama, yaitu menambah jalur aditif bagi gradient:",
+    bullets: [
+      "**Cell state LSTM** mengikuti c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t, sehingga turunan dc_t/dc_{t-1} = f_t adalah hasil element-wise dengan forget gate, bukan perkalian matriks penuh.",
+      "**Residual connection** mempelajari F(x) = H(x) - x lalu menghasilkan F(x) + x, dan penambahan x menciptakan jalur langsung bagi gradient ke layer sebelumnya.",
+      "**Skip connection di Transformer** memakai bentuk aditif yang sama, sehingga memahami prinsip ini sekali cukup untuk mengenalinya di W7 dan W8.",
+    ],
+    footnote: "Untuk matriks W_h, ukuran yang relevan adalah eigenvalue terbesar (spectral radius), tetapi prinsipnya sama.",
+  },
+
+  // -- 29: Membaca Persamaan RNN Vanilla --
+  {
+    layout: "bullets",
+    title: "Membaca Persamaan RNN Vanilla",
+    body: "Dari gambar tersebut, persamaan h_t = tanh(W_x x_t + W_h h_{t-1} + b) menggabungkan tiga komponen di setiap timestep:",
+    bullets: [
+      "**W_x x_t** memproyeksikan input baru pada timestep t ke ruang hidden, dengan W_x berukuran (d_h, F).",
+      "**W_h h_{t-1}** adalah perkalian matriks hidden-to-hidden yang membawa memori dari langkah sebelumnya, dan inilah sumber perkalian berulang penyebab vanishing.",
+      "**tanh** menjaga h_t berada di rentang (-1, 1), sehingga hidden state tidak meledak ke nilai besar.",
+    ],
+    footnote: "Untuk sequence classification, output diambil dari h_T; untuk forecasting, output dihitung di setiap timestep.",
+  },
+
+  // -- 30: Enam Persamaan LSTM yang Saling Terkait --
+  {
+    layout: "code",
+    title: "Enam Persamaan LSTM yang Saling Terkait",
+    body: "Berikut rumus lengkap satu sel LSTM, dari forget gate sampai hidden state, dengan bentuk shape di tiap baris:",
+    lang: "text",
+    code: `f_t = σ(W_f [h_{t-1}, x_t] + b_f)    # forget gate, [0,1]
+i_t = σ(W_i [h_{t-1}, x_t] + b_i)    # input gate,  [0,1]
+g_t = tanh(W_g [h_{t-1}, x_t] + b_g) # cell update, (-1,1)
+c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t      # cell state
+o_t = σ(W_o [h_{t-1}, x_t] + b_o)    # output gate, [0,1]
+h_t = o_t ⊙ tanh(c_t)                # hidden state`,
+    footnote: "Notasi [h_{t-1}, x_t] adalah konkatenasi vektor, sehingga W_f berukuran (d_h, d_h + F).",
+  },
+
+  // -- 31: Mengapa Cell State Memutus Vanishing Gradient --
+  {
+    layout: "bullets",
+    title: "Mengapa Cell State Memutus Vanishing Gradient",
+    body: "Dari gambar tersebut, perbedaan kurva muncul karena gradient pada cell state LSTM dihitung lewat jalur yang berbeda dari hidden state RNN:",
+    bullets: [
+      "**Turunan dc_t/dc_{t-1} = f_t** hanya melibatkan forget gate, bukan perkalian matriks W_h yang berulang, sehingga tidak ada rantai perkalian matriks di cell state.",
+      "**Saat forget gate mendekati 1** di sepanjang sequence, gradient pada cell state tetap stabil tanpa cepat menyusut.",
+      "**RNN vanilla mengalikan gradient dengan W_h** di setiap langkah mundur, sehingga setelah 100 langkah gradient mendekati nol seperti terlihat pada kurva.",
+    ],
+    footnote: "Gate bisa belajar ke nilai 1 untuk mempertahankan kontribusi informasi lama secara selektif.",
+  },
+
+  // -- 32: Forget Gate dalam Gambaran Konkret --
+  {
+    layout: "bullets",
+    title: "Forget Gate dalam Gambaran Konkret",
+    body: "Contoh konkretnya adalah sequence sensor glukosa pasien setiap 5 menit selama 24 jam. Cell state menyimpan kondisi stabil terakhir, lalu forget gate menentukan kapan kondisi lama masih relevan:",
+    bullets: [
+      "**Saat data tetap normal**, forget gate mendekati 1.0 sehingga cell state hampir tidak berubah dan gambaran kondisi stabil dipertahankan.",
+      "**Saat terjadi anomali** seperti lonjakan glukosa akibat makan berat, forget gate turun ke sekitar 0.3 untuk komponen terkait dan cell state diperbarui dengan informasi baru.",
+      "**Saat pasien tidur** dan sinyal sangat lambat, forget gate kembali mendekati 1.0 sehingga noise kecil tidak mengganggu gambaran kondisi tidur.",
+    ],
+    footnote: "Forget gate mempelajari kapan informasi lama harus dilupakan melalui backward pass sepanjang sequence.",
+  },
+
+  // -- 33: Apa yang Disederhanakan GRU --
+  {
+    layout: "bullets",
+    title: "Apa yang Disederhanakan GRU",
+    body: "GRU memangkas tiga hal dari LSTM tanpa banyak kehilangan kemampuan pada banyak kasus:",
+    bullets: [
+      "**GRU hanya punya dua gate**, bukan tiga, karena fungsi forget gate diserap oleh update gate z_t.",
+      "**GRU tidak punya cell state terpisah**, sehingga hanya hidden state h_t yang dipertahankan tanpa memori yang berbeda dari output.",
+      "**Jumlah parameter GRU sekitar 25% lebih sedikit** daripada LSTM karena satu gate dihapus seluruhnya.",
+    ],
+    footnote: "Lebih sedikit parameter berarti risiko overfitting yang lebih rendah pada dataset kecil.",
+  },
+
+  // -- 34: Kapan Memilih GRU dan Kapan LSTM --
+  {
+    layout: "split",
+    title: "Kapan Memilih GRU dan Kapan LSTM",
+    body: "Tidak ada pemenang universal; pilihan bergantung pada ukuran data dan panjang sequence. Aturan praktisnya adalah mencoba LSTM dulu sebagai default:",
+    left: {
+      title: "Cenderung GRU",
+      body: "Dataset kecil di bawah 10 ribu sampel cocok karena parameter lebih sedikit.\n\nSequence pendek sampai sedang di bawah 200 timestep sering memberi performa sebanding.\n\nAnggaran parameter ketat terbantu oleh bobot yang sekitar 25% lebih ringan.",
+    },
+    right: {
+      title: "Cenderung LSTM",
+      body: "Sequence sangat panjang di atas 200 timestep terbantu oleh gating terpisah untuk dependensi jauh.\n\nSaat tidak yakin, coba keduanya karena bedanya sering di bawah 2% pada banyak benchmark.\n\nLSTM menjadi default sebelum tuning anggaran training.",
+    },
+    footnote: "Di lab minggu ini, Anda membandingkan RNN vs LSTM vs GRU pada sequence sintetis.",
+  },
+
+  // -- 35: Tiga Bagian dalam Satu Pernyataan Justifikasi --
   {
     layout: "bullets",
     title: "Tiga Bagian dalam Satu Pernyataan Justifikasi",
@@ -362,15 +417,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Justifikasi yang konkret membedakan keputusan riset dari pilihan default yang tidak dipikirkan.",
   },
 
-  // ── 31: Section Diagnosis ──
-  {
-    layout: "section",
-    title: "Long-Sequence Diagnosis",
-    body: "Ketika model sequence tidak belajar dengan baik, ada lima hipotesis yang paling mungkin. Memeriksanya secara berurutan menghemat waktu sebelum mengganti arsitektur.",
-    footnote: "Diagnosis sequence panjang adalah kebiasaan riset utama yang dilatih minggu ini.",
-  },
-
-  // ── 32: Diagnosis 1-3 ──
+  // -- 36: Hipotesis 1 sampai 3: Gradient, Panjang, Shuffle --
   {
     layout: "bullets",
     title: "Hipotesis 1 sampai 3: Gradient, Panjang, Shuffle",
@@ -383,7 +430,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Urutan pemeriksaan dari yang termurah ke yang termahal menghemat waktu diagnosis.",
   },
 
-  // ── 33: Diagnosis 4-5 ──
+  // -- 37: Hipotesis 4 dan 5: Leakage dan Clipping --
   {
     layout: "bullets",
     title: "Hipotesis 4 dan 5: Leakage dan Clipping",
@@ -396,7 +443,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Leakage temporal adalah salah satu bug paling berbahaya karena menghasilkan angka bagus yang tidak valid.",
   },
 
-  // ── 34: Section Pitfalls ──
+  // -- 38: Pitfalls & Miskonsepsi --
   {
     layout: "section",
     title: "Pitfalls & Miskonsepsi",
@@ -404,7 +451,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Sebagian besar berakar pada anggapan bahwa data berurutan selalu butuh penanganan recurrent yang berat.",
   },
 
-  // ── 35: Pitfalls 1-3 ──
+  // -- 39: Tiga Keyakinan yang Perlu Diluruskan --
   {
     layout: "bullets",
     title: "Tiga Keyakinan yang Perlu Diluruskan",
@@ -417,7 +464,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Shuffle bebas pada time series juga berbahaya karena menyebabkan leakage yang dibahas di W6.",
   },
 
-  // ── 36: Code gradient clipping ──
+  // -- 40: Gradient Clipping: clip_grad_norm_ vs clip_grad_value_ --
   {
     layout: "split",
     title: "Gradient Clipping: clip_grad_norm_ vs clip_grad_value_",
@@ -433,51 +480,12 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Panggil clip_grad_norm_(model.parameters(), max_norm=1.0) tepat sebelum optimizer.step().",
   },
 
-  // ── 37: Bullets Lab W5 ──
-  {
-    layout: "bullets",
-    title: "Lab W5: RNN vs LSTM Gradient Flow (Wajib)",
-    body: "Lab wajib minggu ini membandingkan tiga arsitektur recurrent dan memvisualisasikan vanishing gradient secara langsung:",
-    bullets: [
-      "**Latih RNN vs LSTM** pada seq_len=50 lalu seq_len=200, dan amati selisih performa membesar saat sequence memanjang.",
-      "**Plot gradient norm per timestep** untuk keduanya, sehingga kurva vanishing pada RNN terlihat jelas dibanding LSTM yang datar.",
-      "**Tulis pernyataan justifikasi** arsitektur dengan template §2.6, lalu coba GRU sebagai alternatif ketiga.",
-    ],
-    footnote: "Lab W5 memenuhi Breadth Check keluarga RNN/LSTM dengan smoke test dan gradient clipping aktif di semua model.",
-  },
-
-  // ── 38: Refleksi ──
-  {
-    layout: "bullets",
-    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
-    body: "Sebelum lanjut ke W6, renungkan tiga pertanyaan yang menghubungkan minggu ini dengan keputusan riset Anda nanti:",
-    bullets: [
-      "Untuk dataset EKG 5000 titik per sampel dengan target 4 kelas aritmia, apakah LSTM arsitektur pertama Anda, dan dua alternatif apa beserta trade-off-nya?",
-      "Setelah melihat plot gradient flow di Lab W5, pada panjang berapa RNN vanilla mulai kehilangan sinyal, dan bagaimana angka itu mengubah keputusan Anda?",
-      "Bagaimana strategi engineered, extracted, dan learned features muncul dalam konteks sequence, dengan satu contoh konkret untuk masing-masing di domain sensor?",
-    ],
-    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya akan dipakai lagi saat menentukan arsitektur capstone.",
-  },
-
-  // ── 39: Lanjut W6 ──
-  {
-    layout: "bullets",
-    title: "Lanjut ke W6: Representasi dan Temporal Leakage",
-    body: "Dengan W5 selesai, Anda bisa membangun dan mendiagnosis arsitektur recurrent. W6 menggabungkan dua tema yang menentukan validitas hasil:",
-    bullets: [
-      "**Representasi fitur** dalam konteks sequence melanjutkan tema engineered, extracted, dan learned dari minggu-minggu awal.",
-      "**Temporal leakage** dibahas sebagai salah satu bug paling berbahaya yang menghasilkan angka bagus tetapi hasil yang tidak valid.",
-      "**Disiplin diagnosis** dari W5 menjadi bekal untuk menelusuri dari mana angka evaluasi yang terlalu bagus sebenarnya berasal.",
-    ],
-    footnote: "Leakage temporal yang disinggung di diagnosis W5 menjadi fokus utama W6.",
-  },
-
-  // ── 40: CTA ──
+  // -- 41: Mulai Lab W5 --
   {
     layout: "cta",
     title: "Mulai Lab W5",
     body: "Semua konsep di presentasi ini ada dalam lab notebook lengkap: perbandingan RNN vs LSTM vs GRU, plot gradient flow, dan pernyataan justifikasi arsitektur.\n\nEstimasi waktu: 4-6 jam termasuk training dua panjang sequence dan analisis gradient.",
     ctaText: "Buka Lab W5 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w5_lstm_sequence.ipynb",
-  },
+  }
 ];

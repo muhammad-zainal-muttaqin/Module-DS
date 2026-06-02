@@ -1,7 +1,7 @@
-﻿import type { SlideSection } from "./index";
+import type { SlideSection } from "./index";
 
 export const slides10: SlideSection[] = [
-  // ── 1: Title ──
+  // -- 1: W10: Paper Reading & Implementation --
   {
     layout: "title",
     title: "W10: Paper Reading & Implementation",
@@ -10,7 +10,7 @@ export const slides10: SlideSection[] = [
     footnote: "Bab 10 - Minggu 10",
   },
 
-  // ── 2: Peta W10 ──
+  // -- 2: Peta W10 --
   {
     layout: "section",
     title: "Peta W10",
@@ -18,7 +18,7 @@ export const slides10: SlideSection[] = [
     footnote: "Setelah W10, Anda bisa mengambil paper dari arXiv dan menjalankan metode intinya dalam satu minggu.",
   },
 
-  // ── 3: Dari W9 ke W10 ──
+  // -- 3: Dari W9 ke W10: Mengikat Semua Keterampilan --
   {
     layout: "bullets",
     title: "Dari W9 ke W10: Mengikat Semua Keterampilan",
@@ -31,7 +31,7 @@ export const slides10: SlideSection[] = [
     footnote: "Lab utama minggu ini adalah lab_w10_paper_to_code.ipynb.",
   },
 
-  // ── 4: Section Motivasi ──
+  // -- 4: Motivasi: Satu Tahun Setelah Kelas --
   {
     layout: "section",
     title: "Motivasi: Satu Tahun Setelah Kelas",
@@ -39,7 +39,7 @@ export const slides10: SlideSection[] = [
     footnote: "Perbedaan keduanya bukan bakat, melainkan sistem membaca dan membangun.",
   },
 
-  // ── 5: Split two students ──
+  // -- 5: Mengonsumsi vs Membangun --
   {
     layout: "split",
     title: "Mengonsumsi vs Membangun",
@@ -55,7 +55,7 @@ export const slides10: SlideSection[] = [
     footnote: "Perbedaannya adalah sistem: filter paper, metode membaca, catatan reusable, dan kebiasaan mengubah klaim menjadi kode.",
   },
 
-  // ── 6: Section Channels ──
+  // -- 6: arXiv: Alat Akses, Bukan Sumber Otoritas --
   {
     layout: "section",
     title: "arXiv: Alat Akses, Bukan Sumber Otoritas",
@@ -63,20 +63,7 @@ export const slides10: SlideSection[] = [
     footnote: "W10 memakai arXiv sebagai tempat latihan skeptisisme: cepat menemukan ide, lambat menilai bukti.",
   },
 
-  // ── 7: Bullets arXiv ──
-  {
-    layout: "bullets",
-    title: "Membaca arXiv dengan Skeptisisme Terjaga",
-    body: "Karena tidak ada peer-review di titik unggah, membaca arXiv menuntut kebiasaan mencatat status dan keraguan:",
-    bullets: [
-      "**Tulis status publikasi** setiap paper, misalnya preprint v2 yang belum punya versi peer-reviewed, agar otoritasnya tidak dilebih-lebihkan.",
-      "**Catat keraguan eksplisit**, misalnya klaim utama yang bergantung pada satu dataset atau komponen yang belum di-ablation.",
-      "**Simpan ID dan versi** yang Anda baca, karena v1 dan v2 bisa berbeda substansial saat dikutip nanti.",
-    ],
-    footnote: "Paper lemah dan klaim berlebihan juga masuk arXiv, jadi otoritas datang dari bukti, bukan dari keberadaan PDF.",
-  },
-
-  // ── 8: Section Kurasi ──
+  // -- 7: Kurasi Paper: Dari Banjir ke Aliran Kecil --
   {
     layout: "section",
     title: "Kurasi Paper: Dari Banjir ke Aliran Kecil",
@@ -84,7 +71,7 @@ export const slides10: SlideSection[] = [
     footnote: "Rasio akhirnya sekitar 1 banding 250: awalnya terasa membuang, sebenarnya itu efisiensi.",
   },
 
-  // ── 9: Image funnel ──
+  // -- 8: Funnel Seleksi Paper --
   {
     layout: "image",
     title: "Funnel Seleksi Paper",
@@ -93,33 +80,7 @@ export const slides10: SlideSection[] = [
     footnote: "Empat filter berurutan dari kasar ke halus membuat penyaringan ratusan paper terasa terkendali.",
   },
 
-  // ── 10: Bullets filter 1-2 ──
-  {
-    layout: "bullets",
-    title: "Filter 1 dan 2: Kategori dan Judul",
-    body: "Dari gambar tersebut, dua filter pertama memangkas mayoritas paper dengan biaya waktu paling rendah:",
-    bullets: [
-      "**Filter kategori dan kata kunci** berlangganan kategori spesifik seperti cs.CV atau cs.LG, ditambah kata kunci dari minat Anda.",
-      "**Filter judul** menolak sekitar 80% paper hanya dari judul, dan memproses 50 judul dalam 5 menit.",
-      "**Alat bantu** seperti Google Scholar Alerts dan Papers with Code mempercepat dua filter pertama ini.",
-    ],
-    footnote: "Simpan ID paper seperti 2312.01234, bukan judul, karena ID lebih stabil untuk dirujuk ulang.",
-  },
-
-  // ── 11: Bullets filter 3-4 ──
-  {
-    layout: "bullets",
-    title: "Filter 3 dan 4: Abstrak dan Baca Cepat",
-    body: "Dua filter berikutnya menilai isi pada paper yang lolos, dengan biaya waktu yang naik bertahap:",
-    bullets: [
-      "**Filter abstrak** membaca 10 abstrak dan bertanya apakah klaimnya menarik dan metodenya memberi sesuatu untuk dipelajari, lalu memilih 5 teratas.",
-      "**Filter baca cepat** membaca introduction, figure pertama, dan tabel hasil dari 5 paper untuk menentukan mana yang layak dibaca mendalam.",
-      "**Hasil akhir** menyaring 500 paper menjadi 5 dibaca cepat lalu 1-2 dibaca penuh setiap minggu.",
-    ],
-    footnote: "Papers With Code menghubungkan paper ke kode resmi dan benchmark untuk verifikasi lebih lanjut.",
-  },
-
-  // ── 12: Section Three-pass ──
+  // -- 9: Membaca Paper dalam Tiga Putaran --
   {
     layout: "section",
     title: "Membaca Paper dalam Tiga Putaran",
@@ -127,7 +88,7 @@ export const slides10: SlideSection[] = [
     footnote: "Di akhir setiap putaran, pilih: lanjut ke putaran berikutnya, atau berhenti dan pilih paper lain.",
   },
 
-  // ── 13: Grid 3 passes ──
+  // -- 10: Tiga Putaran dengan Tujuan Berbeda --
   {
     layout: "grid",
     title: "Tiga Putaran dengan Tujuan Berbeda",
@@ -149,7 +110,7 @@ export const slides10: SlideSection[] = [
     footnote: "Jika setelah putaran 1 Anda tidak bisa menjawab tiga pertanyaan dasar, paper mungkin ditulis buruk atau terlalu jauh dari Anda.",
   },
 
-  // ── 14: Code catatan ──
+  // -- 11: Catatan Paper yang Bisa Dipakai Ulang --
   {
     layout: "code",
     title: "Catatan Paper yang Bisa Dipakai Ulang",
@@ -165,7 +126,7 @@ export const slides10: SlideSection[] = [
     footnote: "Simpan di docs/papers/; setelah 20 paper, Anda punya literatur pribadi yang bisa dicari dengan grep.",
   },
 
-  // ── 15: Section Paper-to-code ──
+  // -- 12: Alur Paper-to-Code --
   {
     layout: "section",
     title: "Alur Paper-to-Code",
@@ -173,7 +134,7 @@ export const slides10: SlideSection[] = [
     footnote: "Kunci utamanya adalah memisahkan kontribusi inti dari detail rekayasa sekunder.",
   },
 
-  // ── 16: Bullets paper-to-code 1-3 ──
+  // -- 13: Langkah 1 sampai 3: Isolasi Kontribusi Inti --
   {
     layout: "bullets",
     title: "Langkah 1 sampai 3: Isolasi Kontribusi Inti",
@@ -186,7 +147,7 @@ export const slides10: SlideSection[] = [
     footnote: "Jika Anda belum bisa menjelaskan satu kontribusi inti dalam satu kalimat, jangan mulai menulis kode.",
   },
 
-  // ── 17: Bullets paper-to-code 4-6 ──
+  // -- 14: Langkah 4 sampai 6: Bangun, Verifikasi, Ablation --
   {
     layout: "bullets",
     title: "Langkah 4 sampai 6: Bangun, Verifikasi, Ablation",
@@ -199,7 +160,7 @@ export const slides10: SlideSection[] = [
     footnote: "Detail penting sering tersembunyi di appendix atau code repository, jadi selalu cek keduanya.",
   },
 
-  // ── 18: Bullets ablation kecil ──
+  // -- 15: Ablation Kecil: Menguji Satu Klaim --
   {
     layout: "bullets",
     title: "Ablation Kecil: Menguji Satu Klaim",
@@ -212,7 +173,7 @@ export const slides10: SlideSection[] = [
     footnote: "Jika hasil tidak cocok dengan klaim paper, catat gap-nya: dataset, skala model, atau hyperparameter yang berbeda.",
   },
 
-  // ── 19: Section Rutinitas ──
+  // -- 16: Rutinitas Mingguan yang Tahan Lama --
   {
     layout: "section",
     title: "Rutinitas Mingguan yang Tahan Lama",
@@ -220,7 +181,109 @@ export const slides10: SlideSection[] = [
     footnote: "Rutinitas yang sederhana bertahan; yang rumit ditinggalkan dalam dua minggu.",
   },
 
-  // ── 20: Bullets rutinitas ──
+  // -- 17: Peta Keluarga Model Generatif --
+  {
+    layout: "section",
+    title: "Peta Keluarga Model Generatif",
+    body: "Modul ini membahas arsitektur diskriminatif secara hands-on, tetapi model generatif tidak masuk jadwal praktik karena ongkos training dan tuning-nya. Bagian ini memberi peta mental untuk membaca paper generatif dengan struktur.",
+    footnote: "Sekitar sepertiga paper ML modern melibatkan komponen generatif, jadi kosakatanya penting.",
+  },
+
+  // -- 18: Worked Example: Dari Paper ke Kode dalam Satu Minggu --
+  {
+    layout: "section",
+    title: "Worked Example: Dari Paper ke Kode dalam Satu Minggu",
+    body: "Rani ingin belajar focal loss dari paper Lin et al. 2017. Ia menjalankan seluruh alur W10 dalam satu minggu, dari kurasi sampai laporan yang jelas tentang batas klaim.",
+    footnote: "Tujuannya bukan reproduksi penuh RetinaNet, melainkan memahami mekanisme loss intinya.",
+  },
+
+  // -- 19: Lab W10: Implementasi Paper --
+  {
+    layout: "bullets",
+    title: "Lab W10: Implementasi Paper",
+    body: "Lab minggu ini menjalankan seluruh alur paper-to-code pada satu paper pilihan, dari membaca sampai ablation:",
+    bullets: [
+      "**Pilih satu paper** seperti Focal Loss atau DropBlock, lalu baca tiga putaran dan tulis catatan dengan template empat bagian.",
+      "**Implementasikan metode inti** dalam src atau notebook, jalankan smoke test, dan lakukan parity check terhadap angka paper.",
+      "**Jalankan satu ablation** lalu tulis experiment_report.md yang mencatat apa yang lebih sulit dari yang tampak di paper.",
+    ],
+    footnote: "Target waktu 6-8 jam; checklist menuntut satu angka paper terproduksi atau selisih di bawah 2% disertai penjelasan.",
+  },
+
+  // -- 20: Refleksi: Tiga Pertanyaan untuk Dibawa Pulang --
+  {
+    layout: "bullets",
+    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
+    body: "Sebelum lanjut ke W11, renungkan tiga pertanyaan yang menghubungkan minggu ini dengan kebiasaan riset jangka panjang:",
+    bullets: [
+      "Bagian paper mana yang paling sulit diterjemahkan menjadi kode: notasi matematika, detail implementasi, hyperparameter, atau setup eksperimen?",
+      "Apa satu klaim paper yang menjadi lebih jelas setelah Anda menjalankan ablation, dan satu klaim yang justru terasa lebih lemah?",
+      "Setelah kelas berakhir, apa rutinitas mingguan paling kecil yang realistis untuk menjaga keterampilan paper-to-code tetap hidup?",
+    ],
+    footnote: "Tuliskan jawaban di portofolio mandiri - ini adalah entri portofolio terakhir sebelum capstone.",
+  },
+
+  // -- 21: Lanjut ke W11: Research Framing --
+  {
+    layout: "bullets",
+    title: "Lanjut ke W11: Research Framing",
+    body: "Dengan W10 selesai, semua keterampilan bootcamp sudah terbangun. W11 menggabungkan semuanya untuk satu tujuan: menyusun framing riset yang siap dipertahankan di W12:",
+    bullets: [
+      "**Kerangka Input, Middle, Output** memecah ide riset menjadi tiga pertanyaan yang konkret dan bisa dijawab.",
+      "**Menu framing** menghasilkan 4-6 kandidat arah riset sebelum memilih satu untuk diperdalam.",
+      "**Triage literatur** memakai keterampilan membaca paper dari W10 untuk menilai mana yang relevan dengan framing Anda.",
+    ],
+    footnote: "Keterampilan tiga putaran dan paper-to-code dari W10 langsung dipakai untuk triage literatur di W11.",
+  },
+
+  // -- 22: Lampiran Opsional --
+  {
+    layout: "section",
+    title: "Lampiran Opsional",
+    body: "Slide berikutnya menyimpan pendalaman dan contoh tambahan untuk W10. Alur utama kelas sudah selesai; pakai bagian ini hanya jika waktu cukup atau saat ada pertanyaan dari mahasiswa.",
+    footnote: "Lampiran menjaga materi referensi tetap tersedia tanpa memutus jalur belajar utama.",
+  },
+
+  // -- 23: Membaca arXiv dengan Skeptisisme Terjaga --
+  {
+    layout: "bullets",
+    title: "Membaca arXiv dengan Skeptisisme Terjaga",
+    body: "Karena tidak ada peer-review di titik unggah, membaca arXiv menuntut kebiasaan mencatat status dan keraguan:",
+    bullets: [
+      "**Tulis status publikasi** setiap paper, misalnya preprint v2 yang belum punya versi peer-reviewed, agar otoritasnya tidak dilebih-lebihkan.",
+      "**Catat keraguan eksplisit**, misalnya klaim utama yang bergantung pada satu dataset atau komponen yang belum di-ablation.",
+      "**Simpan ID dan versi** yang Anda baca, karena v1 dan v2 bisa berbeda substansial saat dikutip nanti.",
+    ],
+    footnote: "Paper lemah dan klaim berlebihan juga masuk arXiv, jadi otoritas datang dari bukti, bukan dari keberadaan PDF.",
+  },
+
+  // -- 24: Filter 1 dan 2: Kategori dan Judul --
+  {
+    layout: "bullets",
+    title: "Filter 1 dan 2: Kategori dan Judul",
+    body: "Dari gambar tersebut, dua filter pertama memangkas mayoritas paper dengan biaya waktu paling rendah:",
+    bullets: [
+      "**Filter kategori dan kata kunci** berlangganan kategori spesifik seperti cs.CV atau cs.LG, ditambah kata kunci dari minat Anda.",
+      "**Filter judul** menolak sekitar 80% paper hanya dari judul, dan memproses 50 judul dalam 5 menit.",
+      "**Alat bantu** seperti Google Scholar Alerts dan Papers with Code mempercepat dua filter pertama ini.",
+    ],
+    footnote: "Simpan ID paper seperti 2312.01234, bukan judul, karena ID lebih stabil untuk dirujuk ulang.",
+  },
+
+  // -- 25: Filter 3 dan 4: Abstrak dan Baca Cepat --
+  {
+    layout: "bullets",
+    title: "Filter 3 dan 4: Abstrak dan Baca Cepat",
+    body: "Dua filter berikutnya menilai isi pada paper yang lolos, dengan biaya waktu yang naik bertahap:",
+    bullets: [
+      "**Filter abstrak** membaca 10 abstrak dan bertanya apakah klaimnya menarik dan metodenya memberi sesuatu untuk dipelajari, lalu memilih 5 teratas.",
+      "**Filter baca cepat** membaca introduction, figure pertama, dan tabel hasil dari 5 paper untuk menentukan mana yang layak dibaca mendalam.",
+      "**Hasil akhir** menyaring 500 paper menjadi 5 dibaca cepat lalu 1-2 dibaca penuh setiap minggu.",
+    ],
+    footnote: "Papers With Code menghubungkan paper ke kode resmi dan benchmark untuk verifikasi lebih lanjut.",
+  },
+
+  // -- 26: Sekitar Enam Jam per Minggu --
   {
     layout: "bullets",
     title: "Sekitar Enam Jam per Minggu",
@@ -233,15 +296,7 @@ export const slides10: SlideSection[] = [
     footnote: "Dalam setahun, ini berarti sekitar 40 paper dibaca dalam dan 40 implementasi kecil - cukup untuk kompeten di satu sub-bidang.",
   },
 
-  // ── 21: Section Generatif ──
-  {
-    layout: "section",
-    title: "Peta Keluarga Model Generatif",
-    body: "Modul ini membahas arsitektur diskriminatif secara hands-on, tetapi model generatif tidak masuk jadwal praktik karena ongkos training dan tuning-nya. Bagian ini memberi peta mental untuk membaca paper generatif dengan struktur.",
-    footnote: "Sekitar sepertiga paper ML modern melibatkan komponen generatif, jadi kosakatanya penting.",
-  },
-
-  // ── 22: Grid generatif ──
+  // -- 27: Empat Keluarga Model Generatif --
   {
     layout: "grid",
     title: "Empat Keluarga Model Generatif",
@@ -267,15 +322,7 @@ export const slides10: SlideSection[] = [
     footnote: "Autoencoder dari lab breadth autoencoder adalah langkah pertama menuju VAE: tinggal menambah (mu, sigma), reparameterization, dan loss KL.",
   },
 
-  // ── 23: Section Worked Example ──
-  {
-    layout: "section",
-    title: "Worked Example: Dari Paper ke Kode dalam Satu Minggu",
-    body: "Rani ingin belajar focal loss dari paper Lin et al. 2017. Ia menjalankan seluruh alur W10 dalam satu minggu, dari kurasi sampai laporan yang jelas tentang batas klaim.",
-    footnote: "Tujuannya bukan reproduksi penuh RetinaNet, melainkan memahami mekanisme loss intinya.",
-  },
-
-  // ── 24: Bullets Rani ──
+  // -- 28: Satu Minggu Rani: Kurasi sampai Laporan --
   {
     layout: "bullets",
     title: "Satu Minggu Rani: Kurasi sampai Laporan",
@@ -288,7 +335,7 @@ export const slides10: SlideSection[] = [
     footnote: "Rani melakukan seluruh keterampilan W10: memilih, membaca, mengekstrak, mengimplementasikan, ablation, dan menulis batas klaim.",
   },
 
-  // ── 25: Section Pitfalls ──
+  // -- 29: Pitfalls & Miskonsepsi --
   {
     layout: "section",
     title: "Pitfalls & Miskonsepsi",
@@ -296,7 +343,7 @@ export const slides10: SlideSection[] = [
     footnote: "Setiap pitfall punya cara deteksi yang konkret, bukan sekadar peringatan.",
   },
 
-  // ── 26: Bullets pitfalls 1-3 ──
+  // -- 30: Tiga Pitfall Pertama saat Membaca Paper --
   {
     layout: "bullets",
     title: "Tiga Pitfall Pertama saat Membaca Paper",
@@ -309,7 +356,7 @@ export const slides10: SlideSection[] = [
     footnote: "Cara deteksi pitfall kedua: buka folder src - jika tidak ada implementasi kecil, Anda sedang mengonsumsi.",
   },
 
-  // ── 27: Bullets pitfalls 4-5 ──
+  // -- 31: Dua Pitfall Berikutnya tentang Eksekusi --
   {
     layout: "bullets",
     title: "Dua Pitfall Berikutnya tentang Eksekusi",
@@ -322,51 +369,12 @@ export const slides10: SlideSection[] = [
     footnote: "Enam jam per minggu adalah rekomendasi untuk beban kuliah normal; pekerja full-time mungkin hanya tiga jam.",
   },
 
-  // ── 28: Bullets Lab W10 ──
-  {
-    layout: "bullets",
-    title: "Lab W10: Implementasi Paper",
-    body: "Lab minggu ini menjalankan seluruh alur paper-to-code pada satu paper pilihan, dari membaca sampai ablation:",
-    bullets: [
-      "**Pilih satu paper** seperti Focal Loss atau DropBlock, lalu baca tiga putaran dan tulis catatan dengan template empat bagian.",
-      "**Implementasikan metode inti** dalam src atau notebook, jalankan smoke test, dan lakukan parity check terhadap angka paper.",
-      "**Jalankan satu ablation** lalu tulis experiment_report.md yang mencatat apa yang lebih sulit dari yang tampak di paper.",
-    ],
-    footnote: "Target waktu 6-8 jam; checklist menuntut satu angka paper terproduksi atau selisih di bawah 2% disertai penjelasan.",
-  },
-
-  // ── 29: Refleksi ──
-  {
-    layout: "bullets",
-    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
-    body: "Sebelum lanjut ke W11, renungkan tiga pertanyaan yang menghubungkan minggu ini dengan kebiasaan riset jangka panjang:",
-    bullets: [
-      "Bagian paper mana yang paling sulit diterjemahkan menjadi kode: notasi matematika, detail implementasi, hyperparameter, atau setup eksperimen?",
-      "Apa satu klaim paper yang menjadi lebih jelas setelah Anda menjalankan ablation, dan satu klaim yang justru terasa lebih lemah?",
-      "Setelah kelas berakhir, apa rutinitas mingguan paling kecil yang realistis untuk menjaga keterampilan paper-to-code tetap hidup?",
-    ],
-    footnote: "Tuliskan jawaban di portofolio mandiri - ini adalah entri portofolio terakhir sebelum capstone.",
-  },
-
-  // ── 30: Lanjut W11 ──
-  {
-    layout: "bullets",
-    title: "Lanjut ke W11: Research Framing",
-    body: "Dengan W10 selesai, semua keterampilan bootcamp sudah terbangun. W11 menggabungkan semuanya untuk satu tujuan: menyusun framing riset yang siap dipertahankan di W12:",
-    bullets: [
-      "**Kerangka Input, Middle, Output** memecah ide riset menjadi tiga pertanyaan yang konkret dan bisa dijawab.",
-      "**Menu framing** menghasilkan 4-6 kandidat arah riset sebelum memilih satu untuk diperdalam.",
-      "**Triage literatur** memakai keterampilan membaca paper dari W10 untuk menilai mana yang relevan dengan framing Anda.",
-    ],
-    footnote: "Keterampilan tiga putaran dan paper-to-code dari W10 langsung dipakai untuk triage literatur di W11.",
-  },
-
-  // ── 31: CTA ──
+  // -- 32: Mulai Lab W10 --
   {
     layout: "cta",
     title: "Mulai Lab W10",
     body: "Semua konsep di presentasi ini ada dalam lab notebook lengkap: membaca tiga putaran, alur paper-to-code enam langkah, implementasi metode inti, parity check, dan satu ablation.\n\nEstimasi waktu: 6-8 jam termasuk membaca paper dan mengimplementasikan kontribusi intinya.",
     ctaText: "Buka Lab W10 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w10_paper_to_code.ipynb",
-  },
+  }
 ];
