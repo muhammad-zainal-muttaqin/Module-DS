@@ -253,7 +253,48 @@ export const slides03: SlideSection[] = [
     footnote: "Perplexity adalah metrik khusus model bahasa dan hanya bermakna relatif antar model.",
   },
 
-  // ── 21: Strategi validasi ──
+  // ── 21: Tabel metrik pada kasus deteksi orang sakit ──
+  {
+    layout: "table",
+    title: "Enam Metrik pada Satu Kasus: Deteksi Orang Sakit",
+    body: "Tabel berikut memakai satu kasus yang sama, yaitu deteksi orang sakit, agar perbedaan tiap metrik terlihat konkret. Baca kolom \"Dipakai kapan\" dulu, lalu contohnya:",
+    tableHead: ["Metrik", "Dipakai kapan", "Contoh pada kasus deteksi orang sakit"],
+    tableRows: [
+      [
+        "Accuracy",
+        "Jumlah orang sakit dan sehat relatif seimbang.",
+        "Data berisi 500 orang sakit dan 500 orang sehat. Jika model banyak menebak benar secara keseluruhan, accuracy masih layak dipakai.",
+      ],
+      [
+        "Precision",
+        "Prediksi \"sakit\" harus benar-benar akurat.",
+        "Model memprediksi 100 orang sakit. Precision menjawab: dari 100 orang itu, berapa yang benar-benar sakit? Penting jika pemeriksaan lanjutan mahal atau berisiko.",
+      ],
+      [
+        "Recall",
+        "Sebanyak mungkin orang sakit harus ditemukan.",
+        "Ada 100 orang yang benar-benar sakit. Recall menjawab: dari 100 orang itu, berapa yang berhasil dideteksi model? Penting jika penyakit berbahaya dan tidak boleh terlewat.",
+      ],
+      [
+        "F1-score",
+        "Precision dan recall sama-sama penting.",
+        "Kita ingin banyak orang sakit terdeteksi, tetapi tidak ingin terlalu banyak orang sehat salah ditandai sakit. F1 menyeimbangkan precision dan recall.",
+      ],
+      [
+        "ROC-AUC",
+        "Menilai kemampuan membedakan sakit dan sehat di berbagai ambang batas.",
+        "Model memberi skor risiko 0 sampai 1. ROC-AUC melihat apakah skor orang sakit cenderung lebih tinggi daripada orang sehat.",
+      ],
+      [
+        "PR-AUC",
+        "Jumlah orang sakit sangat sedikit dibanding orang sehat.",
+        "Dari 10.000 orang, hanya 50 yang sakit. PR-AUC lebih cocok karena fokus pada kualitas prediksi kelas \"sakit\" yang jumlahnya langka.",
+      ],
+    ],
+    footnote: "Inti tabel: metrik dipilih dari keseimbangan kelas dan jenis kesalahan yang paling ingin dihindari, bukan dari kebiasaan memakai satu angka.",
+  },
+
+  // ── 22: Strategi validasi ──
   {
     layout: "bullets",
     title: "Tiga Strategi Validasi",
@@ -266,7 +307,7 @@ export const slides03: SlideSection[] = [
     footnote: "Untuk dataset kecil yang tidak seimbang, stratified k-fold adalah kombinasi yang paling sering tepat.",
   },
 
-  // ── 22: Image tiga strategi ──
+  // ── 23: Image tiga strategi ──
   {
     layout: "image",
     title: "Engineered, Extracted, Learned: Tiga Jalur Representasi",
@@ -275,7 +316,7 @@ export const slides03: SlideSection[] = [
     footnote: "Ketiga jalur ini menjadi sumbu utama saat Anda merumuskan variabel eksperimen di capstone.",
   },
 
-  // ── 23: Grid tiga strategi (situasi dua tim di pembuka) ──
+  // ── 24: Grid tiga strategi (situasi dua tim di pembuka) ──
   {
     layout: "grid",
     title: "Membandingkan Tiga Strategi Representasi",
@@ -297,7 +338,7 @@ export const slides03: SlideSection[] = [
     footnote: "Membandingkan BERT frozen + head kecil dengan BERT fine-tune penuh berarti membandingkan dua strategi representasi, bukan sekadar dua model.",
   },
 
-  // ── 24: Mendiagnosis (DIVIDER 4) ──
+  // ── 25: Mendiagnosis (DIVIDER 4) ──
   {
     layout: "section",
     title: "Mendiagnosis Hasil Training dari Loss Curve",
@@ -305,7 +346,7 @@ export const slides03: SlideSection[] = [
     footnote: "Pemeriksaan paling penting di bagian ini adalah overfit satu batch.",
   },
 
-  // ── 25: Image lima pola ──
+  // ── 26: Image lima pola ──
   {
     layout: "image",
     title: "Lima Pola Loss Curve untuk Diagnosis",
@@ -314,7 +355,7 @@ export const slides03: SlideSection[] = [
     footnote: "Salah mendiagnosis pola berarti membuang waktu training pada perbaikan yang tidak relevan.",
   },
 
-  // ── 26: Pola 1-2 ──
+  // ── 27: Pola 1-2 ──
   {
     layout: "split",
     title: "Pola 1 dan Pola 2: Tidak Belajar vs Overfit Cepat",
@@ -330,7 +371,7 @@ export const slides03: SlideSection[] = [
     footnote: "Pola 1 memisahkan bug kode dari masalah hiperparameter; Pola 2 mengarahkan Anda ke data atau kapasitas.",
   },
 
-  // ── 27: Pola 3-4-5 ──
+  // ── 28: Pola 3-4-5 ──
   {
     layout: "bullets",
     title: "Pola 3, 4, dan 5: Overfit Klasik, Underfit, dan Ledakan",
@@ -343,7 +384,7 @@ export const slides03: SlideSection[] = [
     footnote: "Untuk RNN dan Transformer di minggu-minggu berikutnya, gradient clipping hampir selalu diperlukan.",
   },
 
-  // ── 28: Overfit one batch ──
+  // ── 29: Overfit one batch ──
   {
     layout: "bullets",
     title: "Overfit Satu Batch: Pemeriksaan Terpenting",
@@ -356,7 +397,7 @@ export const slides03: SlideSection[] = [
     footnote: "Karpathy menyebut overfit satu batch sebagai pemeriksaan debugging terpenting dalam melatih neural network.",
   },
 
-  // ── 29: Tiga pemeriksaan (situasi worked example di pembuka) ──
+  // ── 30: Tiga pemeriksaan (situasi worked example di pembuka) ──
   {
     layout: "bullets",
     title: "Tiga Pemeriksaan Sebelum Menulis Angka",
@@ -369,7 +410,7 @@ export const slides03: SlideSection[] = [
     footnote: "Ketiga pemeriksaan ini tetap menjadi bekal evaluasi W3, sedangkan lab utama minggu ini berfokus pada ablation loss dan freeze."
   },
 
-  // ── 30: Tiga miskonsepsi (framing pitfalls di pembuka) ──
+  // ── 31: Tiga miskonsepsi (framing pitfalls di pembuka) ──
   {
     layout: "bullets",
     title: "Tiga Keyakinan yang Perlu Diluruskan",
@@ -382,7 +423,7 @@ export const slides03: SlideSection[] = [
     footnote: "Pola umum: sebuah pernyataan benar dalam konteks tertentu menjadi salah saat dipakai sebagai aturan mutlak.",
   },
 
-  // ── 31: Lab W3 ──
+  // ── 32: Lab W3 ──
   {
     layout: "bullets",
     title: "Lab W3: Toy Ablation Loss + Freeze",
@@ -395,7 +436,7 @@ export const slides03: SlideSection[] = [
     footnote: "Lab penunjang representasi fitur pada CIFAR-10 tetap tersedia sebagai latihan opsional, bukan syarat utama Lab W3.",
   },
 
-  // ── 32: Refleksi ──
+  // ── 33: Refleksi ──
   {
     layout: "bullets",
     title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
@@ -408,7 +449,7 @@ export const slides03: SlideSection[] = [
     footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat capstone.",
   },
 
-  // ── 33: Lanjut ke W4 ──
+  // ── 34: Lanjut ke W4 ──
   {
     layout: "bullets",
     title: "Lanjut ke W4: dari Memahami ke Merancang",
@@ -421,7 +462,7 @@ export const slides03: SlideSection[] = [
     footnote: "Kebiasaan mengubah satu hal pada satu waktu di W3 menjadi fondasi disiplin eksperimen di W4.",
   },
 
-  // ── 34: CTA Lab W3 ──
+  // ── 35: CTA Lab W3 ──
   {
     layout: "cta",
     title: "Mulai Lab W3",
@@ -430,7 +471,7 @@ export const slides03: SlideSection[] = [
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w3_loss_ablation.ipynb",
   },
 
-  // ── 35: Bridge assignment W3 ke W4 ──
+  // ── 36: Bridge assignment W3 ke W4 ──
   {
     layout: "bullets",
     title: "Tugas Setelah Lab W3: Diagnosis CIFAR-10 untuk Awal W4",

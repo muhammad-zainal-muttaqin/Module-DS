@@ -231,6 +231,41 @@ function SlideContent({ section }: { section: SlideSection }) {
         </div>
       );
 
+    case "table":
+      return (
+        <div className="slide-table-layout">
+          <h2 className="slide-heading">{section.title}</h2>
+          {section.body && (
+            <p className="slide-body" dangerouslySetInnerHTML={{ __html: markdownish(section.body) }} />
+          )}
+          <table className="slide-table">
+            {section.tableHead && (
+              <thead>
+                <tr>
+                  {section.tableHead.map((h, i) => (
+                    <th key={i} dangerouslySetInnerHTML={{ __html: markdownish(h) }} />
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {section.tableRows?.map((row, i) => (
+                <tr
+                  key={i}
+                  className="slide-stagger"
+                  style={staggerStyle({ index: i })}
+                >
+                  {row.map((cell, j) => (
+                    <td key={j} dangerouslySetInnerHTML={{ __html: markdownish(cell) }} />
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {section.footnote && <p className="slide-footnote">{section.footnote}</p>}
+        </div>
+      );
+
     default:
       return null;
   }

@@ -2,7 +2,7 @@
 // Setiap bab punya file sendiri di direktori ini.
 
 export type SlideSection = {
-  layout: "title" | "section" | "bullets" | "split" | "quote" | "cta" | "grid" | "code" | "image" | "video";
+  layout: "title" | "section" | "bullets" | "split" | "quote" | "cta" | "grid" | "code" | "image" | "video" | "table";
   title?: string;
   subtitle?: string;
   body?: string;
@@ -20,6 +20,8 @@ export type SlideSection = {
   imageUrl?: string;
   videoUrl?: string;
   caption?: string;
+  tableHead?: string[];
+  tableRows?: string[][];
 };
 
 export type SlideDeckData = {
