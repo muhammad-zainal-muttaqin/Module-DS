@@ -504,7 +504,9 @@ export const SLIDE_DECKS: Record<string, SlideDeckData> = {
 3. **`website/src/styles/reveal-custom.css`** - styling khusus (jarang diperlukan).
 
 **Konvensi:**
-- Max 10 slide untuk deck **trailer** (ideal 6-8). Deck **standalone** (presentasi tanpa modul, seperti slides-02) boleh lebih - arahkan ke 35-45 slide.
+- Max 10 slide untuk deck **trailer** (ideal 6-8).
+- Deck **kelas mingguan utama** untuk diajarkan langsung di kelas targetkan **18-22 slide utama**. Boleh tambah lampiran opsional setelah alur utama jika ada detail referensi, tetapi jangan biarkan lampiran memutus alur ajar.
+- Deck **standalone panjang** 35-45 slide hanya dipakai jika user eksplisit meminta presentasi penuh tanpa modul atau materi harus menggantikan bacaan. Jangan memakai target 35-45 otomatis untuk semua deck mingguan.
 - Slide 1: `layout: "title"` + footnote chapter.
 - Slide terakhir: `layout: "cta"` + `ctaTarget`.
 - **Max 3 bullet per slide.** Lebih dari 3 = pecah jadi dua slide terpisah.
@@ -515,7 +517,7 @@ export const SLIDE_DECKS: Record<string, SlideDeckData> = {
 - `layout: "code"` untuk snippet max 8-10 baris.
 - `footnote` untuk konteks, bukan konten utama.
 
-**Slide standalone vs trailer:** Slide trailer ringkas (6-8 slide) untuk pengantar sebelum mahasiswa membaca modul. Slide standalone lengkap (35+ slide) untuk presentasi langsung tanpa modul - pastikan setiap konsep punya slide sendiri dan setiap gambar penting ditampilkan.
+**Slide mingguan vs trailer vs standalone:** Slide trailer ringkas (6-8 slide) untuk pengantar sebelum mahasiswa membaca modul. Slide kelas mingguan utama memakai alur linear 18-22 slide: recall singkat -> tujuan minggu ini -> contoh konkret -> diagnosis/konsep inti -> lab/refleksi. Detail referensi seperti daftar optimizer, scheduler, tabel metrik panjang, atau variasi teknik lanjutan masuk lampiran opsional. Slide standalone lengkap (35+ slide) hanya untuk presentasi penuh tanpa modul saat diminta eksplisit - pastikan setiap konsep punya slide sendiri dan setiap gambar penting ditampilkan.
 
 ### Gaya Penulisan Slide Deck
 
