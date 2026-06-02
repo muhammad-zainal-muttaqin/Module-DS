@@ -66,7 +66,7 @@ export const slides03: SlideSection[] = [
   {
     layout: "section",
     title: "Amati Dulu, Teori Belakangan",
-    body: "Sebelum menyentuh teori loss dan optimizer, kita amati dulu. Loss yang stagnan, meledak ke NaN, atau tidak bergerak sama sekali bukan kejadian langka, melainkan rutinitas riset sehari-hari. Lima contoh berikut melatih mata Anda membaca gejalanya sebelum tahu namanya.",
+    body: "Sebelum menyentuh teori loss dan optimizer, kita amati dulu. Loss yang stagnan, meledak ke NaN, atau tidak bergerak sama sekali bukan kejadian langka, melainkan rutinitas riset sehari-hari. Lewat lima contoh berikut, Anda berlatih mengenali gejalanya dari bentuk kurva sebelum tahu nama tekniknya.",
     footnote: "Kelima pola ini kembali dengan kerangka diagnosis lengkap di bagian akhir presentasi.",
   },
 
@@ -192,7 +192,7 @@ export const slides03: SlideSection[] = [
     body: "Mengganti loss tanpa alasan yang jelas hanya menambah variabel baru di eksperimen. Satu pertanyaan membantu menyaring keputusan ini:",
     bullets: [
       "Apa jenis kesalahan dengan konsekuensi terbesar di aplikasi Anda - false negative pada kelas langka, atau prediksi yang meleset jauh?",
-      "Jika false negative pada kelas minor paling mahal, focal loss atau pembobotan kelas langsung adalah kandidat yang masuk akal dicoba.",
+      "Jika false negative pada kelas minor adalah kesalahan yang paling merugikan, focal loss atau pembobotan kelas langsung adalah kandidat yang masuk akal dicoba.",
       "Jika tidak ada alasan kuat, pertahankan cross-entropy atau MSE sebagai baseline dan ubah hal lain terlebih dahulu.",
     ],
     footnote: "Aturan ini menjaga setiap perbandingan tetap punya satu variabel yang berubah.",
@@ -204,7 +204,7 @@ export const slides03: SlideSection[] = [
     title: "SGD, AdamW, dan LAMB: Tiga Titik di Spektrum",
     body: "Dua orang melatih model yang sama dengan loss dan data yang sama: satu konvergen dalam 10 epoch, satu lagi butuh 60 epoch dengan tuning yang melelahkan. Bedanya ada di optimizer, yang memutuskan dari gradient yang sama seberapa besar dan ke arah mana tiap parameter digeser. Ketiga optimizer ini berbeda pada cara menyesuaikan learning rate per parameter dan pada skala data yang mereka tuju:",
     bullets: [
-      "**SGD dengan momentum** adalah optimizer paling sederhana yang sering menang setelah tuning tekun, tetapi membutuhkan learning rate schedule yang dirancang hati-hati - banyak paper visi state-of-the-art tetap memakainya.",
+      "**SGD dengan momentum** adalah optimizer paling sederhana yang sering memberi hasil terbaik setelah tuning yang tekun, tetapi membutuhkan learning rate schedule yang dirancang hati-hati - banyak paper visi state-of-the-art tetap memakainya.",
       "**Adam dan AdamW** bersifat adaptif sehingga setiap parameter mendapat learning rate sendiri dan konvergen cepat di epoch awal, dengan AdamW memisahkan weight decay dari momentum gradient.",
       "**LAMB** adalah varian untuk batch size sangat besar yang relevan di pre-training BERT atau GPT, dan jarang diperlukan di proyek kuliah.",
     ],
