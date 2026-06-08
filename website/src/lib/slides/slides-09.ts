@@ -1,75 +1,91 @@
 import type { SlideSection } from "./index";
 
 export const slides09: SlideSection[] = [
-  // -- 1: W9: Multimodal Reasoning --
+  // -- 1: Title --
   {
     layout: "title",
     title: "W9: Multimodal Reasoning",
-    subtitle: "Bagaimana menggabungkan beberapa modalitas, cara memastikan model benar-benar memakai semuanya, dan apa yang dilakukan saat satu modalitas hilang.",
-    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
+    subtitle: "Menggabungkan beberapa modalitas jadi satu prediksi, lalu membuktikan dengan ablation bahwa model benar-benar memakai semuanya.",
     footnote: "Bab 09 - Minggu 9",
   },
 
-  // -- 2: Peta W9 --
+  // -- 2: Agenda --
   {
-    layout: "section",
-    title: "Peta W9",
-    body: "Ketika dua aliran data tersedia, apakah model benar-benar memakai keduanya? Pertanyaan ini paling sering diabaikan dalam riset multimodal, dan jawabannya sering di luar dugaan.",
-    footnote: "W9 melatih berpikir sistematis tentang banyak aliran data sekaligus, dari fusion sampai ablation.",
+    layout: "grid",
+    title: "Kali ini kita akan membahas",
+    body: "Enam materi minggu ini mengikuti alur dari menggabungkan modalitas sampai membuktikan tiap modalitas berkontribusi:",
+    gridItems: [
+      {
+        title: "1. Strategi Fusion",
+        body: "Kita membandingkan late, early, dan cross-attention fusion serta kapan masing-masing dipakai.",
+      },
+      {
+        title: "2. Modalitas Terabaikan",
+        body: "Kita mendeteksi failure mode saat model diam-diam memakai satu modalitas saja, lalu memperbaikinya.",
+      },
+      {
+        title: "3. Modalitas Hilang",
+        body: "Kita menangani input tidak lengkap dengan modality dropout, null token, atau fallback single-modal.",
+      },
+      {
+        title: "4. Temporal Alignment",
+        body: "Kita menyinkronkan aliran data yang sampling rate dan clock-nya berbeda.",
+      },
+      {
+        title: "5. Protokol Ablation",
+        body: "Kita menyusun matriks kondisi yang membuktikan tiap modalitas benar-benar berkontribusi.",
+      },
+      {
+        title: "6. Repo Adoption Multimodal",
+        body: "Kita membaca codebase dengan banyak encoder dan modul fusion yang abstrak.",
+      },
+    ],
   },
 
-  // -- 3: Dari W8 ke W9: dari Satu Modalitas ke Banyak --
+  // -- 3: Recap W8 --
   {
     layout: "bullets",
-    title: "Dari W8 ke W9: dari Satu Modalitas ke Banyak",
-    body: "W8 melatih memilih dan mengadaptasi foundation model untuk satu modalitas; W9 menggabungkan beberapa modalitas sekaligus. Tiga hal menjadi fokus minggu ini:",
+    title: "Di pertemuan sebelumnya (W8)",
+    body: "W8 melatih memilih dan mengadaptasi satu foundation model per modalitas. Outputnya menjadi bahan W9:",
     bullets: [
-      "**Kebiasaan riset** yang dilatih minggu ini adalah ablation per modalitas dan analisis kegagalan multimodal sebelum klaim apapun.",
-      "**Cross-attention** dari W7 kini dipakai untuk menggabungkan dua modalitas, bukan menghubungkan token dalam satu modalitas.",
-      "**Dataset multimodal** dengan minimal dua modalitas dipakai, misalnya sensor dengan gambar atau audio dengan teks.",
+      "Kita mengambil encoder pretrained per modalitas dengan keputusan frozen, LoRA, atau fine-tuning.",
+      "Minggu ini beberapa encoder itu digabung menjadi satu prediksi multimodal.",
+      "Cross-attention dari W7 dipakai lagi, tetapi sumber Query, Key, dan Value sekarang lintas modalitas.",
     ],
-    footnote: "Lab utama minggu ini adalah lab_w9_multimodal_ablation.ipynb.",
+    footnote: "Disiplin ablation satu variabel dari W4 menjadi alat utama minggu ini.",
   },
 
-  // -- 4: Motivasi: Apakah Model Melihat Keduanya? --
-  {
-    layout: "section",
-    title: "Motivasi: Apakah Model Melihat Keduanya?",
-    body: "Anda membangun model prediksi nyeri dari ekspresi wajah dan sensor pergelangan tangan. Training lancar dan validation F1 mencapai 0.79. Lalu Anda menghapus seluruh input sensor.",
-    footnote: "Hasilnya tetap 0.78 - hampir sama, dan ini mengungkap sesuatu yang penting.",
-  },
-
-  // -- 5: Dua Minggu Kerja yang Setara dengan Satu Modalitas --
+  // -- 4: Motivasi (artefak: angka ablation) --
   {
     layout: "bullets",
-    title: "Dua Minggu Kerja yang Setara dengan Satu Modalitas",
-    body: "Eksperimen menghapus sensor tadi mengungkap failure mode yang paling sering tidak terdeteksi:",
+    title: "Apakah Model Memakai Kedua Modalitas?",
+    body: "Sebuah model memprediksi skala nyeri dari ekspresi wajah dan sensor accelerometer. Angka ablation berikut mengungkap sesuatu yang penting:",
     bullets: [
-      "**F1 hanya turun 0.01** saat sensor dihapus, yang berarti model pada dasarnya tidak memakai data sensor sama sekali.",
-      "**Dua minggu implementasi fusion** ternyata menghasilkan performa identik dengan model satu modalitas.",
-      "**Inilah failure mode modalitas terabaikan**, dan satu-satunya cara mendeteksinya adalah menjalankan ablation per modalitas.",
+      "Validation F1 mencapai 0.79 dengan kedua modalitas, dan hasilnya terlihat bagus.",
+      "Setelah seluruh input sensor dihapus, F1 hanya turun ke 0.78, selisih 0.01.",
+      "Artinya model pada dasarnya tidak memakai data sensor, dan dua minggu kerja fusion setara satu modalitas.",
     ],
-    footnote: "Sebelum melaporkan hasil multimodal, ablation per modalitas adalah keharusan, bukan tambahan.",
+    footnote: "Sebelum melaporkan hasil multimodal apa pun, ablation per modalitas wajib dijalankan.",
   },
 
-  // -- 6: Strategi Fusion: Tiga Cara Menggabungkan Modalitas --
+  // -- 5: Materi 1 --
   {
     layout: "section",
-    title: "Strategi Fusion: Tiga Cara Menggabungkan Modalitas",
-    body: "Kapan modalitas digabungkan menentukan apa yang bisa dipelajari model. Tiga strategi fusion berbeda pada titik penggabungan dan tingkat interaksi antar modalitas.",
-    footnote: "Pilihan strategi menentukan apakah model bisa belajar hubungan halus antar modalitas.",
+    title: "1. Strategi Fusion",
+    body: "Strategi fusion menentukan di titik mana embedding dari beberapa modalitas digabungkan, dan titik itu menentukan seberapa dalam interaksi antar modalitas bisa dipelajari.",
+    footnote: "Ada tiga strategi: late, early, dan cross-attention.",
   },
 
-  // -- 7: Late, Early, dan Cross-Attention Fusion --
+  // -- 6: Fusion image (sebelum teks) --
   {
     layout: "image",
     title: "Late, Early, dan Cross-Attention Fusion",
     imageUrl: "/figures/fig08a_fusion_strategies.svg",
-    caption: "Gambar ini membandingkan tiga strategi fusion: late fusion menggabungkan output encoder di ujung, early fusion menggabungkan input di awal sebelum diproses model bersama, dan cross-attention fusion membuat satu modalitas memperhatikan modalitas lain lewat attention. Titik penggabungan yang berbeda menentukan seberapa dalam interaksi antar modalitas bisa dipelajari.",
+    caption: "Gambar ini membandingkan tiga strategi fusion dari titik penggabungan paling akhir ke paling awal: late fusion menggabungkan output encoder di ujung, early fusion menggabungkan input di awal sebelum model bersama, dan cross-attention membuat satu modalitas memperhatikan modalitas lain lewat attention.",
     footnote: "Cross-attention dipakai model vision-language modern seperti BLIP-2 dan Flamingo.",
   },
 
-  // -- 8: Membandingkan Tiga Strategi Fusion --
+  // -- 7: Membandingkan tiga strategi --
   {
     layout: "grid",
     title: "Membandingkan Tiga Strategi Fusion",
@@ -77,21 +93,21 @@ export const slides09: SlideSection[] = [
     gridItems: [
       {
         title: "Late Fusion",
-        body: "Setiap modalitas diproses encoder sendiri lalu output digabungkan di ujung. Mudah diimplementasikan dan tahan modalitas hilang, tetapi tidak ada interaksi antar modalitas sebelum penggabungan.",
+        body: "Tiap modalitas diproses encoder sendiri lalu output digabungkan di ujung. Strategi ini mudah diimplementasikan dan tahan modalitas hilang, tetapi tidak ada interaksi antar modalitas sebelum penggabungan.",
       },
       {
         title: "Early Fusion",
-        body: "Input berbagai modalitas digabungkan di level representasi awal sebelum diproses model bersama. Bisa belajar interaksi sejak awal, tetapi butuh projection cermat dan sulit menangani modalitas hilang.",
+        body: "Input berbagai modalitas digabungkan di level representasi awal sebelum model bersama. Strategi ini bisa belajar interaksi sejak awal, tetapi butuh projection cermat dan sulit menangani modalitas hilang.",
       },
       {
         title: "Cross-Attention Fusion",
-        body: "Satu modalitas menjadi query dan yang lain menjadi key dan value. Model belajar bagian mana dari satu modalitas relevan untuk tiap elemen modalitas lain, dengan biaya komputasi yang lebih tinggi.",
+        body: "Satu modalitas menjadi Query dan modalitas lain menjadi Key serta Value. Model belajar bagian mana dari satu modalitas relevan untuk tiap elemen modalitas lain, dengan biaya komputasi lebih tinggi.",
       },
     ],
-    footnote: "Late fusion sering menghasilkan modalitas terabaikan saat satu aliran data lebih mudah dioptimasi.",
+    footnote: "Late fusion paling sering menghasilkan modalitas terabaikan saat satu aliran data lebih mudah dioptimasi.",
   },
 
-  // -- 9: Cross-Attention: Teks Bertanya pada Gambar --
+  // -- 8: Cross-attention code --
   {
     layout: "code",
     title: "Cross-Attention: Teks Bertanya pada Gambar",
@@ -103,52 +119,52 @@ V = W_v @ image_features     # (B, T_image, d)
 
 w = softmax(Q @ K.transpose(-2,-1) / sqrt(d), dim=-1)
 out = w @ V                  # (B, T_text, d)`,
-    footnote: "Token \"merah\" bisa memberi perhatian pada region merah di gambar lewat skor attention ini.",
+    footnote: "Rumus Q, K, V sudah dibahas di W7; di sini Query dan Key/Value berasal dari modalitas berbeda.",
   },
 
-  // -- 10: Failure Mode: Modalitas Terabaikan --
+  // -- 9: Materi 2 --
   {
     layout: "section",
-    title: "Failure Mode: Modalitas Terabaikan",
-    body: "Saat training multimodal, optimizer mengikuti jalur yang paling mudah. Jika satu modalitas lebih bersih atau lebih mudah dipakai, model bisa mengabaikan modalitas lain sambil loss tetap turun.",
-    footnote: "Performa tampak bagus, tetapi model sebenarnya single-modal tanpa Anda sadari.",
+    title: "2. Modalitas Terabaikan",
+    body: "Saat training multimodal, optimizer mengikuti jalur yang paling mudah. Jika satu modalitas lebih bersih atau lebih mudah dioptimasi, model bisa mengabaikan modalitas lain sambil loss tetap turun.",
+    footnote: "Performa tampak bagus, tetapi model sebenarnya memakai satu modalitas saja.",
   },
 
-  // -- 11: Tiga Cara Mendeteksi Modalitas Terabaikan --
+  // -- 10: Tiga cara mendeteksi --
   {
     layout: "bullets",
     title: "Tiga Cara Mendeteksi Modalitas Terabaikan",
-    body: "Untuk membuktikan model benar-benar memakai sebuah modalitas, tiga uji berikut saling melengkapi:",
+    body: "Failure mode ini tidak terlihat dari loss curve atau F1, jadi tiga uji berikut yang memunculkannya:",
     bullets: [
-      "**Ablation per modalitas** menghapus satu modalitas - jika F1 tidak turun signifikan, modalitas itu diabaikan.",
-      "**Modalitas acak** mengganti satu modalitas dengan noise - jika performa tidak memburuk, modalitas itu tidak dipakai.",
-      "**Gradient magnitude check** menghitung gradient norm tiap encoder - encoder dengan gradient konsisten kecil tidak berkontribusi.",
+      "**Ablation per modalitas** menghapus satu modalitas sekaligus, dan jika F1 tidak turun signifikan, modalitas itu diabaikan.",
+      "**Modalitas acak** mengganti satu modalitas dengan noise, dan jika performa tidak memburuk, modalitas itu memang tidak dipakai.",
+      "**Gradient magnitude check** menghitung gradient norm tiap encoder, dan encoder yang konsisten kecil tidak berkontribusi.",
     ],
-    footnote: "Ketiga uji ini murah dijalankan dibanding biaya melaporkan hasil multimodal yang ternyata palsu.",
+    footnote: "Ablation dibaca dua arah: selisih nol berarti diabaikan, dan kenaikan tipis belum membuktikan apa pun tanpa uji modalitas acak.",
   },
 
-  // -- 12: Tiga Solusi terhadap Modalitas Terabaikan --
+  // -- 11: Tiga solusi --
   {
     layout: "bullets",
     title: "Tiga Solusi terhadap Modalitas Terabaikan",
-    body: "Saat ablation mengungkap modalitas yang diabaikan, tiga teknik memaksa model belajar dari setiap modalitas:",
+    body: "Saat ablation memang menemukan modalitas yang diabaikan, tiga teknik memaksa model belajar dari setiap modalitas:",
     bullets: [
-      "**Modality dropout** mematikan setiap modalitas secara acak saat training, sehingga model dipaksa belajar dari tiap modalitas secara mandiri.",
-      "**Separate loss terms** menambahkan auxiliary loss per modalitas agar setiap encoder mendapat gradient yang jelas.",
+      "**Modality dropout** mematikan tiap modalitas secara acak saat training, sehingga model dipaksa belajar dari masing-masing secara mandiri.",
+      "**Separate loss terms** menambahkan auxiliary loss per modalitas agar tiap encoder mendapat gradient yang jelas.",
       "**Gradient balancing** menyesuaikan learning rate tiap modalitas berdasarkan gradient magnitude masing-masing.",
     ],
-    footnote: "Probabilitas dropout 0.10-0.25 lazim; naikkan ke 0.30-0.40 untuk modalitas yang terlalu dominan.",
+    footnote: "Menemukan modalitas terabaikan adalah temuan yang dilaporkan, bukan disembunyikan.",
   },
 
-  // -- 13: Modalitas Hilang: Saat Input Tidak Lengkap --
+  // -- 12: Materi 3 --
   {
     layout: "section",
-    title: "Modalitas Hilang: Saat Input Tidak Lengkap",
-    body: "Dalam produksi, satu modalitas sering tidak tersedia: sensor rusak, gambar kabur, atau teks kosong. Sistem multimodal yang baik harus menangani ini secara rapi, bukan crash atau menebak.",
+    title: "3. Modalitas Hilang",
+    body: "Di produksi, satu modalitas sering tidak tersedia: sensor rusak, gambar terlalu kabur, atau teks tidak terisi. Sistem multimodal yang baik menangani ini secara rapi, bukan crash atau menebak.",
     footnote: "Zero padding memberi sinyal ambigu, sehingga tiga strategi berikut lebih tepat.",
   },
 
-  // -- 14: Tiga Strategi Menangani Modalitas Hilang --
+  // -- 13: Tiga strategi modalitas hilang --
   {
     layout: "grid",
     title: "Tiga Strategi Menangani Modalitas Hilang",
@@ -160,155 +176,102 @@ out = w @ V                  # (B, T_text, d)`,
       },
       {
         title: "Learnable Null Token",
-        body: "Strategi ini mengganti modalitas hilang dengan embedding yang dipelajari untuk merepresentasikan \"tidak ada modalitas ini\", lebih baik daripada zero padding yang ambigu.",
+        body: "Strategi ini mengganti modalitas hilang dengan embedding yang dipelajari untuk merepresentasikan tidak adanya modalitas itu, lebih baik daripada zero padding yang ambigu.",
       },
       {
         title: "Fallback Single-Modal",
-      body: "Strategi ini mendesain model dalam bentuk ensemble: pakai semua modalitas jika tersedia, lalu jatuh ke model unimodal saat satu modalitas hilang. Sederhana dan andal untuk produksi.",
+        body: "Strategi ini mendesain model sebagai ensemble: pakai semua modalitas jika tersedia, lalu jatuh ke model unimodal saat satu modalitas hilang. Sederhana dan andal untuk produksi.",
       },
     ],
-    footnote: "Learnable null token belajar merepresentasikan distribusi \"tidak ada\", bukan noise nol.",
+    footnote: "Probabilitas dropout 0.10-0.25 lazim; naikkan ke 0.30-0.40 untuk modalitas yang terlalu dominan.",
   },
 
-  // -- 15: Temporal Alignment: Saat Aliran Tidak Sinkron --
+  // -- 14: Materi 4 --
   {
     layout: "section",
-    title: "Temporal Alignment: Saat Aliran Tidak Sinkron",
-    body: "Banyak dataset multimodal nyata punya masalah alignment: video 25 fps versus audio 44 kHz, atau sensor IMU 100 Hz versus kamera 30 fps. Tanpa sinkronisasi, model bisa mengasosiasikan event dari waktu yang salah.",
-    footnote: "Cross-attention yang tidak ter-align akan belajar korelasi yang semu.",
+    title: "4. Temporal Alignment",
+    body: "Banyak dataset multimodal nyata punya aliran data dengan sampling rate atau clock berbeda: video 25 fps versus audio 44 kHz, atau sensor IMU 100 Hz versus kamera 30 fps.",
+    footnote: "Tanpa sinkronisasi, model mengasosiasikan event dari waktu yang salah dan cross-attention belajar korelasi semu.",
   },
 
-  // -- 16: Tiga Pendekatan Menyelaraskan Aliran Data --
+  // -- 15: Drift image (sebelum teks) --
+  {
+    layout: "image",
+    title: "Dua Stream dengan Clock Drift Berbeda",
+    imageUrl: "/figures/fig08c_temporal_alignment.png",
+    caption: "Gambar ini menunjukkan dua stream sensor yang awalnya sejajar lalu bergeser karena clock drift yang menumpuk. Drift kecil yang menumpuk membuat frame di satu stream tidak lagi sejajar dengan sample di stream lain.",
+    footnote: "Model yang dilatih pada drift konsisten akan gagal pada sensor baru dengan drift berbeda.",
+  },
+
+  // -- 16: Tiga pendekatan alignment --
   {
     layout: "bullets",
     title: "Tiga Pendekatan Menyelaraskan Aliran Data",
     body: "Dari gambar tersebut, alignment yang benar bisa dicapai lewat tiga pendekatan dengan trade-off berbeda:",
     bullets: [
-      "**Resampling atau interpolasi** menurunkan semua stream ke resolusi temporal terendah - mudah tetapi kehilangan detail.",
+      "**Resampling atau interpolasi** menurunkan semua stream ke resolusi temporal terendah, mudah tetapi kehilangan detail.",
       "**Event-to-window mapping** memetakan tiap event ke window dari stream kontinu terdekat, cocok untuk data berbasis event.",
-      "**Temporal position encoding** menyuntikkan waktu absolut dalam fitur eksplisit dan membiarkan model belajar alignment sendiri.",
+      "**Temporal position encoding** menyuntikkan waktu absolut sebagai feature eksplisit dan membiarkan model belajar alignment sendiri.",
     ],
     footnote: "Jika drift sudah terlanjur, sertakan koreksinya dalam preprocessing yang terdokumentasi, bukan perbaikan diam-diam.",
   },
 
-  // -- 17: Protokol Ablation Per Modalitas --
-  {
-    layout: "section",
-    title: "Protokol Ablation Per Modalitas",
-    body: "Setiap laporan multimodal harus menjalankan ablation sebelum klaim apapun. Protokol penuh memakai tujuh kondisi yang sistematis menguji kontribusi tiap modalitas dan kombinasinya.",
-    footnote: "Jika Image only hampir sama dengan Full model, Anda punya masalah modalitas terabaikan.",
-  },
-
-  // -- 18: Tujuh Kondisi Ablation Per Modalitas --
-  {
-    layout: "image",
-    title: "Tujuh Kondisi Ablation Per Modalitas",
-    imageUrl: "/figures/fig08b_multimodal_ablation.svg",
-    caption: "Gambar ini menunjukkan protokol ablation tujuh kondisi: dari full model dengan semua modalitas aktif, lalu tiap modalitas tunggal, tiap pasangan modalitas, sampai random image sebagai pengecekan modalitas terabaikan. Setiap kondisi menyalakan subset modalitas yang berbeda untuk mengukur kontribusi masing-masing secara terisolasi.",
-    footnote: "Kondisi terpenting adalah random image, karena tanpanya Anda tidak bisa membuktikan model memakai gambar.",
-  },
-
-  // -- 19: Worked Example: Fusion untuk Pain Estimation --
-  {
-    layout: "section",
-    title: "Worked Example: Fusion untuk Pain Estimation",
-    body: "Tugasnya memprediksi skala nyeri 0-10 dari ekspresi wajah dan sensor accelerometer tangan. Late fusion menggabungkan embedding kedua encoder lalu meneruskannya ke head prediksi.",
-    footnote: "Implementasi menyertakan flag ketersediaan tiap modalitas untuk menangani input yang tidak lengkap.",
-  },
-
-  // -- 20: Lab W9: Multimodal Ablation --
-  {
-    layout: "bullets",
-    title: "Lab W9: Multimodal Ablation",
-    body: "Lab minggu ini membangun baseline fusion lalu membuktikan apakah model benar-benar multimodal lewat ablation lengkap:",
-    bullets: [
-      "**Implementasikan late fusion baseline** dengan smoke test, lalu jalankan protokol ablation tujuh kondisi plus random check.",
-      "**Tulis diagnosis** apakah masalah modalitas terabaikan ditemukan dari tabel hasil ablation.",
-      "**Terapkan satu solusi** seperti modality dropout atau null token jika masalah ditemukan, dan buat repo_map.md kedua jika mengadopsi repo.",
-    ],
-    footnote: "Checklist utama: uji modalitas acak dijalankan dan diagnosis modalitas terabaikan ditulis eksplisit.",
-  },
-
-  // -- 21: Refleksi: Tiga Pertanyaan untuk Dibawa Pulang --
-  {
-    layout: "bullets",
-    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
-    body: "Sebelum lanjut ke W10, renungkan tiga pertanyaan yang menguji disiplin multimodal Anda:",
-    bullets: [
-      "Dengan dataset image, audio, dan text yang full fusion-nya F1 0.81, urutan ablation apa yang Anda jalankan agar yakin ketiganya berkontribusi?",
-      "Saat sensor kadang hilang karena koneksi putus, dari tiga strategi modalitas hilang mana yang paling sesuai, dan apa trade-off-nya?",
-      "Bagaimana pilihan representasi untuk satu modalitas bisa dipengaruhi oleh ada atau tidaknya modalitas lain?",
-    ],
-    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat merancang capstone multimodal.",
-  },
-
-  // -- 22: Lanjut ke W10: Paper Reading & Implementation --
-  {
-    layout: "bullets",
-    title: "Lanjut ke W10: Paper Reading & Implementation",
-    body: "Dengan W9 selesai, Anda telah menjelajahi seluruh lanskap Big Map dari tabular sampai multimodal. W10 mengikat semuanya lewat keterampilan membaca paper:",
-    bullets: [
-      "**Membaca paper secara terstruktur** dengan metode tiga-pass, dari survei cepat sampai pemahaman mendalam.",
-      "**Menerjemahkan paper menjadi kode** yang bisa dijalankan, menutup jarak antara teori dan implementasi.",
-      "**Disiplin ablation dan reproduksibilitas** dari minggu-minggu sebelumnya menjadi alat untuk mereplikasi klaim paper.",
-    ],
-    footnote: "Kemampuan mengaudit klaim multimodal dari W9 langsung berguna saat membaca paper multimodal di W10.",
-  },
-
-  // -- 23: Lampiran Opsional --
-  {
-    layout: "section",
-    title: "Lampiran Opsional",
-    body: "Slide berikutnya menyimpan pendalaman dan contoh tambahan untuk W9. Alur utama kelas sudah selesai; pakai bagian ini hanya jika waktu cukup atau saat ada pertanyaan dari mahasiswa.",
-    footnote: "Lampiran menjaga materi referensi tetap tersedia tanpa memutus jalur belajar utama.",
-  },
-
-  // -- 24: Dua Stream dengan Clock Drift Berbeda --
-  {
-    layout: "image",
-    title: "Dua Stream dengan Clock Drift Berbeda",
-    imageUrl: "/figures/fig08c_temporal_alignment.png",
-    caption: "Gambar ini menunjukkan dua stream sensor dengan sampling rate dan clock yang berbeda, sehingga korespondensi timestep bergeser seiring waktu. Drift kecil yang menumpuk membuat frame di satu stream tidak lagi sejajar dengan sample di stream lain, dan model yang dilatih pada drift konsisten akan gagal pada sensor baru dengan drift berbeda.",
-    footnote: "Selalu catat timestamp dari sumber waktu yang sama, idealnya tersinkronisasi NTP.",
-  },
-
-  // -- 25: Contoh: Clock Drift 250 ms antar Sensor --
+  // -- 17: Contoh drift 250 ms --
   {
     layout: "bullets",
     title: "Contoh: Clock Drift 250 ms antar Sensor",
     body: "Pada robot dengan IMU 100 Hz dan kamera 30 fps yang memakai clock berbeda, drift kecil menumpuk menjadi masalah besar:",
     bullets: [
-      "**Setelah satu jam**, clock IMU drift 250 ms dari kamera, sehingga frame kamera berkorespondensi dengan data IMU 25 sample kemudian.",
-      "**Tanpa koreksi**, model mencocokkan visual \"hampir tabrakan\" dengan data IMU saat robot masih bergerak normal.",
-      "**Deteksi drift** dilakukan dengan cross-correlation - puncak korelasi pada lag bukan nol menandakan drift yang perlu dikoreksi.",
+      "Setelah satu jam, clock IMU drift 250 ms dari kamera, sehingga frame kamera berkorespondensi dengan data IMU sekitar 25 sample kemudian.",
+      "Tanpa koreksi, model mencocokkan visual hampir tabrakan dengan data IMU saat robot masih bergerak normal.",
+      "Drift dideteksi dengan cross-correlation, dan puncak korelasi pada lag bukan nol menandakan drift yang perlu dikoreksi.",
     ],
-    footnote: "Model bisa tetap akurat di training set karena drift konsisten, tetapi gagal pada sensor dengan drift berbeda.",
+    footnote: "Catat timestamp dari sumber waktu yang sama, idealnya tersinkronisasi lewat NTP.",
   },
 
-  // -- 26: Membaca Tujuh Kondisi Ablation --
+  // -- 18: Materi 5 --
   {
-    layout: "bullets",
-    title: "Membaca Tujuh Kondisi Ablation",
-    body: "Dari gambar tersebut, ketujuh kondisi dikelompokkan menjadi tiga jenis pengujian yang saling melengkapi:",
-    bullets: [
-      "**Full model dan single-modal** menetapkan baseline penuh sekaligus batas performa tiap modalitas sendirian.",
-      "**Pasangan modalitas** menjawab apakah modalitas ketiga benar-benar berkontribusi di atas dua modalitas lainnya.",
-      "**Random image** mengganti satu modalitas dengan noise untuk memastikan model tidak diam-diam mengabaikannya.",
-    ],
-    footnote: "Untuk capstone, lima kondisi minimum sudah cukup untuk membaca pola kontribusi asalkan random image tetap disertakan.",
+    layout: "section",
+    title: "5. Protokol Ablation Per Modalitas",
+    body: "Protokol ablation per modalitas adalah matriks kondisi yang menyalakan subset modalitas berbeda untuk mengukur kontribusi tiap modalitas secara terisolasi. Setiap laporan multimodal menjalankannya sebelum klaim apa pun.",
+    footnote: "Protokol penuh memakai tujuh kondisi, dengan random image sebagai pengecekan paling penting.",
   },
 
-  // -- 27: Late Fusion dengan Penanganan Modalitas Hilang --
+  // -- 19: Ablation image (sebelum teks) --
+  {
+    layout: "image",
+    title: "Tujuh Kondisi Ablation Per Modalitas",
+    imageUrl: "/figures/fig08b_multimodal_ablation.svg",
+    caption: "Gambar ini memetakan modalitas yang aktif di tiap kondisi: dari full model dengan semua modalitas, lalu tiap modalitas tunggal, tiap pasangan modalitas, sampai random image sebagai pengecekan modalitas terabaikan. Tiap kondisi menyalakan subset berbeda untuk mengukur kontribusi secara terisolasi.",
+    footnote: "Tiap kondisi mematikan atau mengacak tepat satu modalitas, mengikuti disiplin satu variabel dari W4.",
+  },
+
+  // -- 20: Tabel protokol --
+  {
+    layout: "table",
+    title: "Protokol Ablation yang Bisa Disalin",
+    body: "Dari gambar tersebut, tujuh kondisi disusun sebagai protokol berikut, dan tabel ini bisa disalin langsung:",
+    tableHead: ["Eksperimen", "Input", "Temuan yang diharapkan"],
+    tableRows: [
+      ["Full model", "image + text + sensor", "Performa baseline"],
+      ["Image only", "image saja", "Batas single-modal"],
+      ["Image + Sensor", "image + sensor", "Apakah text berkontribusi?"],
+      ["Random image", "noise acak", "Pengecekan modalitas terabaikan"],
+    ],
+    footnote: "Untuk capstone, lima kondisi minimum cukup asalkan random image tetap disertakan. Template lengkap ada di Lampiran C.14.",
+  },
+
+  // -- 21: Worked example pain estimation --
   {
     layout: "code",
-    title: "Late Fusion dengan Penanganan Modalitas Hilang",
-    body: "Model berikut menggabungkan embedding wajah dan sensor, lalu mengisi nol saat satu modalitas tidak tersedia:",
+    title: "Worked Example: Late Fusion Pain Estimation",
+    body: "Tugasnya memprediksi skala nyeri 0-10 dari ekspresi wajah dan sensor accelerometer. Model menggabungkan embedding kedua encoder, dengan flag ketersediaan untuk input tidak lengkap:",
     lang: "python",
     code: `def forward(self, face, sensor,
-            face_ok=True, sensor_ok=True):
-    fv = self.face_encoder(face) if face_ok \\
+            face_available=True, sensor_available=True):
+    fv = self.face_encoder(face) if face_available \\
          else torch.zeros(face.shape[0], 128)
-    if sensor_ok:
+    if sensor_available:
         _, (h, _) = self.sensor_encoder(sensor)
         sv = h[-1]
     else:
@@ -317,46 +280,76 @@ out = w @ V                  # (B, T_text, d)`,
     footnote: "Face encoder berupa CNN 128-dim dan sensor encoder berupa LSTM 64-dim digabung lewat concat.",
   },
 
-  // -- 28: Membaca Hasil Ablation Pain Estimation --
+  // -- 22: Membaca hasil ablation --
   {
     layout: "bullets",
     title: "Membaca Hasil Ablation Pain Estimation",
-    body: "Hasil ablation menunjukkan apakah kedua modalitas benar-benar berkontribusi lewat perbandingan val MAE:",
+    body: "Hasil dibaca dengan membandingkan val MAE, dan nilai lebih rendah berarti lebih baik:",
     bullets: [
-      "**Face only 1.82 dan Sensor only 2.15** menetapkan batas performa tiap modalitas sendirian.",
-      "**Late fusion 1.61** lebih baik dari keduanya, menandakan kedua modalitas berkontribusi pada kasus ini.",
-      "**Random face 2.09 mendekati sensor only** menjadi sinyal bahaya - jika fusion turun ke level itu, wajah sedang diabaikan.",
+      "Face only 1.82 dan Sensor only 2.15 menetapkan batas performa tiap modalitas sendirian.",
+      "Late fusion 1.61 lebih baik dari keduanya, sehingga pada kasus ini kedua modalitas berkontribusi.",
+      "Random face 2.09 mendekati sensor only, jadi kalau fusion turun ke level itu, wajah sedang diabaikan.",
     ],
-    footnote: "MAE lebih rendah berarti lebih baik, sehingga fusion yang menang membuktikan nilai menggabungkan modalitas.",
+    footnote: "Tabel mean ± std multi-seed dari W4 tetap dipakai saat melaporkan angka ini ke dosen, lengkap dengan batasannya.",
   },
 
-  // -- 29: Pitfalls & Miskonsepsi --
-  {
-    layout: "section",
-    title: "Pitfalls & Miskonsepsi",
-    body: "Beberapa keyakinan tentang multimodal terdengar masuk akal tetapi sering menyesatkan. Mengenalinya mencegah klaim multimodal yang sebenarnya single-modal.",
-    footnote: "Sebagian besar berakar pada anggapan bahwa performa naik berarti semua modalitas dipakai.",
-  },
-
-  // -- 30: Empat Keyakinan yang Perlu Diluruskan --
+  // -- 23: Materi 6 --
   {
     layout: "bullets",
-    title: "Empat Keyakinan yang Perlu Diluruskan",
-    body: "Keempat keyakinan berikut benar dalam kondisi sempit tetapi berbahaya jika dianggap berlaku umum:",
+    title: "6. Repo Adoption Multimodal",
+    body: "Codebase multimodal lebih kompleks karena memuat banyak encoder, beberapa DataLoader, dan modul fusion abstrak. Repo map dari W7 dipakai dengan tiga langkah tambahan:",
     bullets: [
-      "**\"Late fusion cukup untuk semua kasus\"** keliru karena ia sering menghasilkan modalitas terabaikan - coba cross-attention saat tugas butuh interaksi.",
-      "**\"Performa naik berarti semua modalitas dipakai\"** tidak benar, karena peningkatan bisa datang dari satu modalitas saja.",
-      "**\"Modalitas hilang sama dengan zero padding\"** salah, karena nol bersifat ambigu - pakai learnable null token atau modality dropout.",
+      "**Identifikasi titik fusion** dengan menemukan tempat embedding berbagai modalitas digabungkan, karena titik ini menentukan arsitektur.",
+      "**Telusuri satu forward pass** dengan mengikuti satu batch tiap modalitas dari DataLoader sampai prediction sambil mencatat shape.",
+      "**Buat repo_map.md kedua** memakai template Lampiran C.12 dengan tambahan kolom modalitas.",
     ],
-    footnote: "Temporal alignment juga bukan urusan DataLoader semata; Anda tetap wajib memverifikasi sinkronisasi timestamp.",
+    footnote: "Kolom modalitas menandai encoder mana menangani modalitas apa.",
   },
 
-  // -- 31: Mulai Lab W9 --
+  // -- 24: Lab W9 --
+  {
+    layout: "bullets",
+    title: "Lab W9: Multimodal Ablation",
+    body: "Lab membangun baseline fusion lalu membuktikan apakah model benar-benar multimodal, mengikuti urutan enam materi:",
+    bullets: [
+      "Implementasikan late fusion baseline dengan smoke test, lalu jalankan protokol ablation tujuh kondisi plus uji modalitas acak.",
+      "Tulis diagnosis eksplisit apakah ada modalitas yang diabaikan dari tabel hasil.",
+      "Terapkan satu solusi seperti modality dropout atau null token jika masalah ditemukan, dan buat repo_map.md kedua jika mengadopsi repo.",
+    ],
+    footnote: "Checklist utama: uji modalitas acak dijalankan dan diagnosis modalitas terabaikan ditulis eksplisit.",
+  },
+
+  // -- 25: Refleksi --
+  {
+    layout: "bullets",
+    title: "Refleksi",
+    body: "Tiga pertanyaan untuk dibawa ke portofolio mandiri sebelum lanjut ke W10:",
+    bullets: [
+      "Dengan dataset image, audio, dan text yang full fusion-nya F1 0.81, urutan ablation apa yang Anda jalankan agar yakin ketiganya berkontribusi?",
+      "Saat sensor kadang hilang karena koneksi putus, dari tiga strategi modalitas hilang mana yang paling sesuai, dan apa trade-off-nya?",
+      "Bagaimana pilihan representasi untuk satu modalitas bisa dipengaruhi oleh ada atau tidaknya modalitas lain?",
+    ],
+    footnote: "Ketiganya kembali relevan saat merancang capstone multimodal.",
+  },
+
+  // -- 26: Lanjut ke W10 --
+  {
+    layout: "bullets",
+    title: "Lanjut ke W10",
+    body: "Dengan W9 selesai, seluruh lanskap Big Map dari tabular sampai multimodal sudah dijelajahi. W10 mengikat semuanya lewat keterampilan membaca paper:",
+    bullets: [
+      "Membaca paper secara terstruktur dengan metode tiga-pass, dari survei cepat sampai pemahaman penuh.",
+      "Menerjemahkan paper menjadi kode yang bisa dijalankan, menutup jarak antara teori dan implementasi.",
+      "Disiplin ablation per modalitas dan kebiasaan mengaudit klaim dari W9 langsung berguna saat membaca paper multimodal.",
+    ],
+  },
+
+  // -- 27: CTA --
   {
     layout: "cta",
     title: "Mulai Lab W9",
-    body: "Semua konsep di presentasi ini ada dalam lab notebook lengkap: late fusion baseline, protokol ablation tujuh kondisi, uji modalitas acak, dan solusi modality dropout.\n\nEstimasi waktu: 4-6 jam termasuk menjalankan seluruh kondisi ablation dan menulis diagnosis.",
+    body: "Semua konsep deck ini ada di lab notebook: late fusion baseline, protokol ablation tujuh kondisi, uji modalitas acak, dan solusi modality dropout.\n\nEstimasi waktu 4-6 jam termasuk menjalankan seluruh kondisi ablation dan menulis diagnosis.",
     ctaText: "Buka Lab W9 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w9_multimodal_ablation.ipynb",
-  }
+  },
 ];

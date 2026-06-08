@@ -27,8 +27,6 @@
 
 # 14 · Lampiran
 
-> *Lampiran yang baik adalah alat bantu, bukan hiasan. Bagian ini berisi glosarium istilah, checklist eksperimen, dan template yang dapat Anda salin-pakai langsung sepanjang semester.*
-
 ---
 
 ## A. Glosarium Indonesia ↔ Inggris
@@ -357,7 +355,7 @@ Bagian ini melengkapi definisi glosarium sebelumnya dengan satu contoh angka kon
 
 **overfitting** - Model bagus di training, buruk di validasi. Cara deteksi: plot loss training vs validasi. Jika training turun tapi validasi stagnan atau naik → overfitting. Solusi pertama: regularization (dropout, weight decay) atau tambah data.
 
-**baseline** - Model paling sederhana yang reasonable untuk perbandingan. Bukan model terlemah (seperti random) - melainkan "pendekatan terbaik yang diketahui sebelum kontribusi Anda." Baseline yang buruk merusak seluruh eksperimen.
+**baseline** - Model paling sederhana yang reasonable untuk perbandingan. Baseline adalah pendekatan terbaik yang diketahui sebelum kontribusi Anda, bukan model terlemah seperti random. Baseline yang buruk merusak seluruh eksperimen.
 
 **sigmoid** - `σ(x) = 1/(1 + e^{-x})`. Memetakan ℝ → (0, 1). Contoh: `σ(0) = 0.5`, `σ(2) = 0.88`, `σ(-2) = 0.12`. Digunakan di output head untuk binary classification (output = probabilitas kelas positif).
 
@@ -528,7 +526,7 @@ ketika dijalankan pada **<kondisi/protokol>**.
 
 ## 4. Hasil yang Diharapkan (satu paragraf)
 
-<Tebakan awal Anda sebelum melihat hasil. Menjaga kejujuran dugaan awal.>
+<Tebakan awal Anda sebelum melihat hasil. Jangan ubah dugaan awal setelah melihat hasil.>
 
 ## 5. Kondisi Kegagalan Hipotesis
 
@@ -585,7 +583,7 @@ Tanggal: <YYYY-MM-DD>
 ## 7. Discussion
 - Apa yang terbukti dan tidak dari pertanyaan awal.
 - Deviasi dari pre-registration.
-- Keterbatasan yang jujur (dataset, hardware, interpretasi).
+- Keterbatasan yang tidak disembunyikan (dataset, hardware, interpretasi).
 
 ## 8. Conclusion & Future Work
 - 1 paragraf kesimpulan.
@@ -1170,7 +1168,7 @@ Modul ini paling efektif jika Anda mengikuti delapan kesepakatan berikut. Pendah
 4. **Mengajukan pertanyaan.** Pertanyaan yang dirumuskan dengan cermat adalah salah satu kompetensi yang dinilai di rubrik. Jika sesuatu belum jelas setelah membaca dua kali, tulis pertanyaan seringkas mungkin dan bawa ke sesi tatap muka.
 5. **Komponen Mandiri mingguan, mulai W4.** Pilih satu pertanyaan atau topik bebas dari materi minggu itu, kerjakan seperti peneliti, catat di `notebooks/portofolio_mandiri.ipynb`, presentasi 10 menit di awal sesi berikutnya. Format dan kriteria: [Lampiran C.9](#c9-template-komponen-mandiri).
 6. **Breadth Check sebelum Capstone.** Tunjukkan forward pass berjalan dari **empat dari lima keluarga arsitektur**: MLP (Lab 0/1c), CNN (Lab 1), RNN/LSTM (Lab 3b), Transformer (Lab 6b/W7), Autoencoder (Lab 7b). Ini memastikan Anda lulus sebagai asisten yang bisa mengenali dan memodifikasi keluarga NN yang muncul di paper lintas domain, bukan hanya spesialis CIFAR-10.
-7. **Eksperimen yang gagal tetapi didokumentasikan dengan baik dinilai setara dengan yang berhasil.** Yang dievaluasi adalah kualitas pemikiran, analisis, dan dokumentasi Anda, bukan apakah hipotesis terkonfirmasi. Hasil negatif yang dijelaskan dengan jujur lebih bernilai daripada hasil positif yang tidak bisa dipertanggungjawabkan.
+7. **Eksperimen yang gagal tetapi didokumentasikan dengan baik dinilai setara dengan yang berhasil.** Yang dievaluasi adalah kualitas pemikiran, analisis, dan dokumentasi Anda, bukan apakah hipotesis terkonfirmasi. Hasil negatif yang dijelaskan dengan catatan rapi lebih bernilai daripada hasil positif yang tidak punya dokumentasi.
 8. **Mulai dari aplikasi, ditopang teori.** Modul memperkenalkan ide melalui run konkret dan perbandingan terlebih dahulu. Teori berat (derivasi backprop manual, optimizer theory long-form) tersedia di Lampiran A untuk dibaca setelah Anda punya hasil konkret untuk diinterpretasi.
 
 ---
@@ -1203,7 +1201,7 @@ Lab-lab modul memakai basis kode dan dataset yang sama, lalu bertambah kompleks 
 
 Mulai W4, setiap minggu Anda memilih satu pertanyaan atau topik dari materi minggu itu, mengerjakannya secara mandiri di luar sesi tatap muka, dan mempresentasikan 10 menit di awal sesi berikutnya. Portofolio berisi 8 entri (W4-W11) ditutup dengan refleksi perjalanan belajar. Template entri: [C.6](#c6-template-entri-portofolio); panduan presentasi: [C.7](#c7-panduan-slot-presentasi-komponen-mandiri-10-menit); format dan kriteria umum: [C.9](#c9-template-komponen-mandiri).
 
-Pertanyaan yang baik untuk Komponen Mandiri bersifat spesifik, terhubung ke materi minggu itu, dan cukup terbuka untuk menghasilkan temuan tak terduga. Dalam mengerjakan, seorang peneliti secara alami akan mengimplementasikan sesuatu, menganalisis hasilnya, membuat keputusan desain, dan sesekali menjelajahi arsitektur baru - keempat dimensi ini tidak perlu dipilih salah satu, melainkan muncul sesuai kebutuhan pertanyaan.
+Pertanyaan yang baik untuk Komponen Mandiri bersifat spesifik, terhubung ke materi minggu itu, dan cukup terbuka untuk menghasilkan temuan tak terduga. Dalam mengerjakan, seorang peneliti secara alami akan mengimplementasikan sesuatu, menganalisis hasilnya, membuat keputusan desain, dan sesekali menjelajahi arsitektur baru - keempat dimensi ini tidak perlu dipilih salah satu, tetapi muncul sesuai kebutuhan pertanyaan.
 
 **Empat dimensi riset dalam satu mini-proyek:**
 
@@ -1277,7 +1275,7 @@ Aturan praktis: jika butuh jawaban < 1 menit dari PI, pakai chat. Jika butuh pem
 
 #### D.8.3 Mengekspresikan Ketidakpastian secara Profesional
 
-Asisten riset pemula sering merasa harus terlihat yakin. Padahal, PI yang baik lebih menghargai kejujuran tentang batas pengetahuan daripada kepercayaan diri yang rapuh. Kalimat-kalimat berikut adalah contoh mengekspresikan ketidakpastian tanpa kehilangan kredibilitas.
+Asisten riset pemula sering merasa harus terlihat yakin. Padahal, PI yang baik lebih menghargai penjelasan tentang batas pengetahuan daripada kepercayaan diri yang rapuh. Kalimat-kalimat berikut adalah contoh mengekspresikan ketidakpastian tanpa kehilangan kredibilitas.
 
 | Kurang tepat | Lebih tepat | Mengapa |
 | --- | --- | --- |
@@ -1533,7 +1531,7 @@ Dua belas tabel di bawah adalah alat bantu bagi Anda untuk memeriksa pemahaman s
 ### Cara Memakai Checklist Ini
 
 1. **Akhir setiap minggu**, buka tabel minggu yang baru selesai.
-2. **Centang dengan jujur.** "Sudah" = bisa dilakukan tanpa bantuan. "Mulai" = bisa dengan catatan atau bantuan LLM. "Belum" = belum bisa.
+2. **Centang sesuai kondisi Anda sebenarnya.** "Sudah" = bisa dilakukan tanpa bantuan. "Mulai" = bisa dengan catatan atau bantuan LLM. "Belum" = belum bisa.
 3. **Jika ada "Belum",** selesaikan poin itu sebelum mengerjakan Komponen Mandiri minggu berikutnya. Poin "Belum" yang menumpuk adalah sinyal bahwa Anda perlu bicara dengan dosen.
 4. **Di akhir semester,** tabel-tabel ini adalah ringkasan kompetensi Anda. Bawa ke sesi evaluasi akhir sebagai bukti pendukung.
 

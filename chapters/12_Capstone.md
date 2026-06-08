@@ -27,8 +27,6 @@
 
 # 12 · Capstone - Proyek Riset
 
-> *Capstone bukan ujian terakhir. Ini adalah pertama kalinya Anda memiliki pertanyaan riset dari awal framing hingga komunikasi, dan bertanggung jawab atas setiap keputusan di antara keduanya.*
-
 **Minggu:** 12-15
 **Penanggung jawab:** Bu Fatma + RA
 **Format:** Presentasi tatap muka mingguan + kerja mandiri antarsesi
@@ -39,16 +37,14 @@
 
 Capstone adalah proyek riset yang terbatas dan berbasis hipotesis. Anda masuk dengan framing yang sudah disetujui. Anda keluar dengan laporan riset, repositori yang dapat direproduksi, demo yang berfungsi, dan presentasi final.
 
-Sepuluh minggu bootcamp mengajarkan cara mengeksekusi: diberi masalah yang terdefinisi dan dataset yang terdefinisi, bangun model, latih dengan benar, dan evaluasi secara jujur. Capstone meminta Anda melakukan sesuatu yang lebih sulit: memiliki pertanyaan riset dari awal hingga akhir - merumuskannya, mengujinya, merevisinya saat bukti mendorong balik, dan mengomunikasikan apa yang benar-benar ditemukan.
+Sepuluh minggu bootcamp mengajarkan cara mengeksekusi: diberi masalah yang terdefinisi dan dataset yang terdefinisi, bangun model, latih dengan benar, dan evaluasi dengan metrik yang sesuai. Capstone menuntut kemampuan berikut: memiliki pertanyaan riset dari awal hingga akhir, merumuskannya, mengujinya, merevisinya saat bukti mendorong balik, dan mengomunikasikan apa yang benar-benar ditemukan.
 
 Prosesnya tidak akan berjalan persis seperti yang direncanakan. Itu bukan tanda ada yang salah. Proyek riset yang berjalan persis seperti yang direncanakan kemungkinan tidak menanyakan pertanyaan yang sesungguhnya. Momen meninjau ulang - ketika hasil Eksperimen 1 memaksa Anda merevisi hipotesis dan desain - adalah pusat capstone, bukan jalan menyimpang darinya.
 
-Capstone yang baik punya:
+Capstone yang baik memenuhi tiga syarat:
 - **Gap yang sesungguhnya di Middle**: sebuah langkah yang tidak bisa diselesaikan oleh pipeline standar yang diterapkan apa adanya.
 - **Cakupan yang bisa ditutup** dalam 3 minggu kerja yang fokus - proyek kecil yang dieksekusi dengan baik lebih berharga daripada proyek ambisius yang setengah selesai.
 - **Artefak publik**: repositori yang bisa di-clone dan dijalankan orang lain, laporan yang bisa dibaca orang lain secara mandiri, dan demo yang bisa dicoba orang lain.
-
-Cakupannya boleh sederhana. Proyek kecil yang dieksekusi dengan baik lebih berharga daripada proyek ambisius yang setengah selesai.
 
 ---
 
@@ -132,7 +128,7 @@ Arah Eksperimen 2:
   - Bagaimana hubungannya dengan apa yang Eksperimen 1 tunjukkan
 ```
 
-Bawa dokumen tinjauan ulang ke W13. Tidak perlu lengkap. Harus jujur tentang apa yang sudah dilihat sejauh ini.
+Bawa dokumen tinjauan ulang ke W13. Tidak perlu lengkap. Harus menyebut kelemahan yang sudah dilihat sejauh ini.
 
 ---
 
@@ -275,7 +271,7 @@ Pertanyaan yang diajukan saat presentasi ("apa yang akan memfalsifikasi ini?", "
 | Dokumen dekomposisi (3-5 framing) | Dibawa ke W12 | Tertulis, siap dipresentasikan dan didiskusikan |
 | Dokumen pemeriksaan literatur | Dibawa ke W12 | Satu tabel filter per framing |
 | Pre-registration Eksperimen 1 | Setelah framing disetujui (W12) | Di-commit sebelum eksperimen pertama dijalankan |
-| Dokumen tinjauan ulang + 2 paper baru | Dibawa ke W13 | Hasil parsial boleh; refleksi jujur diperlukan |
+| Dokumen tinjauan ulang + 2 paper baru | Dibawa ke W13 | Hasil parsial boleh; refleksi yang menyebut kelemahan diperlukan |
 | Pre-registration Eksperimen 2 | Disepakati di atau setelah W13 | Di-commit sebelum Eksperimen 2 dijalankan |
 | Presentasi final | Sesi kelas W14 | Presentasi riset (15 menit + 5 menit tanya jawab) |
 | Laporan final | Tenggat W15 | 6-8 halaman, semua bagian |
@@ -286,7 +282,7 @@ Pertanyaan yang diajukan saat presentasi ("apa yang akan memfalsifikasi ini?", "
 
 ## 9. Hal-hal yang Sering Bermasalah
 
-Ini adalah cara paling umum proyek capstone mengalami kesulitan. Mengetahuinya lebih awal membuatnya lebih mudah ditangkap lebih awal.
+Ini adalah cara paling umum proyek capstone mengalami kesulitan. Mengetahuinya lebih awal membuatnya lebih mudah ditangkap.
 
 **Tinjauan ulang yang bukan tinjauan ulang** adalah pola paling umum yang perlu diwaspadai. Hasil Eksperimen 1 tiba, dan peserta menulis "tinjauan ulang" yang sebenarnya hanya menyatakan ulang apa yang sudah direncanakan dari awal. Eksperimen 2 terlihat identik dengan apa yang akan dijalankan terlepas dari apa yang ditunjukkan Eksperimen 1. Pertanyaan diagnostiknya: kalau Eksperimen 1 menghasilkan arah yang berlawanan, apakah Eksperimen 2 akan berbeda? Kalau tidak, tinjauan ulang ditulis sebelum hasil dibaca, bukan setelahnya.
 
@@ -296,9 +292,9 @@ Ini adalah cara paling umum proyek capstone mengalami kesulitan. Mengetahuinya l
 
 **Hasil tanpa variansi** melemahkan kepercayaan pembaca pada temuan. Satu hasil dengan satu seed yang dilaporkan sebagai "89,2%" tidak memberi informasi apa pun tentang keandalan. Setiap hasil utama perlu standar deviasi dari setidaknya 3 seed. Kalau perbedaan antar kondisi lebih kecil dari standar deviasi, hasilnya tidak meyakinkan - katakan demikian.
 
-**Demo yang hanya menampilkan keberhasilan** tidak berguna sebagai alat riset. Demo yang dirancang hanya untuk menampilkan prediksi yang benar adalah artefak pemasaran. Buat mudah untuk menemukan kasus di mana model gagal - ini adalah tanda kejujuran, dan sering mengungkap hal yang lebih menarik daripada keberhasilannya.
+**Demo yang hanya menampilkan keberhasilan** tidak berguna sebagai alat riset. Demo yang dirancang hanya untuk menampilkan prediksi yang benar adalah artefak pemasaran. Buat mudah untuk menemukan kasus di mana model gagal. Demo yang menampilkan kegagalan sering mengungkap hal yang lebih menarik daripada keberhasilannya.
 
-**Mengklaim berlebihan** adalah kesalahan yang paling sering muncul di bagian kesimpulan. Frasa "metode kami membuktikan bahwa X berlaku secara universal" jauh melampaui apa yang bisa disimpulkan dari satu proyek dengan satu dataset. Ganti "membuktikan" dengan "mengindikasikan" atau "menunjukkan, pada dataset ini dan dalam kondisi ini" - ini bukan kerendahan hati yang berlebihan, ini adalah ketepatan.
+**Mengklaim berlebihan** adalah kesalahan yang paling sering muncul di bagian kesimpulan. Frasa "metode kami membuktikan bahwa X berlaku secara universal" jauh melampaui apa yang bisa disimpulkan dari satu proyek dengan satu dataset. Ganti "membuktikan" dengan "mengindikasikan" atau "menunjukkan, pada dataset ini dan dalam kondisi ini". Kalimat yang tepat lebih bernilai daripada klaim yang luas.
 
 **Menyembunyikan masalah** dari pembimbing hanya memperburuk situasi. Peserta yang menemukan masalah data serius di W12 dan menyebutkannya pertama kali di W14 sudah kehilangan dua minggu potensi bantuan. Bawa masalah ke pertemuan segera setelah muncul.
 
@@ -306,11 +302,11 @@ Ini adalah cara paling umum proyek capstone mengalami kesulitan. Mengetahuinya l
 
 ## Refleksi
 
-1. **Tinjauan ulang yang sesungguhnya.** Bayangkan Eksperimen 1 menunjukkan bahwa intervensi Anda tidak membantu. Tulis satu paragraf tinjauan ulang yang jujur. Apa yang akan diubah untuk Eksperimen 2? Bagaimana cara membedakan "hasil ini mengajarkan sesuatu" dari "hasil ini mengecewakan dan saya akan abaikan"?
+1. **Tinjauan ulang yang sesungguhnya.** Coba tulis satu paragraf tinjauan ulang seolah-olah Eksperimen 1 menunjukkan bahwa intervensi Anda tidak membantu. Paragraf itu harus menyebut kelemahan yang ditemukan, bukan menyembunyikannya. Apa yang akan diubah untuk Eksperimen 2? Bagaimana cara membedakan "hasil ini mengajarkan sesuatu" dari "hasil ini mengecewakan dan saya akan abaikan"?
 
-2. **Klaim vs. bukti.** Ambil satu kesimpulan dari sebuah paper yang dibaca di W10. Tulis ulang kesimpulan itu agar sesuai dengan cakupan eksperimen yang sebenarnya - bukan yang ambisius, tapi yang akurat. Seperti apa kalimatnya?
+2. **Klaim vs. bukti.** Ambil satu kesimpulan dari sebuah paper yang dibaca di W10. Tulis ulang kesimpulan itu agar sesuai dengan cakupan eksperimen yang sebenarnya. Hindari klaim yang lebih luas dari data yang Anda miliki. Seperti apa kalimatnya?
 
-3. **Demo sebagai alat riset.** Bayangkan Anda membangun demo untuk capstone Anda. Bagaimana cara membuatnya mudah bagi pengguna untuk menemukan kasus kegagalan? Apa tiga tipe kegagalan yang paling ingin Anda ungkap?
+3. **Demo sebagai alat riset.** Rancang demo capstone Anda agar pengguna bisa menemukan kasus kegagalan dengan mudah. Apa tiga tipe kegagalan yang paling ingin Anda ungkap?
 
 ---
 

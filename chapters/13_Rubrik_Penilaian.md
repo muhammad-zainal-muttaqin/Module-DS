@@ -27,8 +27,6 @@
 
 # 13 · Rubrik Penilaian
 
-> *Rubrik yang baik bukan alat menghakimi, melainkan cermin yang memantulkan arah. Tiap level menggambarkan kebiasaan yang dapat diamati - bukan nilai yang harus dicapai dengan cara apapun.*
-
 ---
 
 ## 0. Peta Bab
@@ -269,7 +267,7 @@ Penilaian capstone didistribusi ke empat fase untuk memastikan umpan balik diber
 
 | Kriteria | Novice | Developing | Proficient | Masterpiece |
 |---|---|---|---|---|
-| **Laporan final** | Draf kasar; banyak bagian kosong | Semua bagian ada; penulisan kurang rapi | 6-8 halaman; narasi runtut; limitasi dinyatakan jujur; setiap angka dapat dilacak ke eksperimen | Dapat dibaca peneliti lain dalam 30 menit tanpa penjelasan tambahan |
+| **Laporan final** | Draf kasar; banyak bagian kosong | Semua bagian ada; penulisan kurang rapi | 6-8 halaman; narasi runtut; limitasi dinyatakan tanpa disembunyikan; setiap angka dapat dilacak ke eksperimen | Dapat dibaca peneliti lain dalam 30 menit tanpa penjelasan tambahan |
 | **Repositori reproduksibel** | Kode ada tapi sulit dijalankan | README ada; dependencies tercatat | Clone → setup → hasil utama dalam <30 menit; tag `v1.0` | Smoke test berjalan dari lingkungan bersih; config dan seed terdokumentasi |
 | **Revisi berdasarkan umpan balik** | Tidak ada revisi dari umpan balik W14 | Revisi kosmetik saja | Perubahan substantif mengacu umpan balik spesifik dari sesi W14 | Semua poin Q&A W14 tercermin di laporan atau disebutkan sebagai limitasi |
 
@@ -283,7 +281,7 @@ Tiga prinsip menjaga rubrik tetap adil dan konsisten.
 
 **Kemajuan dihargai.** Mahasiswa yang memulai semester di level Novice pada banyak kompetensi dan mencapai Developing konsisten pada akhir semester telah memenuhi tujuan modul. Masterpiece tidak disyaratkan untuk nilai tertinggi kecuali pada kompetensi spesifik yang ditekankan dosen pengampu.
 
-**Refleksi diperhitungkan.** Sebagian penilaian sikap berasal dari catatan refleksi mahasiswa sendiri. Refleksi yang jujur - termasuk mengakui kesalahan - lebih bernilai daripada refleksi yang menyajikan kesuksesan tanpa kesulitan.
+**Refleksi diperhitungkan.** Sebagian penilaian sikap berasal dari catatan refleksi mahasiswa sendiri. Refleksi yang menyebut kelemahan, termasuk mengakui kesalahan, lebih bernilai daripada refleksi yang menyajikan kesuksesan tanpa kesulitan.
 
 ---
 

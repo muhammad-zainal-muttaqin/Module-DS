@@ -1,374 +1,361 @@
 import type { SlideSection } from "./index";
 
 export const slides11: SlideSection[] = [
-  // -- 1: W11: Research Framing --
+  // -- 1: Title --
   {
     layout: "title",
     title: "W11: Research Framing",
-    subtitle: "Merumuskan pertanyaan riset sendiri lewat kerangka Input, Middle, Output, lalu menyaringnya dengan literatur sebelum capstone dimulai.",
-    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
+    subtitle: "Mengubah situasi terbuka jadi pertanyaan riset yang bisa dipertahankan, lewat kerangka Input, Middle, Output, lalu menyaringnya dengan literatur sebelum capstone.",
     footnote: "Bab 11 - Minggu 11",
   },
 
-  // -- 2: Peta W11 --
+  // -- 2: Agenda --
   {
-    layout: "section",
-    title: "Peta W11",
-    body: "Pertanyaan riset bukan sesuatu yang Anda temukan di dalam dataset, melainkan sesuatu yang Anda bawa ke sana. W11 adalah transisi dari bootcamp ke capstone: belajar memakai keterampilan teknis untuk menjawab pertanyaan yang Anda rumuskan sendiri.",
-    footnote: "Anda tiba di W12 dengan menu 3-5 framing kandidat dan satu framing utama yang siap dipertahankan.",
+    layout: "grid",
+    title: "Kali ini kita akan membahas",
+    body: "Empat materi minggu ini mengikuti alur kerja merancang satu pertanyaan riset, dari situasi terbuka sampai luaran yang dibawa ke capstone:",
+    gridItems: [
+      {
+        title: "1. Paruh Depan Riset",
+        body: "Kita belajar mengubah domain atau dataset terbuka jadi pertanyaan riset yang layak ditanyakan dan bisa dipertahankan.",
+      },
+      {
+        title: "2. Kerangka Input, Middle, Output",
+        body: "Kita membedah satu masalah ML lewat tiga pertanyaan: apa yang diprediksi dan dari apa, letak gap di Middle, dan apakah gap itu ada.",
+      },
+      {
+        title: "3. Menu Framing dan Filter Literatur",
+        body: "Kita menghasilkan 3-5 framing kandidat, lalu menyaringnya ke literatur untuk menilai mana yang masih punya gap nyata.",
+      },
+      {
+        title: "4. Dua Fase dan Luaran W11",
+        body: "Kita memisahkan curah gagasan dari filter, lalu menyiapkan dokumen dekomposisi dan daftar pendek untuk W12.",
+      },
+    ],
   },
 
-  // -- 3: Dari W10 ke W11: dari Eksekusi ke Framing --
+  // -- 3: Recap W10 --
   {
     layout: "bullets",
-    title: "Dari W10 ke W11: dari Eksekusi ke Framing",
-    body: "W1-W10 mengajarkan cara mengeksekusi riset dengan benar; W11 mengajarkan cara memilih pertanyaan yang layak dieksekusi. Tiga hal menjadi fokus minggu ini:",
+    title: "Di pertemuan sebelumnya (W10)",
+    body: "W10 mengajarkan cara membaca paper secara terstruktur, dan kemampuan itu menjadi inti filter literatur minggu ini:",
     bullets: [
-      "**Kebiasaan riset** yang dilatih minggu ini adalah framing sebelum eksekusi, filter literatur, dan mempertahankan pilihan framing.",
-      "**Kerangka Input, Middle, Output** memecah setiap masalah ML menjadi tiga pertanyaan yang konkret dan bisa dijawab.",
-      "**Triage literatur** memakai keterampilan membaca paper dari W10 untuk menilai mana framing yang masih punya gap.",
+      "Kita belajar membaca paper dengan metode tiga putaran dan menerjemahkan satu metode jadi kode kecil yang bisa dijalankan.",
+      "Kita melatih cara membaca abstrak dengan cepat dan menilai apa kontribusi sebuah paper.",
+      "Output yang dibawa: kemampuan menilai kebaruan paper, yang dipakai untuk menyaring framing di W11.",
     ],
-    footnote: "Kerja minggu ini langsung menjadi input W12, saat framing utama dipresentasikan dan disetujui.",
+    footnote: "Big Map lima keluarga arsitektur dari W1-W9 juga dipakai untuk memetakan langkah-langkah Middle.",
   },
 
-  // -- 4: Paruh Depan Riset --
+  // -- 4: Materi 1 --
   {
     layout: "section",
-    title: "Paruh Depan Riset",
-    body: "W1-W10 mengajarkan paruh belakang riset: diberi masalah dan dataset yang sudah ditentukan, bagaimana membangun dan mengevaluasi model. W11 memulai paruh depan: bagaimana sampai pada pertanyaan yang layak ditanyakan.",
-    footnote: "Banyak program berhenti di paruh belakang dan berasumsi paruh depan terserap sendiri - sering kali tidak.",
+    title: "1. Paruh Depan Riset",
+    body: "W1-W10 melatih paruh belakang riset: diberi masalah dan dataset, bagaimana membangun dan mengevaluasi model. W11 memulai paruh depan: bagaimana sampai pada pertanyaan riset yang layak ditanyakan dari situasi yang masih terbuka.",
+    footnote: "Banyak program berhenti di paruh belakang dan berasumsi paruh depan terserap sendiri, padahal sering kali tidak.",
   },
 
-  // -- 5: Konteks Lab Kecil Bisa Menjadi Keunggulan --
+  // -- 5: Paruh belakang vs depan (split) --
+  {
+    layout: "split",
+    title: "Dua paruh riset, dua keterampilan",
+    body: "Kedua paruh sama-sama wajib, tetapi melatih keterampilan yang berbeda. Bootcamp menutup yang pertama, dan capstone menuntut yang kedua:",
+    left: {
+      title: "Paruh Belakang (W1-W10)",
+      body: "Masalah, dataset, dan tugas sudah ditentukan.\n\nPertanyaannya adalah bagaimana membangun model, melatihnya dengan benar, dan mengevaluasinya tanpa menutupi kelemahan model.\n\nTanpa keterampilan ini, riset tidak bisa dilakukan sama sekali.",
+    },
+    right: {
+      title: "Paruh Depan (W11)",
+      body: "Situasinya terbuka: sebuah domain menarik atau dataset yang bisa diakses.\n\nPertanyaannya adalah bagaimana mendefinisikan output, memilih input, dan menemukan gap yang benar-benar ada.\n\nFraming yang salah membuat eksekusi sesempurna apa pun jadi sia-sia.",
+    },
+    footnote: "Mahasiswa bisa menghabiskan bertahun-tahun mengeksekusi dengan kompeten pertanyaan yang sejak awal salah framing.",
+  },
+
+  // -- 6: Lab kecil sebagai keunggulan --
+  {
+    layout: "bullets",
+    title: "Lab kecil bisa menjadi keunggulan",
+    body: "Metodologi minggu ini dirancang untuk lab kecil dengan sumber daya terbatas, dan konteks lokal membuka peluang spesifik:",
+    bullets: [
+      "Saat sumber daya terbatas, aktivitas berdampak tertinggi adalah memilih pertanyaan yang tepat sebelum menghabiskan waktu eksekusi.",
+      "Framing baik pada dataset kecil bisa menghasilkan riset yang layak dipublikasikan, sedangkan framing buruk pada dataset besar tidak.",
+      "Data bahasa lokal seperti Banjar dan masalah pertanian atau kesehatan lokal punya gap literatur yang memang ada, bukan dibuat-buat.",
+    ],
+    footnote: "Lab berdana besar di Jakarta atau Singapura tidak mengejar masalah ini karena tidak terlihat dari sana.",
+  },
+
+  // -- 7: Materi 2 --
   {
     layout: "section",
-    title: "Konteks Lab Kecil Bisa Menjadi Keunggulan",
-    body: "Metodologi minggu ini dirancang untuk lab kecil dengan sumber daya terbatas. Saat sumber daya terbatas, aktivitas berdampak tertinggi adalah memilih pertanyaan yang tepat sebelum menghabiskan waktu eksekusi.",
-    footnote: "Framing baik pada dataset kecil mengalahkan framing buruk pada dataset besar.",
+    title: "2. Kerangka Input, Middle, Output",
+    body: "Setiap masalah ML supervised bisa digambarkan sebagai transformasi dari Input ke Output lewat Middle. Tiga pertanyaan tentang ketiga komponen ini membedah satu masalah jadi keputusan desain yang jelas.",
+    footnote: "Langkah Middle yang tidak punya jawaban standar adalah gap, dan gap adalah tempat kontribusi riset berada.",
   },
 
-  // -- 6: Kerangka: Input, Middle, Output --
-  {
-    layout: "section",
-    title: "Kerangka: Input, Middle, Output",
-    body: "Setiap masalah ML supervised bisa digambarkan sebagai transformasi dari Input ke Output lewat Middle. Tiga pertanyaan tentang ketiga komponen ini membedah setiap masalah menjadi keputusan desain yang jelas.",
-    footnote: "Gap dalam Middle adalah tempat kontribusi riset hidup.",
-  },
-
-  // -- 7: Membedah Masalah Jadi Input, Middle, Output --
+  // -- 8: Gambar kerangka (image-before-text) --
   {
     layout: "image",
-    title: "Membedah Masalah Jadi Input, Middle, Output",
+    title: "Membedah masalah jadi Input, Middle, Output",
     imageUrl: "/figures/fig10a_input_middle_output.svg",
-    caption: "Gambar ini menunjukkan kerangka dekomposisi Input, Middle, Output yang membedah setiap masalah ML menjadi tiga bagian. Input adalah tensor yang diterima model, Output adalah tensor yang dihasilkan, dan Middle adalah komponen yang memetakan keduanya dengan sebagian langkah standar dan sebagian lagi berupa gap.",
+    caption: "Gambar ini menunjukkan kerangka dekomposisi yang membedah satu masalah ML jadi tiga bagian. Input adalah tensor yang diterima model, Output adalah tensor yang dihasilkan, dan Middle adalah komponen yang memetakan keduanya dengan sebagian langkah standar dan sebagian lagi berupa gap.",
     footnote: "Kerangka ini dipakai dari W1 sampai capstone untuk menamai setiap keputusan desain.",
   },
 
-  // -- 8: Apakah Anda Sudah Punya Pertanyaan Riset? --
-  {
-    layout: "section",
-    title: "Apakah Anda Sudah Punya Pertanyaan Riset?",
-    body: "\"Saya punya gambar penyakit padi dan ingin mengklasifikasikannya\" bukan pertanyaan riset, melainkan prasyarat untuk satu pertanyaan. Ia menyebut dataset dan tugas generik tanpa pertanyaan spesifik atau kontribusi.",
-    footnote: "Pertanyaan riset punya subjek, predikat, dan tipe jawaban yang jelas.",
-  },
-
-  // -- 9: Satu Dataset Bukan Satu Paper --
+  // -- 9: Tiga komponen --
   {
     layout: "bullets",
-    title: "Satu Dataset Bukan Satu Paper",
-    body: "Topik yang sama bisa dipertajam menjadi pertanyaan riset berbeda dengan mengubah satu komponen kerangka:",
+    title: "Tiga komponen, semuanya keputusan desain",
+    body: "Dari gambar tersebut, setiap masalah dipecah jadi tiga komponen yang masing-masing dipilih, bukan properti tetap dataset:",
+    bullets: [
+      "**Input** adalah apa yang diterima model saat prediksi, berupa satu atau beberapa tensor dengan bentuk spesifik.",
+      "**Output** adalah apa yang dihasilkan model, dengan bentuk dan semantik yang sesuai dengan pertanyaan riset.",
+      "**Middle** adalah yang memetakan Input ke Output, dengan sebagian langkah standar di Big Map dan sebagian berupa gap.",
+    ],
+    footnote: "Sebelum tiga pertanyaan, ada cek awal: kalau Anda belum bisa menulis satu kalimat pertanyaan, Anda belum punya pertanyaan riset.",
+  },
+
+  // -- 10: Satu dataset tidak berarti satu paper --
+  {
+    layout: "bullets",
+    title: "Satu dataset tidak berarti satu paper",
+    body: "Topik yang sama bisa dipertajam jadi pertanyaan riset berbeda dengan mengubah satu komponen kerangka:",
     bullets: [
       "**Ubah Output** dan Anda mendapat masalah keputusan berbeda, misalnya prediksi kelompok penyakit kasar untuk triase lapangan.",
-      "**Ubah Input** dan Anda mendapat pertanyaan representasi berbeda, misalnya menambahkan inframerah ke RGB.",
-      "**Ubah Middle atau batasan** dan Anda mendapat gap metodologis berbeda, misalnya distilasi ke model ringan untuk deployment.",
+      "**Ubah Input** dan Anda mendapat pertanyaan representasi berbeda, misalnya menambahkan input inframerah ke RGB.",
+      "**Ubah Middle** dan Anda mendapat gap metodologis berbeda, misalnya distilasi ke model ringan untuk deployment.",
     ],
     footnote: "Ketiganya adalah pertanyaan riset berbeda dengan output, baseline, dan kontrol yang berbeda.",
   },
 
-  // -- 10: Pertanyaan 1: Apa yang Diprediksi, dari Apa? --
-  {
-    layout: "section",
-    title: "Pertanyaan 1: Apa yang Diprediksi, dari Apa?",
-    body: "Pertanyaan pertama mendefinisikan entitas, Output, dan Input. Salah memilih entitas adalah kesalahan framing yang paling umum, dan ia gagal secara diam-diam dengan mengukur hal yang salah.",
-    footnote: "Entitas menentukan apa arti satu sampel, apa unit evaluasinya, dan siapa yang mendapat manfaatnya.",
-  },
-
-  // -- 11: Entitas, Output, dan Input Perlu Diputuskan --
+  // -- 11: Pertanyaan 1 --
   {
     layout: "bullets",
-    title: "Entitas, Output, dan Input Perlu Diputuskan",
-    body: "Ketiganya adalah pilihan yang membentuk masalah riset, bukan properti tetap dari dataset:",
+    title: "Pertanyaan 1: apa yang diprediksi, dan dari apa?",
+    body: "Pertanyaan pertama mendefinisikan entitas, Output, dan Input, yang semuanya pilihan yang membentuk masalah riset:",
     bullets: [
       "**Entitas** adalah unit yang satu prediksi mewakilinya, misalnya satu daun, satu tanaman, atau satu kunjungan lahan.",
       "**Output** adalah tensor yang bentuknya mengodekan pertanyaan, dari satu nilai kontinu sampai peta piksel atau sequence.",
       "**Input** adalah representasi yang dipilih dari beberapa opsi, masing-masing dengan biaya perolehan dan kandungan informasi berbeda.",
     ],
-    footnote: "Entitas dan Input yang sama sering mendukung beberapa pilihan Output, masing-masing masalah riset berbeda.",
+    footnote: "Salah memilih entitas gagal secara diam-diam: hasilnya tampak masuk akal tetapi mengukur hal yang salah.",
   },
 
-  // -- 12: Cek Temporal dan Kausal: Validasi Terpenting --
+  // -- 12: Cek temporal --
   {
     layout: "bullets",
-    title: "Cek Temporal dan Kausal: Validasi Terpenting",
-    body: "Sebelum melanjutkan, tanyakan apakah model yang di-deploy akan punya akses ke input saat perlu membuat prediksi:",
+    title: "Cek temporal: validasi yang menentukan",
+    body: "Setelah entitas, Output, dan Input ditentukan, tanyakan apakah model yang di-deploy akan punya akses ke input saat perlu membuat prediksi:",
     bullets: [
-      "**Jika jawabannya tidak**, framing-nya rusak, dan ini masalah framing yang tidak bisa diperbaiki dengan tuning atau lebih banyak data.",
+      "**Kalau jawabannya tidak**, framing-nya rusak, dan ini masalah framing yang tidak bisa diperbaiki dengan tuning atau lebih banyak data.",
       "**Contoh kegagalan** adalah memprediksi hasil panen dari pengukuran akhir musim, padahal musim sudah selesai sebelum prediksi dibuat.",
-      "**Perbaikannya adalah framing ulang**, misalnya hanya memakai statistik babak pertama, bukan menambah data.",
+      "**Perbaikannya adalah framing ulang**, misalnya hanya memakai statistik babak pertama, dengan entitas dan output tetap sama.",
     ],
-    footnote: "Tidak melihat masalah tidak sama dengan lulus - cek ini harus dijalankan secara eksplisit dan sistematis.",
+    footnote: "Konsep kebocoran ini sudah dibahas di W6; di sini ia dipakai sebelum kode ditulis, pada tahap merancang pertanyaan.",
   },
 
-  // -- 13: Pertanyaan 2: Seperti Apa Middle dan Letak Gap-nya --
+  // -- 13: Pertanyaan 2 + empat kasus (grid) --
   {
-    layout: "section",
-    title: "Pertanyaan 2: Seperti Apa Middle dan Letak Gap-nya",
-    body: "Setelah Input dan Output terdefinisi, sketsa pipeline yang menghubungkannya lalu petakan tiap langkah ke Big Map. Empat kasus muncul dari pemetaan ini, dan batas antara dua kasus tengah paling menentukan.",
-    footnote: "Banyak proyek tampak Kasus C pada awalnya tetapi ternyata Kasus B setelah diperiksa teliti.",
+    layout: "grid",
+    title: "Pertanyaan 2: petakan Middle ke Big Map",
+    body: "Sketsa pipeline yang menghubungkan Input dan Output, lalu petakan tiap langkah ke Big Map. Empat kasus muncul, dan jenis kasus menentukan jenis kontribusi:",
+    gridItems: [
+      {
+        title: "Kasus A - satu baris cocok",
+        body: "Seluruh Middle adalah satu komponen standar, misalnya gambar ke CNN ke kelas. Pertanyaannya valid, tetapi kontribusinya sederhana kecuali domain atau bahasanya baru.",
+      },
+      {
+        title: "Kasus B - rangkaian baris",
+        body: "Beberapa langkah standar dirangkai berurutan pada kombinasi Input dan Output yang belum pernah dicoba. Kontribusinya adalah rangkaian itu beserta validasi empirisnya.",
+      },
+      {
+        title: "Kasus C - baris plus gap",
+        body: "Sebagian langkah standar, tetapi satu atau lebih tidak punya baris yang cocok. Gap inilah tempat riset baru berada dan harus dinamai dengan tepat.",
+      },
+      {
+        title: "Kasus D - tidak ada baris cocok",
+        body: "Pasangan Input dan Output tidak punya solusi ML di level mana pun. Ini jarang, dan biasanya berarti pasangannya belum terdefinisi dengan baik.",
+      },
+    ],
+    footnote: "Banyak proyek tampak Kasus C pada awalnya, tetapi setelah diperiksa teliti ternyata Kasus B yang sama-sama sah.",
   },
 
-  // -- 14: Menamai Gap Secara Tepat --
+  // -- 14: Menamai gap --
   {
     layout: "bullets",
-    title: "Menamai Gap Secara Tepat",
+    title: "Menamai gap dengan tepat",
     body: "Menamai gap dengan tepat adalah keterampilan terpenting dalam desain riset, karena gap yang samar bukan kontribusi:",
     bullets: [
       "**Gap samar** seperti \"kami mengusulkan metode yang lebih baik\" tidak menyebutkan apa yang sebenarnya belum terselesaikan.",
-      "**Gap tepat** menyebut pilihan desain spesifik, misalnya mengagregasi deteksi dari multi-sudut-pandang tanpa kalibrasi kamera.",
-      "**Gap yang baik** adalah pilihan yang tidak punya jawaban mapan di literatur, bukan sekadar metode yang kebetulan berbeda.",
+      "**Gap tepat** menyebut pilihan desain spesifik, misalnya mengagregasi deteksi multi-sudut-pandang tanpa kalibrasi kamera.",
+      "**Gap yang baik** adalah pilihan desain yang belum punya jawaban mapan di literatur, bukan metode yang kebetulan berbeda.",
     ],
-    footnote: "Contoh gap nyata: menyelaraskan dua modalitas beresolusi temporal berbeda, atau adaptasi ke bahasa dengan sedikit label.",
+    footnote: "Di sini skeptisisme terhadap klaim sendiri terpakai: periksa apakah gap Anda memang Kasus C atau sebenarnya Kasus B.",
   },
 
-  // -- 15: Pertanyaan 3: Apakah Gap Benar-benar Ada dan Layak Diisi --
-  {
-    layout: "section",
-    title: "Pertanyaan 3: Apakah Gap Benar-benar Ada dan Layak Diisi",
-    body: "Pemeriksaan literatur dilakukan setelah Anda menghasilkan beberapa framing, bukan sebelumnya. Mencari terlalu dini membuat Anda terjangkar pada paper acak; terlalu lambat membuat Anda melekat pada framing yang mungkin sudah jenuh.",
-    footnote: "Tahap dekomposisi menghasilkan menu framing, bukan satu proyek final.",
-  },
-
-  // -- 16: Loop Filter Literatur: Bukan Tinjauan Lengkap --
-  {
-    layout: "bullets",
-    title: "Loop Filter Literatur: Bukan Tinjauan Lengkap",
-    body: "Untuk setiap framing kandidat, jalankan loop filter cepat lalu klasifikasikan hasilnya menjadi tiga kategori:",
-    bullets: [
-      "**BARU** berarti gap tampak belum ditangani, sehingga framing dipertahankan sebagai kandidat kuat.",
-      "**SEBAGIAN TERJAWAB** berarti literatur sudah dekat, sehingga arah diubah ke bagian yang belum dilakukan.",
-      "**JENUH** berarti 5 paper terbaru membahas kombinasi yang sama persis, sehingga framing dihapus dengan sehat.",
-    ],
-    footnote: "Buat 2-4 query dan skim maksimal 5-10 abstrak per framing - ini filter, bukan tinjauan menyeluruh.",
-  },
-
-  // -- 17: Kebaruan yang Kuat vs yang Lemah --
+  // -- 15: Pertanyaan 3: jenis kebaruan (split) --
   {
     layout: "split",
-    title: "Kebaruan yang Kuat vs yang Lemah",
+    title: "Pertanyaan 3: apakah gap layak diisi?",
     body: "Tidak semua gap sama menariknya. Membedakan kebaruan kuat dari lemah mencegah klaim yang tidak akan bertahan di review:",
     left: {
-      title: "Kebaruan Kuat",
-      body: "Tugas baru yang belum pernah diprediksi pada jenis data ini.\n\nDomain baru untuk metode mapan, atau rakitan komponen bermotivasi baik.\n\nDesain ulang untuk batasan deployment yang benar-benar membentuk arsitektur.",
+      title: "Kebaruan kuat",
+      body: "Tugas baru yang belum pernah diprediksi pada jenis data ini.\n\nDomain baru untuk metode mapan, atau rakitan komponen yang bermotivasi baik.\n\nDesain ulang untuk batasan deployment yang benar-benar membentuk arsitektur.",
     },
     right: {
-      title: "Kebaruan Lemah",
-      body: "Tuning hyperparameter, yang memang diharapkan dan bukan kontribusi.\n\n\"Studi pertama di Indonesia\" untuk masalah yang sudah diselesaikan global.\n\nMenggabungkan dua metode secara acak tanpa motivasi yang jelas.",
+      title: "Kebaruan lemah",
+      body: "Tuning hyperparameter, yang memang diharapkan dan bukan kontribusi.\n\n\"Studi pertama di Indonesia\" untuk masalah yang sudah diselesaikan global.\n\nMenggabungkan dua metode tanpa motivasi yang jelas.",
     },
     footnote: "Jebakan \"baru bagi saya\": metode standar tampak baru bagi yang baru mempelajarinya, tetapi tidak baru bagi bidangnya.",
   },
 
-  // -- 18: Dua Fase yang Harus Terpisah --
-  {
-    layout: "section",
-    title: "Dua Fase yang Harus Terpisah",
-    body: "Minggu ini punya dua fase yang tidak boleh dicampur. Mencampurnya menghasilkan framing yang aman dan dangkal: hal pertama yang terlintas, hampir tanpa diperiksa.",
-    footnote: "Hasilkan dulu, filter kemudian - 2-4 jam filter literatur bisa menghemat berminggu-minggu eksekusi.",
-  },
-
-  // -- 19: Sesi Kelas: Demo Langsung dan Tiga Lokakarya --
+  // -- 16: Kalimat cek kebaruan + kontrol --
   {
     layout: "bullets",
-    title: "Sesi Kelas: Demo Langsung dan Tiga Lokakarya",
-    body: "Sesi W11 menjalankan dekomposisi pada dataset nyata, lalu tiga lokakarya membawa mahasiswa dari menu framing menuju komitmen:",
-    bullets: [
-      "**Lokakarya 1** menghasilkan menu tiga framing kandidat dari dataset kelompok tanpa langsung berkomitmen.",
-      "**Lokakarya 2** menjalankan filter literatur cepat pada ketiga framing dan mengklasifikasikannya.",
-      "**Lokakarya 3** mengubah menu menjadi keputusan: satu framing utama, satu cadangan, dan framing yang dihapus beserta alasannya.",
-    ],
-    footnote: "Dataset kelas seperti Paddy Doctor dan NusaX dipilih agar hampir tidak butuh latar belakang domain.",
-  },
-
-  // -- 20: Luaran W11 yang Dibawa ke W12 --
-  {
-    layout: "bullets",
-    title: "Luaran W11 yang Dibawa ke W12",
-    body: "Sebelum W12, kirim tiga luaran yang menjadi dasar presentasi dan pertahanan framing:",
-    bullets: [
-      "**Dokumen dekomposisi** berisi semua 3-5 framing memakai template Input, Middle, Output.",
-      "**Tabel pemeriksaan literatur** dengan satu baris per framing beserta klasifikasi dan buktinya.",
-      "**Paragraf daftar pendek** memuat framing utama dengan kalimat cek kebaruan, framing cadangan, dan framing yang dihapus.",
-    ],
-    footnote: "Datang ke W12 siap mempresentasikan dan mempertahankan framing utama Anda di depan kelas.",
-  },
-
-  // -- 21: Refleksi: Tiga Pertanyaan untuk Dibawa Pulang --
-  {
-    layout: "bullets",
-    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
-    body: "Sebelum masuk capstone, renungkan tiga pertanyaan yang melatih kerangka framing pada topik baru:",
-    bullets: [
-      "Untuk topik \"deteksi emosi dari audio\", tiga framing berbeda apa yang muncul dengan entitas, input, output, dan letak gap yang berbeda?",
-      "Pilih satu dataset, hasilkan tiga framing tanpa mencari literatur, lalu jalankan filter - adakah yang jenuh dan adakah yang mengarah ke gap nyata?",
-      "Cari contoh paper yang mungkin punya masalah cek temporal - apa yang salah dengan framing-nya dan bagaimana memperbaikinya?",
-    ],
-    footnote: "Tuliskan jawaban di portofolio mandiri - kerangka ini langsung dipakai untuk framing capstone Anda.",
-  },
-
-  // -- 22: Lanjut ke Capstone: Eksekusi Dimulai --
-  {
-    layout: "bullets",
-    title: "Lanjut ke Capstone: Eksekusi Dimulai",
-    body: "Dengan W11 selesai, menu framing siap dan daftar pendek tertulis. Empat minggu capstone W12-W15 mengubah framing menjadi riset yang dipertahankan dan dikomunikasikan:",
-    bullets: [
-      "**W12** mempresentasikan dan mempertahankan framing utama, lalu memulai Eksperimen 1 dengan pre-registration.",
-      "**W13** melakukan rethink dan iterasi menuju Eksperimen 2, sementara W14 menyajikan research talk 20 menit.",
-      "**W15** mengumpulkan laporan final, repo dengan tag versi, dan demo tanpa sesi kelas.",
-    ],
-    footnote: "Seluruh disiplin bootcamp dari reproduksibilitas sampai ablation kini dipakai pada pertanyaan riset Anda sendiri.",
-  },
-
-  // -- 23: Lampiran Opsional --
-  {
-    layout: "section",
-    title: "Lampiran Opsional",
-    body: "Slide berikutnya menyimpan pendalaman dan contoh tambahan untuk W11. Alur utama kelas sudah selesai; pakai bagian ini hanya jika waktu cukup atau saat ada pertanyaan dari mahasiswa.",
-    footnote: "Lampiran menjaga materi referensi tetap tersedia tanpa memutus jalur belajar utama.",
-  },
-
-  // -- 24: Paruh Belakang vs Paruh Depan --
-  {
-    layout: "split",
-    title: "Paruh Belakang vs Paruh Depan",
-    body: "Kedua paruh sama-sama wajib, tetapi melatih keterampilan yang berbeda. Bootcamp menutup yang pertama; capstone menuntut yang kedua:",
-    left: {
-      title: "Paruh Belakang (W1-W10)",
-      body: "Masalah, dataset, dan tugas sudah didefinisikan.\n\nPertanyaannya adalah bagaimana membangun model, melatihnya dengan benar, dan mengevaluasinya tanpa menutupi kelemahan model.\n\nTanpa ini, riset tidak bisa dilakukan sama sekali.",
-    },
-    right: {
-      title: "Paruh Depan (W11)",
-      body: "Situasinya terbuka: sebuah domain menarik atau dataset yang bisa diakses.\n\nPertanyaannya adalah bagaimana mendefinisikan output, memilih input, dan menemukan gap yang benar-benar ada.\n\nFraming yang salah membuat eksekusi sempurna pun sia-sia.",
-    },
-    footnote: "Mahasiswa bisa menghabiskan bertahun-tahun mengeksekusi dengan kompeten pertanyaan yang sejak awal salah framing.",
-  },
-
-  // -- 25: Kalimat Cek Kebaruan dan Kontrol --
-  {
-    layout: "bullets",
-    title: "Kalimat Cek Kebaruan dan Kontrol",
+    title: "Kalimat cek kebaruan dan kontrol",
     body: "Dua alat menutup tahap framing: satu kalimat yang menguji klaim kebaruan, dan kontrol yang membuat klaim bisa difalsifikasi:",
     bullets: [
       "**Kalimat cek kebaruan** berbunyi: literatur sudah melakukan X, karya kami melakukan Y yang berbeda karena Z, dan ini penting karena W.",
       "**Setiap kontribusi butuh kontrol** yang bisa memfalsifikasinya, misalnya baseline late-fusion untuk menguji klaim metode fusion baru.",
       "**Rancang kontrol sebelum eksperimen**, karena kontrol yang dibuat setelah melihat hasil hanya membangun cerita di sekitar hasil.",
     ],
-    footnote: "Jika keempat slot kalimat cek kebaruan tidak bisa diisi jelas, klaim kebaruannya belum valid.",
+    footnote: "Kalau keempat slot kalimat cek kebaruan belum bisa diisi jelas, klaim kebaruannya belum valid.",
   },
 
-  // -- 26: Peluang yang Tidak Dikejar Lab Besar --
+  // -- 17: Materi 3 --
+  {
+    layout: "section",
+    title: "3. Menu Framing dan Filter Literatur",
+    body: "Tahap dekomposisi yang baik menghasilkan menu framing, bukan satu proyek final. Untuk satu dataset, targetkan 3-5 framing kandidat yang berbeda secara bermakna.",
+    footnote: "Tiga adalah minimum yang berguna; ubah setidaknya satu dari entitas, output, input, batasan, atau gap antar framing.",
+  },
+
+  // -- 18: Template framing --
+  {
+    layout: "code",
+    title: "Template satu framing kandidat",
+    body: "Tiap kandidat ditulis cukup detail agar bisa dicari dan dibandingkan, memakai template berikut:",
+    lang: "text",
+    code: `Framing #N
+- Pertanyaan riset (1 kalimat)
+- Entitas
+- Input
+- Output
+- Cek temporal/kausal: LULUS / GAGAL
+- Middle kasar
+- Gap yang diperkirakan`,
+    footnote: "Pada tahap ini, framing cukup jelas untuk dicari, belum perlu rancangan eksperimen lengkap.",
+  },
+
+  // -- 19: Loop filter literatur --
+  {
+    layout: "code",
+    title: "Loop filter literatur, bukan tinjauan lengkap",
+    body: "Pemeriksaan literatur dijalankan setelah menu terbentuk, memakai keterampilan baca abstrak cepat dari W10:",
+    lang: "text",
+    code: `Untuk setiap framing kandidat:
+  Buat 2-4 query pencarian
+  Skim maksimal 5-10 abstrak
+  Klasifikasikan:
+    BARU              -> pertahankan
+    SEBAGIAN TERJAWAB -> ubah arah
+    JENUH             -> hapus`,
+    footnote: "Tujuannya menyaring, bukan tinjauan literatur lengkap; alatnya Google Scholar, Semantic Scholar, Connected Papers, Papers with Code.",
+  },
+
+  // -- 20: Klasifikasi --
   {
     layout: "bullets",
-    title: "Peluang yang Tidak Dikejar Lab Besar",
-    body: "Konteks lokal membuka peluang riset spesifik yang gap literaturnya memang ada, bukan dibuat-buat:",
+    title: "Tiga hasil klasifikasi filter",
+    body: "Setiap framing kandidat berakhir di salah satu dari tiga kategori, dan tiap kategori menuntut tindakan berbeda:",
     bullets: [
-      "**Data bahasa lokal** seperti Banjar dan dialek Indonesia lainnya belum banyak diteliti, sehingga gap-nya nyata.",
-      "**Masalah pertanian dan kesehatan lokal** relevan secara langsung dan jarang menjadi fokus lab berdana besar.",
-      "**Domain yang belum banyak dieksplorasi** menjadi peluang karena masalahnya tidak terlihat dari Jakarta atau Singapura.",
+      "**BARU** berarti gap tampak belum ditangani, sehingga framing dipertahankan sebagai kandidat kuat.",
+      "**SEBAGIAN TERJAWAB** berarti literatur sudah dekat, sehingga arah diubah ke bagian yang belum dilakukan.",
+      "**JENUH** berarti 5+ paper terbaru membahas kombinasi yang sama persis, sehingga framing dihapus dengan sehat.",
     ],
-    footnote: "Metodologi W11 adalah cara menemukan dan mengklaim peluang-peluang ini secara sistematis.",
+    footnote: "Menghapus framing yang jenuh menandakan filternya bekerja; sunk cost adalah musuhnya.",
   },
 
-  // -- 27: Tiga Komponen yang Harus Ditentukan --
+  // -- 21: Materi 4 --
   {
-    layout: "bullets",
-    title: "Tiga Komponen yang Harus Ditentukan",
-    body: "Dari gambar tersebut, setiap masalah dipecah menjadi tiga komponen yang masing-masing adalah keputusan desain:",
-    bullets: [
-      "**Input** adalah apa yang diterima model saat prediksi, berupa satu atau beberapa tensor dengan bentuk spesifik.",
-      "**Output** adalah apa yang dihasilkan model, dengan bentuk dan semantik yang sesuai dengan pertanyaan riset.",
-      "**Middle** adalah yang memetakan Input ke Output, dengan sebagian langkah standar di Big Map dan sebagian berupa gap.",
-    ],
-    footnote: "Langkah Middle yang tidak punya jawaban standar adalah gap tempat riset baru berada.",
+    layout: "section",
+    title: "4. Dua Fase dan Luaran W11",
+    body: "Minggu ini punya dua fase yang tidak boleh dicampur: dekomposisi lalu filter literatur. Mencampurnya menghasilkan framing yang aman dan dangkal, yaitu hal pertama yang terlintas, hampir tanpa diperiksa.",
+    footnote: "Hasilkan dulu, filter kemudian; 2-4 jam filter literatur bisa menghemat berminggu-minggu eksekusi yang terbuang.",
   },
 
-  // -- 28: Empat Kasus Pemetaan Middle ke Big Map --
-  {
-    layout: "grid",
-    title: "Empat Kasus Pemetaan Middle ke Big Map",
-    body: "Setiap langkah Middle dipetakan ke Big Map, dan hasil pemetaannya menentukan jenis kontribusi:",
-    gridItems: [
-      {
-        title: "Kasus A - Satu Baris Cocok",
-        body: "Seluruh Middle adalah satu komponen standar, misalnya gambar ke CNN ke kelas. Pertanyaannya valid tetapi kontribusinya sederhana, kecuali domain atau bahasanya baru.",
-      },
-      {
-        title: "Kasus B - Rangkaian Baris",
-        body: "Beberapa langkah standar dirangkai berurutan pada kombinasi Input dan Output yang belum pernah dicoba. Kontribusinya adalah rangkaian itu beserta validasi empirisnya.",
-      },
-      {
-        title: "Kasus C - Baris plus Gap",
-        body: "Sebagian langkah standar, tetapi satu atau lebih tidak punya baris yang cocok. Gap inilah tempat riset baru berada dan harus dinamai dengan tepat.",
-      },
-      {
-        title: "Kasus D - Tidak Ada Baris Cocok",
-        body: "Pasangan Input dan Output tidak punya solusi ML di level manapun. Ini jarang, dan biasanya berarti pasangannya belum terdefinisi dengan baik dan perlu direvisi.",
-      },
-    ],
-    footnote: "Kasus B yang dikenali dengan tepat adalah riset yang sah, berbeda dari mengklaim metode baru.",
-  },
-
-  // -- 29: Dekomposisi lalu Filter Literatur --
+  // -- 22: Dua fase (split) --
   {
     layout: "split",
-    title: "Dekomposisi lalu Filter Literatur",
+    title: "Dekomposisi lalu filter literatur",
     body: "Kedua fase punya mindset yang berbeda dan harus dijalankan berurutan, bukan bersamaan:",
     left: {
       title: "Fase 1 - Dekomposisi",
-      body: "Hasilkan 3-5 framing kandidat yang benar-benar berbeda.\n\nJadilah kreatif dan jangan filter dulu.\n\nUbah setidaknya satu dari entitas, output, input, batasan, atau gap di antara framing.",
+      body: "Hasilkan 3-5 framing kandidat yang benar-benar berbeda.\n\nJadilah kreatif dan jangan konsultasikan literatur dulu.\n\nUbah setidaknya satu dari entitas, output, input, batasan, atau gap antar framing.",
     },
     right: {
       title: "Fase 2 - Filter Literatur",
       body: "Bawa setiap kandidat ke literatur.\n\nCari mana yang jenuh, mana yang perlu ubah arah, dan mana yang punya gap nyata.\n\nJalankan pada setiap framing, terutama yang tampak jelas menjanjikan.",
     },
-    footnote: "Menghapus framing yang jenuh itu sehat: sunk cost adalah musuhnya.",
+    footnote: "Framing yang tampak menjanjikan paling sering kena jebakan \"baru bagi saya\".",
   },
 
-  // -- 30: Pitfalls & Miskonsepsi --
-  {
-    layout: "section",
-    title: "Pitfalls & Miskonsepsi",
-    body: "Beberapa keyakinan tentang framing terdengar masuk akal tetapi sering menghasilkan proyek yang lemah. Mengenalinya menghemat berminggu-minggu eksekusi yang tidak bisa dipublikasikan.",
-    footnote: "Sebagian besar berakar pada melewati pemeriksaan literatur atau terjun langsung ke satu framing.",
-  },
-
-  // -- 31: Empat Keyakinan yang Perlu Diluruskan --
+  // -- 23: Luaran W11 --
   {
     layout: "bullets",
-    title: "Empat Keyakinan yang Perlu Diluruskan",
-    body: "Keempat keyakinan berikut adalah penyebab paling umum framing yang lemah:",
+    title: "Luaran W11 yang dibawa ke W12",
+    body: "Setelah kedua fase selesai, kirim tiga luaran ke RA sebelum W12 sebagai dasar presentasi dan pertahanan framing:",
     bullets: [
-      "**\"Idenya jelas baru, tak perlu cek literatur\"** keliru karena jebakan \"baru bagi saya\" - jalankan filter pada setiap framing.",
-      "**\"Satu dataset, satu proyek\"** salah karena satu dataset mendukung banyak pertanyaan riset yang sah lewat menu framing.",
-      "**\"Saya susun framing sambil menulis kode\"** berbahaya karena framing buruk tidak membaik dengan eksekusi lebih banyak.",
+      "**Dokumen dekomposisi** berisi semua 3-5 framing memakai template Input, Middle, Output.",
+      "**Tabel pemeriksaan literatur** dengan satu baris per framing beserta klasifikasi dan buktinya.",
+      "**Paragraf daftar pendek** memuat framing utama dengan kalimat cek kebaruan, framing cadangan, dan framing yang dihapus beserta alasannya.",
     ],
-    footnote: "Gap di Middle tidak harus metode yang benar-benar baru - Kasus B yang dinamai dengan tepat sudah cukup sebagai kontribusi.",
+    footnote: "Datang ke W12 siap mempresentasikan dan mempertahankan framing utama: framing adalah keputusan Anda, dan Anda yang menjelaskannya.",
   },
 
-  // -- 32: Siapkan Framing Capstone --
+  // -- 24: Lab --
+  {
+    layout: "bullets",
+    title: "Lab dan lokakarya W11",
+    body: "Sesi kelas 120 menit menjalankan demo dekomposisi lalu tiga lokakarya, mengikuti urutan empat materi di atas:",
+    bullets: [
+      "**Lokakarya 1** menghasilkan menu tiga framing kandidat dari dataset kelompok tanpa langsung berkomitmen.",
+      "**Lokakarya 2** menjalankan filter literatur cepat pada ketiga framing dan mengklasifikasikannya.",
+      "**Lokakarya 3** mengubah menu jadi keputusan: satu framing utama, satu cadangan, dan framing yang dihapus beserta alasannya.",
+    ],
+    footnote: "Checklist: pertanyaan riset dinyatakan, cek temporal lulus, gap dinamai, filter dijalankan, dan kalimat cek kebaruan dilengkapi.",
+  },
+
+  // -- 25: Refleksi --
+  {
+    layout: "bullets",
+    title: "Refleksi",
+    body: "Tiga pertanyaan untuk dibawa ke portofolio mandiri, semuanya melatih kerangka framing pada topik baru:",
+    bullets: [
+      "Untuk topik \"deteksi emosi dari audio\", tiga framing berbeda apa yang muncul dengan entitas, input, output, dan letak gap yang berbeda?",
+      "Pilih satu dataset, hasilkan tiga framing tanpa mencari literatur, lalu jalankan filter: adakah yang jenuh, dan adakah yang mengarah ke gap nyata?",
+      "Cari satu contoh paper yang kemungkinan punya masalah cek temporal: apa yang salah dengan framing-nya dan bagaimana memperbaikinya?",
+    ],
+  },
+
+  // -- 26: Lanjut ke Capstone --
+  {
+    layout: "bullets",
+    title: "Lanjut ke Capstone",
+    body: "Dengan W11 selesai, menu framing siap dan daftar pendek tertulis. Empat minggu capstone W12-W15 mengubah framing jadi riset yang dipertahankan:",
+    bullets: [
+      "**W12** mempresentasikan dan mempertahankan framing utama, lalu memulai Eksperimen 1 dengan pre-registration.",
+      "**W13** melakukan rethink dan iterasi menuju Eksperimen 2, lalu W14 menyajikan research talk 20 menit.",
+      "**W15** mengumpulkan laporan final dan repo bertag versi tanpa sesi kelas.",
+    ],
+    footnote: "Seluruh disiplin bootcamp dari reproduksibilitas (W4) sampai ablation (W3) kini dipakai pada pertanyaan riset Anda sendiri.",
+  },
+
+  // -- 27: CTA --
   {
     layout: "cta",
     title: "Siapkan Framing Capstone",
-    body: "Susun menu 3-5 framing dengan template dekomposisi, jalankan filter literatur, lalu isi template pre-registration sebagai dasar Eksperimen 1 di W12.\n\nEstimasi waktu: 6-8 jam termasuk dekomposisi dan filter literatur antar sesi.",
+    body: "Susun menu 3-5 framing dengan template dekomposisi, jalankan filter literatur, lalu isi template pre-registration sebagai dasar Eksperimen 1 di W12.\n\nEstimasi waktu 6-8 jam termasuk dekomposisi dan filter literatur antar sesi.",
     ctaText: "Buka Template Pre-registration",
     ctaTarget: "https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/docs/prereg_template.md",
-  }
+  },
 ];

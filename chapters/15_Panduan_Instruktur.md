@@ -27,8 +27,6 @@
 
 # 15 · Panduan Instruktur
 
-> *Modul ini bukan buku teks yang dibacakan dari depan kelas. Modul ini adalah rangkaian eksperimen bertahap yang membutuhkan fasilitator - seseorang yang tahu kapan memberi ruang untuk gagal, kapan mengajukan pertanyaan yang lebih tajam, dan kapan mundur agar mahasiswa mendapatkan jawabannya sendiri.*
-
 ---
 
 ## 0. Peta Bab
@@ -103,7 +101,7 @@ Format ini memastikan setiap sesi: (1) menuntaskan tindak lanjut minggu sebelumn
 | 10 | 10 W10 | Lab W10 | Membaca paper + implementasi | metode tiga putaran eksplisit. Minta mahasiswa membawa paper yang sudah di-skim ke kelas. Langkah paper-to-code. | Rigor + Curiosity | Catatan tiga putaran + metode inti terimplementasi |
 | 11 | 11 W11 | Lokakarya Framing | Framing riset (Input → Middle → Output + filter literatur) | **W11 adalah persiapan capstone**. Demo langsung dekomposisi dataset. Lokakarya menu framing + triage literatur. Mahasiswa keluar dengan 3-5 framing kandidat. | Integrasi empat sikap | Dokumen dekomposisi + tabel triage literatur; siap presentasi di W12 |
 | 12 | 12 Capstone | Pertahanan Framing + Eks 1 | Filter dan komitmen framing; mulai Eksperimen 1 | Pimpin pertahanan framing (15 mnt/mahasiswa). Setujui atau kembalikan. Setelah setuju: mahasiswa menulis pre-registration sebelum kode berjalan. | Rigor | Framing disetujui; pre-reg Eksperimen 1 di-commit; Eksperimen 1 mulai jalan |
-| 13 | 12 Capstone | Tinjauan Ulang + Eks 2 | Tinjau ulang; desain dan jalankan Eksperimen 2 | Fokus pada dokumen tinjauan ulang: apakah perubahan arah dapat dilacak ke angka spesifik? Tanya: "Kalau Eks 1 terbalik, Eks 2 berbeda?" | Skepticism + Rigor | Dokumen tinjauan ulang jujur; pre-reg Eksperimen 2 di-commit |
+| 13 | 12 Capstone | Tinjauan Ulang + Eks 2 | Tinjau ulang; desain dan jalankan Eksperimen 2 | Fokus pada dokumen tinjauan ulang: apakah perubahan arah dapat dilacak ke angka spesifik? Tanya: "Kalau Eks 1 terbalik, Eks 2 berbeda?" | Skepticism + Rigor | Dokumen tinjauan ulang yang menyebut kelemahan; pre-reg Eksperimen 2 di-commit |
 | 14 | 12 Capstone | Presentasi Final | Presentasi riset 20 menit (15+5 Q&A) | Q&A: apakah klaim sesuai bukti? Klaim "membuktikan" harus diganti menjadi "mengindikasikan" bila bukti belum cukup kuat. Demo menampilkan kasus gagal? Laporan bisa direproduksi? | Ownership | Laporan draft final; repo + demo siap; umpan balik dari Q&A dicatat |
 | 15 | 12 Capstone | - | Pengumpulan final (tanpa sesi kelas) | Tidak ada sesi tatap muka. Tenggat akhir W15: laporan final + repo bertag `v1.0` + demo berjalan dari lingkungan bersih. | Ownership | Laporan + repo + demo terkumpul; tag `v1.0` di-push |
 
@@ -227,7 +225,7 @@ Konten di luar `<details>` adalah **konten inti** - wajib untuk semua mahasiswa.
 
 - **Prioritas per minggu:**
   - W12: pimpin pertahanan framing (15 mnt/mahasiswa); setujui atau kembalikan; jangan biarkan Eksperimen 1 dimulai sebelum framing disetujui dan pre-registration di-commit.
-  - W13: periksa dokumen tinjauan ulang - apakah perubahan arah dapat dilacak ke angka spesifik dari Eksperimen 1? Tanya: "Kalau Eksperimen 1 arahnya terbalik, Eksperimen 2 Anda berbeda?" Jika tidak, tinjauan ulangnya belum jujur.
+  - W13: periksa dokumen tinjauan ulang - apakah perubahan arah dapat dilacak ke angka spesifik dari Eksperimen 1? Tanya: "Kalau Eksperimen 1 arahnya terbalik, Eksperimen 2 Anda berbeda?" Jika tidak, tinjauan ulangnya belum menyebut kelemahan yang ditemukan.
   - W14: Tanya jawab presentasi final - apakah klaim sesuai bukti? Demo harus bisa menampilkan kasus gagal, bukan hanya sukses.
   - W15: tidak ada sesi kelas. Tenggat pengumpulan: laporan final (6-8 halaman) + repo bertag `v1.0` + demo berjalan dari lingkungan bersih.
 - **Pitfall:** Tinjauan ulang yang tidak berubah - Eksperimen 2 identik dengan yang direncanakan sejak awal, tidak dipengaruhi hasil Eksperimen 1. Tangkap ini di W13. Pitfall lain: laporan ditulis dari nol di W15. Tegakkan penulisan paralel sejak W13.
@@ -378,7 +376,7 @@ W5 secara konsisten menjadi titik paling curam di modul - BPTT, vanishing gradie
 
 4. **Jangan lewatkan Lab 3b.** Lab ini wajib (Breadth Check Kompetensi 1). Jika waktu habis, pangkas satu analisis lain (misalnya analisis lanjutan dari Lab 2), bukan Lab 3b. Gradient flow plot vanishing vs LSTM adalah bukti visual yang tidak bisa diganti narasi.
 
-5. **Susun ulang kesulitan.** Katakan langsung: "W5 memang paling sulit. Jika Anda merasa pusing, itu normal. Yang perlu Anda petik dari W5 bukan mengulang gate equations, melainkan dua hal: (1) kenapa vanilla RNN gagal di sequence panjang, dan (2) cell state adalah 'jalur aditif' yang menjaga gradient tetap stabil."
+5. **Susun ulang kesulitan.** Katakan langsung: "W5 memang paling sulit. Jika Anda merasa pusing, itu normal. Yang perlu Anda petik dari W5 adalah dua hal, bukan mengulang gate equations: (1) kenapa vanilla RNN gagal di sequence panjang, dan (2) cell state adalah 'jalur aditif' yang menjaga gradient tetap stabil."
 
 ### Skenario 6: Semua Mahasiswa Memakai LLM untuk Mengerjakan Lab (W7+)
 
@@ -404,6 +402,6 @@ W5 secara konsisten menjadi titik paling curam di modul - BPTT, vanishing gradie
 
 ## 8. Penutup
 
-Modul ini dibangun dengan keyakinan bahwa asisten riset yang baik bukanlah yang paling cepat menulis kode, melainkan yang paling jujur pada data, paling disiplin dalam mencatat, dan paling berani mengakui ketidaktahuan. Jika Anda sebagai dosen membawa keyakinan yang sama ke dalam kelas - memperlakukan setiap pertanyaan mahasiswa sebagai awal eksplorasi, bukan akhir jawaban - modul ini akan efektif.
+Modul ini dibangun dengan keyakinan bahwa asisten riset yang baik adalah yang paling teliti pada data, paling disiplin dalam mencatat, dan paling berani mengakui ketidaktahuan, bukan yang paling cepat menulis kode. Jika Anda sebagai dosen membawa keyakinan yang sama ke dalam kelas - meneruskan eksplorasi dari setiap pertanyaan mahasiswa sampai mereka menemukan jawabannya sendiri - modul ini akan efektif.
 
 Selamat mengajar. Mulailah dengan Pendahuluan, dan biarkan mahasiswa menyadari sendiri mengapa curiosity, rigor, skepticism, dan ownership lebih penting daripada kerangka apa pun.

@@ -117,4 +117,4 @@ Sebelum menyatakan selesai, baca ulang draf Anda sebagai reviewer yang menolak A
 - [ ] Sisa gaya lama: section "Motivasi", epigraph, atau label metadata ("Baris peta besar:").
 - [ ] Materi yang punya artefak wajar (kode, tabel, protokol) tapi artefaknya tidak ditampilkan.
 
-Kalau satu pun tercentang, perbaiki sebelum selesai. Asumsikan ada reviewer ketat yang akan menolak seluruh draf kalau ada satu saja yang lolos. Centang hanya setelah membaca ulang teks final baris demi baris, bukan dari ingatan saat menulis; kalau perlu, grep pola yang dilarang untuk memastikan tidak ada sisa.
+Kalau satu pun tercentang, perbaiki sebelum selesai. Asumsikan ada reviewer ketat yang akan menolak seluruh draf kalau ada satu saja yang lolos. Centang hanya setelah membaca ulang teks final baris demi baris, bukan dari ingatan saat menulis. Grep pola yang dilarang (`melainkan`, `bukan sekadar`, `justru`, em dash, dan ` bukan ` yang berdiri sebagai penegasan) untuk memastikan tidak ada sisa; banyak ` bukan ` akan sah karena informatif, jadi nilai tiap temuan satu per satu.

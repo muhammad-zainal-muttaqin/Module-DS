@@ -1,4 +1,4 @@
-﻿<details>
+<details>
 <summary>📂 Navigasi Modul (klik untuk buka)</summary>
 
 | # | Modul | Minggu |
@@ -27,93 +27,52 @@
 
 # 08 · W8 - Foundation Models
 
-> *Foundation model bukan sekadar model yang bagus. Ia sudah mempelajari representasi dari jutaan contoh sehingga Anda tidak perlu memulai dari nol. Pertanyaannya bukan "apakah saya boleh memakainya", melainkan "adaptasi apa yang paling masuk akal untuk skenario ini?"*
+Kali ini kita akan membahas:
 
-**Baris peta besar:** input apa pun yang memanfaatkan prior dari pretrained model
-**Kebiasaan riset:** Literasi model card, pilihan adaptasi, baseline yang setara
-**Dataset:** Pakai ulang dataset dari minggu sebelumnya untuk perbandingan langsung
-**Lab utama:** Foundation Model Map + selection memo
+1. **Lanskap Foundation Model** - apa yang membuat sebuah model disebut foundation model, dan taksonomi modalitas x keluarga x adaptasi sebagai peta pilihan.
+2. **Membaca Model Card** - tujuh pertanyaan untuk menilai satu kandidat model sebelum memakainya.
+3. **Memilih Adaptasi** - pohon keputusan antara frozen, LoRA, dan full fine-tuning, dengan satu worked example di IndoBERT.
+4. **Teacher Model saat Training** - foundation model yang hanya hadir di training lalu tidak ikut di-deploy.
 
----
-
-## 0. Peta Bab
-
-W8 membentuk pemahaman sistematis tentang ekosistem foundation model:
-
-- **2.0** Dari Pretraining ke Foundation Model - bagaimana evolusi ini terjadi
-- **2.1** Apa yang membuat sebuah model menjadi "foundation model"?
-- **2.2** Taksonomi modalitas x keluarga model x adaptasi
-- **2.3** Mengevaluasi model card
-- **2.4** Pohon keputusan untuk memilih adaptasi
-- **2.5** Teacher model dan training-time supervision
-- **3** Worked Example: IndoBERT dengan tiga strategi adaptasi
+Di pertemuan sebelumnya (W7) kita memakai satu pretrained Transformer untuk teks, dan memutuskan freeze atau fine-tune lewat [W7 §1.3](07_W7_Text_Transformers_Repo_Adoption.md). Output W7 yang dipakai minggu ini adalah pengalaman mengadaptasi satu model ke satu tugas. Minggu ini pilihan freeze vs fine-tune itu diperluas: dari satu model teks ke banyak modalitas, dan dari dua opsi ke pohon keputusan adaptasi yang lebih lengkap. Taksonomi representasi engineered/extracted/learned dari [W3 §2.4](03_W3_Loss_Optimizer_Evaluasi.md) tetap dipakai untuk menempatkan tiap mode adaptasi.
 
 ---
 
-## 1. Motivasi: Jangan Mulai dari Nol
+## 1. Lanskap Foundation Model
 
-Bayangkan Anda ditugaskan membangun classifier untuk teks medis Bahasa Indonesia. Pilihan:
+Foundation model adalah model yang dilatih pada data berskala besar dan bisa diadaptasi ke banyak tugas hilir tanpa training ulang dari nol. Istilah ini dipakai longgar di riset praktis, dan sebuah model masuk kategori ini kalau memenuhi tiga ciri:
 
-**Dari nol:** Latih LSTM dari awal. Dataset Anda 5.000 sampel - mungkin cukup untuk pola dasar, tetapi kosakata medis sangat jarang.
+1. Model **pretrained pada data besar**, yaitu dilatih pada teks, gambar, audio, atau multimodal dalam skala yang tidak praktis untuk dilatih sendiri.
+2. Model menghasilkan **representasi yang dapat ditransfer**, sehingga hidden states atau embeddings-nya berguna untuk banyak tugas hilir, bukan hanya tugas pretraining-nya.
+3. Model **dapat diadaptasi tanpa training penuh** lewat frozen extraction, adapter ringan seperti LoRA, atau fine-tuning sebagian, dan tetap memberi hasil yang kompetitif.
 
-**Dengan foundation model:** Mulai dari IndoBERT yang sudah memahami tata bahasa dan konteks Bahasa Indonesia dari jutaan kalimat. Fine-tune hanya 3 epoch. Hasilnya hampir pasti lebih baik dengan lebih sedikit data dan waktu.
+Konsekuensinya, saat mendapat tugas baru, pertanyaan pertama bergeser dari "arsitektur apa yang saya bangun dari nol?" menjadi "apakah ada foundation model yang sudah mempelajari representasi relevan?" Contohnya, untuk classifier teks medis Bahasa Indonesia dengan 5.000 sampel, melatih LSTM dari nol mungkin cukup untuk pola dasar, tetapi kosakata medis terlalu jarang untuk dipelajari dari data sekecil itu. IndoBERT sudah memahami tata bahasa Indonesia dari jutaan kalimat, sehingga fine-tune 3 epoch hampir pasti memberi hasil lebih baik dengan data dan waktu lebih sedikit.
 
-Tapi sebelum memilih model, ada pertanyaan yang perlu dijawab:
+Pergeseran ini terbentuk bertahap selama satu dekade:
 
-1. Model mana yang paling cocok untuk tugas dan domain ini?
-2. Adaptasi apa yang paling tepat - frozen features, LoRA, atau full fine-tuning?
-3. Apakah model ini punya batasan yang perlu saya waspadai?
+| Fase | Periode | Pola | Penanda |
+|---|---|---|---|
+| 1 | sebelum 2012 | Tiap tugas dilatih dari bobot acak, tanpa berbagi representasi | Tidak ada transfer antar tugas |
+| 2 | 2012-2017 | Fine-tune dari bobot ImageNet, karena representasi visual rendah bersifat universal | AlexNet, ImageNet |
+| 3 | 2018-2020 | Pretraining self-supervised pada teks, lalu fine-tune ke puluhan tugas | BERT (MLM), GPT (causal LM) |
+| 4 | 2020-sekarang | Pretraining multimodal, zero-shot lintas tugas | CLIP, Whisper |
+| 5 | 2021 | Istilah "foundation model" diperkenalkan | Bommasani et al. (2021) |
 
-W8 memberi kerangka untuk menjawab ketiga pertanyaan ini.
+Self-supervised pada fase 3 berarti model belajar dari teks tanpa label, cukup dengan memprediksi token yang disembunyikan (masked language modeling) atau token berikutnya (causal language modeling). Paper Bommasani et al. (2021) menyebut dua properti yang muncul dari skala ini: *emergence*, yaitu kemampuan yang muncul dari skala dan bukan dari desain eksplisit, dan *homogenization*, yaitu banyak aplikasi bertumpu pada beberapa model yang sama sehingga menciptakan efisiensi sekaligus risiko bersama.
 
----
+### Taksonomi: Modalitas x Keluarga x Adaptasi
 
-### 2.0 Dari Pretraining ke Foundation Model
-
-Sebelum masuk ke "apa itu foundation model", mari kita lihat bagaimana kita sampai di sini. Sejarah ini penting karena menunjukkan bahwa foundation model bukanlah kemunculan tiba-tiba, melainkan akumulasi dari pola yang sudah terbentuk selama satu dekade.
-
-**Fase 1: Training dari nol per tugas (sebelum 2012).** Setiap tugas dimulai dari bobot acak. Tidak ada berbagi representasi antar tugas; model untuk klasifikasi gambar tidak membantu model untuk deteksi objek. Ini seperti setiap kali belajar membaca, Anda harus belajar alfabet ulang.
-
-**Fase 2: Pretraining supervised + fine-tuning (2012–2017).** AlexNet (2012) dilatih di ImageNet 1.2 juta gambar, biaya training-nya terlalu tinggi untuk dilatih ulang setiap kali. Pola baru muncul: ambil bobot yang sudah dilatih di ImageNet, lalu *fine-tune* di dataset yang lebih kecil. Ini bekerja karena representasi visual tingkat rendah (edge, tekstur, bentuk) bersifat universal. Pola ini menjadi standar di computer vision: tidak ada lagi training dari nol.
-
-**Fase 3: Pretraining self-supervised pada teks (2018–2020).** BERT (Devlin et al., 2018) dan GPT (Radford et al., 2018) memindahkan paradigma ini ke NLP, dengan dua perbedaan penting. Pertama, pretraining dilakukan secara *self-supervised*: model belajar dari teks tanpa label, cukup dengan memprediksi token yang disembunyikan (masked language modeling) atau token berikutnya (causal language modeling). Kedua, skala data melonjak drastis: BERT dilatih di 3,3 miliar token dari BooksCorpus + Wikipedia; GPT-2 di 8 juta halaman web.
-
-Hasilnya di luar dugaan: satu model pretrained bisa di-fine-tune ke puluhan tugas hilir (klasifikasi teks, NER, question answering, summarization) tanpa mengubah arsitektur. Inilah saat istilah *pretrained language model* mulai bergeser menjadi *foundation*.
-
-**Fase 4: Multimodal dan general-purpose (2020–sekarang).** CLIP (Radford et al., 2021) membuktikan bahwa pretraining kontrastif pada pasangan gambar-teks 400M menghasilkan representasi yang bisa melakukan zero-shot klasifikasi gambar tanpa pernah dilatih khusus untuk ImageNet. Whisper (2022) melakukan hal serupa untuk audio ke teks. Model-model ini bukan lagi spesialis per domain; mereka adalah infrastruktur yang bisa diadaptasi ke banyak tugas.
-
-**Fase 5: Istilah "foundation model" lahir (2021).** Paper Bommasani et al. (2021) "*On the Opportunities and Risks of Foundation Models*" secara resmi memperkenalkan istilah ini. Definisi mereka: model yang dilatih pada data skala besar dan dapat diadaptasi ke berbagai tugas hilir. Dua properti kunci: *emergence* (kemampuan muncul dari skala, bukan dari desain eksplisit) dan *homogenization* (banyak aplikasi bertumpu pada beberapa model yang sama, menciptakan risiko dan efisiensi sekaligus).
-
-**Apa artinya bagi Anda sebagai peneliti pemula?**
-
-Dulu, pertanyaan pertama saat memulai riset adalah "arsitektur apa yang harus saya bangun?" Sekarang pertanyaannya: "apakah sudah ada model yang sudah mempelajari representasi yang relevan?" Inilah pergeseran mindset yang mendasari W8. Anda tidak perlu memulai dari nol. Anda tinggal mengadaptasi representasinya.
-
----
-
-## 2. Konsep Inti
-
-### 2.1 Apa Itu Foundation Model dalam Praktiknya?
-
-Foundation model bukan definisi teknis yang ketat. Dalam konteks riset praktis, istilah ini merujuk ke model yang:
-
-1. **Pretrained pada data besar**: model ini dilatih pada teks, gambar, audio, atau multimodal dalam skala yang tidak praktis untuk dilatih sendiri.
-2. **Representasi yang dapat ditransfer**: hidden states atau embeddings yang dihasilkan berguna untuk banyak tugas hilir.
-3. **Dapat diadaptasi tanpa training penuh**: frozen extraction, lightweight adapters seperti LoRA, atau fine-tuning sebagian sudah memberikan hasil yang kompetitif.
-
-Konsekuensi praktis: ketika Anda mendapat tugas baru, pertanyaan pertama adalah "apakah tersedia foundation model yang relevan?" bukan "arsitektur apa yang akan saya bangun dari nol?"
-
-### 2.2 Taksonomi Modalitas x Keluarga Model x Adaptasi
+Memilih foundation model berarti memilih pada tiga sumbu sekaligus: modalitas data, keluarga arsitektur, dan mode adaptasi. Setiap pilihan model adalah satu titik dalam ruang tiga sumbu ini.
 
 ![Taksonomi Foundation Model: Modalitas × Keluarga × Adaptasi - tiga dimensi pilihan model](../figures/fig07a_foundation_taxonomy.svg)
 
-> [!IMPORTANT]
-> **Tiga mode adaptasi yang dipakai berulang di tabel.** Definisi singkat di sini supaya tabel tidak terasa magis. Detail pohon keputusan ada di §2.4.
->
-> - **Frozen** mengunci bobot pretrained (`requires_grad = False`) sehingga hanya layer tambahan kecil (linear head, classifier) yang dilatih. Inference tetap melalui seluruh model, tetapi tidak ada backward pass ke backbone. Strategi ini paling cepat dan stabil, meski kurang optimal kalau domain target jauh dari pretraining.
-> - **LoRA** (Low-Rank Adaptation) menyisipkan matriks low-rank `A B` (mis. `r=8`) secara paralel dengan `W_q` dan `W_v` di setiap attention layer, lalu mengunci `W` original sehingga hanya `A B` yang dilatih. Sekitar 0,5–2% parameter dilatih, performa biasanya 95–99% dari full fine-tuning, dan training 3–5× lebih cepat. Pakai library `peft` dari HuggingFace.
-> - **Full FT** (full fine-tuning) membiarkan semua parameter `requires_grad = True`. Strategi ini paling fleksibel, dengan biaya memori GPU dan waktu paling tinggi. Risiko overfitting tinggi pada dataset kecil; biasanya butuh learning rate kecil (`1e-5`) dan early stopping.
+Sumbu adaptasi memakai tiga mode yang sama di hampir semua modalitas, jadi kita definisikan dulu sebelum membaca tabel di bawah. Detail pemilihannya ada di materi 3.
 
-#### Teks
+- **Frozen** mengunci bobot pretrained (`requires_grad = False`) sehingga hanya layer tambahan kecil (linear head, classifier) yang dilatih. Inference tetap melewati seluruh model, tetapi tidak ada backward pass ke backbone. Mode ini paling cepat dan stabil, dan kurang optimal kalau domain target jauh dari pretraining.
+- **LoRA** (Low-Rank Adaptation) menyisipkan matriks low-rank `A B` (mis. `r=8`) paralel dengan `W_q` dan `W_v` di tiap attention layer, lalu mengunci `W` asli sehingga hanya `A B` yang dilatih. Sekitar 0,5-2% parameter dilatih, performanya biasanya 95-99% dari full fine-tuning, dan training 3-5x lebih cepat. Implementasinya memakai library `peft` dari HuggingFace.
+- **Full FT** (full fine-tuning) membiarkan semua parameter `requires_grad = True`. Mode ini paling fleksibel, dengan biaya memori GPU dan waktu paling tinggi. Risiko overfitting tinggi pada dataset kecil, jadi biasanya butuh learning rate kecil (`1e-5`) dan early stopping.
+
+Sumbu modalitas dan keluarga arsitektur menentukan model mana yang dipakai. Pada teks, keluarga arsitektur menentukan jenis tugas yang cocok:
 
 | Model | Family | Pretraining | Best for | Adaptation modes |
 |---|---|---|---|---|
@@ -123,72 +82,46 @@ Konsekuensi praktis: ketika Anda mendapat tugas baru, pertanyaan pertama adalah 
 | T5 / FLAN-T5 | Encoder-decoder | Text-to-text | QA, summarization, translation | Full FT |
 | BioBERT / ClinicalBERT | Encoder-only | Biomedical text | Medical NLP | Full FT (domain matters) |
 
-Aturan praktis: encoder-only untuk pemahaman, decoder-only untuk generasi, encoder-decoder untuk transformasi teks.
+Aturan praktisnya: encoder-only untuk pemahaman, decoder-only untuk generasi, encoder-decoder untuk transformasi teks.
 
-#### Vision
+Modalitas di luar teks punya foundation model sendiri:
 
-| Model | Family | Pretraining | Best for | Adaptation |
-|---|---|---|---|---|
-| ResNet / EfficientNet | CNN | ImageNet supervised | Image classification | Frozen, full FT |
-| ViT / DeiT | Transformer | ImageNet supervised | Classification, patches | Frozen, full FT |
-| CLIP (visual encoder) | Transformer | Image-text contrastive | Zero-shot, similarity | Frozen features |
-| DINO / DINOv2 | Self-supervised | Unlabeled images | Dense tasks, segmentation | Frozen, linear probe |
-
-#### Vision-Language
-
-| Model | Pretraining | Best for |
+| Modalitas | Model | Best for |
 |---|---|---|
-| CLIP | Image-text contrastive | Zero-shot classification, retrieval |
-| BLIP-2 | Image-text | VQA, captioning |
-| Florence-2 | Multiple vision tasks | Detection, segmentation, caption |
-
-#### Audio
-
-| Model | Pretraining | Best for |
-|---|---|---|
-| Whisper | Audio transcription (multilingual) | ASR |
-| Wav2Vec 2.0 | Self-supervised audio | Speech features, ASR |
-| AST (Audio Spectrogram Transformer) | Supervised spectrogram | Audio classification |
-
-#### Time Series
-
-| Model | Pretraining | Notes |
-|---|---|---|
-| Chronos | Large-scale time series | Probabilistic forecasting, zero-shot |
-| TimeGPT-1 | Time series | Zero-shot forecasting; commercial |
-| TimesFM | Large-scale TS | General forecasting |
+| Vision | ResNet / EfficientNet (CNN), ViT / DeiT (Transformer) | Image classification |
+| Vision | CLIP visual encoder, DINOv2 (self-supervised) | Zero-shot, similarity, linear probe, segmentasi |
+| Vision-Language | CLIP, BLIP-2, Florence-2 | Zero-shot classification, VQA, captioning, detection |
+| Audio | Whisper, Wav2Vec 2.0, AST | ASR, fitur suara, klasifikasi audio |
+| Time Series | Chronos, TimeGPT-1, TimesFM | Forecasting skala besar, zero-shot |
+| Domain-specific | BioBERT / ClinicalBERT, IndoBERT / XLM-R, ESM-2 | Teks biomedis, NLP Indonesia, sequence protein |
 
 > [!WARNING]
-> **Time series foundation models (Chronos, TimeGPT, TimesFM) adalah area riset aktif 2023-2024.** Klaim "zero-shot SOTA" sering belum direplikasi independen pada dataset di luar benchmark mereka. Untuk **capstone (W12-W15)**, gunakan ini sebagai *eksplorasi tambahan* setelah baseline LSTM/Transformer dari W5-W7 sudah berjalan dan punya catatan eksperimen yang jelas. Jangan jadikan time-series FM sebagai baseline tunggal di proposal capstone.
+> Time series foundation model (Chronos, TimeGPT, TimesFM) masih area riset aktif 2023-2024. Klaim "zero-shot SOTA" sering belum direplikasi independen di luar benchmark mereka. Untuk capstone (W12-W15), pakai model ini sebagai eksplorasi tambahan setelah baseline LSTM/Transformer dari W5-W7 berjalan dan punya catatan eksperimen. Jangan jadikan time-series FM sebagai baseline tunggal di proposal capstone.
 
-#### Domain-Specific
+---
 
-| Domain | Model | Catatan |
-|---|---|---|
-| Biomedical text | BioBERT, ClinicalBERT | Pretraining pada PubMed/clinical notes |
-| Indonesian NLP | IndoBERT, mBERT, XLM-R | Pilih berdasarkan data size dan domain |
-| Chemistry / proteins | ChemBERTa, ESM-2 | Molecular dan sequence data |
+## 2. Membaca Model Card
 
-### 2.3 Mengevaluasi Model Card
+Model card adalah dokumen yang menemani sebuah model dan mencatat asal-usul, performa, lisensi, dan batasannya. Sebelum memakai satu kandidat, baca model card-nya dengan tujuh pertanyaan:
 
-Model card adalah dokumen yang menemani sebuah model. Tujuh pertanyaan wajib saat membaca model card:
-
-1. **Apa dataset pretraining?** Domain, bahasa, ukuran. Relevan dengan tugas Anda?
-2. **Apa evaluation benchmark yang dilaporkan?** Apakah benchmark representatif untuk tugas Anda?
-3. **Apa batasan yang disebutkan eksplisit?** Biases, failure modes, out-of-scope uses.
-4. **Berapa besar modelnya?** Parameter count mempengaruhi inference cost dan feasibility fine-tuning.
-5. **Lisensi penggunaan?** CC-BY, Apache 2.0, atau restricted commercial - penting untuk publikasi.
-6. **Apakah ada reproducibility artifacts?** Training code, eval code, atau hanya weights?
-7. **Kapan model di-release dan apa data cutoff-nya?** Apakah ada model lebih baru?
+1. **Apa dataset pretraining-nya?** Periksa domain, bahasa, dan ukuran, lalu nilai relevansinya dengan tugas Anda.
+2. **Apa benchmark evaluasi yang dilaporkan?** Periksa apakah benchmark itu representatif untuk tugas yang Anda hadapi.
+3. **Apa batasan yang disebut eksplisit?** Catat bias, failure mode, dan penggunaan di luar cakupan.
+4. **Berapa besar modelnya?** Parameter count menentukan biaya inference dan kelayakan fine-tuning di perangkat Anda.
+5. **Apa lisensi penggunaannya?** Lisensi seperti Apache 2.0 atau restricted commercial menentukan apakah hasil boleh dipublikasikan.
+6. **Apakah ada artefak reproduksibilitas?** Periksa apakah tersedia training code dan eval code, atau hanya bobot.
+7. **Kapan model dirilis dan apa data cutoff-nya?** Cek apakah sudah ada model yang lebih baru.
 
 > [!WARNING]
-> "SOTA di benchmark X" tidak berarti "terbaik untuk tugas saya" jika domain berbeda signifikan. Selalu periksa apakah benchmark dataset punya overlap dengan domain Anda.
+> "SOTA di benchmark X" tidak berarti "terbaik untuk tugas saya" kalau domainnya berbeda signifikan. Periksa apakah benchmark dataset punya overlap dengan domain Anda. Baca juga bagian "Limitations" dengan skeptis, karena bagian ini sering kurang detail dibanding bagian "Performance".
 
-### 2.4 Pohon Keputusan Pemilihan Adaptasi
+---
 
-Pilihan adaptasi bergantung pada tiga faktor: **compute budget**, **jumlah labeled data**, dan **seberapa jauh domain target dari pretraining**.
+## 3. Memilih Adaptasi
 
-```
+Pilihan adaptasi bergantung pada tiga faktor: compute budget, jumlah labeled data, dan seberapa jauh domain target dari pretraining. Ketiganya menyusun satu pohon keputusan yang bisa disalin:
+
+```text
 Compute budget cukup untuk fine-tuning?
 ├── Tidak (CPU atau GPU kecil)
 │   └── Frozen features + lightweight head
@@ -205,151 +138,154 @@ Compute budget cukup untuk fine-tuning?
             └── Frozen atau LoRA (r=4-8) sudah cukup
 ```
 
-**Frozen features** adalah strategi mengekstrak embeddings tanpa gradient, dan hanya linear head yang dilatih. Pilihan ini paling cepat dan cocok untuk proof-of-concept atau dataset kecil.
+Tiga mode adaptasi yang dipilih pohon ini sudah didefinisikan di materi 1. Dalam taksonomi representasi [W3 §2.4](03_W3_Loss_Optimizer_Evaluasi.md), frozen features adalah strategi *extracted* (representasi diambil dari model frozen), full fine-tuning adalah strategi *learned* (representasi dipelajari ulang dari data), dan LoRA berada di antara keduanya karena melatih sebagian kecil parameter sambil membiarkan sebagian besar bobot tetap. Menyebut posisi tiap mode dalam taksonomi ini menjelaskan kenapa frozen lebih murah dan full FT lebih fleksibel.
 
-**LoRA** menambahkan matriks low-rank secara paralel dengan weight original, sehingga hanya matriks LoRA yang dilatih (biasanya kurang dari 1% parameter). Hasilnya sering sebanding dengan full fine-tuning, dengan biaya komputasi yang jauh lebih rendah.
-
-**Full fine-tuning** memperbarui semua parameter model. Strategi ini paling fleksibel, tetapi biaya komputasinya paling tinggi dan memerlukan data yang cukup untuk menghindari overfitting.
-
-### 2.5 Teacher Model dalam Training-Time Supervision
-
-Foundation model tidak selalu digunakan untuk inference. Pola penting: **teacher model yang hanya hadir saat training**.
-
-Contoh:
-- **Knowledge distillation** adalah pola saat model besar (teacher) melatih model kecil (student) dengan soft targets.
-- **Auxiliary supervision** menggunakan embedding dari CLIP sebagai target latih untuk network visual yang lebih kecil.
-- **Pseudo-label generation** memanfaatkan foundation model untuk menghasilkan pseudo-labels pada data yang tidak berlabel.
-
-Dalam semua kasus ini, foundation model tidak ada dalam model final yang di-deploy. Model fondasi ini meningkatkan proses pelatihan. Pola ini penting karena memungkinkan manfaat dari foundation model tanpa biaya inferensinya.
-
-#### 2.5.1 Knowledge Distillation: Contoh Numerik dengan Target Lunak
-
-Untuk tugas klasifikasi 3 kelas (anjing/kucing/kelinci), teacher menghasilkan logits `z_T = [4.0, 1.0, 0.5]` untuk satu sampel. Student dilatih untuk mereproduksi distribusi probabilitas teacher, **bukan** label keras `[1, 0, 0]`.
-
-**Hard target** (one-hot label asli):
-```
-y_hard = [1, 0, 0]
-```
-
-**Soft target** dengan temperature `T = 4` (distribusi yang halus):
-```
-softmax(z_T / T)[i] = exp(z_T[i] / T) / Σ_j exp(z_T[j] / T)
-softmax([4.0, 1.0, 0.5] / 4) = softmax([1.0, 0.25, 0.125])
-                             ≈ [0.484, 0.229, 0.202]
-```
-
-**Soft target** tanpa temperature `T = 1`:
-```
-softmax([4.0, 1.0, 0.5]) ≈ [0.939, 0.047, 0.014]   # hampir one-hot, info kelas non-mayoritas hilang
-```
-
-Temperature tinggi `T > 1` membuka informasi "kelas non-mayoritas yang masih masuk akal" - student belajar bahwa anjing-vs-kucing lebih mirip daripada anjing-vs-kelinci. Loss distillation:
-
-```
-L_KD = CE(softmax(z_S / T),  softmax(z_T / T)) * T²
-```
-
-Faktor `T²` mengompensasi gradient yang menyusut karena temperature. Total loss = `α * L_KD + (1 - α) * L_hard` dengan `α ≈ 0.7-0.9`. Pola ini memungkinkan model student kecil (mis. DistilBERT, ~40% parameter BERT) mencapai 95%+ performa teacher di banyak benchmark.
-
----
-
-## 3. Worked Example: IndoBERT dengan Tiga Strategi Adaptasi
-
-Dataset: IndoNLU SmSA (dari Lab 5b). Tiga strategi pada dataset yang sama untuk memperlihatkan trade-off di antara ketiganya.
+Untuk melihat trade-off ini secara konkret, jalankan tiga strategi pada satu dataset yang sama, yaitu IndoNLU SmSA dari [Lab W7](07_W7_Text_Transformers_Repo_Adoption.md). Memakai satu dataset menjaga perbandingan tetap setara.
 
 **Strategi A - Frozen + Linear Head:**
+
 ```python
 # Freeze BERT, hanya train head
 for param in model.bert.parameters():
     param.requires_grad = False
 ```
-Strategi ini menyelesaikan training dalam menit tanpa memerlukan GPU besar. Kelemahannya: representasi yang dikunci belum tentu optimal untuk domain sentimen.
+
+Strategi ini menyelesaikan training dalam menit tanpa GPU besar. Kelemahannya, representasi yang dikunci belum tentu optimal untuk domain sentimen.
 
 **Strategi B - LoRA (r=8):**
+
 ```python
 from peft import get_peft_model, LoraConfig, TaskType
 config = LoraConfig(task_type=TaskType.SEQ_CLS, r=8, lora_alpha=16,
                     target_modules=["query", "value"])
 model = get_peft_model(base_model, config)
 ```
-Parameter yang dilatih 10–20× lebih sedikit dari full FT, dan training 5× lebih cepat. Kelemahannya adalah ketergantungan pada library PEFT yang tidak sepopuler PyTorch bawaan.
+
+Parameter yang dilatih 10-20x lebih sedikit dari full FT, dan training 5x lebih cepat. Kelemahannya, strategi ini bergantung pada library PEFT, bukan PyTorch bawaan.
 
 **Strategi C - Full Fine-tuning:**
+
 ```python
 model = AutoModelForSequenceClassification.from_pretrained(
     "indobenchmark/indobert-base-p1", num_labels=3)
 # Semua parameter trainable by default
 ```
-Strategi ini menawarkan fleksibilitas tertinggi dengan potensi performa terbaik. Di sisi lain, training paling lama, memerlukan GPU, dan risiko overfitting lebih tinggi pada dataset kecil.
 
-**Ekspektasi perbandingan** pada 5000 sampel IndoNLU SmSA:
-- Frozen: macro-F1 ≈ 68-73%. Cepat, tapi sub-optimal.
-- LoRA: macro-F1 ≈ 76-81%. Tradeoff efisiensi-performa terbaik.
-- Full FT: macro-F1 ≈ 80-85%. Paling lambat, paling kuat.
+Strategi ini menawarkan fleksibilitas tertinggi dengan potensi performa terbaik. Biayanya, training paling lama, memerlukan GPU, dan risiko overfitting lebih tinggi pada dataset kecil.
 
----
+Pada 5.000 sampel IndoNLU SmSA, ketiga strategi menempati titik berbeda pada trade-off kecepatan dan performa:
 
-## 4. Pitfalls & Miskonsepsi
+| Strategi | macro-F1 | Catatan |
+|---|---|---|
+| Frozen + Head | 68-73% | Cepat, tanpa GPU besar, sub-optimal untuk domain target |
+| LoRA (r=8) | 76-81% | Trade-off efisiensi-performa terbaik |
+| Full FT | 80-85% | Performa tertinggi, paling lambat, butuh GPU |
 
-**"Foundation model selalu lebih baik."** Pada dataset kecil dengan distribusi sangat berbeda dari pretraining, model kecil yang di-fine-tune khusus kadang mengungguli foundation model besar.
+Tiga miskonsepsi yang sering muncul saat memilih adaptasi:
 
-**"Frozen features cukup untuk domain shift besar."** Representasi frozen BERT pada teks klinik sangat spesifik mungkin jauh lebih buruk dari fine-tuned model kecil yang lebih relevan.
-
-**"LoRA rank besar lebih baik."** Hubungannya tidak linier. r=4 atau r=8 sering sudah cukup untuk dataset rata-rata. Rank lebih besar menambah parameter tetapi tidak selalu meningkatkan performa.
-
-**"Model Card selalu lengkap."** Baca bagian "Limitations" dengan skeptis - bagian ini sering kurang detail dibanding bagian "Performance".
+- Anggapan "foundation model selalu lebih baik" keliru pada dataset kecil dengan distribusi jauh dari pretraining, karena model kecil yang di-fine-tune khusus kadang mengungguli foundation model besar.
+- Anggapan "frozen features cukup untuk domain shift besar" keliru, karena representasi frozen BERT pada teks klinik bisa jauh lebih buruk dari fine-tuned model kecil yang lebih relevan.
+- Anggapan "LoRA rank besar lebih baik" keliru karena hubungannya tidak linier: `r=4` atau `r=8` sering sudah cukup untuk dataset rata-rata, dan rank lebih besar menambah parameter tanpa selalu menaikkan performa.
 
 ---
 
-## 5. Tugas: Foundation Model Map (W8)
+## 4. Teacher Model saat Training
 
-Buat **Foundation Model Map** untuk 3-4 model yang relevan dengan domain riset Anda:
+Foundation model tidak selalu dipakai untuk inference. Satu pola penting memakai foundation model sebagai teacher saat training, lalu menghapusnya dari model yang di-deploy. Pola ini memberi manfaat foundation model tanpa menanggung biaya inference-nya, dan muncul dalam tiga bentuk:
 
-| Model | Modalitas | Pretraining | Downstream role | Adaptation | Teacher-only? | Pilihan karena |
-|---|---|---|---|---|---|---|
-| ... | ... | ... | ... | ... | ... | ... |
+1. **Knowledge distillation** memakai model besar (teacher) untuk melatih model kecil (student) dengan soft targets, bukan label keras.
+2. **Auxiliary supervision** memakai embedding dari CLIP sebagai target latih untuk network visual yang lebih kecil.
+3. **Pseudo-label generation** memanfaatkan foundation model untuk menghasilkan pseudo-label pada data yang tidak berlabel.
 
-Tambahkan **selection memo** (satu paragraf per model): mengapa model ini, asumsi apa yang dibawanya, apa batasannya.
+Knowledge distillation paling jelas dijelaskan dengan satu contoh numerik. Pada klasifikasi 3 kelas (anjing/kucing/kelinci), teacher menghasilkan logits `z_T = [4.0, 1.0, 0.5]` untuk satu sampel. Student dilatih untuk mereproduksi distribusi probabilitas teacher, bukan label keras `[1, 0, 0]`.
 
-**File output:** `foundation_model_map.md` di folder eksperimen W8.
+Hard target adalah one-hot label asli:
 
-> [!TIP]
-> **Lab penunjang - Remote Training.** Untuk pengalaman praktis menjalankan training di cloud GPU (RunPod), buka [lab_w8_remote_training.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w8_remote_training.ipynb). Lab ini opsional tapi berguna jika foundation model yang Anda pilih butuh GPU besar.
+```text
+y_hard = [1, 0, 0]
+```
+
+Soft target dengan temperature `T = 4` melembutkan distribusi:
+
+```text
+softmax(z_T / T)[i] = exp(z_T[i] / T) / Σ_j exp(z_T[j] / T)
+softmax([4.0, 1.0, 0.5] / 4) = softmax([1.0, 0.25, 0.125])
+                             ≈ [0.484, 0.229, 0.202]
+```
+
+Tanpa temperature (`T = 1`), distribusi hampir one-hot dan informasi kelas non-mayoritas hilang:
+
+```text
+softmax([4.0, 1.0, 0.5]) ≈ [0.939, 0.047, 0.014]
+```
+
+Temperature tinggi (`T > 1`) menyimpan informasi "kelas non-mayoritas yang masih masuk akal", sehingga student belajar bahwa anjing-vs-kucing lebih mirip daripada anjing-vs-kelinci. Loss distillation:
+
+```text
+L_KD = CE(softmax(z_S / T),  softmax(z_T / T)) * T²
+```
+
+Faktor `T²` mengompensasi gradient yang menyusut karena temperature. Total loss adalah `α * L_KD + (1 - α) * L_hard` dengan `α ≈ 0.7-0.9`. Pola ini memungkinkan student kecil (mis. DistilBERT, ~40% parameter BERT) mencapai 95%+ performa teacher di banyak benchmark.
 
 ---
 
-## 6. Komponen Mandiri
+## Lab
 
-Pilih satu pertanyaan dari materi W8 yang ingin Anda jelajahi lebih dalam. Boleh memakai dataset dari minggu sebelumnya atau dataset baru yang relevan.
+Tugas utama minggu ini adalah menyusun **Foundation Model Map** untuk 3-4 model yang relevan dengan domain riset Anda. Output disimpan sebagai `foundation_model_map.md` di folder eksperimen W8. Urutan tugas sejajar dengan materi di atas.
 
-**Beberapa pertanyaan pemantik** (tidak wajib salah satunya):
-- Seberapa besar perbedaan frozen CLIP vs fine-tuned ResNet sebagai feature extractor - dalam kondisi apa salah satu lebih unggul?
-- Apa yang sebenarnya ada (dan tidak ada) dalam model card HuggingFace - apakah informasi yang tersedia cukup untuk membuat keputusan adaptasi?
-- Kapan domain-specific model benar-benar lebih baik dari general model - bagaimana Anda merancang eksperimen yang setara untuk membuktikannya?
-- Bagaimana LoRA bekerja secara mekanis - apakah implementasi dari nol menghasilkan parity dengan library PEFT?
+1. Petakan 3-4 model ke tabel berikut, satu baris per model.
 
-Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasikan 10 menit di awal W9. Format: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
+   | Model | Modalitas | Pretraining | Downstream role | Adaptation | Teacher-only? | Pilihan karena |
+   |---|---|---|---|---|---|---|
+   | ... | ... | ... | ... | ... | ... | ... |
+
+2. Untuk tiap model, baca model card-nya dengan tujuh pertanyaan dari materi 2, lalu catat dataset pretraining, batasan, dan lisensinya.
+3. Pakai pohon keputusan materi 3 untuk menetapkan mode adaptasi tiap model, sesuaikan dengan compute, ukuran data, dan jarak domain.
+4. Tulis selection memo satu paragraf per model: mengapa model ini, asumsi apa yang dibawanya, dan apa batasannya.
+
+Lab penunjang opsional [`lab_w8_remote_training.ipynb`](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w8_remote_training.ipynb) melatih menjalankan training di cloud GPU (RunPod), berguna kalau model yang Anda pilih butuh GPU besar.
+
+Checklist:
+
+- [ ] Foundation Model Map berisi 3-4 model dengan semua kolom terisi.
+- [ ] Tiap model punya catatan dataset pretraining, batasan, dan lisensi dari model card-nya.
+- [ ] Mode adaptasi tiap model ditetapkan lewat pohon keputusan, bukan tebakan.
+- [ ] Tiap model punya selection memo satu paragraf.
+- [ ] File tersimpan sebagai `foundation_model_map.md` di folder eksperimen W8.
 
 ---
 
-## 7. Refleksi
+## Komponen Mandiri
 
-1. Anda mendapat task baru: deteksi emosi dari rekaman suara Bahasa Indonesia. Dari taksonomi §2.2, identifikasi dua kandidat foundation model. Untuk masing-masing, tulis dua argumen mendukung dan satu risiko utama.
-2. Seorang kolaborator mengklaim "model X mencapai SOTA di benchmark Y, jadi kita pakai ini". Apa tiga pertanyaan yang akan Anda tanyakan sebelum menyetujui?
-3. Alur Representation Choice: frozen features adalah "extracted", full FT adalah "learned". LoRA termasuk kategori mana dalam taksonomi W3 ini? Mengapa perbedaan ini penting untuk keputusan adaptasi?
+Pilih satu pertanyaan dari materi W8 untuk dijelajahi lebih dalam. Boleh memakai dataset dari minggu sebelumnya atau dataset baru yang relevan. Pertanyaan pemantik (tidak wajib salah satunya):
+
+- Seberapa besar perbedaan frozen CLIP vs fine-tuned ResNet sebagai feature extractor, dan dalam kondisi apa salah satu lebih unggul?
+- Apa yang sebenarnya ada dan tidak ada dalam model card HuggingFace, dan apakah informasinya cukup untuk membuat keputusan adaptasi?
+- Kapan domain-specific model benar-benar lebih baik dari general model, dan bagaimana Anda merancang eksperimen yang setara untuk membuktikannya?
+- Bagaimana LoRA bekerja secara mekanis, dan apakah implementasi dari nol menghasilkan parity dengan library PEFT?
+
+Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasikan 10 menit di awal W9. Format mengikuti [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
 
 ---
 
-## 8. Bacaan Lanjutan
+## Refleksi
 
-- **Bommasani et al. - *On the Opportunities and Risks of Foundation Models*** (2021). Paper definitif. Baca bagian 1 (Introduction) dan 3 (Capabilities).
+1. Anda mendapat task baru: deteksi emosi dari rekaman suara Bahasa Indonesia. Dari taksonomi materi 1, identifikasi dua kandidat foundation model. Untuk masing-masing, tulis dua argumen mendukung dan satu risiko utama.
+2. Seorang kolaborator mengklaim "model X mencapai SOTA di benchmark Y, jadi kita pakai ini". Tulis tiga pertanyaan yang akan Anda ajukan sebelum menyetujui.
+3. Dalam taksonomi representasi [W3 §2.4](03_W3_Loss_Optimizer_Evaluasi.md), frozen features adalah *extracted* dan full FT adalah *learned*. LoRA masuk kategori mana, dan mengapa perbedaan ini penting untuk keputusan adaptasi?
+
+---
+
+## Bacaan Lanjutan
+
+- **Bommasani et al. - *On the Opportunities and Risks of Foundation Models*** (2021). Paper yang memperkenalkan istilah. Baca bagian 1 (Introduction) dan 3 (Capabilities).
 - **Hu et al. - *LoRA: Low-Rank Adaptation of Large Language Models*** (2021). Baca bagian 4 (main experiments).
-- **Mitchell et al. - *Model Cards for Model Reporting*** (2019). Template model card yang digunakan industri.
+- **Mitchell et al. - *Model Cards for Model Reporting*** (2019). Template model card yang dipakai industri.
 
 ---
 
 ## Lanjut ke W9
 
-W8 membentuk pemahaman foundation model untuk satu modalitas. W9 memperluas ke wilayah yang lebih kompleks: bagaimana menggabungkan dua atau lebih modalitas, bagaimana mendeteksi apakah model benar-benar menggunakan semua modalitas, dan bagaimana menangani situasi ketika satu modalitas hilang.
+W8 membentuk pemahaman foundation model untuk satu modalitas. W9 memperluas ke wilayah yang lebih kompleks: menggabungkan dua modalitas atau lebih lewat strategi fusion, mendeteksi apakah model benar-benar memakai semua modalitas lewat ablation per modalitas, dan menangani situasi saat satu modalitas hilang. Taksonomi adaptasi dan literasi model card dari minggu ini tetap dipakai saat menggabungkan beberapa foundation model di W9.
 
 Buka [W9 - Multimodal Reasoning](09_W9_Multimodal_Reasoning.md) ketika siap.
