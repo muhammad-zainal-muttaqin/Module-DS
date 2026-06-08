@@ -1,4 +1,4 @@
-﻿<details>
+<details>
 <summary>📂 Navigasi Modul (klik untuk buka)</summary>
 
 | # | Modul | Minggu |
@@ -27,52 +27,39 @@
 
 # 07 · W7 - Text, Transformers & Repo Adoption
 
-> *TF-IDF menunjukkan kata apa yang ada. Contextual embeddings menunjukkan apa yang dimaksud kata itu di konteks spesifik ini. Transformers mengubah teks bukan menjadi fitur, melainkan menjadi makna yang bisa dibandingkan.*
+Kali ini kita akan membahas:
 
-**Baris peta besar:** `(T,) -> (N,)`, `(1,)`, `(T, N)`
-**Kebiasaan riset:** Verifikasi kode dari AI, inspeksi tokenisasi, petakan repositori eksternal
-**Dataset:** Dataset teks Indonesia (IndoNLU SmSA)
-**Lab utama:** Lab 5b ([lab_w7_text_classification.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_text_classification.ipynb)) + Lab 6 repo adoption ([lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_repo_adoption.ipynb))
+1. **Teks dengan Pretrained Transformer** - dari TF-IDF ke contextual embeddings, tokenization, cara kerja attention, dan pilihan freeze vs fine-tune.
+2. **Alat AI untuk Riset** - protokol verifikasi kode AI dan sintesis dua sumber sebelum eksekusi.
+3. **Adopsi Repo Eksternal** - membaca repo yang belum dikenal dari luar ke dalam, smoke test, dan modifikasi seminimal mungkin.
 
----
-
-## 0. Peta Bab
-
-W7 menggabungkan tiga tema yang saling memperkuat:
-
-- **1. Text & Transformers** - dari TF-IDF ke contextual embeddings, tokenization, cara kerja attention (QKV, Transformer block), frozen vs fine-tune, [CLS] vs mean pool
-- **2. Alat AI untuk Membantu Riset** - verifikasi kode AI, protokol synthesis, kapan trust copilot
-- **3. Pengantar Adopsi Repo** - membaca repo yang belum dikenal, `repo_map.md`, modifikasi seminimal mungkin
-
-Ketiga tema bertemu dalam satu alur kerja: mengadopsi repo HuggingFace, memakai alat AI untuk memahami bagian yang belum dikenal, dan membuat `repo_map.md` untuk mendokumentasikan pemahaman Anda.
+Di pertemuan sebelumnya (W6) kita sudah belajar membandingkan tiga strategi representasi dan mendeteksi temporal leakage lewat audit data. Tiga materi minggu ini punya satu benang merah: memakai hasil kerja yang sudah ada. Model teks tidak di-pretrain sendiri, kode tidak ditulis sendiri, dan repo riset tidak dibangun dari nol. Ketiganya bertemu dalam satu alur kerja: mengadopsi repo HuggingFace, memakai alat AI untuk memahami bagian yang belum dikenal, dan menulis `repo_map.md` untuk merekam pemahaman itu. Bottleneck RNN dan gradient flow dari [W5 §1.5](05_W5_Sequences_RNN_LSTM.md) dipakai lagi saat menjelaskan mengapa attention dibutuhkan.
 
 ---
 
-## 1. Text dengan Pretrained Transformers
+## 1. Teks dengan Pretrained Transformer
 
-### 1.1 Mengapa Contextual Embeddings?
+### 1.1 Mengapa Contextual Embeddings
 
-TF-IDF adalah baseline yang kuat dan sering diabaikan. Bukan tanpa alasan - ia cepat, interpretable, dan sering efektif pada dataset kecil. Tapi ia punya dua kelemahan fundamental:
+TF-IDF adalah baseline yang cepat, interpretable, dan sering efektif pada dataset kecil. Dua kelemahannya muncul karena ia memperlakukan kata sebagai simbol lepas tanpa konteks.
 
-**Polisemi** adalah kelemahan pertama: kata "bank" dalam "bank sungai" dan "bank uang" mendapat vektor yang identik. TF-IDF tidak bisa membedakannya.
+Kelemahan pertama adalah **polisemi**. Kata "bank" dalam "bank sungai" dan "bank uang" mendapat vektor yang identik di TF-IDF, sehingga dua makna yang berbeda tidak bisa dipisahkan.
 
-**Ketergantungan antar kata hilang** adalah kelemahan kedua: "Tidak buruk" dan "tidak baik" memiliki representasi yang sepenuhnya berbeda dari "baik" dan "buruk" dalam TF-IDF, padahal kita ingin model memahami bahwa negasi mengubah polaritas.
+Kelemahan kedua adalah **ketergantungan antar kata yang hilang**. "Tidak buruk" dan "tidak baik" mendapat representasi yang sepenuhnya berbeda dari "baik" dan "buruk", padahal negasi seharusnya mengubah polaritas secara teratur.
 
-Contextual embeddings (BERT, RoBERTa, IndoBERT) menghasilkan representasi yang berbeda untuk kata yang sama tergantung konteksnya. Setiap token mendapat embedding yang dipengaruhi oleh seluruh sequence di sekitarnya via self-attention.
+Contextual embeddings (BERT, RoBERTa, IndoBERT) menghasilkan representasi yang berbeda untuk kata yang sama tergantung konteksnya. Setiap token mendapat embedding yang dipengaruhi oleh seluruh sequence di sekitarnya lewat self-attention.
 
-Pertanyaan yang sering muncul: mengapa model yang dilatih pada miliaran token teks Wikipedia dan Common Crawl bisa membantu klasifikasi sentimen teks Indonesia?
-
-Jawabannya ada pada struktur lapisan. Layer-layer awal Transformer mempelajari pola yang bersifat umum dan berlaku lintas domain - semantik subkata ("##nya" menandai akhiran), pola sintaksis dasar (hubungan subjek-verba), dan cara negasi mengubah makna. Pola-pola ini muncul hampir di semua teks manusia, tidak bergantung pada topik. Layer-layer yang lebih dalam baru belajar hal yang lebih spesifik domain. Saat Anda memuat bobot pretrained, layer awal sudah "paham bahasa" - tugas Anda tinggal melatih layer akhir agar memetakan pemahaman itu ke label yang diinginkan. Ini juga yang mendasari pilihan freeze vs fine-tune di §1.4: seberapa banyak lapisan yang perlu beradaptasi ke domain Anda?
+Pertanyaan yang sering muncul: mengapa model yang dilatih pada miliaran token Wikipedia dan Common Crawl bisa membantu klasifikasi sentimen teks Indonesia? Jawabannya ada pada struktur lapisan. Layer-layer awal Transformer mempelajari pola umum yang berlaku lintas domain, seperti semantik subkata ("##nya" menandai akhiran), pola sintaksis dasar (hubungan subjek-verba), dan cara negasi mengubah makna. Pola-pola ini muncul di hampir semua teks manusia, tidak bergantung pada topik. Layer-layer yang lebih dalam baru belajar hal yang lebih spesifik domain. Saat Anda memuat bobot pretrained, layer awal sudah menguasai struktur bahasa, dan tugas Anda tinggal melatih layer akhir agar memetakan pemahaman itu ke label yang diinginkan. Hal ini juga mendasari pilihan freeze vs fine-tune di [§1.4](#14-frozen-vs-fine-tuned-eksperimen-2x2): seberapa banyak lapisan yang perlu beradaptasi ke domain Anda.
 
 ### 1.2 Tokenization: Sebelum Pelatihan Dimulai
 
-**Apa itu tokenizer?** Pretrained Transformer tidak melihat string mentah; ia melihat urutan integer (token ID). **Tokenizer** adalah fungsi yang memetakan string ke urutan integer dan sebaliknya. Tiga gaya tokenisasi utama:
+Pretrained Transformer membaca urutan integer (token ID), bukan string mentah. **Tokenizer** adalah fungsi yang memetakan string ke urutan integer dan sebaliknya. Tiga gaya tokenisasi utama berbeda pada trade-off antara ukuran vocab dan panjang sequence:
 
 - **Word-level** memetakan satu token per kata (whitespace-split). Skema ini sederhana, tetapi vocab menjadi besar dan rentan OOV (out-of-vocabulary) untuk kata baru.
 - **Character-level** memetakan satu token per karakter, sehingga vocab kecil tetapi sequence menjadi sangat panjang.
-- **Subword (BPE / WordPiece / SentencePiece)** mengambil jalan tengah: kata umum dijadikan 1 token, kata jarang dipecah jadi sub-unit. Skema ini dipakai oleh BERT, GPT, IndoBERT, dan hampir semua Transformer modern. Kata "tidak" mungkin menjadi 1 token; kata "tertangkap" mungkin terpisah jadi `["ter", "tangkap"]`.
+- **Subword (BPE / WordPiece / SentencePiece)** mengambil jalan tengah: kata umum menjadi 1 token, kata jarang dipecah jadi sub-unit. Skema ini dipakai BERT, GPT, IndoBERT, dan hampir semua Transformer modern. Kata "tidak" mungkin menjadi 1 token, sedangkan "tertangkap" mungkin terpisah jadi `["ter", "tangkap"]`.
 
-Setiap pretrained model punya tokenizer spesifik (vocab + algoritma). Bug paling umum saat memakai pretrained model adalah perbedaan antara tokenizer model dan cara Anda memproses teks. Memakai tokenizer yang salah menghasilkan input yang tidak cocok dengan apa yang dilihat model saat pretraining.
+Setiap pretrained model punya tokenizer spesifik (vocab + algoritma). Bug paling umum saat memakai pretrained model adalah perbedaan antara tokenizer model dan cara Anda memproses teks. Tokenizer yang salah menghasilkan input yang tidak cocok dengan apa yang dilihat model saat pretraining.
 
 ```python
 from transformers import AutoTokenizer
@@ -86,18 +73,19 @@ print(tokenizer.convert_ids_to_tokens(tokens['input_ids'][0]))
 # ['[CLS]', 'produk', 'ini', 'sangat', 'bagus', '!', '[SEP]']
 ```
 
-Tugas penting W7: inspeksi tokenizer pada 5-10 sampel dari dataset Anda sebelum pelatihan. Cek:
-- Apakah kata domain-spesifik ditokenisasi dengan benar (tidak terlalu di-split)?
-- Apakah panjang sequence setelah tokenisasi masuk dalam batas max_length model?
-- Apakah ada subword splits yang mungkin kehilangan makna?
+Inspeksi tokenizer pada 5-10 sampel dari dataset Anda sebelum pelatihan menjawab tiga pertanyaan:
+
+1. Apakah kata domain-spesifik ditokenisasi dengan benar dan tidak terpecah berlebihan menjadi banyak sub-unit?
+2. Apakah panjang sequence setelah tokenisasi masih masuk dalam batas `max_length` model?
+3. Apakah ada subword splits yang berpotensi menghilangkan makna?
 
 ### 1.3 Cara Kerja Attention
 
-Pada W5, Anda sudah melihat mengapa RNN kesulitan menangani sekuens yang panjang. Masalah utamanya adalah **bottleneck informasi**: seluruh makna dari token-token sebelumnya harus dipadatkan ke dalam satu *hidden state* berukuran tetap sebelum memproses langkah berikutnya. LSTM menambahkan *gate* untuk mengelola ini, tetapi *bottleneck* itu sendiri tidak pernah hilang. Informasi tetap harus melewati setiap langkah perantara untuk mencapai akhir.
+Pada [W5 §1.5](05_W5_Sequences_RNN_LSTM.md), Anda sudah melihat mengapa RNN kesulitan menangani sequence yang panjang. Masalah utamanya adalah **bottleneck informasi**: seluruh makna dari token-token sebelumnya harus dipadatkan ke satu *hidden state* berukuran tetap sebelum memproses langkah berikutnya. LSTM menambahkan *gate* untuk mengelola ini, tetapi *bottleneck* itu sendiri tidak hilang. Informasi tetap harus melewati setiap langkah perantara untuk mencapai akhir.
 
-**Attention menghilangkan bottleneck tersebut sepenuhnya.** Pertimbangkan kalimat berikut: **"Buku itu tidak muat di dalam tas karena ukurannya terlalu besar."** Untuk mengetahui benda apa yang dirujuk oleh "ukurannya" (yakni buku, bukan tas), Anda tidak membaca ulang dari awal, tetapi langsung mencari kandidat yang relevan. Attention melakukan hal yang persis sama. Setiap token dapat membaca dari semua token lain dalam satu langkah, yang dibobot berdasarkan relevansinya. Tidak ada serah terima informasi secara sekuensial.
+Attention menghilangkan bottleneck tersebut sepenuhnya. Pertimbangkan kalimat **"Buku itu tidak muat di dalam tas karena ukurannya terlalu besar."** Untuk mengetahui benda apa yang dirujuk oleh "ukurannya" (yakni buku, bukan tas), Anda tidak membaca ulang dari awal, tetapi langsung mencari kandidat yang relevan. Attention melakukan hal yang sama: setiap token dapat membaca dari semua token lain dalam satu langkah, dibobot berdasarkan relevansinya. Tidak ada serah terima informasi secara sekuensial.
 
-Untuk menghitung bobot relevansi ini, setiap token diproyeksikan menjadi tiga vektor dengan peran berbeda: **Query** ("apa yang saya cari?"), **Key** ("apa yang saya miliki?"), dan **Value** ("apa yang sebenarnya saya berikan?"). Skor relevansi antara dua posisi adalah *dot product* dari Query suatu token dengan Key token lainnya. *Dot product* yang besar berarti kecocokan yang kuat. Proyeksi ini dihasilkan oleh tiga matriks bobot yang dipelajari, yaitu $W_Q$, $W_K$, dan $W_V$. Ketiga matriks ini adalah satu-satunya parameter permanen di dalam layer, dan parameter inilah yang disimpan ke dalam *checkpoint* Anda.
+Untuk menghitung bobot relevansi ini, setiap token diproyeksikan menjadi tiga vektor dengan peran berbeda: **Query** ("apa yang saya cari?"), **Key** ("apa yang saya miliki?"), dan **Value** ("apa yang sebenarnya saya berikan?"). Skor relevansi antara dua posisi adalah *dot product* dari Query suatu token dengan Key token lainnya. *Dot product* yang besar berarti kecocokan yang kuat. Proyeksi ini dihasilkan tiga matriks bobot yang dipelajari, yaitu $W_Q$, $W_K$, dan $W_V$. Ketiga matriks ini adalah parameter permanen di dalam layer, dan parameter inilah yang disimpan ke *checkpoint* Anda.
 
 Jika digabungkan:
 
@@ -105,7 +93,7 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{Q K^T}{\sqrt{d_k}}\rig
 
 ![Scaled Dot-Product Attention](/figures/fig06a_attention_sdp.png)
 
-$QK^T$ menghasilkan matriks $(T \times T)$ yang berisi semua skor berpasangan untuk sekuens sepanjang $T$ token. Pembagian dengan $\sqrt{d_k}$ sifatnya wajib. Tanpa pembagian ini, *dot product* akan membesar seiring bertambahnya dimensi, mendorong *softmax* ke titik jenuh dan mematikan *gradient*. Ini adalah bentuk baru dari masalah *vanishing gradient* yang dibahas di W5. *Softmax* mengubah setiap baris menjadi distribusi probabilitas atas posisi (bobot attention), dan perkalian dengan $V$ menghasilkan *output*: rata-rata berbobot dari semua vektor Value, satu untuk setiap token.
+Diagram di atas memetakan tiga operasi yang berurutan. $QK^T$ menghasilkan matriks $(T \times T)$ yang berisi semua skor berpasangan untuk sequence sepanjang $T$ token. Pembagian dengan $\sqrt{d_k}$ bersifat wajib: tanpa pembagian ini, *dot product* membesar seiring bertambahnya dimensi, mendorong *softmax* ke titik jenuh dan mematikan *gradient*. Ini bentuk baru dari masalah *vanishing gradient* yang dibahas di [W5 §1.5.2](05_W5_Sequences_RNN_LSTM.md). *Softmax* mengubah setiap baris menjadi distribusi probabilitas atas posisi (bobot attention), dan perkalian dengan $V$ menghasilkan *output* berupa rata-rata berbobot dari semua vektor Value, satu untuk setiap token.
 
 Dalam kode, tanpa abstraksi *library*:
 
@@ -127,7 +115,7 @@ output  = weights @ V                   # (5, 16) - dimensi sama seperti input
 
 Cetak `weights`. Baris *i* adalah distribusi probabilitas yang menunjukkan seberapa besar perhatian token *i* ke setiap posisi saat membentuk *output*-nya.
 
-**Posisi attention dalam arsitektur penuh** adalah satu komponen di dalam blok Transformer:
+Attention adalah satu komponen di dalam blok Transformer:
 
 ```
 Input (T, d_model)
@@ -147,34 +135,32 @@ Input (T, d_model)
 Output (T, d_model)
 ```
 
-Dimensi input dan *output* selalu sama, itulah sebabnya blok ini dapat ditumpuk hingga 12 atau 24 lapis tanpa memerlukan perubahan di antaranya. Perhatikan bahwa layer *feed-forward* tidak mencampur token, hanya layer attention yang melakukannya. Dalam praktiknya, model menjalankan operasi attention paralel sebanyak $h$ kali (*multi-head attention*). Masing-masing berjalan pada subruang representasi dengan dimensi yang lebih rendah, kemudian menggabungkan dan memproyeksikan hasilnya. Setiap *head* dapat menangkap pola struktural yang berbeda, meskipun spesialisasi yang rapi tidak secara otomatis dijamin oleh rancangannya. Saat satu sekuens memperhatikan sekuens lain (misalnya Q dari satu sekuens, lalu K dan V dari sekuens lainnya), proses ini disebut *cross-attention*. Penerapannya muncul lagi di W9 untuk fusi multimodal.
+Dimensi input dan *output* selalu sama, itulah sebabnya blok ini dapat ditumpuk hingga 12 atau 24 lapis tanpa perubahan di antaranya. Layer *feed-forward* tidak mencampur token; hanya layer attention yang melakukannya. Dalam praktiknya, model menjalankan operasi attention paralel sebanyak $h$ kali (*multi-head attention*). Masing-masing berjalan pada subruang representasi berdimensi lebih rendah, kemudian menggabungkan dan memproyeksikan hasilnya. Setiap *head* dapat menangkap pola struktural yang berbeda, meskipun spesialisasi yang rapi tidak dijamin oleh rancangannya. Saat satu sequence memperhatikan sequence lain (misalnya Q dari satu sequence, lalu K dan V dari sequence lain), proses ini disebut *cross-attention*. Penerapannya muncul lagi di [W9](09_W9_Multimodal_Reasoning.md) untuk fusi multimodal.
 
-**Mengapa Transformer memerlukan *positional encoding*.** Perhatikan apa yang tidak dilakukan attention: ia tidak memiliki konsep urutan. Skor antara token *i* dan token *j* hanya bergantung pada vektor Q dan K keduanya, bukan pada posisi mereka dalam sekuens. Artinya, "anjing menggigit orang" dan "orang menggigit anjing" menghasilkan input attention yang identik - himpunan token yang sama, tanpa urutan. RNN tidak pernah menghadapi masalah ini karena ia memproses token satu langkah demi satu langkah dan secara implisit mengetahui posisi. Karena Transformer memproses semua token secara paralel, informasi posisi harus disuntikkan secara eksplisit. *Positional encoding* menambahkan vektor yang bergantung pada posisi ke setiap *token embedding* sebelum masuk ke blok pertama, sehingga model mendapatkan informasi urutan sekuens yang tidak bisa diperoleh dari attention saja.
+Attention tidak memiliki konsep urutan. Skor antara token *i* dan token *j* hanya bergantung pada vektor Q dan K keduanya, bukan pada posisi mereka dalam sequence. Artinya, "anjing menggigit orang" dan "orang menggigit anjing" menghasilkan input attention yang identik: himpunan token yang sama, tanpa urutan. RNN tidak pernah menghadapi masalah ini karena memproses token satu langkah demi satu langkah dan secara implisit mengetahui posisi. Karena Transformer memproses semua token secara paralel, informasi posisi harus disuntikkan secara eksplisit. *Positional encoding* menambahkan vektor yang bergantung pada posisi ke setiap *token embedding* sebelum masuk ke blok pertama, sehingga model mendapatkan informasi urutan yang tidak bisa diperoleh dari attention saja.
 
-**Dampak saat Anda melakukan freeze atau fine-tune.** Melakukan *freeze* pada model berarti mengunci $W_Q, W_K, W_V$ (beserta parameter lainnya). Proyeksi yang menghasilkan Q, K, dan V terkunci, sehingga kalkulasi attention tetap berjalan tetapi tidak bisa beradaptasi dengan domain Anda. Sebaliknya, *fine-tune* memungkinkan matriks-matriks ini beradaptasi agar bobot attention bisa menangkap hubungan yang dibutuhkan oleh tugas Anda. Matematika di balik attention tidak pernah berubah, hanya matriks proyeksinya saja yang berubah.
+Pilihan freeze atau fine-tune sebenarnya adalah keputusan tentang apakah $W_Q, W_K, W_V$ boleh berubah. *Freeze* mengunci ketiga matriks ini (beserta parameter lain), sehingga kalkulasi attention tetap berjalan tetapi tidak bisa beradaptasi dengan domain Anda. *Fine-tune* memungkinkan matriks-matriks ini beradaptasi agar bobot attention menangkap hubungan yang dibutuhkan tugas Anda. Matematika di balik attention tidak berubah; hanya matriks proyeksinya yang berubah.
 
-Lab 6b ([lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_transformer_mini.ipynb)) menugaskan Anda untuk menerapkan `scaled_dot_product_attention` dari awal dan memverifikasinya terhadap `nn.TransformerEncoderLayer`. *Notebook* tersebut merupakan praktik langsung yang mendampingi bagian ini.
+Lab 6b ([lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_transformer_mini.ipynb)) menugaskan Anda menerapkan `scaled_dot_product_attention` dari awal dan memverifikasinya terhadap `nn.TransformerEncoderLayer`. *Notebook* tersebut praktik langsung yang mendampingi bagian ini.
 
 ### 1.4 Frozen vs Fine-tuned: Eksperimen 2x2
 
-Dua keputusan yang perlu dibandingkan:
+Dua keputusan perlu dibandingkan dalam satu grid. Keputusan pertama menyangkut backbone, keputusan kedua menyangkut cara meringkas embedding per token menjadi satu vektor untuk classification head.
 
-**Frozen backbone** berarti hanya head kecil yang dilatih memakai embedding tetap. Pendekatan ini cepat, hemat komputasi, dan stabil. Frozen backbone cocok untuk dataset kecil atau ketika domain sangat mirip dengan pretraining.
-
-**Fine-tuned** berarti seluruh model (atau sebagian) dilatih bersama head. Pendekatan ini lebih lambat, lebih fleksibel, dan sering menghasilkan performa lebih baik pada dataset yang cukup besar.
+**Frozen backbone** melatih hanya head kecil di atas embedding tetap. Pendekatan ini cepat, hemat komputasi, dan stabil, sehingga cocok untuk dataset kecil atau saat domain sangat mirip dengan pretraining. **Fine-tuned** melatih seluruh model (atau sebagian) bersama head. Pendekatan ini lebih lambat dan lebih fleksibel, dan sering menghasilkan performa lebih baik pada dataset yang cukup besar.
 
 > [!TIP]
-> **Contoh waktu/biaya konkret (IndoBERT-base, ~110M parameter, dataset SmSA ~12k sampel, GPU T4):**
-> - **Frozen + Linear head** - training ~2-3 menit (1 epoch), val macro-F1 ~0.78-0.82. Inference ~5 ms/sample (forward pass tetap full BERT, tetapi tidak perlu backward).
-> - **Fine-tune full** - training ~15-25 menit (3 epoch), val macro-F1 ~0.85-0.89. Memori GPU ~3-4× lebih besar (perlu simpan gradient untuk semua parameter).
-> 
-> Aturan praktis: kalau dataset < 5k sampel atau Anda butuh prototype cepat, **frozen** dulu. Kalau dataset > 20k atau butuh squeeze last 3-5% performa, **fine-tune**. Antara keduanya: PEFT seperti LoRA (W8) sebagai jalan tengah.
+> Contoh waktu/biaya konkret (IndoBERT-base, ~110M parameter, dataset SmSA ~12k sampel, GPU T4):
+> - **Frozen + Linear head** membutuhkan training ~2-3 menit (1 epoch) dengan val macro-F1 ~0.78-0.82. Inference ~5 ms/sample karena forward pass tetap full BERT, tetapi tidak perlu backward.
+> - **Fine-tune full** membutuhkan training ~15-25 menit (3 epoch) dengan val macro-F1 ~0.85-0.89. Memori GPU ~3-4x lebih besar karena gradient untuk semua parameter perlu disimpan.
+>
+> Aturan praktisnya: kalau dataset < 5k sampel atau Anda butuh prototype cepat, pakai **frozen** dulu. Kalau dataset > 20k atau butuh 3-5% performa terakhir, **fine-tune**. Di antara keduanya, PEFT seperti LoRA ([W8](08_W8_Foundation_Models.md)) menjadi jalan tengah.
 
-**[CLS] pooling** memakai token `[CLS]` untuk mewakili seluruh sequence. Token ini adalah token spesial yang ditambahkan otomatis di awal setiap input oleh tokenizer keluarga BERT. Selama pretraining, model belajar menaruh ringkasan global di posisi ini lewat objective next-sentence prediction; itu sebabnya `[CLS]` jadi pilihan natural untuk classification head.
+**[CLS] pooling** memakai token `[CLS]` untuk mewakili seluruh sequence. Token ini ditambahkan otomatis di awal setiap input oleh tokenizer keluarga BERT. Selama pretraining, model belajar menaruh ringkasan global di posisi ini lewat objective next-sentence prediction, sehingga `[CLS]` menjadi pilihan natural untuk classification head.
 
-**Mean pooling** mengambil rata-rata embedding semua token (kecuali padding). Pendekatan ini sering lebih robust untuk sentence similarity tasks karena representasi tidak terlalu "berat sebelah" ke satu posisi, tetapi bisa kehilangan ketegasan kalau hanya sebagian token yang relevan untuk tugas tersebut. Untuk classification, [CLS] dan mean pool biasanya berbeda 1-3 poin F1; mana yang menang bergantung dataset. Lab 5b menjalankan 2×2 ini secara eksplisit supaya Anda bisa melihat sendiri pada dataset Indonesia.
+**Mean pooling** mengambil rata-rata embedding semua token kecuali padding. Pendekatan ini sering lebih robust untuk sentence similarity tasks karena representasi tidak berat sebelah ke satu posisi, tetapi bisa kehilangan ketegasan kalau hanya sebagian token yang relevan untuk tugas tersebut. Untuk classification, [CLS] dan mean pool biasanya berbeda 1-3 poin F1, dan mana yang menang bergantung dataset.
 
-Lab 5b menjalankan 2×2 ini secara eksplisit:
+Lab 5b menjalankan 2×2 ini secara eksplisit supaya Anda melihat sendiri pada dataset Indonesia:
 
 | | frozen | fine-tuned |
 |---|---|---|
@@ -183,7 +169,7 @@ Lab 5b menjalankan 2×2 ini secara eksplisit:
 
 ### 1.5 Big Map untuk Teks
 
-Tiga formulasi umum di domain teks:
+Tiga formulasi umum di domain teks berbeda pada bentuk output-nya:
 
 | Tugas | Input | Output | Contoh |
 |---|---|---|---|
@@ -193,54 +179,167 @@ Tiga formulasi umum di domain teks:
 
 ---
 
-## 2. Alat AI untuk Membantu Riset (Ringkasan Protokol)
+## 2. Alat AI untuk Riset
 
-Modul ini tidak melarang AI coding tools. Ia mewajibkan **protokol verifikasi** dan **synthesis sebelum eksekusi**.
+Modul ini tidak melarang AI coding tools. Modul ini mewajibkan **protokol verifikasi** sebelum kode dipakai dan **sintesis dua sumber** sebelum eksekusi keputusan penting. Tujuannya mempercepat kerja tanpa kehilangan pemahaman atas kode sendiri.
 
 ### 2.1 Aturan Verifikasi
 
-Setiap kode yang dihasilkan AI harus diverifikasi sebelum dipakai:
+Setiap kode yang dihasilkan AI melewati tiga pemeriksaan sebelum dipakai:
 
-1. **Verifikasi bentuk tensor**: apakah input/output shape yang diklaim cocok dengan kode?
-2. **Uji kasus tepi**: jalankan dengan satu sampel dan periksa hasilnya secara manual.
-3. **Baris-per-baris read**: pastikan Anda bisa menjelaskan fungsi setiap baris.
+1. **Verifikasi bentuk tensor.** Periksa apakah input/output shape yang diklaim cocok dengan kode.
+2. **Uji kasus tepi.** Jalankan dengan satu sampel dan periksa hasilnya secara manual.
+3. **Baca baris per baris.** Pastikan Anda bisa menjelaskan fungsi setiap baris.
 
-Jika tidak bisa menjelaskan baris tertentu setelah membacanya dua kali, itu bukan kode yang harus dikumpulkan dengan nama Anda.
+Kalau Anda tidak bisa menjelaskan baris tertentu setelah membacanya dua kali, kode itu belum layak dikumpulkan dengan nama Anda.
 
 ### 2.2 Aturan Sintesis: Dua Sumber Sebelum Eksekusi
 
 Sebelum mengeksekusi pendekatan penting (pemilihan model, arsitektur, strategi fine-tuning), kumpulkan setidaknya dua sumber berbeda:
 
 - Dua respons AI dengan prompt berbeda, **atau**
-- Satu respons AI + satu sumber dokumentasi/paper, **atau**
-- Satu respons AI + satu peer review
+- Satu respons AI ditambah satu sumber dokumentasi/paper, **atau**
+- Satu respons AI ditambah satu peer review.
 
-Tulis satu paragraf synthesis: "Sumber A menyarankan X karena P. Sumber B menyarankan Y karena Q. Saya memilih Z karena R." Paragraf ini bukan overhead - ia adalah bukti Anda berpikir sebelum eksekusi.
+Lalu tulis satu paragraf sintesis: "Sumber A menyarankan X karena P. Sumber B menyarankan Y karena Q. Saya memilih Z karena R." Paragraf ini merekam alasan keputusan Anda sebelum eksekusi, dan menjadi catatan saat pilihan itu perlu dijelaskan.
 
-### 2.3 AI untuk Non-Kode
+### 2.3 AI untuk Tugas di Luar Kode
 
-Alat AI berguna melampaui kode. Berikut tiga contoh prompt yang produktif:
+Alat AI berguna melampaui penulisan kode. Tiga prompt berikut produktif kalau Anda memberi konteks yang cukup:
+
 - Saat **membaca paper**: "tolong rangkum bagian 3.2 dan identifikasi asumsi yang tidak diucapkan eksplisit."
 - Saat **mendiskusikan hipotesis**: "diberikan bahwa distribusi kelas sangat tidak seimbang, apakah ada alasan untuk tidak memakai focal loss?"
-- Saat **menavigasi repo**: "bagaimana alur data dari DataLoader ke model dalam repo ini?" - berikan struktur folder sebagai konteks agar jawaban lebih akurat.
+- Saat **menavigasi repo**: "bagaimana alur data dari DataLoader ke model dalam repo ini?" sambil memberikan struktur folder sebagai konteks agar jawaban lebih akurat.
 
 ![Alur Kerja LLM: sintesis, verifikasi, dan dokumentasi dalam riset ML](../figures/fig05a_llm_workflow.svg)
 
-### 2.4 Lab Praktik: AI-Assisted Dev Loop
+Diagram di atas menempatkan peneliti sebagai pemegang keputusan: LLM membantu pencarian, peringkasan, dan pengecekan awal, sedangkan verifikasi terhadap kode dan data tetap di tangan Anda, dan setiap keputusan dicatat beserta alasannya.
 
-Untuk pengalaman langsung mengikuti protokol di atas, buka [lab_w7_llm_assisted.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_llm_assisted.ipynb). Lab ini memandu Anda melalui implementasi MixUp augmentation menggunakan bantuan AI, termasuk 4 sanity tests, comparison training, dan log interaksi LLM.
+Untuk pengalaman langsung mengikuti protokol di atas, buka [lab_w7_llm_assisted.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_llm_assisted.ipynb). Lab ini memandu implementasi MixUp augmentation dengan bantuan AI, termasuk 4 sanity tests, comparison training, dan log interaksi LLM.
 
 ---
 
-## 3. Pengantar Adopsi Repo
+## 3. Adopsi Repo Eksternal
 
-Konten repo adoption dari bab ini (urutan membaca, environment setup, modifikasi seminimal mungkin) tersedia pada bagian ini dari file asli. Ringkasan kebiasaan utama:
+Riset jarang dimulai dari nol. Capstone (W12-W15) kemungkinan besar dimulai dari repo orang lain. Materi ini melatih cara membaca repo yang belum dikenal sebelum menjalankannya, lalu memodifikasinya seminimal mungkin. Kecepatan adopsi ditentukan oleh urutan membaca: empat jam membaca di awal sering memangkas berhari-hari debugging setup di tengah jalan.
 
-**Urutan baca** yang dianjurkan adalah: README → paper/laporan → struktur folder → entry point (`train.py`) → model & loss → DataLoader.
+### 3.1 Urutan Membaca: dari Luar ke Dalam
 
-**`repo_map.md`** adalah dokumen yang merekam pemahaman Anda tentang repo baru. Dokumentasikan pemahaman tersebut dalam file `repo_map.md` menggunakan template di [Lampiran C.12](14_Lampiran.md#c12-template-repo-map). Dokumen ini dibuat dua kali: satu di W7 (repo teks/transformer), satu di W9 (repo multimodal).
+Saat membuka repo baru, baca dulu dengan urutan yang dipikirkan sebelum menjalankan apa pun:
 
-**Modifikasi seminimal mungkin** berarti membuat branch baru, membuat perubahan sekecil mungkin untuk menjalankan eksperimen Anda, dan mendokumentasikan diff. Pendekatan ini memudahkan merge kembali dan memudahkan debugging saat sesuatu rusak.
+```mermaid
+flowchart TD
+    A[README.md\ntujuan, install, cara jalan] --> B[Paper/Laporan\narsitektur + loss + dataset]
+    B --> C[Struktur Folder\nsrc configs scripts data]
+    C --> D[Entry Point\ntrain.py / main.py]
+    D --> E[Model & Loss\ninput/output utama]
+    E --> F[DataLoader\nformat shape + tipe]
+    F --> G[Config\nrentang eksperimen yang didukung]
+```
+
+![Urutan membaca repo riset: 7 langkah dari luar ke dalam dengan estimasi waktu](../figures/fig06a_repo_navigation.svg)
+
+Diagram di atas memecah pembacaan menjadi tujuh langkah:
+
+1. **README.** Baca seluruhnya, bahkan jika pendek. Fokus pada tujuan proyek, cara install, cara jalan, format data, dan link ke paper. Catat apa yang tidak jelas.
+2. **Paper atau laporan terkait.** Kalau repo hasil paper, baca abstrak dan bagian *method* untuk tahu apa yang harus ada di kode: arsitektur utama, loss utama, dan dataset utama.
+3. **Struktur folder.** Buka file dan direktori satu level dari root. Konvensi umum: `src/` untuk kode inti, `configs/` untuk hyperparameter, `scripts/` untuk entry point, `data/` untuk dataset (sering hanya skrip download), `experiments/` atau `runs/` untuk hasil, `tests/` untuk unit test, dan `requirements.txt`/`environment.yml`/`pyproject.toml` untuk dependency.
+4. **Entry point.** File yang dijalankan user pertama kali, biasanya `train.py`, `main.py`, atau `scripts/train.sh`. Baca dari atas ke bawah: parsing argumen, pembuatan model, pembuatan dataset, training loop. Catat panggilan ke file lain.
+5. **File model dan loss.** Ikuti jejak dari entry point ke `models/` dan `losses/`. Baca definisi kelas utama, cukup tahu input dan output-nya, jangan dulu setiap fungsi helper.
+6. **Data loader.** Biasanya file paling kompleks. Baca sampai Anda mengerti format input (shape, tipe) yang diharapkan model.
+7. **Konfigurasi.** Buka satu file config dan pahami strukturnya. Ini memberi tahu rentang eksperimen yang didukung repo.
+
+Alokasi waktu tipikal untuk repo ukuran sedang (10-30 file Python): 30-60 menit membaca sebelum `pip install`. Setelah langkah 1-3, Anda bisa menggambar peta singkat di kertas atau `notes.md`, lalu merangkumnya ke `repo_map.md` memakai template di [Lampiran C.12](14_Lampiran.md#c12-template-repo-map). Dokumen ini dibuat dua kali: satu di W7 (repo teks/transformer), satu di W9 (repo multimodal).
+
+### 3.2 Smoke Test Sebelum Pelatihan Penuh
+
+Setelah environment terpasang, jangan langsung training dengan dataset penuh. Jalankan *smoke test*, versi minimal yang memverifikasi seluruh pipeline jalan tanpa error. Smoke test tiga level dari [W2 §2.3](02_W2_Images_CNN_Smoke_Test.md) dipakai lagi di sini untuk repo eksternal.
+
+**Level 1 - Import test** memastikan dependency dan path benar:
+
+```bash
+python -c "from src.models import ResNet18; from src.losses import FocalLoss"
+```
+
+Kalau error di sini, masalahnya dependency atau path, bukan logika.
+
+**Level 2 - Forward pass dengan dummy data** menangkap bug dimensi atau mismatch input/output:
+
+```python
+import torch
+from src.models import ResNet18
+
+model = ResNet18(num_classes=10)
+x = torch.randn(2, 3, 32, 32)   # batch 2 dummy
+y = model(x)
+assert y.shape == (2, 10)
+```
+
+**Level 3 - Satu iterasi training** menjalankan satu batch, satu backward pass, lalu exit. Banyak repo punya flag `--dry-run` atau `--overfit-one-batch`. Kalau tidak ada, tambahkan sendiri:
+
+```python
+# Di awal training loop:
+if args.dry_run:
+    xb, yb = next(iter(loader))
+    out = model(xb)
+    loss = criterion(out, yb)
+    loss.backward()
+    optimizer.step()
+    print(f"Dry run OK. loss={loss.item():.4f}")
+    sys.exit(0)
+```
+
+Teknik *overfit one batch* (Karpathy, 2019) lebih kuat: training loop biasa tetapi selalu pada satu batch kecil. Dalam beberapa epoch, loss harus turun ke nol (atau sangat kecil). Kalau tidak, ada bug fundamental di kode, bukan di tuning. Training penuh 8 jam yang gagal di menit ke-10 karena bug dimensi adalah delapan jam yang hilang, sedangkan smoke test level 3 butuh 30 detik dan menangkap sekitar 80% bug setup.
+
+### 3.3 Empat Kategori Error
+
+Ketika adopsi repo atau eksperimen gagal, respons "coba-coba sampai ketemu" tidak efisien. Lebih cepat mengidentifikasi *kategori* error dulu, karena tiap kategori punya diagnosis yang berbeda.
+
+| Gejala | Kategori Paling Mungkin | Quick Test |
+| --- | --- | --- |
+| `ImportError` atau `ModuleNotFoundError` | Setup | `pip list` |
+| Loss NaN dari epoch pertama | Data atau Algorithmic | Print nilai batch; cek loss_fn |
+| Akurasi 99% tanpa training | Data (leakage) | Cek preprocessing |
+| Hasil tidak bisa direproduksi | Experiment | Bandingkan config + seed |
+| Loss tidak turun sama sekali | Algorithmic atau Setup | Overfit one batch |
+| Error saat membaca dataset | Data atau Setup | Print path config |
+
+![Empat kategori error dalam adopsi repo: Setup, Data, Algorithmic, Experiment - quadrant diagnosis](../figures/fig06b_error_categories.svg)
+
+Diagram di atas memisahkan empat kategori beserta tanda dan langkah ujinya:
+
+- **Setup error** muncul di environment, dependency, path, atau konfigurasi. Tandanya `ModuleNotFoundError`, `FileNotFoundError`, atau CUDA version mismatch. Uji dengan membandingkan `pip freeze` dengan `requirements.txt` dan mengecek path dataset di config.
+- **Data error** muncul di dataset: tidak ada, format tidak sesuai, leakage, atau preprocessing berbeda. Tandanya error di DataLoader, akurasi terlalu tinggi sejak awal, atau loss NaN langsung. Uji dengan mencetak shape dan range batch pertama lalu memvisualisasikan beberapa sampel. Akurasi 99% tanpa training hampir selalu leakage; deteksinya memakai audit data dari [W6 §0.6](06_W6_Representations_Temporal_Leakage.md).
+- **Algorithmic error** muncul di forward pass, loss function, atau training loop. Tandanya loss tidak turun, NaN, atau prediksi selalu kelas yang sama. Uji dengan *overfit one batch* pada 4 sampel; kalau loss tidak mendekati nol, ada bug di model atau loss.
+- **Experiment error** muncul saat konfigurasi tidak sesuai rancangan: seed tidak di-set, variabel yang harusnya dikontrol tidak terkontrol, atau metrik yang dilaporkan bukan yang direncanakan. Uji dengan membandingkan config YAML yang dipakai terhadap pre-registration dan mengecek commit hash di checkpoint, mengikuti disiplin trace result dari [W4 §3](04_W4_Reproducibility_Experiment_Matrix.md).
+
+### 3.4 Modifikasi Seminimal Mungkin
+
+Saat menambah fitur atau mengubah perilaku, pilih pola yang tidak mengganggu kode orang lain. Modifikasi minimal memudahkan *upstream merge* kalau repo berubah, membuat pekerjaan Anda bisa di-revert dengan bersih, dan membuat pull request lebih mudah di-review.
+
+**Pola 1: Tambahkan opsi, jangan ubah default.** Tambah argumen dengan default yang mempertahankan perilaku lama, jangan ubah perilaku fungsi yang sudah ada:
+
+```python
+def train_one_epoch(model, loader, criterion, use_mixup: bool = False):
+    for xb, yb in loader:
+        if use_mixup:
+            xb, yb = apply_mixup(xb, yb)
+        ...
+```
+
+**Pola 2: Tambahkan file baru, jangan edit banyak file lama.** Kalau fitur Anda melibatkan 200 baris kode, buat `src/mixup.py` baru daripada menyebar perubahan di `train.py`, `data.py`, dan `utils.py`.
+
+**Pola 3: Tambahkan argumen CLI, bukan hardcode.** Fitur yang ter-expose lewat CLI dapat dimatikan tanpa menyentuh kode lagi:
+
+```python
+parser.add_argument('--freeze-blocks', type=str, default='',
+                    help='Comma-separated block names to freeze (e.g. "block1,block2")')
+```
+
+**Pola 4: Commit kecil dengan pesan jelas.** Satu commit per perubahan logis. "Add mixup augmentation support" adalah satu commit; "refactor data loader to accept mixup-aware sampler" adalah commit berbeda. Commit kecil memudahkan review dan bisection.
+
+> [!TIP]
+> Bagian pendalaman repo adoption ([D1-D7](#pendalaman-w7---repo-adoption-deep-dive) di bawah) memuat worked example tiga jam mengadopsi repo, teknik navigasi cepat dengan `grep`/`git log`, taktik saat dokumentasi minim, dan cara menyumbang balik. Baca saat W7 kalau ada waktu, atau tunda sebagai referensi saat Capstone.
 
 ---
 
@@ -250,25 +349,24 @@ Konten repo adoption dari bab ini (urutan membaca, environment setup, modifikasi
 
 Buka [lab_w7_text_classification.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_text_classification.ipynb).
 
-**Tugas:**
 1. Muat dataset IndoNLU SmSA (sentimen Bahasa Indonesia).
 2. Inspeksi tokenizer IndoBERT pada 10 sampel: screenshot atau print output.
 3. Jalankan 2×2 experiment (frozen/fine-tune × [CLS]/mean-pool).
-4. Bandingkan macro-F1 keempat kondisi. Mana yang terbaik? Mengapa?
-5. Buat synthesis note: dua alasan memilih IndoBERT vs alternatif lain.
+4. Bandingkan macro-F1 keempat kondisi dan jelaskan mana yang terbaik.
+5. Tulis synthesis note: dua alasan memilih IndoBERT vs alternatif lain.
 
-**Checklist:**
-- [ ] Tokenization inspection dengan 10+ sampel.
-- [ ] 4 kondisi trained, macro-F1 tersimpan.
-- [ ] 2×2 tabel dalam notebook.
+Checklist:
+
+- [ ] Inspeksi tokenisasi dengan 10+ sampel.
+- [ ] Empat kondisi trained, macro-F1 tersimpan.
+- [ ] Tabel 2×2 ada di dalam notebook.
 - [ ] Synthesis note (2 AI views atau 1 AI + 1 dokumentasi).
-- [ ] **Lab 6b (Transformer-mini, breadth)** dijalankan selesai - WAJIB untuk Breadth Check Transformer (lihat Kontrak Belajar §6 Pendahuluan dan §D5 di bab ini).
+- [ ] Lab 6b (Transformer-mini, breadth) selesai dijalankan - **wajib** untuk Breadth Check Transformer (lihat Kontrak Belajar §6 di Pendahuluan dan [Lab 6b](#lab-6b-breadth---transformer-mini-dari-nol) di bawah).
 
 ### Lab 6 - Pengantar Adopsi Repo
 
 Buka [lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_repo_adoption.ipynb).
 
-**Tugas:**
 1. Clone satu repositori riset publik (daftar pilihan disediakan di lab).
 2. Tulis `repo_map.md`: entry point, model, loss, config, DataLoader.
 3. Modifikasi minimal satu komponen (ganti config, tambah logging).
@@ -278,12 +376,11 @@ Buka [lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muham
 
 ## 5. Komponen Mandiri
 
-Pilih satu pertanyaan dari materi W7 yang ingin Anda jelajahi lebih dalam. Boleh memakai dataset teks Lab 5b atau dataset teks lain yang relevan.
+Pilih satu pertanyaan dari materi W7 yang ingin Anda jelajahi lebih dalam. Boleh memakai dataset teks Lab 5b atau dataset teks lain yang relevan. Beberapa pertanyaan pemantik (tidak wajib salah satunya):
 
-**Beberapa pertanyaan pemantik** (tidak wajib salah satunya):
-- Token apa yang paling diperhatikan model saat memprediksi sentimen positif vs negatif - apakah ini masuk akal?
+- Token apa yang paling diperhatikan model saat memprediksi sentimen positif vs negatif, dan apakah ini masuk akal?
 - Apakah IndoBERT, mBERT, atau XLM-R memberikan hasil berbeda yang bermakna untuk sentimen Indonesia?
-- Bagaimana cara kerja attention dari nol (Lab 6b Transformer-mini) - pada bagian mana implementasinya paling sering gagal pada toy task?
+- Bagaimana cara kerja attention dari nol (Lab 6b Transformer-mini), dan pada bagian mana implementasinya paling sering gagal pada toy task?
 - Apa yang paling berbeda antara repo riset orang lain dan `template` yang Anda pakai?
 
 Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasikan 10 menit di awal W8. Format: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
@@ -292,7 +389,7 @@ Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasi
 
 ## 6. Refleksi
 
-1. Anda mendapat dataset teks medis dalam Bahasa Indonesia (10.000 sampel, 5 kelas). IndoBERT atau BioBERT yang akan Anda coba pertama? Tulis justifikasi satu paragraf menggunakan framework dari W8 Foundation Models yang akan datang.
+1. Anda mendapat dataset teks medis dalam Bahasa Indonesia (10.000 sampel, 5 kelas). IndoBERT atau BioBERT yang akan Anda coba pertama? Tulis justifikasi satu paragraf memakai framework dari W8 Foundation Models yang akan datang.
 2. AI tool memberikan kode tokenisasi yang "terlihat benar". Setelah inspeksi, Anda menemukan ia menghilangkan token [CLS] sebelum pooling. Apakah ini selalu salah? Kapan bisa diterima?
 3. `repo_map.md` yang Anda tulis di W7: seberapa berbeda dari yang akan Anda tulis di W9 (repo multimodal)? Apa yang berubah dalam cara Anda membaca repo saat ada lebih dari satu modalitas?
 
@@ -306,71 +403,40 @@ Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasi
 
 ---
 
+## Lanjut ke W8
+
+W8 memperluas pemahaman ke lanskap foundation model: bukan hanya text, tetapi vision, audio, time series, dan multimodal, serta cara memilih strategi adaptasi yang tepat. Pilihan freeze vs fine-tune dari minggu ini menjadi satu cabang dari pohon keputusan adaptasi yang lebih lengkap di sana, dan kebiasaan adopsi repo dipakai di setiap minggu sisanya.
+
+Buka [W8 - Foundation Models](08_W8_Foundation_Models.md) ketika siap.
+
+---
+
 # Pendalaman W7 - Repo Adoption Deep Dive
 
-Bagian sebelumnya memperkenalkan tiga tema W7 secara ringkas. Pendalaman berikut khusus untuk tema Repo Adoption - tema dengan kurva belajar paling curam dan dampak paling besar pada produktivitas riset Anda di semester berikutnya. Anda boleh membaca bagian ini di W7, atau menundanya sebagai referensi saat Capstone (W12-W15) ketika harus mengadopsi repo orang lain.
+Bagian utama memperkenalkan adopsi repo secara ringkas di [§3](#3-adopsi-repo-eksternal). Pendalaman berikut khusus untuk tema ini, tema dengan kurva belajar paling curam dan dampak paling besar pada produktivitas riset di semester berikutnya. Baca bagian ini di W7 kalau ada waktu, atau tunda sebagai referensi saat Capstone (W12-W15) ketika harus mengadopsi repo orang lain.
 
 ---
 
-## D1. Motivasi: Dua Minggu yang Seharusnya Empat Jam
+## D1. Dua Kecepatan Adopsi Repo
 
-Seorang asisten baru di lab menerima tugas: "reproduksi hasil paper X, lalu coba ganti encoder-nya dengan ViT". Link repo dilampirkan. Mahasiswa itu meng-clone, menjalankan `pip install -r requirements.txt`, error. Melacak error, menemukan versi CUDA tidak cocok; reinstall PyTorch. Error lagi, kali ini library `mmcv` minta versi spesifik. Setelah tiga hari gulat dengan setup, akhirnya `python train.py` jalan - tetapi dataset tidak terunduh otomatis, dokumentasi tentang lokasi data tidak ada, mahasiswa harus membaca 400 baris kode data loader untuk melihat path yang diharapkan. Hari ketujuh, eksperimen baseline akhirnya jalan. Dua minggu berlalu sebelum modifikasi pertama bisa dicoba.
+Dua asisten menerima tugas yang sama: "reproduksi hasil paper X, lalu coba ganti encoder-nya dengan ViT." Link repo dilampirkan.
 
-Mahasiswa kedua dapat tugas sama. Ia meluangkan empat jam pertama *tidak menjalankan apa-apa*: membaca README, memeriksa struktur folder, menelusuri `train.py` dari entry point, mencari bagian konfigurasi, memetakan bagaimana data di-load. Ia mencatat pertanyaan-pertanyaan terbuka. Setelah pemahaman peta terbentuk, ia setup environment secara sistematis, menjalankan smoke test dengan dummy data, dan baru mengunduh dataset penuh. Dua hari berikutnya, modifikasi encoder sudah bisa dicoba.
+Asisten pertama langsung meng-clone dan menjalankan `pip install -r requirements.txt`, lalu error. Ia melacak error, menemukan versi CUDA tidak cocok, dan reinstall PyTorch. Error lagi karena library `mmcv` minta versi spesifik. Setelah tiga hari mengatasi setup, `python train.py` jalan, tetapi dataset tidak terunduh otomatis dan dokumentasi lokasi data tidak ada, sehingga ia harus membaca 400 baris data loader untuk menemukan path yang diharapkan. Dua minggu berlalu sebelum modifikasi pertama bisa dicoba.
 
-Perbedaan kecepatan tujuh kali lipat bukan karena bakat. Perbedaannya adalah *strategi membaca* sebelum menjalankan. Bab ini memberi Anda strategi yang sama.
+Asisten kedua meluangkan empat jam pertama tanpa menjalankan apa pun: membaca README, memeriksa struktur folder, menelusuri `train.py` dari entry point, mencari bagian konfigurasi, dan memetakan cara data dimuat. Ia mencatat pertanyaan terbuka. Setelah peta terbentuk, ia setup environment secara sistematis, menjalankan smoke test dengan dummy data, lalu mengunduh dataset penuh. Dua hari berikutnya, modifikasi encoder sudah bisa dicoba.
+
+Perbedaan kecepatan tujuh kali lipat berasal dari strategi membaca sebelum menjalankan, bukan dari bakat.
 
 ---
 
-## D2. Konsep Inti
+## D2. Teknik Navigasi dan Diagnosis
 
 > [!NOTE]
 > Di Pendalaman ini, semua config file (mis. `configs/cifar10.yaml`, `configs/focal.yaml`, `configs/vit.yaml`) dan package (`vision_baseline`) adalah contoh dari **repo eksternal fiktif**, bukan dari `template/`. Contoh-contoh ini menunjukkan cara membaca dan mengadopsi kode orang lain; jangan dicari di `template/configs/`.
 
-### 2.1 Urutan Membaca: Dari Luar ke Dalam
+### D2.1 Contoh Peta Repo
 
-Ketika membuka repo baru, tahan godaan untuk langsung menjalankan. Baca dulu, dengan urutan yang dipikirkan:
-
-```mermaid
-flowchart TD
-    A[README.md\ntujuan, install, cara jalan] --> B[Paper/Laporan\narsitektur + loss + dataset]
-    B --> C[Struktur Folder\nsrc configs scripts data]
-    C --> D[Entry Point\ntrain.py / main.py]
-    D --> E[Model & Loss\ninput/output utama]
-    E --> F[DataLoader\nformat shape + tipe]
-    F --> G[Config\nrentang eksperimen yang didukung]
-```
-
-**1. README.md.** Baca seluruhnya, bahkan jika pendek. Fokus pada: tujuan proyek, cara install, cara jalan, format data yang diharapkan, link ke paper atau dokumentasi tambahan. Catat apa yang tidak jelas.
-
-**2. Paper atau laporan terkait.** Jika repo adalah hasil paper, baca abstrak + bagian *method*. Anda tidak perlu paham semua detail; tujuan baca adalah mengetahui *apa yang harus ada di kode*: arsitektur utama, loss utama, dataset utama.
-
-**3. Struktur folder.** Dari root, buka file dan direktori satu level. Konvensi umum:
-
-- `src/` atau folder nama proyek: kode inti.
-- `configs/`: hyperparameter dan setting.
-- `scripts/`: entry point untuk training/evaluasi.
-- `data/`: dataset (sering tidak di-commit, hanya skrip download).
-- `experiments/` atau `runs/`: hasil eksperimen.
-- `tests/`: unit test.
-- `notebooks/`: eksplorasi.
-- `requirements.txt` atau `environment.yml` atau `pyproject.toml`: dependency.
-
-**4. Entry point.** File yang dijalankan user pertama kali - biasanya `train.py`, `main.py`, atau `scripts/train.sh`. Baca dari atas ke bawah. Cari: parsing argumen, pembuatan model, pembuatan dataset, training loop. Catat panggilan ke file lain.
-
-**5. File model dan loss.** Dari entry point, ikuti jejak ke `models/` dan `losses/`. Baca definisi kelas utama, *jangan* dulu setiap fungsi helper. Cukup tahu input dan output-nya.
-
-**6. Data loader.** Biasanya file yang paling kompleks. Baca sampai Anda mengerti format input (shape, tipe) yang diharapkan model.
-
-**7. Konfigurasi.** Buka satu file config; pahami struktur. Ini memberitahu Anda rentang eksperimen yang didukung repo.
-
-Alokasi waktu tipikal untuk repo ukuran sedang (10-30 file Python): 30-60 menit membaca sebelum `pip install`.
-
-![Urutan membaca repo riset: 7 langkah dari luar ke dalam dengan estimasi waktu](../figures/fig06a_repo_navigation.svg)
-
-### 2.2 Memetakan Struktur dalam 15 Menit
-
-Setelah langkah 1-3 di atas, Anda bisa menggambar peta singkat. Contoh untuk repo hipotetis:
+Setelah membaca README, struktur folder, dan entry point, Anda bisa menggambar peta singkat. Contoh untuk repo hipotetis:
 
 ```
 repo/
@@ -391,240 +457,40 @@ repo/
 └── README.md
 ```
 
-Peta seperti ini memberi Anda jawaban cepat untuk pertanyaan:
+Peta ini memberi jawaban cepat untuk pertanyaan berulang: "Di mana saya mengubah loss?" mengarah ke `losses.py` dan `configs/*.yaml`. "Bagaimana ganti backbone jadi ViT?" mengarah ke `models/vit.py` yang sudah ada plus `configs/vit.yaml`. "Dataset apa yang dipakai?" mengarah ke `data.py` dan `scripts/download_data.sh`.
 
-- "Di mana saya mengubah loss?" → `losses.py` dan `configs/*.yaml`.
-- "Bagaimana saya ganti backbone jadi ViT?" → `models/vit.py` sudah ada; cek `configs/vit.yaml`.
-- "Dataset apa yang dipakai?" → `data.py` + `scripts/download_data.sh`.
+### D2.2 Menavigasi Kode dengan Cepat
 
-Gambarkan peta di kertas atau `notes.md`. Peta ini akan dirujuk berulang.
+Beberapa teknik memahami kode tanpa membaca semuanya.
 
-### 2.3 Smoke Test Sebelum Pelatihan Penuh
-
-Setelah environment terpasang, *jangan* langsung training dengan dataset penuh. Jalankan *smoke test* - versi minimal yang memverifikasi seluruh pipeline jalan tanpa error.
-
-Tiga tingkat smoke test:
-
-#### Level 1 - Import test
-
-```bash
-python -c "from src.models import ResNet18; from src.losses import FocalLoss"
-```
-
-Jika error di sini, masalah dependency atau path, bukan logika.
-
-#### Level 2 - Forward pass dengan dummy data
-
-```python
-import torch
-from src.models import ResNet18
-
-model = ResNet18(num_classes=10)
-x = torch.randn(2, 3, 32, 32)   # batch 2 dummy
-y = model(x)
-assert y.shape == (2, 10)
-```
-
-Level ini menangkap bug dimensi atau mismatch input/output.
-
-#### Level 3 - Satu iterasi training
-
-Modifikasi entry point untuk menjalankan satu batch, satu backward pass, lalu exit. Banyak repo punya flag `--dry-run` atau `--overfit-one-batch`. Jika tidak ada, tambahkan sendiri:
-
-```python
-# Di awal training loop:
-if args.dry_run:
-    xb, yb = next(iter(loader))
-    out = model(xb)
-    loss = criterion(out, yb)
-    loss.backward()
-    optimizer.step()
-    print(f"Dry run OK. loss={loss.item():.4f}")
-    sys.exit(0)
-```
-
-Teknik "overfit one batch" (Karpathy, 2019) lebih kuat: training loop biasa tetapi selalu pada satu batch kecil. Dalam beberapa epoch, loss harus turun ke nol (atau sangat kecil). Jika tidak, ada bug fundamental - bukan di tuning, tetapi di kode.
-
-### 2.4 Menavigasi Kode dengan Cepat
-
-Beberapa teknik pragmatis untuk memahami kode tanpa membaca semuanya:
-
-**`grep`** / **`rg`** untuk menemukan definisi:
+`grep`/`rg` menemukan definisi dan pohon panggilan dengan cepat:
 
 ```bash
 rg "class ResNet18" src/
 rg "def forward" src/models/
-rg "CrossEntropyLoss|FocalLoss" src/
+rg "build_model\(" src/        # siapa yang memanggil build_model
 ```
 
-**Pohon panggilan dengan `grep`:**
+Search simbol di IDE (VS Code: `Ctrl+T`) jauh lebih cepat daripada `grep` untuk menemukan simbol Python. Type checker (`pyright src/`) sering menunjukkan inkonsistensi yang memberi petunjuk tentang niat kode, bahkan saat kode tidak punya type hints.
 
-```bash
-# Siapa yang memanggil build_model?
-rg "build_model\(" src/
-```
-
-**Search IDE (VS Code: `Ctrl+T`)** jauh lebih cepat daripada `grep` untuk menemukan simbol Python.
-
-**Type checker (`pyright` atau `mypy`):**
-
-```bash
-pyright src/
-```
-
-Walau kode tidak punya type hints, pyright sering menunjukkan inkonsistensi yang memberi petunjuk tentang niat.
-
-**Git log untuk memahami evolusi:**
+Riwayat git menjelaskan *mengapa* kode menjadi bentuk sekarang:
 
 ```bash
 git log --oneline src/models/vit.py
-git log --follow src/losses.py
-```
-
-Commit history memberitahu *mengapa* kode menjadi bentuk sekarang - sering jawaban atas "kenapa ada fungsi aneh ini".
-
-**`git blame`** untuk menemukan author:
-
-```bash
 git blame src/train.py
 ```
 
-Jika satu bagian membingungkan, lihat siapa yang menulisnya dan commit apa yang menambahkannya. Pesan commit sering mengandung konteks.
+Pesan commit dan author dari `git blame` sering memuat konteks yang menjawab "kenapa ada fungsi aneh ini".
 
-### 2.5 Modifikasi Seminimal Mungkin
+### D2.3 Saat Dokumentasi Minim
 
-Saat Anda menambah fitur atau mengubah perilaku, pilih pola yang *tidak mengganggu* kode orang lain. Ini penting untuk:
+Banyak repo riset hanya punya README satu paragraf. Beberapa taktik saat Anda harus memakainya:
 
-- Memudahkan *upstream merge* jika repo berubah.
-- Membuat pekerjaan Anda dapat dibalik (revert) dengan bersih.
-- Membuat pull request Anda lebih mudah di-review.
-
-**Pola 1: Tambahkan opsi, jangan ubah default.**
-
-Buruk - mengubah perilaku fungsi yang sudah ada:
-
-```python
-# Lama:
-def train_one_epoch(model, loader, criterion):
-    for xb, yb in loader:
-        ...
-
-# Ubah jadi:
-def train_one_epoch(model, loader, criterion):
-    for xb, yb in loader:
-        xb, yb = apply_mixup(xb, yb)   # SELALU mixup sekarang
-        ...
-```
-
-Baik - tambah argumen dengan default yang mempertahankan perilaku lama:
-
-```python
-def train_one_epoch(model, loader, criterion, use_mixup: bool = False):
-    for xb, yb in loader:
-        if use_mixup:
-            xb, yb = apply_mixup(xb, yb)
-        ...
-```
-
-**Pola 2: Tambahkan file baru, jangan edit banyak file lama.**
-
-Jika fitur Anda melibatkan 200 baris kode, buat `src/mixup.py` baru daripada menyebar perubahan di `train.py`, `data.py`, dan `utils.py`.
-
-**Pola 3: Tambahkan argumen CLI, bukan hardcode.**
-
-```python
-# Di argparse:
-parser.add_argument('--freeze-blocks', type=str, default='',
-                    help='Comma-separated block names to freeze (e.g. "block1,block2")')
-
-# Di main:
-if args.freeze_blocks:
-    for name in args.freeze_blocks.split(','):
-        freeze_module(getattr(model, name.strip()))
-```
-
-Fitur yang ter-expose via CLI dapat dimatikan tanpa menyentuh kode lagi.
-
-**Pola 4: Commit kecil dengan pesan jelas.**
-
-Satu commit per perubahan logis. "Add mixup augmentation support" adalah satu commit; "refactor data loader to accept mixup-aware sampler" adalah commit berbeda. Commit kecil memudahkan review dan bisection.
-
-### 2.6 Ketika Dokumentasi Minim atau Tidak Ada
-
-Banyak repo riset hanya punya README satu paragraf. Taktik saat Anda harus memakai atau memodifikasinya:
-
-**Baca `requirements.txt` sebagai petunjuk teknologi.** Tergantung library yang dipakai, Anda bisa menebak: `pytorch-lightning` → kode terstruktur rapi per fase; `hydra-core` → config kompleks multi-file; `wandb` → logging di cloud.
-
-**Periksa `tests/` bila ada.** Test sering mendokumentasikan ekspektasi. Satu test yang lulus memberitahu Anda setidaknya satu cara memanggil fungsi yang benar.
-
-**Cari issue dan PR di GitHub.** Pertanyaan dari user lain sering menjawab "bagaimana X dipakai" yang tidak ada di README.
-
-**Coba `--help`.** Banyak repo punya argparse yang dokumentasi-dirinya sendiri. `python train.py --help` sering memberi peta yang cukup.
-
-**Hubungi penulis.** Repo akademik biasanya punya email kontak. Satu pesan singkat dan jelas ("saya mahasiswa, mencoba mereproduksi hasil pada dataset X, stuck di Y") sering dijawab. Berikan konteks yang cukup; jangan minta bantuan generik.
-
-### 2.7 Menyumbang Kembali
-
-Setelah Anda memahami repo cukup baik untuk memodifikasi, Anda juga bisa menyumbang perbaikan kecil. Tiga jenis kontribusi yang hampir selalu diterima:
-
-**Perbaikan dokumentasi** mencakup README, docstring, dan komentar. Bug yang paling sering dijumpai adalah dokumentasi yang keliru atau tidak lengkap - dan Anda yang baru saja mengadopsi repo paling tahu apa yang membingungkan.
-
-**Perbaikan bug kecil** mencakup typo, off-by-one, import yang salah, dan versi library yang di-pin terlalu ketat. Kirim satu PR per perbaikan.
-
-**Fitur yang umum diinginkan** adalah kontribusi ketiga yang hampir selalu diterima. Jika repo belum punya `--dry-run` atau `set_seed` yang deterministik, tambahkan dan jelaskan motivasi di deskripsi PR.
-
-Etika kontribusi: sebelum mengirim PR besar, buka issue dulu menanyakan apakah kontribusi semacam itu akan diterima. Menghemat waktu Anda dan maintainer.
-
-### 2.8 Kategori Error dan Cara Tesnya
-
-Ketika adopsi repo atau eksperimen gagal, respons pertama yang paling sering adalah: "ada yang salah di suatu tempat, coba-coba sampai ketemu". Ini tidak efisien. Lebih cepat untuk mengidentifikasi *kategori* error dulu, karena tiap kategori punya diagnosis yang berbeda.
-
-#### Kategori 1 - Setup Error
-
-Kategori ini mencakup masalah di environment, dependency, path, atau konfigurasi yang tidak benar.
-
-- **Tanda:** error saat `import`, `ModuleNotFoundError`, `FileNotFoundError`, CUDA version mismatch.
-- **Langkah uji:**
-  1. Jalankan `python -c "import torch; print(torch.__version__)"` dan `import [nama_library]`.
-  2. Bandingkan output `pip freeze` dengan `requirements.txt`.
-  3. Cek apakah path dataset di config benar.
-
-#### Kategori 2 - Data Error
-
-Kategori ini mencakup masalah di dataset: dataset tidak ada, format tidak sesuai, leakage, atau preprocessing berbeda dari yang diharapkan model.
-
-- **Tanda:** error di DataLoader, akurasi terlalu tinggi dari awal, loss tidak wajar (terlalu kecil atau NaN langsung).
-- **Langkah uji:**
-  1. Print shape dan range nilai dari batch pertama.
-  2. Visualisasikan 4-8 sampel - pastikan gambar/teks kelihatan wajar.
-  3. Periksa label: apakah distribusinya masuk akal?
-
-#### Kategori 3 - Algorithmic Error
-
-Kategori ini mencakup bug di forward pass, loss function, atau training loop.
-
-- **Tanda:** loss tidak turun sama sekali, NaN loss, prediksi selalu kelas yang sama, gradient nol.
-- **Langkah uji:** *overfit one batch* - ambil 4 sampel, jalankan 100-200 iterasi hanya pada itu. Model harus mencapai loss mendekati nol. Jika tidak, ada bug di model atau loss.
-
-#### Kategori 4 - Experiment Error
-
-Kategori ini mencakup konfigurasi yang tidak sesuai rancangan: seed tidak di-set, variabel yang seharusnya dikontrol tidak terkontrol, atau metrik yang dilaporkan bukan yang direncanakan.
-
-- **Tanda:** hasil yang tidak bisa direproduksi, metrik berbeda dari yang ada di pre-registration, kondisi ablation tidak sesuai grid.
-- **Langkah uji:** baca ulang pre-registration dan bandingkan dengan config YAML yang benar-benar dipakai. Cek commit hash di checkpoint.
-
-Tabel ringkas untuk referensi cepat:
-
-| Gejala | Kategori Paling Mungkin | Quick Test |
-| --- | --- | --- |
-| `ImportError` atau `ModuleNotFoundError` | Setup | `pip list` |
-| Loss NaN dari epoch pertama | Data atau Algorithmic | Print nilai batch; cek loss_fn |
-| Akurasi 99% tanpa training | Data (leakage) | Cek preprocessing |
-| Hasil tidak bisa direproduksi | Experiment | Bandingkan config + seed |
-| Loss tidak turun sama sekali | Algorithmic atau Setup | Overfit one batch |
-| Error saat membaca dataset | Data atau Setup | Print path config |
-
-![Empat kategori error dalam adopsi repo: Setup, Data, Algorithmic, Experiment - quadrant diagnosis](../figures/fig06b_error_categories.svg)
+- Baca `requirements.txt` sebagai petunjuk teknologi. Library yang dipakai menyiratkan struktur kode: `pytorch-lightning` berarti kode terbagi rapi per fase, `hydra-core` berarti config kompleks multi-file, dan `wandb` berarti logging di cloud.
+- Periksa `tests/` bila ada. Satu test yang lulus mendokumentasikan setidaknya satu cara memanggil fungsi yang benar.
+- Cari issue dan PR di GitHub. Pertanyaan user lain sering menjawab "bagaimana X dipakai" yang tidak ada di README.
+- Coba `python train.py --help`. Banyak repo punya argparse yang mendokumentasikan dirinya sendiri.
+- Hubungi penulis. Repo akademik biasanya punya email kontak, dan pesan singkat dengan konteks cukup ("saya mahasiswa, mencoba mereproduksi hasil pada dataset X, stuck di Y") sering dijawab.
 
 ---
 
@@ -632,17 +498,17 @@ Tabel ringkas untuk referensi cepat:
 
 Misalkan Anda menerima tugas: *"Gunakan repo `vision-baseline` dari lab kita. Tambahkan opsi memakai focal loss. Hasilkan baseline + ablation pada CIFAR-10."*
 
-> **Latihan paralel di repo yang sebenarnya:** contoh berikut memakai repo hipotetis agar fokus pada pola, bukan detail library. Untuk latihan di kode yang sebenarnya, clone salah satu berikut dan ikuti langkah yang sama (pemetaan, entry point, peta panggilan, titik injeksi modifikasi) secara paralel:
+> **Latihan paralel di repo yang sebenarnya:** contoh berikut memakai repo hipotetis agar fokus pada pola, bukan detail library. Untuk latihan di kode sebenarnya, clone salah satu berikut dan ikuti langkah yang sama (pemetaan, entry point, peta panggilan, titik injeksi modifikasi) secara paralel:
 >
 > - **`rwightman/pytorch-image-models` (timm)** - `github.com/huggingface/pytorch-image-models`. Ratusan model klasifikasi gambar; entry point `train.py` di root. Banyak dipakai di paper visi.
-> - **`huggingface/transformers`** - `github.com/huggingface/transformers`. Skala jauh lebih besar; cocok bila Capstone Anda di domain teks. Mulai dari `examples/pytorch/text-classification/run_classification.py` - itu skeleton yang paling mudah diadaptasi.
-> - **`facebookresearch/moco`** - `github.com/facebookresearch/moco`. Self-supervised learning, lebih kecil dari timm, cocok bila ingin memahami pola "riset research code" yang ditulis author paper langsung.
+> - **`huggingface/transformers`** - `github.com/huggingface/transformers`. Skala jauh lebih besar; cocok bila Capstone Anda di domain teks. Mulai dari `examples/pytorch/text-classification/run_classification.py` sebagai skeleton yang paling mudah diadaptasi.
+> - **`facebookresearch/moco`** - `github.com/facebookresearch/moco`. Self-supervised learning, lebih kecil dari timm, cocok bila ingin memahami pola "research code" yang ditulis author paper langsung.
 >
-> Tujuan bukan mengerti keseluruhan repo - itu akan makan berminggu-minggu. Tujuannya menerapkan kerangka 4-menit, 15-menit, 30-menit di bawah pada kode yang berbeda dari `vision-baseline` agar Anda melihat bahwa polanya memang berulang.
+> Tujuannya menerapkan kerangka 15-menit, 30-menit, dan 3-jam di bawah pada kode yang berbeda agar Anda melihat polanya berulang, tanpa harus mengerti keseluruhan repo.
 
-### 3.1 Menit 0-15: Pemetaan
+### D3.1 Menit 0-15: Pemetaan
 
-Clone repo, buka di editor. Baca README:
+Clone repo, buka di editor, baca README:
 
 > # vision-baseline
 >
@@ -669,9 +535,9 @@ vision-baseline/
 └── README.md
 ```
 
-Tidak ada `losses.py` - loss mungkin di `train.py`. Tidak ada `tests/`. Sepuluh menit membaca sudah cukup untuk memetakan repo sekecil ini.
+Tidak ada `losses.py`, jadi loss mungkin di `train.py`. Tidak ada `tests/`. Sepuluh menit membaca cukup untuk memetakan repo sekecil ini.
 
-### 3.2 Menit 15-30: Entry Point dan Peta Panggilan
+### D3.2 Menit 15-30: Entry Point dan Peta Panggilan
 
 Buka `vision_baseline/train.py`:
 
@@ -682,7 +548,7 @@ def main(cfg):
     train_loader, val_loader = build_dataloaders(cfg['data'])
     criterion = nn.CrossEntropyLoss()       # <-- di sini loss
     optimizer = torch.optim.AdamW(model.parameters(), **cfg['optim'])
-    
+
     for epoch in range(cfg['training']['epochs']):
         train_loss = train_one_epoch(model, train_loader, criterion, optimizer)
         val_acc = evaluate(model, val_loader)
@@ -691,7 +557,7 @@ def main(cfg):
 
 Loss hardcoded sebagai `CrossEntropyLoss`. Ini titik modifikasi.
 
-### 3.3 Menit 30-60: Persiapan dan Smoke Test
+### D3.3 Menit 30-60: Persiapan dan Smoke Test
 
 ```bash
 conda create -n visionbase python=3.10 -y
@@ -699,20 +565,14 @@ conda activate visionbase
 pip install -e .
 ```
 
-Test level 1:
+Test level 1 lulus:
 
 ```bash
 python -c "from vision_baseline.models import build_model"
 # OK
 ```
 
-Test level 3 (dry run):
-
-```bash
-python -m vision_baseline.train --config configs/cifar10.yaml --dry-run
-```
-
-Flag `--dry-run` tidak ada - Anda tambahkan (pola 3 di bagian 2.5):
+Flag `--dry-run` belum ada untuk test level 3, jadi tambahkan (pola 3 dari [§3.4](#34-modifikasi-seminimal-mungkin)):
 
 ```python
 # Di argparse
@@ -727,9 +587,9 @@ if args.dry_run:
     return
 ```
 
-Jalankan ulang: output `Dry run OK. loss=2.31`. Pipeline jalan.
+Jalankan ulang dan output `Dry run OK. loss=2.31`. Pipeline jalan.
 
-### 3.4 Menit 60-120: Modifikasi Seminimal Mungkin
+### D3.4 Menit 60-120: Modifikasi Seminimal Mungkin
 
 Tambah file baru `vision_baseline/losses.py`:
 
@@ -742,7 +602,7 @@ class FocalLoss(nn.Module):
     def __init__(self, gamma: float = 2.0):
         super().__init__()
         self.gamma = gamma
-    
+
     def forward(self, logits, targets):
         ce = F.cross_entropy(logits, targets, reduction='none')
         pt = torch.exp(-ce)
@@ -757,7 +617,7 @@ def build_loss(cfg):
     raise ValueError(f'Unknown loss: {name}')
 ```
 
-Ubah `train.py` minimal:
+Ubah `train.py` minimal, dengan `cfg.get(...)` berdefault agar config lama tanpa key `loss` tetap jalan:
 
 ```python
 # Lama:
@@ -768,8 +628,6 @@ from vision_baseline.losses import build_loss
 criterion = build_loss(cfg.get('loss', {'name': 'ce'}))
 ```
 
-Gunakan `cfg.get(...)` dengan default - config lama yang tidak punya key `loss` tetap jalan (backward-compatible).
-
 Tambah `configs/cifar10_focal.yaml`:
 
 ```yaml
@@ -779,141 +637,123 @@ loss:
   gamma: 2.0
 ```
 
-### 3.5 Menit 120-180: Eksperimen dan Laporan
+### D3.5 Menit 120-180: Eksperimen dan Laporan
 
-Jalankan baseline dan focal:
+Jalankan baseline dan focal, masing-masing tiga seed via override CLI, lalu agregasi hasil dan tulis laporan:
 
 ```bash
 python -m vision_baseline.train --config configs/cifar10.yaml
 python -m vision_baseline.train --config configs/cifar10_focal.yaml
 ```
 
-Ulangi dengan tiga seed masing-masing (via override CLI). Agregasi hasil. Tulis laporan.
-
-Total: ~3 jam dari clone sampai laporan pertama. Bandingkan dengan "dua minggu" di cerita motivasi.
+Total sekitar tiga jam dari clone sampai laporan pertama, dibandingkan dua minggu pada cerita asisten pertama di [D1](#d1-dua-kecepatan-adopsi-repo).
 
 ---
 
-## D4. Pitfalls & Miskonsepsi
+## D4. Catatan Miskonsepsi
 
-**"Saya akan jalankan dulu, baru baca kalau error."** Strategi ini membuat Anda terbiasa dengan bentrok permukaan (versi library, path, typo). Anda menghabiskan hari-hari mengatasi masalah yang sebenarnya akan hilang dengan satu jam membaca.
+Beberapa keyakinan yang sering memperlambat adopsi repo, dan koreksinya:
 
-**"Mengedit `train.py` langsung adalah cara tercepat."** Cepat untuk eksperimen sekali, menambah beban pemeliharaan jangka panjang. Setiap perubahan di tengah file besar adalah utang teknis; dalam dua minggu Anda tidak akan ingat mana modifikasi Anda dan mana dari repo asli.
-
-**"PR tidak diterima berarti pekerjaan saya sia-sia."** Tidak. Anda belajar membaca dan memodifikasi kode, yang merupakan keterampilan jangka panjang. PR yang ditolak sering kali tetap dipakai sebagai basis diskusi; maintainer kadang mengambil ide Anda dan mengimplementasi ulang sesuai standar repo.
-
-**"Saya tidak perlu commit lokal sampai semua selesai."** Buruk. Commit kecil sepanjang proses adalah titik-simpan - jika modifikasi Anda merusak sesuatu, Anda bisa `git diff HEAD~3` untuk melihat persis apa yang berubah.
-
-**"Saya bisa selesaikan tanpa smoke test, langsung training penuh."** Training penuh 8 jam yang gagal di menit ke-10 karena bug dimensi adalah delapan jam yang hilang. Smoke test level 3 butuh 30 detik; ia menangkap 80% bug setup.
-
-**"Kode orang lain yang rumit pasti bagus."** Tidak selalu. Kadang kompleksitas adalah tumpukan patch atas bug lama. Jangan ragu menyederhanakan jika Anda memahami alasan aslinya.
-
-**"Versi library yang di-pin di `requirements.txt` harus persis diikuti."** Kadang ya (untuk reproduksi hasil), kadang tidak (jika Anda bekerja di proyek downstream yang perlu versi lebih baru). Baca pin dengan cermat - apakah angka eksperimen yang Anda cari bergantung padanya?
+- **"Saya jalankan dulu, baru baca kalau error."** Strategi ini membuat Anda menghabiskan hari-hari mengatasi bentrok permukaan (versi library, path, typo) yang sebenarnya hilang dengan satu jam membaca.
+- **"Mengedit `train.py` langsung paling cepat."** Cepat untuk eksperimen sekali, tetapi menambah utang teknis: dalam dua minggu Anda tidak akan ingat mana modifikasi Anda dan mana dari repo asli.
+- **"PR ditolak berarti pekerjaan saya sia-sia."** Anda tetap belajar membaca dan memodifikasi kode. PR yang ditolak sering dipakai sebagai basis diskusi, dan maintainer kadang mengambil idenya lalu mengimplementasi ulang sesuai standar repo.
+- **"Saya tidak perlu commit lokal sampai semua selesai."** Commit kecil sepanjang proses menjadi titik simpan: kalau modifikasi merusak sesuatu, `git diff HEAD~3` menunjukkan persis apa yang berubah.
+- **"Bisa langsung training penuh tanpa smoke test."** Training penuh yang gagal di menit ke-10 membuang berjam-jam; smoke test level 3 butuh 30 detik dan menangkap 80% bug setup.
+- **"Kode yang rumit pasti bagus."** Kadang kompleksitas hanyalah tumpukan patch atas bug lama. Sederhanakan kalau Anda memahami alasan aslinya.
+- **"Versi library yang di-pin harus persis diikuti."** Kadang ya untuk reproduksi hasil, kadang tidak untuk proyek downstream. Periksa apakah angka eksperimen yang Anda cari bergantung pada pin tersebut.
 
 ---
 
-## D5. Lab 6 - Mengadopsi dan Memodifikasi Repo Eksternal
+## D5. Lab Pendalaman
+
+### Lab 6 - Mengadopsi dan Memodifikasi Repo Eksternal
 
 Buka [lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_repo_adoption.ipynb).
 
-Tugas:
-
 1. Pilih satu repository klasifikasi image yang sederhana (pytorch/examples/mnist, atau reference implementation Fast.ai beginner). Clone ke folder Anda.
 2. Ikuti urutan pembacaan (README → struktur → entry point → model → data → config). Tulis peta satu halaman di `docs/repo_map.md`.
-3. Jalankan smoke test tiga level. Jika `--dry-run` tidak ada, tambahkan sendiri dan commit.
-4. Tambahkan satu fitur seminimal mungkin: pilihan focal loss, atau pilihan freeze layer pertama, atau flag deterministik (set_seed + cudnn.deterministic).
+3. Jalankan smoke test tiga level. Kalau `--dry-run` tidak ada, tambahkan sendiri dan commit.
+4. Tambahkan satu fitur seminimal mungkin: pilihan focal loss, pilihan freeze layer pertama, atau flag deterministik (set_seed + cudnn.deterministic).
 5. Jalankan baseline + variasi Anda (2 kondisi × 2 seed). Laporkan hasil dalam `docs/report.md`.
-6. Siapkan draft deskripsi PR (tidak perlu benar-benar dikirim kecuali Anda ingin) yang menjelaskan: motivasi, perubahan, cara pakai, cara reproduksi hasil.
+6. Siapkan draft deskripsi PR (tidak perlu benar-benar dikirim) yang menjelaskan motivasi, perubahan, cara pakai, dan cara reproduksi hasil.
 
-**Checklist verifikasi**:
+Checklist verifikasi:
 
-- `repo_map.md` memuat 6 bagian (tujuan, struktur, entry point, model, data, config).
-- Smoke test level 3 berjalan dan keluar tanpa training penuh.
-- Modifikasi dibuat di file baru atau dengan argumen opsional (tidak mengubah default lama).
-- Commit history kecil dan bermakna (minimal 4 commit terpisah).
-- Draft deskripsi PR mencakup motivasi, perubahan, pemakaian, reproduksi.
+- [ ] `repo_map.md` memuat 6 bagian (tujuan, struktur, entry point, model, data, config).
+- [ ] Smoke test level 3 berjalan dan keluar tanpa training penuh.
+- [ ] Modifikasi dibuat di file baru atau dengan argumen opsional (tidak mengubah default lama).
+- [ ] Commit history kecil dan bermakna (minimal 4 commit terpisah).
+- [ ] Draft deskripsi PR mencakup motivasi, perubahan, pemakaian, reproduksi.
 
 ### Lab 6b (breadth) - Transformer-Mini dari Nol
 
-Buka [lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_transformer_mini.ipynb). Setelah Anda paham cara membaca repo eksternal, langkah berikutnya adalah paham arsitektur yang paling sering Anda temui di repo riset modern: **Transformer**. Lab ini menyuruh Anda menulis ulang komponen intinya dari nol.
+Buka [lab_w7_transformer_mini.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_transformer_mini.ipynb). Setelah paham cara membaca repo eksternal, langkah berikutnya adalah menguasai arsitektur yang paling sering muncul di repo riset modern, yaitu **Transformer**. Lab ini menyuruh Anda menulis ulang komponen intinya dari nol.
 
-Fokus:
-
-1. Implementasikan ***scaled dot-product attention*** dengan tensor ops tanpa `nn.MultiheadAttention`.
+1. Implementasikan *scaled dot-product attention* dengan tensor ops tanpa `nn.MultiheadAttention`.
 2. Bangun satu **Transformer encoder block** dengan LayerNorm pre-norm, FFN GELU, dan *residual*.
 3. Jalankan **parity check** terhadap `nn.TransformerEncoderLayer` PyTorch untuk memverifikasi shape dan skala output yang konsisten.
 4. Latih model ringan pada tugas *toy sequence classification* agar block terbukti bisa belajar.
 
-Bila Anda pernah membaca kode Transformer di Hugging Face atau `fairseq` dan merasa terhalang oleh abstraksi, lab ini membuat Anda melihat balok-balok fondasinya dalam bentuk paling minimal. Estimasi 4-5 jam.
+Lab ini menunjukkan fondasi Transformer dalam bentuk paling minimal kalau Anda pernah membaca kode Transformer di Hugging Face atau `fairseq` dan merasa terhalang abstraksi. Estimasi 4-5 jam.
 
 ### Lab 6c (pair) - Peer Code Review Repo Eksternal
 
-Setelah Anda lancar membaca repo orang lain, latihan berikutnya adalah membantu orang lain membaca repo - dan dibantu balik. Bekerjalah berpasangan. Jika jumlah mahasiswa ganjil, satu kelompok berisi 3 orang dengan aturan: tiap orang tetap meninjau satu repo masing-masing (total 3 repo), tahap *tukar* dilakukan secara melingkar (A→B, B→C, C→A), dan `peer_review_log.md` mencantumkan tiga pemetaan plus tiga set temuan. Waktu kerja bertambah ~10 menit untuk diskusi tiga arah.
+Setelah lancar membaca repo orang lain, latihan berikutnya adalah membantu orang lain membaca repo dan dibantu balik. Bekerjalah berpasangan. Kalau jumlah mahasiswa ganjil, satu kelompok berisi 3 orang dengan aturan: tiap orang tetap meninjau satu repo masing-masing (total 3 repo), tahap *tukar* dilakukan melingkar (A→B, B→C, C→A), dan `peer_review_log.md` mencantumkan tiga pemetaan plus tiga set temuan. Waktu kerja bertambah ~10 menit untuk diskusi tiga arah.
 
-**Tugas per orang (30 menit):**
-1. Pilih satu repository publik yang belum pernah Anda baca. Bisa dari daftar rekomendasi di bawah, atau repo riset yang Anda temukan sendiri.
-2. Clone repository tersebut. Jangan membaca README lebih dari 5 menit - fokus pada kode.
+Tugas per orang (30 menit):
+
+1. Pilih satu repository publik yang belum pernah Anda baca, dari daftar rekomendasi di bawah atau repo riset yang Anda temukan sendiri.
+2. Clone repository tersebut. Jangan membaca README lebih dari 5 menit; fokus pada kode.
 3. Petakan empat komponen inti: entry point, model, loss, data loader. Catat path file dan line number untuk masing-masing.
 4. Tulis satu "Issue" (tidak perlu benar-benar dikirim) yang mengidentifikasi satu area yang perlu dokumentasi tambahan, satu bug potensial, atau satu magic number yang tidak dijelaskan.
 
-**Tugas bersama (20 menit):**
-5. Tukar repository dengan pasangan. Baca mapping pasangan Anda. Apakah Anda setuju dengan pemetaannya? Ada yang terlewat?
-6. Diskusikan: apa pola paling umum yang Anda berdua temukan? Apa perbedaan paling mencolok antara kedua repo?
-7. Tulis `peer_review_log.md` (bersama, satu file) yang berisi:
-   - Repo yang ditinjau dan siapa meninjau apa.
-   - Temuan utama per orang (minimal 3).
-   - Satu hal yang dipelajari dari membaca kode orang lain.
-   - Satu saran konkret untuk perbaikan repo masing-masing.
+Tugas bersama (20 menit):
 
-**Daftar rekomendasi repo (pilih salah satu):**
+5. Tukar repository dengan pasangan, baca mapping pasangan Anda, dan periksa apakah Anda setuju atau ada yang terlewat.
+6. Diskusikan pola paling umum yang Anda berdua temukan dan perbedaan paling mencolok antara kedua repo.
+7. Tulis `peer_review_log.md` bersama dalam satu file yang berisi: repo yang ditinjau dan siapa meninjau apa, temuan utama per orang (minimal 3), satu hal yang dipelajari dari membaca kode orang lain, dan satu saran konkret untuk perbaikan repo masing-masing.
+
+Daftar rekomendasi repo (pilih salah satu):
+
 - `pytorch/examples` → `mnist/main.py`: CNN sederhana dengan banyak komentar, mudah dipetakan.
 - `huggingface/transformers` → `src/transformers/models/bert/modeling_bert.py`: fokus pada `BertSelfAttention` saja, abaikan sisanya.
-- Repo lab teman sendiri dari Lab 3 yang sudah direfaktor, jika ingin latihan yang lebih relevan dengan konteks kelas.
+- Repo lab teman sendiri dari Lab 3 yang sudah direfaktor, kalau ingin latihan yang lebih relevan dengan konteks kelas.
 
-**Checklist verifikasi:**
+Checklist verifikasi:
+
 - [ ] Setiap orang selesai mapping 4 komponen dalam 30 menit.
 - [ ] Satu Issue terdokumentasi di `peer_review_log.md`.
 - [ ] Minimal 3 temuan konkret per orang (bukan "kode sudah rapi").
 - [ ] `peer_review_log.md` di-commit ke repo masing-masing.
 
-**Mengapa ini penting:** Di lab riset, diskusi kode dengan rekan biasanya lebih sering terjadi daripada menulis kode sendirian. Peer review adalah keterampilan yang sama pentingnya dengan menulis kode - dan modul ini memberi Anda satu latihan formal sebelum praktik informal sepanjang sisa semester.
+Di lab riset, diskusi kode dengan rekan lebih sering terjadi daripada menulis kode sendirian. Peer review sama pentingnya dengan menulis kode, dan latihan ini memberi satu praktik formal sebelum praktik informal sepanjang sisa semester.
 
 ---
 
-## Komponen Mandiri Pendalaman (Repo Adoption)
+## D6. Komponen Mandiri Pendalaman (Repo Adoption)
 
-Pilih satu pertanyaan dari tema Repo Adoption yang ingin Anda jelajahi lebih dalam. Konsep inti: membaca kode orang lain dengan cepat, memetakan arsitektur repo riset, memodifikasi seminimal mungkin.
+Pilih satu pertanyaan dari tema Repo Adoption yang ingin Anda jelajahi lebih dalam. Konsep intinya membaca kode orang lain dengan cepat, memetakan arsitektur repo riset, dan memodifikasi seminimal mungkin. Beberapa pertanyaan pemantik (tidak wajib salah satunya):
 
-**Beberapa pertanyaan pemantik** (tidak wajib salah satunya):
-- Bisakah Anda mereproduksi satu angka dari paper arXiv dengan repo publik - dan jika ada gap, apa penyebab paling mungkin?
-- Apa perbedaan struktural antara repo Lab 6 dan `template` - mana yang lebih baik untuk tujuan apa?
-- Bagaimana Anda menyiapkan repo eksternal agar bisa dipakai tim selama tiga bulan - perubahan apa yang paling mendesak?
+- Bisakah Anda mereproduksi satu angka dari paper arXiv dengan repo publik, dan kalau ada gap, apa penyebab paling mungkin?
+- Apa perbedaan struktural antara repo Lab 6 dan `template`, dan mana yang lebih baik untuk tujuan apa?
+- Bagaimana Anda menyiapkan repo eksternal agar bisa dipakai tim selama tiga bulan, dan perubahan apa yang paling mendesak?
 
 Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb), dan presentasikan 10 menit pada sesi review berikutnya. Format dan kriteria: [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
 
 ---
 
-## D6. Refleksi Pendalaman
+## D7. Refleksi dan Bacaan Lanjutan Pendalaman
+
+Refleksi:
 
 1. Anda baru menerima akses ke repo lab dengan 150 file Python. Dari mana pembacaan dimulai, dan berapa batas waktu untuk fase membaca sebelum menjalankan?
-2. Setelah setup environment, Anda menemukan bahwa hasil reproduksi menyimpang 2% dari angka paper. Apa tiga hipotesis paling mungkin, dan bagaimana Anda menginvestigasinya tanpa menghubungi penulis paper?
-3. Dosen pembimbing meminta Anda "pakai repo X untuk dataset kita". Repo tersebut didesain untuk dataset berbeda. Bagaimana Anda mengevaluasi, dalam satu hari, apakah adaptasi lebih cepat daripada menulis ulang dari template?
+2. Setelah setup environment, hasil reproduksi menyimpang 2% dari angka paper. Apa tiga hipotesis paling mungkin, dan bagaimana Anda menginvestigasinya tanpa menghubungi penulis paper?
+3. Dosen pembimbing meminta Anda "pakai repo X untuk dataset kita", tetapi repo itu didesain untuk dataset berbeda. Bagaimana Anda mengevaluasi dalam satu hari apakah adaptasi lebih cepat daripada menulis ulang dari template?
+4. Capstone (W12-W15) kemungkinan besar dimulai dari repo orang lain. Pilih satu repo kandidat (misalnya `rwightman/pytorch-image-models`, `huggingface/transformers`, atau repo khusus domain lab Anda) lalu tulis satu paragraf "laporan bacaan pertama": entrypoint training, cara config di-load, dan tempat modifikasi akan disisipkan. Latihan ini menghemat satu hari penuh Capstone.
 
-4. **Koneksi ke Capstone.** Capstone (W12-W15) kemungkinan besar dimulai dari repo orang lain, bukan dari nol. Pilih satu repo kandidat (misalnya `rwightman/pytorch-image-models`, `huggingface/transformers`, atau repo khusus domain lab Anda). Tulis satu paragraf "laporan bacaan pertama": entrypoint training, cara config di-load, dan tempat modifikasi akan disisipkan. Latihan ini akan menghemat satu hari penuh Capstone.
-
----
-
-## D7. Bacaan Lanjutan Pendalaman
+Bacaan Lanjutan:
 
 - **Peter Seibel - *Code is not literature*** (esai, 2014). Esai ini berargumen mengapa kode dibaca secara berbeda dari teks naratif, beserta implikasinya untuk strategi membaca.
-- **Michael Feathers - *Working Effectively with Legacy Code*** (buku). Meskipun ditujukan untuk software engineering, Bab 1-3 relevan untuk siapa saja yang akan sering bekerja dengan kode warisan.
-- **Greg Wilson et al. - *Good Enough Practices in Scientific Computing*** (PLOS Comp Biol, 2017). Makalah ini menetapkan standar minimal yang bisa Anda harapkan dari repo riset - atau ikuti saat menulis repo sendiri nanti.
+- **Michael Feathers - *Working Effectively with Legacy Code*** (buku). Meskipun ditujukan untuk software engineering, Bab 1-3 relevan untuk siapa saja yang sering bekerja dengan kode warisan.
+- **Greg Wilson et al. - *Good Enough Practices in Scientific Computing*** (PLOS Comp Biol, 2017). Makalah ini menetapkan standar minimal yang bisa Anda harapkan dari repo riset, atau ikuti saat menulis repo sendiri nanti.
 - **GitHub - *About Pull Requests*** (docs.github.com). Dokumentasi ini menyediakan panduan teknis untuk memahami alur kerja kontribusi.
-
----
-
-## Lanjut ke W8
-
-Anda sudah bisa memakai pretrained transformer, mengadopsi repo yang belum dikenal, dan menggunakan alat AI dengan protokol yang bertanggung jawab. W8 memperluas pemahaman ke lanskap foundation model: bukan hanya text, tetapi vision, audio, time series, dan multimodal - serta bagaimana memilih strategi adaptasi yang tepat.
-
-Buka [W8 - Foundation Models](08_W8_Foundation_Models.md) ketika siap.

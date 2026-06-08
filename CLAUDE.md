@@ -22,6 +22,8 @@ ModulePembelajaran/
 ├── notes/                           Catatan sumber (referensi, tidak dirender)
 ├── _archive/                        File lama (tidak dirender website)
 ├── CLAUDE.md
+├── chapter-style-guide.md           Struktur penyampaian materi bab
+├── GUIDE-SLIDE.md                   Pedagogi & struktur slide deck
 ├── README.md
 └── .gitignore
 ```
@@ -33,7 +35,7 @@ ModulePembelajaran/
 - **W1** (`01_W1_Tabular_Output_Heads.md`): tabular MLP, output heads+loss matching, observation before conclusion
 - **W2** (`02_W2_Images_CNN_Smoke_Test.md`): tensor citra, CNN, smoke test tiga level
 - **W3** (`03_W3_Loss_Optimizer_Evaluasi.md`): galeri 5 training → loss/optimizer/evaluasi; representasi fitur 3 strategi
-- **W4** (`04_W4_Reproducibility_Experiment_Matrix.md`): matriks eksperimen+YAML/seed/checkpoint; §3.5 SQRC; §2.6 hipotesis tidak terkonfirmasi; Git workflow
+- **W4** (`04_W4_Reproducibility_Experiment_Matrix.md`): gaya baru `chapter-style-guide.md`, 4 materi (Rancangan Penelitian, Training Terkontrol, Trace Result, Hasil Research); matriks eksperimen, YAML/seed/checkpoint/git hash, seed variance, hasil negatif; lapor ke dosen diselipkan
 - **W5** (`05_W5_Sequences_RNN_LSTM.md`): RNN vs LSTM, gradient flow; **§1.5.2**: bridge LSTM cell→vanishing gradient+residual; **§4**: gradient clipping (norma global, clip_grad_norm_ vs clip_grad_value_)
 - **W6** (`06_W6_Representations_Temporal_Leakage.md`): representasi recap + temporal leakage demo (0.92→0.63 §0.6); §2.6.3 negative results; Lab 6c peer review
 - **W7** (`07_W7_Text_Transformers_Repo_Adoption.md`): text+Transformers+AI tools+repo adoption (Part 1 ringkas + Part 2 Pendalaman D1-D7); **§1.1**: pretraining rationale; **§1.3 BARU**: QKV, Transformer block, multi-head, positional encoding, freeze vs fine-tune
@@ -130,11 +132,11 @@ ruff format src/
 
 ## Konvensi Penulisan Bab
 
-Urutan tetap: Peta Bab → Motivasi → Konsep Inti → Worked Example → Pitfalls & Miskonsepsi → Lab Hands-on → Refleksi (3 pertanyaan) → Bacaan Lanjutan. Jangan ubah urutan.
+Struktur bab materi mengikuti **`chapter-style-guide.md`**: Langkah 0 (turunkan garis besar minggu dulu) → Pembuka (agenda + recap minggu lalu) → materi (inti + artefak yang bisa disalin + contoh + link antar-minggu) → Lab → Penutup. Panduan itu menggantikan urutan tetap lama (Peta Bab → Motivasi → Konsep Inti → ... → Bacaan Lanjutan), yang dibuang karena terlalu naratif dan boros.
 
 Bahasa Indonesia. Istilah teknis ML/DL tetap Inggris (loss, checkpoint, seed, freeze, ablation). Glosarium di `14_Lampiran.md`.
 
-Sikap (Curiosity, Rigor, Skepticism, Ownership) ditanamkan via cerita pembuka, pitfall, refleksi - bukan bab khusus.
+Sikap (Curiosity, Rigor, Skepticism, Ownership) dan cara lapor ke dosen diselipkan di materi tempatnya muncul wajar (Thread lintas-bab di `chapter-style-guide.md`), bukan section atau bab khusus.
 
 **Penempatan gambar:** Gambar disisipkan langsung di dalam section tempat kontennya dibahas - bukan dikumpulkan di akhir bab. Prinsip bottom-up berlaku: letakkan gambar tepat setelah teks yang mendeskripsikan konsep tersebut, sehingga pembaca melihat penjelasan teks lalu langsung melihat visualnya. Setiap gambar baru yang dibuat harus segera disisipkan di semua section relevan pada hari yang sama.
 

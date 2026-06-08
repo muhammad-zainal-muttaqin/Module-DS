@@ -1,465 +1,234 @@
 import type { SlideSection } from "./index";
 
 export const slides04: SlideSection[] = [
-  // -- 1: W4: Reproducibility & Matriks Eksperimen --
+  // -- 1: Title --
   {
     layout: "title",
     title: "W4: Reproducibility & Matriks Eksperimen",
-    subtitle: "W4 mengubah \"bisa training\" menjadi \"bisa riset\": merancang eksperimen sebelum menulis kode, mengubah satu variabel setiap kali, lalu menyimpan jejak tiap run agar hasilnya bisa dicek ulang.",
-    body: "Presentasi ini bisa dipakai mandiri - tidak membutuhkan bacaan terpisah.",
+    subtitle: "Mengubah satu instruksi atau diagnosis jadi eksperimen yang terkontrol dan bisa dicek ulang orang lain.",
     footnote: "Bab 04 - Minggu 4",
   },
 
-  // -- 2: Peta W4 --
-  {
-    layout: "section",
-    title: "Peta W4",
-    body: "W4 adalah transisi dari \"bisa training\" menuju \"bisa riset\". Minggu ini membangun tiga lapis disiplin: merancang dulu lewat matriks eksperimen dan protokol, menjalankan dengan kontrol satu variabel per waktu, lalu mengikat hasil pada infrastruktur reproduksibilitas.",
-    footnote: "Setelah W4, setiap eksperimen yang Anda laporkan punya jejak yang bisa ditunjukkan kepada siapapun.",
-  },
-
-  // -- 3: Dari Diagnosis W3 ke Eksperimen W4 --
-  {
-    layout: "bullets",
-    title: "Dari Diagnosis W3 ke Eksperimen W4",
-    body: "W4 dimulai dari diagnosis CIFAR-10 yang Anda bawa dari W3. Hari ini kita mengubah dugaan seperti \"model overfit\" atau \"focal loss mungkin membantu\" menjadi eksperimen yang bisa diulang dan dibandingkan setara.",
-    bullets: [
-      "**Diagnosis** menjelaskan gejala dari loss curve, confusion matrix, atau error analysis.",
-      "**Hipotesis** mengubah gejala menjadi dugaan yang bisa diuji dengan variabel yang jelas.",
-      "**Matriks eksperimen** memastikan setiap run hanya mengubah satu variabel dan punya catatan yang bisa dicek ulang.",
-    ],
-    footnote: "Dataset pembuka adalah CIFAR-10 dari W2; Lab W4 tetap melatih alur reproducibility yang berlaku untuk dataset lain.",
-  },
-
-  // -- 4: Contoh Transformasi: Gejala Menjadi Rencana --
-  {
-    layout: "bullets",
-    title: "Contoh Transformasi: Gejala Menjadi Rencana",
-    body: "Bridge assignment W3 menjadi bahan mentah untuk W4. Tugas kita adalah mengubah observasi menjadi eksperimen dengan baseline, variabel, seed, dan metrik yang jelas:",
-    bullets: [
-      "**Val loss naik saat train loss turun** menjadi hipotesis overfitting, lalu variabel yang diuji adalah dropout atau augmentasi.",
-      "**Loss tidak stabil** menjadi hipotesis learning rate terlalu besar, lalu variabel yang diuji adalah nilai learning rate.",
-      "**Kelas tertentu sering tertukar** menjadi hipotesis representasi visual belum cukup, lalu variabel yang diuji adalah augmentasi atau arsitektur.",
-    ],
-    footnote: "Setelah contoh ini, W4 masuk ke protokol, pre-registration, seed variance, dan YAML config.",
-  },
-
-  // -- 5: Motivasi: Dua Cara Menjawab Email --
-  {
-    layout: "section",
-    title: "Motivasi: Dua Cara Menjawab Email",
-    body: "Seorang PI mengirim satu instruksi singkat: \"Uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang setara, lalu kirim ringkasan hasil hari Kamis.\" Ada dua cara menanggapinya, dan keduanya menghasilkan angka.",
-    footnote: "Hanya satu dari keduanya menghasilkan eksperimen yang bisa dicek ulang.",
-  },
-
-  // -- 6: Cara A vs Cara B: Langsung Kerja atau Merancang Dulu --
-  {
-    layout: "split",
-    title: "Cara A vs Cara B: Langsung Kerja atau Merancang Dulu",
-    body: "Perbedaan kedua cara bukan kecerdasan, melainkan kebiasaan merancang sebelum menjalankan. Bandingkan apa yang dihasilkan masing-masing:",
-    left: {
-      title: "Cara A - Langsung Kerja",
-      body: "Anda mengganti loss, menambah baris freeze, menjalankan 20 epoch, lalu mengirim ke Slack: \"baseline 78.4%, mod 80.1%, naik 1.7%\".\n\nKetika PI bertanya \"kenapa kenaikan ini bisa dipercaya?\", Anda tidak punya jawaban.",
-    },
-    right: {
-      title: "Cara B - Merancang Dulu",
-      body: "Anda duduk 30 menit menulis satu halaman: apa itu baseline, gamma berapa, seed sama atau tidak, blok mana yang di-freeze, metrik mana yang menentukan.\n\nSetelah semua jelas, Anda kerja tiga hari dan melapor dengan tabel, plot, dan interpretasi.",
-    },
-    footnote: "Kedua cara menghasilkan angka, tetapi hanya Cara B menghasilkan eksperimen.",
-  },
-
-  // -- 7: Tiga Istilah yang Dipakai Berulang --
-  {
-    layout: "section",
-    title: "Tiga Istilah yang Dipakai Berulang",
-    body: "Sebelum masuk ke detail, tiga istilah ini muncul di sepanjang bab dan perlu definisi yang jelas. Ketiganya adalah fondasi cara berpikir eksperimen yang terkontrol.",
-    footnote: "Pre-registration, seed variance, dan effect size menjadi kosakata inti minggu ini.",
-  },
-
-  // -- 8: Matriks Eksperimen Sebelum Coding --
-  {
-    layout: "section",
-    title: "Matriks Eksperimen Sebelum Coding",
-    body: "Sebelum menyentuh kode, tulis matriks eksperimen - tabel yang mendaftar semua run beserta konfigurasinya. Ini bukan formalitas, melainkan cara memperjelas rencana sebelum baris kode pertama.",
-    footnote: "Matriks ditulis di protocol.md, dan timestamp file menjadi bukti perencanaan.",
-  },
-
-  // -- 9: Bentuk Minimal Matriks Eksperimen --
-  {
-    layout: "code",
-    title: "Bentuk Minimal Matriks Eksperimen",
-    body: "Berikut format minimal yang disarankan, ditulis di protocol.md sebelum kode training pertama dibuat:",
-    lang: "markdown",
-    code: `| Run ID       | Variabel berubah | Nilai            | Seed | Status  |
-| ------------ | ---------------- | ---------------- | ---- | ------- |
-| baseline_s42 | - (kontrol)      | -                | 42   | planned |
-| focal_s42    | loss             | FocalLoss(g=2.0) | 42   | planned |
-| freeze_s42   | freeze_until     | block1           | 42   | planned |`,
-    footnote: "Kolom Seed dan Status membuat replikasi dan kemajuan terlacak dalam satu pandangan.",
-  },
-
-  // -- 10: Protokol Eksperimen Satu Halaman --
-  {
-    layout: "code",
-    title: "Protokol Eksperimen Satu Halaman",
-    body: "Kelima jawaban itu menjadi satu protokol konkret yang bisa langsung ditiru dan dijalankan orang lain tanpa tebakan:",
-    lang: "markdown",
-    code: `# Protocol: Focal Loss + Freeze pada CIFAR-10
-
-## Variabel
-- A (baseline): CrossEntropyLoss, semua layer trainable.
-- B: FocalLoss(gamma=2.0), block1 di-freeze.
-- Lain identik: SimpleCNN, AdamW lr=3e-4, 20 epoch, seed {42,43,44}.
-
-## Hipotesis
-- H1: F1 kelas minor B naik >= 3 poin dibanding A.
-- H2: Akurasi keseluruhan B turun <= 1 poin dari A.
-
-## Metrik
-- Utama: F1 kelas minor (rata-rata 3 seed).
-- Pengaman: train/val gap, akurasi keseluruhan.`,
-    footnote: "Satu halaman ini mengubah instruksi samar menjadi rancangan yang bisa dibaca, didiskusikan, dan dijalankan.",
-  },
-
-  // -- 11: Mengendalikan Variabel: Ubah Satu Hal pada Satu Waktu --
-  {
-    layout: "section",
-    title: "Mengendalikan Variabel: Ubah Satu Hal pada Satu Waktu",
-    body: "Prinsip yang terdengar klise tetapi sering dilanggar adalah mengubah satu hal pada satu waktu. Jika Anda mengganti loss dan learning rate sekaligus, ketika akurasi naik Anda tidak tahu mana yang berjasa.",
-    footnote: "Tabel konfigurasi adalah alat sederhana yang membuat variabel yang berubah terbaca sekilas.",
-  },
-
-  // -- 12: Desain Ablation: Satu Variabel Berubah per Kondisi --
-  {
-    layout: "image",
-    title: "Desain Ablation: Satu Variabel Berubah per Kondisi",
-    imageUrl: "/figures/fig02a_ablation_design.svg",
-    caption: "Gambar ini menunjukkan desain ablation study dengan satu baseline dan tiga varian, di mana tiap varian hanya mengubah satu variabel dari baseline. Susunan seperti ini membuat setiap selisih performa bisa diatribusikan ke satu perubahan yang jelas, bukan ke campuran beberapa perubahan sekaligus.",
-    footnote: "Seed divariasikan untuk replikasi agar noise terukur, bukan sebagai variabel eksperimen.",
-  },
-
-  // -- 13: Noise, Seed, dan Kapan Perbedaan Bermakna --
-  {
-    layout: "section",
-    title: "Noise, Seed, dan Kapan Perbedaan Bermakna",
-    body: "Model dengan inisialisasi berbeda sering menghasilkan akurasi yang berbeda beberapa poin persen, bahkan tanpa perubahan apapun. Tanpa replikasi, Anda tidak bisa membedakan sinyal dari variasi seed.",
-    footnote: "Inilah alasan satu run tidak pernah cukup untuk menarik kesimpulan.",
-  },
-
-  // -- 14: Hipotesis yang Dapat Dipalsukan vs Harapan --
-  {
-    layout: "section",
-    title: "Hipotesis yang Dapat Dipalsukan vs Harapan",
-    body: "Ada perbedaan halus antara hipotesis dan harapan. Hipotesis berisi prediksi spesifik seperti \"F1 kelas minor naik minimal 3 poin\", sedangkan harapan berisi keinginan samar seperti \"focal loss akan membantu\".",
-    footnote: "Hipotesis yang spesifik melindungi Anda dari dua bahaya yang sulit disadari sendiri.",
-  },
-
-  // -- 15: Infrastruktur Reproduksibilitas --
-  {
-    layout: "section",
-    title: "Infrastruktur Reproduksibilitas",
-    body: "Setelah rancangan dan kontrol siap, hasil perlu diikat pada jejak yang bisa diaudit. Reproduksibilitas bertumpu pada empat pilar yang saling mengunci.",
-    footnote: "Tanpa keempatnya, sebuah hasil hanya bisa dipercaya selama Anda mengingat cara membuatnya.",
-  },
-
-  // -- 16: Empat Pilar Reproduksibilitas --
-  {
-    layout: "image",
-    title: "Empat Pilar Reproduksibilitas",
-    imageUrl: "/figures/fig03a_reproducibility_sources.svg",
-    caption: "Gambar ini menunjukkan empat pilar reproduksibilitas yang saling mengunci: config YAML yang menyimpan seluruh hyperparameter, penguncian seed di awal training, checkpoint yang menyertakan metadata lengkap, dan git hash yang mengikat tiap run ke commit penghasilnya. Keempatnya bersama-sama membuat satu hasil bisa ditelusuri balik ke kondisi persis yang menghasilkannya.",
-    footnote: "Implementasi keempat pilar tersedia di template/src/utils.py dan dibangun bertahap di Lab W4.",
-  },
-
-  // -- 17: Worked Example: Menerjemahkan Instruksi PI --
-  {
-    layout: "section",
-    title: "Worked Example: Menerjemahkan Instruksi PI",
-    body: "Mari kerjakan email PI langkah demi langkah, dari instruksi yang ambigu sampai laporan yang bisa dipakai untuk keputusan berikutnya. Tahap pertama adalah membaca instruksi dengan cermat.",
-    footnote: "Instruksi \"uji focal loss dan freeze blok awal\" menyembunyikan empat ambiguitas yang harus dibereskan.",
-  },
-
-  // -- 18: Menjalankan dan Melaporkan: Angka plus Interpretasi --
-  {
-    layout: "split",
-    title: "Menjalankan dan Melaporkan: Angka plus Interpretasi",
-    body: "Enam run menghasilkan tabel agregat, tetapi tabel saja tidak cukup. Tulis interpretasi sebelum PI bertanya, bukan setelah diminta:",
-    left: {
-      title: "Tabel Agregat (mean ± std)",
-      body: "Baseline (CE): F1 minor 0.612 ± 0.018, akurasi 0.781.\n\nFocal+Freeze: F1 minor 0.672 ± 0.014, akurasi 0.774.\n\nKetiga seed konsisten dengan std yang kecil.",
-    },
-    right: {
-      title: "Interpretasi yang Menyertai",
-      body: "H1 terkonfirmasi: F1 minor naik 6 poin, melampaui ambang 3 poin.\n\nH2 terkonfirmasi: akurasi turun 0.7 poin, masih di bawah ambang 1 poin.\n\nCatatan pengaman: train/val gap naik tipis 0.09 ke 0.11, perlu dipantau.",
-    },
-    footnote: "Bandingkan dengan laporan Cara A: \"baseline 78.4%, mod 80.1%, naik 1.7%\" tanpa konteks apapun.",
-  },
-
-  // -- 19: Tiga Alat Komunikasi dengan Dosen Pembimbing --
-  {
-    layout: "bullets",
-    title: "Tiga Alat Komunikasi dengan Dosen Pembimbing",
-    body: "Riset berlangsung berminggu-minggu, bukan satu email. Tiga alat berikut membentuk kebiasaan komunikasi seorang asisten riset:",
-    bullets: [
-      "**Update mingguan** berisi empat bagian - progress, kendala, rencana, satu pertanyaan - dan dikirim sebelum diminta, karena konsistensi membangun kepercayaan lebih cepat daripada hasil spektakuler yang mendadak.",
-      "**Kerangka SQRC** (Situation, Question, Resolution attempt, Call) memandu Anda menulis pertanyaan teknis yang menunjukkan Anda sudah berusaha sebelum meminta bantuan.",
-      "**Ekspresi ketidakpastian yang baik** berarti menyebut keterbatasan dan menyertai \"saya tidak tahu\" dengan langkah konkret berikutnya.",
-    ],
-    footnote: "Template dan contoh lengkap tersedia di Lampiran C.11 dan D.8.",
-  },
-
-  // -- 20: Lab W4: Config, Logging, dan Reproducibility --
-  {
-    layout: "bullets",
-    title: "Lab W4: Config, Logging, dan Reproducibility",
-    body: "Dari gambar tersebut, Lab W4 membangun infrastruktur reproduksibilitas yang nanti dipakai untuk menjalankan ablation dari bridge CIFAR-10:",
-    bullets: [
-      "**Protocol dan matriks** ditulis dari salah satu hipotesis bridge sebelum run baru dijalankan.",
-      "**Dry-run seed sama** dipakai untuk memeriksa apakah config dan seed menghasilkan validation accuracy yang identik atau hampir identik.",
-      "**Checkpoint dan resume** diperiksa lewat metadata config, git hash, dirty flag, optimizer state, scheduler state, dan epoch lanjutan.",
-    ],
-    footnote: "Jika beberapa seed tersedia, hasilnya diringkas sebagai mean ± std untuk membaca seed variance.",
-  },
-
-  // -- 21: Refleksi: Tiga Pertanyaan untuk Dibawa Pulang --
-  {
-    layout: "bullets",
-    title: "Refleksi: Tiga Pertanyaan untuk Dibawa Pulang",
-    body: "Sebelum lanjut ke W5, renungkan tiga pertanyaan yang menghubungkan disiplin minggu ini dengan riset Anda nanti:",
-    bullets: [
-      "Saat baseline repo memakai lr=1e-3 tetapi pengalaman Anda bilang 3e-4 lebih stabil, dua rencana eksperimen alternatif apa yang akan Anda pakai, dan kapan masing-masing lebih tepat?",
-      "Saat hipotesis gagal dan akurasi justru turun, tiga pertanyaan berikutnya apa yang akan Anda kejar, diurutkan dari yang tidak perlu training baru sampai yang perlu inspeksi panjang?",
-      "Saat PI meminta \"cari teknik mitigasi imbalance yang paling ampuh\", lima pertanyaan klarifikasi apa yang paling penting Anda ajukan sebelum memilih teknik apapun?",
-    ],
-    footnote: "Tuliskan jawaban di portofolio mandiri - ketiganya kembali relevan saat capstone.",
-  },
-
-  // -- 22: Lanjut ke W5: dari Alur Kerja ke Sequence --
-  {
-    layout: "bullets",
-    title: "Lanjut ke W5: dari Alur Kerja ke Sequence",
-    body: "Dengan W4 selesai, alur kerja reproduksibel kini terbangun dan setiap eksperimen punya jejak yang bisa diaudit. W5 memperluas Big Map ke domain baru:",
-    bullets: [
-      "**Tensor sequence** berbentuk (T, F) masuk sebagai input, berbeda dari tensor citra (C, H, W) yang dipakai sampai W4.",
-      "**Arsitektur recurrent** seperti RNN dan LSTM muncul karena urutan data kini menjadi informasi yang penting.",
-      "**Diagnosis gradient flow** menjadi kebiasaan baru, melanjutkan disiplin eksperimen terkontrol yang dibangun minggu ini.",
-    ],
-    footnote: "Disiplin matriks eksperimen dan replikasi seed dari W4 tetap berlaku di semua minggu berikutnya.",
-  },
-
-  // -- 23: Lampiran Opsional --
-  {
-    layout: "section",
-    title: "Lampiran Opsional",
-    body: "Slide berikutnya menyimpan pendalaman dan contoh tambahan untuk W4. Alur utama kelas sudah selesai; pakai bagian ini hanya jika waktu cukup atau saat ada pertanyaan dari mahasiswa.",
-    footnote: "Lampiran menjaga materi referensi tetap tersedia tanpa memutus jalur belajar utama.",
-  },
-
-  // -- 24: Pre-registration, Seed Variance, Effect Size --
-  {
-    layout: "bullets",
-    title: "Pre-registration, Seed Variance, Effect Size",
-    body: "Ketiga istilah berikut menjelaskan apa yang ditulis sebelum eksperimen, seberapa besar noise yang wajar, dan seberapa besar selisih yang dianggap bermakna:",
-    bullets: [
-      "**Pre-registration** adalah dokumen yang berisi hipotesis, variabel, metrik, dan threshold sukses yang ditulis sebelum eksperimen dijalankan, sehingga timestamp-nya menjadi bukti rencana mendahului hasil.",
-      "**Seed variance** adalah selisih hasil antar run yang konfigurasinya identik kecuali RNG seed, dan pada CIFAR-10 baseline biasanya berada di kisaran ±0.5-1.5% akurasi.",
-      "**Effect size** adalah selisih metrik antara dua kondisi, dan threshold-nya ditetapkan di pre-reg untuk menjawab seberapa besar selisih yang dianggap bermakna sebelum angka terlihat.",
-    ],
-    footnote: "Klaim \"naik 1.7%\" dengan seed variance ±1.5% bisa sekadar noise, bukan sinyal sebenarnya.",
-  },
-
-  // -- 25: Tiga Masalah yang Dicegah Matriks Eksperimen --
-  {
-    layout: "bullets",
-    title: "Tiga Masalah yang Dicegah Matriks Eksperimen",
-    body: "Matriks eksperimen mencegah tiga masalah yang sering muncul saat run dijalankan tanpa rencana tertulis:",
-    bullets: [
-      "**Lupa satu kondisi penting** terjadi saat run direncanakan di kepala saja, dan matriks memaksa seluruh kondisi tertulis sebelum dijalankan.",
-      "**Menyadari dua kondisi tidak sebanding di tengah jalan** bisa membuang berjam-jam training, dan matriks menampakkan ketidaksetaraan itu sejak awal.",
-      "**Tidak bisa menjelaskan apa yang berubah antar run** adalah kegagalan atribusi, dan matriks mencatat persis satu variabel yang berbeda per baris.",
-    ],
-    footnote: "Setiap eksperimen yang dilaporkan setelah W4 harus punya matriks tertulis.",
-  },
-
-  // -- 26: Lima Pertanyaan Sebelum Menyentuh Kode --
-  {
-    layout: "section",
-    title: "Lima Pertanyaan Sebelum Menyentuh Kode",
-    body: "Sebelum membuka editor, jawab lima pertanyaan ini dan tulis jawabannya di protocol.md. Lima pertanyaan ini menutup ambiguitas yang biasanya baru muncul di tengah eksperimen.",
-    footnote: "Jawaban yang ditulis di awal menjadi kontrak yang menahan godaan mengubah cerita di akhir.",
-  },
-
-  // -- 27: Pertanyaan 1 sampai 3: Variabel, Baseline, Hipotesis --
-  {
-    layout: "bullets",
-    title: "Pertanyaan 1 sampai 3: Variabel, Baseline, Hipotesis",
-    body: "Tiga pertanyaan pertama mengunci apa yang berubah, apa pembandingnya, dan prediksi apa yang sedang diuji:",
-    bullets: [
-      "**Variabel apa yang berubah?** Jawabannya harus spesifik, bukan \"loss\" tetapi \"CrossEntropyLoss menjadi FocalLoss(gamma=2.0)\", dengan satu eksperimen per variabel agar atribusinya jelas.",
-      "**Apa baseline yang setara?** Baseline harus identik pada semua variabel lain - arsitektur, data, augmentasi, optimizer, learning rate, seed, dan jumlah epoch.",
-      "**Apa hipotesis yang dapat dipalsukan?** Hipotesis yang baik berbentuk pernyataan empiris yang bisa salah, misalnya \"F1 kelas minor naik minimal 3 poin tanpa menurunkan akurasi lebih dari 1 poin\".",
-    ],
-    footnote: "Hipotesis buruk berbunyi \"focal loss lebih baik\" - lebih baik pada metrik apa, seberapa besar, pada kondisi apa?",
-  },
-
-  // -- 28: Pertanyaan 4 dan 5: Metrik dan Bentuk Hasil --
-  {
-    layout: "bullets",
-    title: "Pertanyaan 4 dan 5: Metrik dan Bentuk Hasil",
-    body: "Dua pertanyaan terakhir menentukan apa yang diukur dan apa yang Anda bayangkan akan terlihat sebelum run berjalan:",
-    bullets: [
-      "**Metrik sukses apa?** Tetapkan sebelum melihat hasil dan urutkan: metrik utama, metrik sekunder, lalu metrik pengaman yang tidak boleh memburuk seperti akurasi keseluruhan dan train/val gap.",
-      "**Bentuk hasil apa yang diharapkan?** Bayangkan dua kemungkinan sebelum menjalankan - hipotesis benar atau salah - dan apa yang akan terlihat di log pada masing-masing.",
-      "**Jika kedua kemungkinan tidak terbayang**, rancangan eksperimen belum cukup jelas dan perlu dipertajam sebelum kode ditulis.",
-    ],
-    footnote: "Metrik yang dipilih setelah melihat hasil adalah bentuk bias konfirmasi yang halus.",
-  },
-
-  // -- 29: Membaca Tabel Konfigurasi secara Vertikal --
-  {
-    layout: "bullets",
-    title: "Membaca Tabel Konfigurasi secara Vertikal",
-    body: "Dari gambar tersebut, cara membaca tabel konfigurasi adalah menelusuri tiap kolom dari atas ke bawah untuk memisahkan variabel dari kontrol:",
-    bullets: [
-      "**Kolom yang seragam** seperti learning rate yang sama di semua run menandakan variabel itu sedang dikontrol, bukan diuji.",
-      "**Kolom yang berubah** seperti loss dan freeze menandakan variabel yang sedang diuji - inilah yang menjadi fokus eksperimen.",
-      "**Kolom seed** divariasikan untuk replikasi sehingga tiga run dengan seed berbeda mengukur seberapa besar hasil bergeser tanpa perubahan apapun.",
-    ],
-    footnote: "Membaca vertikal mengubah tabel angka menjadi pernyataan tentang apa yang sedang dan tidak sedang diuji.",
-  },
-
-  // -- 30: Variabel yang Saling Bergantung: Batch Size dan LR --
-  {
-    layout: "split",
-    title: "Variabel yang Saling Bergantung: Batch Size dan LR",
-    body: "Sebagian variabel tidak aman dianggap konstan karena terikat satu sama lain. Batch size dan learning rate adalah pasangan yang paling sering luput diperhatikan:",
-    left: {
-      title: "Jebakan yang Sering Terjadi",
-      body: "Anda menggandakan batch size tetapi mempertahankan learning rate yang sama.\n\nUkuran update relatif berkurang secara efektif, sehingga training konvergen lebih lambat atau performanya lebih rendah.",
-    },
-    right: {
-      title: "Linear Scaling Rule",
-      body: "Aturan praktis Goyal et al. 2017: jika batch size naik k kali, learning rate juga naik k kali.\n\nIni bukan hukum besi, tetapi artinya saat batch size berubah, LR bukan variabel yang aman dianggap konstan.",
-    },
-    footnote: "Mengubah batch size diam-diam mengubah dinamika training jika LR tidak ikut disesuaikan.",
-  },
-
-  // -- 31: Tiga Strategi Menginisialisasi Baseline Hyperparameter --
-  {
-    layout: "bullets",
-    title: "Tiga Strategi Menginisialisasi Baseline Hyperparameter",
-    body: "Sebelum bisa mengontrol variabel, Anda perlu baseline yang konfigurasinya masuk akal. Tiga strategi berikut diurutkan dari paling mudah ke paling teliti:",
-    bullets: [
-      "**Salin konfigurasi dari paper** memberi titik mulai cepat jika config asli tersedia, dengan catatan paper sering melapor setting terbaik mereka, bukan setting yang wajar untuk dataset lebih kecil.",
-      "**Grid search kecil pada subset** mengambil 10-20% data dan menjalankan LR dalam {1e-3, 3e-4, 1e-4} selama 3 epoch, cukup untuk menyingkirkan nilai LR yang jelas salah.",
-      "**Learning rate range test** menaikkan LR secara eksponensial tiap batch lalu memplot loss vs LR, dan titik dengan penurunan paling curam menjadi kandidat LR yang baik (Smith, 2017).",
-    ],
-    footnote: "Ketiganya jauh lebih cepat daripada menebak LR lalu menjalankan training penuh berkali-kali.",
-  },
-
-  // -- 32: Replikasi Seed: Minimal Tiga, Idealnya Lima --
-  {
-    layout: "bullets",
-    title: "Replikasi Seed: Minimal Tiga, Idealnya Lima",
-    body: "Solusi terhadap seed variance adalah menjalankan tiap kondisi beberapa kali dengan seed berbeda lalu melaporkan ringkasannya:",
-    bullets: [
-      "**Replikasi minimal tiga seed** per kondisi sudah jauh lebih baik daripada satu, dan hasilnya dilaporkan sebagai rata-rata beserta standar deviasi.",
-      "**Sumber noise di luar seed** mencakup urutan data, kernel CUDA non-deterministik, dan optimasi compiler yang perlu diperhatikan untuk reproduksibilitas ketat.",
-      "**Jika waktu terbatas** dan Anda hanya sempat satu run, akui keterbatasan itu di laporan alih-alih memperlakukan satu run sebagai kebenaran.",
-    ],
-    footnote: "Reproduksibilitas ketat di GPU menambah torch.backends.cudnn.deterministic = True.",
-  },
-
-  // -- 33: Kapan Perbedaan Cukup Besar untuk Diklaim --
-  {
-    layout: "split",
-    title: "Kapan Perbedaan Cukup Besar untuk Diklaim",
-    body: "Mean dan std memberi gambaran variabilitas, tetapi tidak langsung menjawab apakah selisih adalah sinyal atau noise. Dua aturan praktis membantu memutuskan:",
-    left: {
-      title: "Aturan 2σ",
-      body: "Jika selisih antar kondisi lebih besar dari 2 kali sigma gabungan keduanya, perbedaannya lebih mungkin bermakna daripada sekadar variasi seed.\n\nIni bukan uji statistik formal, tetapi cukup untuk laporan internal.",
-    },
-    right: {
-      title: "Effect Size Threshold",
-      body: "Anda menetapkan delta minimum di pre-registration sebelum eksperimen berjalan.\n\nJika kenaikan yang dianggap penting adalah 2 poin F1, kenaikan 0.3 poin tidak bermakna meski angkanya \"naik\".",
-    },
-    footnote: "Untuk laporan formal dengan >= 5 seed, pertimbangkan paired t-test atau Wilcoxon signed-rank test.",
-  },
-
-  // -- 34: Dua Bahaya yang Dicegah Hipotesis Spesifik --
-  {
-    layout: "bullets",
-    title: "Dua Bahaya yang Dicegah Hipotesis Spesifik",
-    body: "Hipotesis dengan target konkret menutup dua celah yang membuat hasil apapun terbaca sebagai keberhasilan:",
-    bullets: [
-      "**Bias konfirmasi** muncul saat tidak ada target, sehingga hasil yang sedikit lebih baik mudah dibaca sebagai bukti - dengan target 3 poin, kenaikan 0.5 poin adalah tidak terkonfirmasi, bukan sukses kecil.",
-      "**Cerita setelah fakta** terbentuk tanpa prediksi tertulis, sehingga hasil aktual mudah dinarasikan sebagai \"yang kita harapkan sejak awal\" - protokol tertulis mencegah ini.",
-      "**Hipotesis yang ternyata salah** sering lebih berguna daripada yang benar, karena hasil itu memaksa Anda mencari penjelasan dan mencatatnya sebagai data, bukan kegagalan.",
-    ],
-    footnote: "Laboratorium paling produktif memperlakukan hipotesis salah sebagai bahan analisis, bukan aib.",
-  },
-
-  // -- 35: Ketika Hipotesis Tidak Terkonfirmasi --
-  {
-    layout: "section",
-    title: "Ketika Hipotesis Tidak Terkonfirmasi",
-    body: "Ini situasi yang hampir pasti Anda alami: eksperimen sudah berjalan dan hasilnya tidak sesuai pre-registration. Ada tiga skenario yang berbeda cara penanganannya.",
-    footnote: "Cara menangani hasil yang tidak sesuai prediksi adalah pembeda asisten riset yang matang.",
-  },
-
-  // -- 36: Tiga Skenario Hasil di Luar Prediksi --
+  // -- 2: Agenda --
   {
     layout: "grid",
-    title: "Tiga Skenario Hasil di Luar Prediksi",
-    body: "Setiap skenario menuntut langkah verifikasi yang berbeda sebelum kesimpulan ditulis:",
+    title: "Kali ini kita akan membahas",
+    body: "Empat materi minggu ini mengikuti alur kerja satu eksperimen, dari rancangan sampai laporan:",
     gridItems: [
       {
-        title: "Skenario A - Hampir Mencapai Threshold",
-        body: "Hasil mendekati target tetapi tidak sampai, misalnya naik 1.8 poin dari target 3 poin. Verifikasi protokol cocok persis, tambahkan 2 seed lagi, dan jika tetap 1.8 poin catat sebagai temuan negatif.",
+        title: "1. Rancangan Penelitian",
+        body: "Kita menulis protokol sebelum kode: variabel yang diuji, baseline, hipotesis, dan metrik penentu sukses.",
       },
       {
-        title: "Skenario B - Berlawanan Arah",
-        body: "Hasil bergerak ke arah sebaliknya, misalnya F1 justru turun. Audit implementasi apakah gamma=0 mereproduksi CE, periksa distribusi loss per kelas, dan investigasi apakah baseline benar-benar setara.",
+        title: "2. Training Terkontrol",
+        body: "Kita menjalankan eksperimen dengan satu variabel berubah, lalu mengulangnya beberapa seed.",
       },
       {
-        title: "Skenario C - Terlalu Bagus",
-        body: "Hasil jauh di atas prediksi, misalnya naik 12 poin dari target 3 poin. Skenario ini paling membutuhkan skeptisisme: jalankan ulang baseline, periksa test set tidak bocor, dan verifikasi tidak ada yang berubah tak sengaja.",
+        title: "3. Trace Result",
+        body: "Kita merekam tiap run lewat YAML, seed, checkpoint, dan git hash supaya bisa direproduksi di komputer lain.",
+      },
+      {
+        title: "4. Hasil Research",
+        body: "Kita melaporkan angka sebagai tabel mean ± std lalu menyimpulkannya terhadap hipotesis.",
       },
     ],
-    footnote: "Hasil negatif yang terdokumentasi dengan baik mencegah orang lain membuang waktu di arah yang sama.",
   },
 
-  // -- 37: Apa yang Dilakukan Tiap Pilar --
+  // -- 3: Recap W3 --
+  {
+    layout: "bullets",
+    title: "Di pertemuan sebelumnya (W3)",
+    body: "W3 mengajarkan cara membaca dan menilai hasil training. Outputnya menjadi bahan mentah W4:",
+    bullets: [
+      "Kita belajar membaca loss curve untuk mendiagnosis training, lalu memilih loss dan optimizer dengan alasan.",
+      "Kita mengevaluasi model dengan metrik yang sesuai untuk kondisi kelas yang tidak seimbang.",
+      "Output yang dibawa: satu diagnosis baseline CIFAR-10 berisi gejala, usulan ablation, dan hipotesis.",
+    ],
+    footnote: "Smoke test tiga level dari W2 tetap dipakai sebelum setiap run penuh.",
+  },
+
+  // -- 4: Materi 1 --
+  {
+    layout: "section",
+    title: "1. Rancangan Penelitian",
+    body: "Rancangan penelitian ditulis sebelum kode. Isinya empat hal: variabel yang diuji, baseline pembanding, hipotesis, dan metrik yang menentukan sukses atau gagal.",
+    footnote: "Rancangan disimpan sebagai protocol.md, dan tanggal file menjadi bukti rencana ditulis sebelum hasil keluar.",
+  },
+
+  // -- 5: Protokol --
+  {
+    layout: "code",
+    title: "Protokol: contoh yang bisa disalin",
+    body: "Berikut contoh protocol.md untuk eksperimen focal loss dan freeze pada CIFAR-10:",
+    lang: "markdown",
+    code: `# Protokol: Focal Loss + Freeze pada CIFAR-10
+
+Variabel uji : CrossEntropy -> FocalLoss(gamma=2.0), block1 di-freeze
+Baseline     : SimpleCNN, CrossEntropy, semua layer trainable
+Konstan      : AdamW lr=3e-4, batch 128, 20 epoch, seed {42, 43, 44}
+Hipotesis    : F1 kelas minor naik >= 3 poin, akurasi total turun <= 1 poin
+Metrik       : utama F1 kelas minor; pengaman akurasi total, train/val gap`,
+    footnote: "Tiap baris menutup satu ambiguitas, sehingga orang lain bisa menjalankan ulang tanpa menebak.",
+  },
+
+  // -- 6: Lima pertanyaan --
   {
     layout: "grid",
-    title: "Apa yang Dilakukan Tiap Pilar",
-    body: "Dari gambar tersebut, keempat pilar membagi tugas menjaga hasil tetap bisa diulang:",
+    title: "Lima pertanyaan sebelum kode",
+    body: "Protokol yang baik menjawab lima pertanyaan ini, semuanya ditetapkan sebelum melihat hasil:",
+    gridItems: [
+      {
+        title: "1. Variabel apa yang berubah?",
+        body: "Jawablah spesifik, misalnya CrossEntropyLoss menjadi FocalLoss(gamma=2.0), satu eksperimen per variabel.",
+      },
+      {
+        title: "2. Apa baseline yang setara?",
+        body: "Baseline identik pada semua variabel lain: arsitektur, data, optimizer, lr, seed, dan epoch.",
+      },
+      {
+        title: "3. Apa hipotesisnya?",
+        body: "Hipotesis berbentuk pernyataan yang bisa salah, misalnya F1 kelas minor naik minimal 3 poin.",
+      },
+      {
+        title: "4. Metrik sukses apa?",
+        body: "Urutkan metrik utama, sekunder, dan pengaman yang tidak boleh memburuk.",
+      },
+      {
+        title: "5. Bentuk hasil apa yang diharapkan?",
+        body: "Bayangkan tampilan log saat hipotesis benar dan saat salah, sebelum run berjalan.",
+      },
+    ],
+    footnote: "Jawaban yang ditulis di awal menahan godaan mengubah cerita setelah melihat data.",
+  },
+
+  // -- 7: Matriks eksperimen --
+  {
+    layout: "table",
+    title: "Matriks eksperimen",
+    body: "Satu hipotesis dipecah jadi baris-baris run, masing-masing dengan satu variabel berubah:",
+    tableHead: ["Run ID", "Variabel berubah", "Nilai", "Seed", "Status"],
+    tableRows: [
+      ["baseline_s42", "- (kontrol)", "-", "42", "planned"],
+      ["focal_s42", "loss", "FocalLoss(gamma=2.0)", "42", "planned"],
+      ["freeze_s42", "freeze_until", "block1", "42", "planned"],
+    ],
+    footnote: "Protokol dan matriks ini dikirim ke dosen untuk konfirmasi asumsi sebelum training berjalan.",
+  },
+
+  // -- 8: Materi 2 --
+  {
+    layout: "section",
+    title: "2. Training Terkontrol",
+    body: "Aturan utamanya: ubah satu variabel, kunci sisanya. Kalau loss dan learning rate diganti bersamaan lalu akurasi naik, kontribusi masing-masing tidak bisa dipisahkan.",
+    footnote: "Seed divariasikan untuk replikasi, terpisah dari variabel yang diuji.",
+  },
+
+  // -- 9: Apa yang boleh diubah --
+  {
+    layout: "code",
+    title: "Apa yang diubah, dikunci, divariasikan",
+    body: "Daftar berikut bisa disalin sebagai acuan satu ablation. Pilih satu baris di kelompok atas untuk diubah, kunci sisanya:",
+    lang: "text",
+    code: `Diubah (satu per eksperimen):
+  loss          CrossEntropy / FocalLoss / label smoothing
+  optimizer     SGD / AdamW
+  learning rate nilai lr
+  freeze_until  layer mana yang dibekukan
+  augmentasi    crop / flip / colorjitter
+
+Dikunci (sama di semua run):
+  arsitektur, dataset, jumlah epoch, batch size
+
+Divariasikan untuk replikasi:
+  seed`,
+    footnote: "Pemilihan loss dan optimizer mengikuti pembahasan W3.",
+  },
+
+  // -- 10: Ablation image --
+  {
+    layout: "image",
+    title: "Desain ablation: satu variabel per kondisi",
+    imageUrl: "/figures/fig02a_ablation_design.svg",
+    caption: "Gambar ini menunjukkan satu baseline dan tiga varian, di mana tiap varian hanya mengubah satu variabel dari baseline. Susunan ini membuat setiap selisih performa bisa diatribusikan ke satu perubahan yang jelas.",
+    footnote: "Tanpa kontrol seperti ini, kenaikan akurasi tidak bisa dikaitkan ke satu penyebab.",
+  },
+
+  // -- 11: Tabel konfigurasi --
+  {
+    layout: "table",
+    title: "Membaca tabel konfigurasi secara vertikal",
+    body: "Telusuri tiap kolom dari atas ke bawah: kolom yang seragam adalah kontrol, kolom yang berubah adalah yang diuji.",
+    tableHead: ["Run", "Loss", "gamma", "Freeze", "LR", "Seed"],
+    tableRows: [
+      ["baseline_s42", "CE", "-", "none", "3e-4", "42"],
+      ["baseline_s43", "CE", "-", "none", "3e-4", "43"],
+      ["focal_s42", "Focal", "2.0", "block1", "3e-4", "42"],
+      ["focal_s43", "Focal", "2.0", "block1", "3e-4", "43"],
+    ],
+    footnote: "Batch size dan learning rate saling terkait: kalau batch naik k kali, lr umumnya naik k kali (linear scaling rule).",
+  },
+
+  // -- 12: Seed variance --
+  {
+    layout: "bullets",
+    title: "Satu run tidak cukup: seed variance",
+    body: "Model dengan seed berbeda menghasilkan akurasi yang berbeda beberapa poin tanpa perubahan lain. Tiga aturan menjaga kesimpulan tetap jujur:",
+    bullets: [
+      "Seed variance pada CIFAR-10 baseline sekitar ±0.5-1.5%, sehingga klaim naik 1.7% bisa tertelan noise.",
+      "Jalankan minimal tiga seed per kondisi, lalu laporkan rata-rata dan standar deviasi.",
+      "Selisih bermakna kalau lebih besar dari 2× std gabungan (aturan 2σ) atau melewati ambang efek yang ditetapkan di protokol.",
+    ],
+    footnote: "Selisih di bawah 0.5 poin dengan tiga seed hampir selalu noise.",
+  },
+
+  // -- 13: Materi 3 --
+  {
+    layout: "section",
+    title: "3. Trace Result",
+    body: "Hasil harus bisa direproduksi di komputer lain. Untuk itu tiap run merekam empat hal: config YAML, seed, checkpoint metadata, dan git hash.",
+    footnote: "Folder eksperimen direproduksi dari config.yaml dan commit hash.",
+  },
+
+  // -- 14: Empat pilar (image) --
+  {
+    layout: "image",
+    title: "Empat hal yang direkam tiap run",
+    imageUrl: "/figures/fig03a_reproducibility_sources.svg",
+    caption: "Gambar ini menunjukkan empat hal yang saling mengunci: config YAML menyimpan seluruh hyperparameter, seed dikunci di awal training, checkpoint membawa metadata lengkap, dan git hash mengikat run ke commit penghasilnya.",
+    footnote: "Bersama-sama, keempatnya membuat satu hasil bisa ditelusuri balik ke kondisi persis yang menghasilkannya.",
+  },
+
+  // -- 15: Apa yang dilakukan tiap rekaman --
+  {
+    layout: "grid",
+    title: "Apa yang dilakukan tiap rekaman",
+    body: "Dari gambar tersebut, keempat rekaman membagi tugas menjaga hasil tetap bisa diulang:",
     gridItems: [
       {
         title: "Config YAML",
-        body: "Pilar ini menyimpan seluruh hyperparameter dalam file deklaratif, bukan angka hardcoded yang berserakan di kode. Config disimpan bersama checkpoint sehingga setiap hasil bisa ditelusuri ke konfigurasi persisnya.",
+        body: "Seluruh hyperparameter dideklarasikan di satu file, lalu disimpan bersama checkpoint.",
       },
       {
-        title: "Penguncian Seed",
-        body: "Pilar ini memanggil set_seed(cfg['seed']) sebelum operasi apapun, dengan satu seed per run. Variasi seed dipakai antar replikasi sebagai pengukur noise, bukan sebagai variabel eksperimen.",
+        title: "Seed",
+        body: "set_seed(cfg['seed']) dipanggil sebelum operasi apa pun, satu seed per run.",
       },
       {
-        title: "Checkpoint Metadata",
-        body: "Pilar ini menyimpan lebih dari model.state_dict() - di dalamnya ada config, git_hash, epoch, metrics, dan timestamp. Checkpoint tanpa config hanyalah setengah bukti.",
+        title: "Checkpoint metadata",
+        body: "Selain model.state_dict(), checkpoint menyimpan config, git_hash, epoch, metrics, dan timestamp.",
       },
       {
-        title: "Git Hash",
-        body: "Pilar ini mengikat tiap run ke commit penghasilnya lewat get_git_hash(). Flag \"dirty\" memperingatkan ketika ada perubahan yang belum di-commit saat run dijalankan.",
+        title: "Git hash",
+        body: "Tiap run terikat ke commit penghasilnya, dan flag dirty menandai perubahan yang belum di-commit.",
       },
     ],
-    footnote: "Keempat pilar mengubah \"saya ingat menjalankan ini\" menjadi \"ini commit, config, dan seed yang menghasilkannya\".",
+    footnote: "Implementasi keempatnya ada di template/src/utils.py.",
   },
 
-  // -- 38: Seperti Apa Bentuk YAML Config --
+  // -- 16: YAML config --
   {
     layout: "code",
-    title: "Seperti Apa Bentuk YAML Config",
-    body: "Berikut potongan configs/baseline.yaml dari template repo, tempat setiap hyperparameter dideklarasikan, bukan tersebar di kode Python:",
+    title: "Bentuk config YAML",
+    body: "Setiap hyperparameter dideklarasikan di satu file. Untuk ablation, salin file ini dan ubah hanya bagian yang relevan:",
     lang: "yaml",
     code: `experiment_name: baseline
 seed: 42                    # dikunci satu seed per run
@@ -475,122 +244,117 @@ optim:
   name: sgd
   lr: 0.05
   weight_decay: 5.0e-4`,
-    footnote: "Untuk ablation, Anda membuat YAML baru yang hanya mengubah bagian relevan; arsitektur dan data tetap identik.",
+    footnote: "Dengan begitu, dua run berbeda persis pada satu variabel dan sisanya identik.",
   },
 
-  // -- 39: Platform: Kapan Pindah ke RunPod --
-  {
-    layout: "section",
-    title: "Platform: Kapan Pindah ke RunPod",
-    body: "Tetap di laptop atau Colab selama training selesai di bawah 30 menit. Pindah ke cloud GPU ketika satu run melewati ambang itu dan Anda perlu menjalankan enam run atau lebih untuk replikasi.",
-    footnote: "Pemicu lain adalah dataset yang tidak muat di RAM atau kebutuhan VRAM lebih dari 8 GB.",
-  },
-
-  // -- 40: Alur Kerja Cloud GPU: Pod Lifecycle --
+  // -- 17: Struktur folder --
   {
     layout: "image",
-    title: "Alur Kerja Cloud GPU: Pod Lifecycle",
-    imageUrl: "/figures/fig08a_cloud_workflow.svg",
-    caption: "Gambar ini menunjukkan alur kerja dasar RunPod dari awal sampai akhir: launch pod, SSH masuk, menjalankan training, menarik checkpoint, lalu mematikan pod. Tunnel SSH menghubungkan laptop Anda ke GPU di cloud, dan checkpoint dipindahkan kembali lewat rsync atau rclone sebelum pod dimatikan.",
-    footnote: "Konfigurasi minimal dan cara push/pull checkpoint tersedia di Lampiran D.1.",
-  },
-
-  // -- 41: Disiplin Cloud GPU: Matikan Pod Setelah Selesai --
-  {
-    layout: "bullets",
-    title: "Disiplin Cloud GPU: Matikan Pod Setelah Selesai",
-    body: "Dari gambar tersebut, langkah terakhir adalah yang paling sering dilupakan dan paling mahal jika diabaikan:",
-    bullets: [
-      "**Tagihan GPU berjalan selama pod hidup**, termasuk saat Anda lupa mematikannya setelah berhasil menarik checkpoint.",
-      "**Mematikan pod setelah training** adalah kebiasaan paling penting di W4, dan layak dipasang sebagai pengingat di kalender.",
-      "**Biasakan menutup pod sebelum menutup terminal**, sehingga tidak ada GPU yang menyala tanpa pekerjaan yang berjalan.",
-    ],
-    footnote: "Satu pod yang terlupa semalaman bisa menghabiskan anggaran beberapa hari eksperimen.",
-  },
-
-  // -- 42: Empat Ambiguitas yang Harus Dikonfirmasi --
-  {
-    layout: "bullets",
-    title: "Empat Ambiguitas yang Harus Dikonfirmasi",
-    body: "Sebelum menulis kode, ajukan klarifikasi atas empat hal yang belum jelas dalam instruksi PI:",
-    bullets: [
-      "**\"Focal loss\"** belum jelas versinya - apakah Lin et al. 2017 dengan gamma dan alpha, gamma berapa, dan apakah alpha dipakai.",
-      "**\"Blok awal\"** perlu dipetakan ke kode - pada ResNet-18 bisa berarti conv1 atau layer1, sedangkan pada SimpleCNN istilah yang cocok adalah block1.",
-      "**\"Bandingkan\" dan \"baseline\"** butuh kejelasan operasional - berapa seed, berapa epoch, metrik mana yang menentukan, dan konfigurasi baseline yang persis mana.",
-    ],
-    footnote: "Jika PI menjawab singkat \"pakai default\", tulis asumsi Anda di protokol dan kirim satu kalimat konfirmasi.",
-  },
-
-  // -- 43: Menulis Kode dengan Uji Minimal Bawaan --
-  {
-    layout: "code",
-    title: "Menulis Kode dengan Uji Minimal Bawaan",
-    body: "Implementasi FocalLoss perlu menjelaskan alasan tiap bagian kode, bukan hanya menulis apa yang dilakukan. Dengan begitu, kasus gamma=0 bisa menjadi uji cepat bahwa tidak ada bug:",
-    lang: "python",
-    code: `class FocalLoss(nn.Module):
-    """gamma=0 -> ekuivalen cross-entropy.
-    gamma>0 -> menurunkan bobot sampel mudah,
-               menaikkan pengaruh sampel sulit."""
-    def __init__(self, gamma: float = 2.0):
-        super().__init__()
-        self.gamma = gamma
-
-    def forward(self, logits, targets):
-        ce = F.cross_entropy(logits, targets, reduction='none')
-        pt = torch.exp(-ce)          # prob kelas benar
-        return ((1 - pt) ** self.gamma * ce).mean()`,
-    footnote: "Saat gamma=0, hasil harus sama persis dengan baseline - uji termurah untuk memastikan implementasi benar.",
-  },
-
-  // -- 44: Pitfalls & Miskonsepsi --
-  {
-    layout: "section",
-    title: "Pitfalls & Miskonsepsi",
-    body: "Enam jebakan berikut sama-sama berakar pada satu hal: menyimpulkan terlalu cepat dari perbandingan yang tidak setara. Mengenalinya lebih awal menghemat banyak waktu.",
-    footnote: "Setiap pitfall punya penangkal yang sudah dibahas di bagian sebelumnya.",
-  },
-
-  // -- 45: Tiga Jebakan Pertama saat Menarik Kesimpulan --
-  {
-    layout: "bullets",
-    title: "Tiga Jebakan Pertama saat Menarik Kesimpulan",
-    body: "Tiga jebakan pertama muncul saat satu titik data atau pembanding yang berubah dianggap cukup untuk menyimpulkan:",
-    bullets: [
-      "**Menjalankan satu seed lalu menyimpulkan** memperlakukan satu titik data sebagai kebenaran, padahal kesimpulan valid butuh minimal tiga seed.",
-      "**Mengubah baseline di tengah jalan** merusak perbandingan - jika baseline perlu diubah, ubah dulu, lalu jalankan modifikasi terhadap baseline baru itu.",
-      "**Memilih metrik setelah melihat hasil** adalah bias konfirmasi, karena metrik utama harus ditetapkan di protokol sebelum run dijalankan.",
-    ],
-    footnote: "Metrik baru boleh ditambahkan sebagai pengamatan, tetapi metrik utama tetap yang ditulis lebih dulu.",
-  },
-
-  // -- 46: Tiga Jebakan Berikutnya saat Membandingkan Run --
-  {
-    layout: "bullets",
-    title: "Tiga Jebakan Berikutnya saat Membandingkan Run",
-    body: "Tiga jebakan berikutnya muncul saat dua run tidak benar-benar sebanding atau saat hasil disaring sebelum dilaporkan:",
-    bullets: [
-      "**Membandingkan run dengan jumlah epoch berbeda** mencampur dua variabel - jika baseline 20 epoch dan modifikasi 25 epoch, yang dibandingkan adalah arsitektur sekaligus durasi training.",
-      "**Tidak menulis hipotesis sama sekali** membuat setiap hasil tampak menarik, sedangkan hipotesis tertulis membagi hasil menjadi konfirmasi, sanggahan, atau kebetulan.",
-      "**Menyembunyikan ablation yang gagal** menyesatkan PI dan diri sendiri, karena sembilan eksperimen gagal sering lebih berguna daripada satu yang berhasil.",
-    ],
-    footnote: "Laporkan semua yang Anda jalankan - ablation yang gagal adalah data, bukan aib.",
-  },
-
-  // -- 47: Struktur Folder Eksperimen yang Terlacak --
-  {
-    layout: "image",
-    title: "Struktur Folder Eksperimen yang Terlacak",
+    title: "Struktur folder satu run",
     imageUrl: "/figures/fig03b_experiment_folder.svg",
-    caption: "Gambar ini menunjukkan isi satu folder eksperimen yang reproduksibel: config.yaml yang menyimpan konfigurasi, train.log untuk jejak training, checkpoint dengan metadata, summary.json untuk hasil ringkas, dan folder TensorBoard untuk kurva. Struktur seragam ini membuat setiap run punya bentuk yang sama dan mudah dibandingkan.",
-    footnote: "Lab W4 membangun struktur folder ini langkah demi langkah.",
+    caption: "Gambar ini menunjukkan isi satu folder eksperimen: config.yaml, train.log, checkpoint bermetadata, summary.json, dan folder TensorBoard. Struktur yang seragam membuat tiap run punya bentuk yang sama dan mudah dibandingkan.",
+    footnote: "Lab W4 membangun folder ini langkah demi langkah.",
   },
 
-  // -- 48: Mulai Lab W4 --
+  // -- 18: Materi 4 --
+  {
+    layout: "section",
+    title: "4. Hasil Research",
+    body: "Hasil dilaporkan sebagai tabel mean ± std, diikuti interpretasi singkat terhadap hipotesis.",
+    footnote: "Hipotesis yang meleset tetap dicatat sebagai temuan.",
+  },
+
+  // -- 19: Tabel hasil --
+  {
+    layout: "table",
+    title: "Tabel hasil: mean ± std",
+    body: "Enam run (dua kondisi × tiga seed) menghasilkan tabel agregat berikut:",
+    tableHead: ["Kondisi", "F1 minor (mean ± std)", "Akurasi total", "Train/val gap"],
+    tableRows: [
+      ["Baseline (CE)", "0.612 ± 0.018", "0.781 ± 0.007", "0.09"],
+      ["Focal + Freeze", "0.672 ± 0.014", "0.774 ± 0.011", "0.11"],
+    ],
+    footnote: "Angka tunggal tanpa std dan tanpa interpretasi tidak cukup untuk diklaim.",
+  },
+
+  // -- 20: Interpretasi + lapor ke dosen --
+  {
+    layout: "bullets",
+    title: "Interpretasi dan laporan ke dosen",
+    body: "Tabel saja tidak cukup; tulis interpretasi terhadap tiap hipotesis sebelum dosen bertanya:",
+    bullets: [
+      "H1 terkonfirmasi: F1 minor naik 6 poin, melewati ambang 3 poin, dengan std kecil di tiga seed.",
+      "H2 terkonfirmasi: akurasi total turun 0.7 poin, masih di bawah ambang 1 poin.",
+      "Catatan pengaman: train/val gap naik dari 0.09 ke 0.11, sinyal awal overfitting yang perlu dipantau.",
+    ],
+    footnote: "Laporkan ke dosen sebagai tabel plus interpretasi dan batasannya: berapa seed, dataset apa, dan apa yang belum diuji.",
+  },
+
+  // -- 21: Tiga skenario hipotesis meleset --
+  {
+    layout: "grid",
+    title: "Saat hipotesis meleset: tiga skenario",
+    body: "Hipotesis sering meleset, dan itu data. Tiap skenario menuntut verifikasi berbeda sebelum menyimpulkan:",
+    gridItems: [
+      {
+        title: "A. Mendekati ambang",
+        body: "Hasil hampir sampai, misalnya selisih 1.8 poin dari target 3. Tambah dua seed; kalau tetap, catat sebagai temuan negatif tanpa klaim terkonfirmasi sebagian.",
+      },
+      {
+        title: "B. Berlawanan arah",
+        body: "F1 justru turun. Audit implementasi (gamma=0 harus identik dengan CE) dan pastikan baseline setara sebelum menyimpulkan.",
+      },
+      {
+        title: "C. Terlalu bagus",
+        body: "Naik jauh di atas prediksi, misalnya 12 poin. Curigai bug atau leakage: cek test set tidak menyentuh training dan tidak ada variabel lain yang berubah.",
+      },
+    ],
+    footnote: "Hasil negatif yang terdokumentasi mencegah orang lain mengulang eksperimen yang sama.",
+  },
+
+  // -- 22: Lab W4 --
+  {
+    layout: "bullets",
+    title: "Lab W4",
+    body: "Lab membangun infrastruktur reproduksibilitas, mengikuti urutan empat materi di atas:",
+    bullets: [
+      "Tulis protocol.md dan matriks dari satu hipotesis bridge W3 sebelum menyentuh kode.",
+      "Jalankan dua dry-run seed sama, lalu bandingkan val accuracy untuk menguji reproduksibilitas.",
+      "Periksa metadata checkpoint, uji dirty flag, dan verifikasi resume melanjutkan epoch.",
+    ],
+    footnote: "Checklist: protokol ditulis lebih dulu, config dan checkpoint tersimpan bersama, git hash tercatat, resume melanjutkan epoch, dan mean ± std diringkas kalau ada beberapa seed.",
+  },
+
+  // -- 23: Refleksi --
+  {
+    layout: "bullets",
+    title: "Refleksi",
+    body: "Tiga pertanyaan untuk dibawa ke portofolio mandiri:",
+    bullets: [
+      "Baseline repo memakai lr=1e-3, tetapi pengalaman Anda 3e-4 lebih stabil. Tulis dua rencana eksperimen dan kapan masing-masing lebih tepat.",
+      "Hipotesis gagal: F1 minor tidak naik, akurasi total turun. Tulis tiga pertanyaan berikutnya, urut dari yang tidak perlu training baru.",
+      "Untuk satu topik kandidat Capstone, tulis draft tiga bagian protokol (tujuan, variabel, hipotesis) dalam satu paragraf.",
+    ],
+  },
+
+  // -- 24: Lanjut ke W5 --
+  {
+    layout: "bullets",
+    title: "Lanjut ke W5",
+    body: "W5 memperluas Big Map ke domain sequence, dengan disiplin W4 tetap berlaku:",
+    bullets: [
+      "Tensor sequence (T, F) masuk sebagai input, dan arsitektur recurrent (RNN, LSTM) memproses urutan satu langkah waktu demi satu.",
+      "Diagnosis gradient flow menjadi kebiasaan baru minggu depan.",
+      "Rancangan penelitian, kontrol satu variabel, dan trace result dari W4 dipakai di setiap eksperimen berikutnya.",
+    ],
+  },
+
+  // -- 25: CTA --
   {
     layout: "cta",
     title: "Mulai Lab W4",
-    body: "Semua konsep di presentasi ini ada dalam lab notebook lengkap: protocol dan matriks, penguncian seed, dry-run reproducibility, checkpoint bermetadata, dirty flag, resume state, dan pembacaan variasi antar seed.\n\nEstimasi waktu: 3-4 jam termasuk inspeksi checkpoint dan refleksi.",
+    body: "Semua konsep deck ini ada di lab notebook: protocol dan matriks, penguncian seed, dry-run reproducibility, checkpoint bermetadata, dirty flag, dan resume state.\n\nEstimasi waktu 3-4 jam termasuk inspeksi checkpoint dan refleksi.",
     ctaText: "Buka Lab W4 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb",
-  }
+  },
 ];
