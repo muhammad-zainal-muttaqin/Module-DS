@@ -26,33 +26,7 @@ ModulePembelajaran/
 └── .gitignore
 ```
 
-**File sumber catatan (terintegrasi; asli disimpan sebagai referensi):**
-
-- `notes/Notes - 17 April 2026/petabesar.md` → tensor/arsitektur → W1-W2
-- `notes/Notes - 17 April 2026/representasifitur.md` → representasi fitur → W3+W6
-- `notes/Notes - 27 April 2026/revisi_bootcamp.md` → blueprint 11 minggu bootcamp+3 minggu capstone
-- `notes/Notes - 30 April 2026/11_W11_Research_Framing new.md` → W11: Input→Middle→Output + framing menu + literature triage (30 Apr)
-- `notes/Notes - 30 April 2026/12_Capstone new.md` → capstone 3→4 minggu, filter/rethink/communicate/submit (30 Apr)
-- `notes/Notes - 2 Mei 2026/attention_primer.md` → W7 §1.3: attention QKV, Transformer block, positional encoding, freeze vs fine-tune (2 Mei)
-- `notes/Notes - 2 Mei 2026/analisis gap.md` → 4 gap: gradient clipping W5§4, LSTM-vanishing bridge W5§1.5.2, residual W5§1.5.2, pretraining rationale W7§1.1 (2 Mei)
-- `notes/Notes - 2 Mei 2026/scaleddotproductattention.png` → `figures/fig06a_attention_sdp.png` (W7 §1.3)
-- `notes/Notes - 2 Mei 2026/temporalalignment.png` → `figures/fig08c_temporal_alignment.png` (W9)
-- `notes/Notes - 2 Mei 2026/Note2.txt` → revisi `00_Pendahuluan.md`: prasyarat→`00a_Prasyarat.md`, Target Hasil→3-pilar, hapus "60-70%", Ritme Sesi→`15_Panduan_Instruktur.md`, Pitfalls→Kontrak Belajar (2 Mei)
-- `notes/Notes - 04 Mei 2026/satu dataset tiga tugas.png` → `figures/fig01g_tiga_tugas.png` (W1 §2.1.2)
-- `notes/Notes - 04 Mei 2026/pasangan output head dan loss.png` → `figures/fig01h_output_head_loss.png` (W1 §2.2.4)
-- `notes/Notes - 04 Mei 2026/sigmoid dan softmax.png` → `figures/fig01i_sigmoid_softmax.png` (W1 §2.2.4)
-- `notes/Notes - 04 Mei 2026/siklus training pytorch.png` → `figures/fig03c_training_cycle.png` (W3 §1)
-- `notes/Notes - 04 Mei 2026/train-val-test dan leakage.png` → `figures/fig06c_train_val_leakage.png` (W6 §0.6)
-- `notes/Notes - 04 Mei 2026/Note.txt` → bug fix `lab_w1_tabular_heads.ipynb` (eval binary: `(logits.squeeze() > 0).long()` → `logits.argmax(dim=1)`; band-aid §4+§6 dihapus) + `lab_w1_mlp_numpy.ipynb` (§7 dipindah sebelum §8) (4 Mei)
-- (5 Mei 2026) Sumber gambar slide 00a: `website/public/figures/fig00a_tensor_nchw.jpeg` dari Stanford CS231n (`cs231n.github.io/assets/cnn/cnn.jpeg`) untuk visualisasi tensor (C,H,W); `website/public/figures/fig00a_chain_rule.svg` dari d2l-en Apache 2.0 (`raw.githubusercontent.com/d2l-ai/d2l-en/master/img/computegraph.svg`) untuk computation graph chain rule. Hanya dipakai di slide deck Bab 00a, bukan chapter `.md`.
-
-**Perubahan struktural besar:**
-- **(27 Apr 2026)** 10-bab format-topik → 11-minggu bootcamp W1-W11 + 3-minggu capstone W12-W14
-- **(30 Apr 2026)** W11: 5-Whys → Input→Middle→Output + framing menu + triage; capstone rename→`12_Capstone.md`; 3→4 minggu W12-W15; W15=submission tanpa tatap muka
-- **(2 Mei 2026 S1)** 4 gap konten W5+W7; K1-K9 diperbarui website+lampiran; `fig06a_attention_sdp.png`+`fig08c_temporal_alignment.png` ditambah; halaman `/kompetensi/:id` ditambah ke website
-- **(2 Mei 2026 S2)** Revisi `00_Pendahuluan.md`: prasyarat→`00a_Prasyarat.md`, 3-pilar, hapus "60-70%", Ritme Sesi→`15_Panduan_Instruktur.md`; website pipeline diperbarui
-- **(4 Mei 2026)** 5 gambar baru (fig01g–fig01i di W1, fig03c di W3, fig06c di W6); bug fix 2 lab W1
-- File lama → `_archive/`; **W-numbering** di teks bab, nama file saat link
+**Catatan sumber:** `notes/Notes - <tanggal>/` berisi draft asli yang sudah diintegrasikan ke `chapters/*.md` (riwayat integrasi lengkap: `git log`). File asli disimpan sebagai referensi, jangan dihapus. File lama yang sudah digantikan → `_archive/`. Konvensi: **W-numbering** di teks bab, nama file `.md` saat membuat link antar-bab.
 
 **Konten utama per minggu:**
 
@@ -84,42 +58,37 @@ ModulePembelajaran/
 - `00_Pendahuluan.md`: Kontrak Belajar klausul Keenam - Breadth Check (4 dari 5 keluarga)
 - Rubrik K1: breadth 4 level (14%); Lampiran C.8: Template Lab Replikasi Arsitektur
 
-**Lab di `template/notebooks/`:**
+**Lab di `template/notebooks/` (urut minggu):**
 - `lab_w1_tabular_heads.ipynb`: 3 tugas (regression/binary/multiclass), mismatch, observation writeup
 - `lab_w1_mlp_numpy.ipynb`: MLP 2-layer numpy (forward, backward 7-langkah, finite-diff, SGD), parity PyTorch
+- `lab_w2_cnn_baseline.ipynb`: smoke test, forward pass, log parser, confusion matrix, error analysis
+- `lab_w3_loss_ablation.ipynb`: toy ablation loss x freeze mandiri-Colab, FocalLoss(gamma=0)==CrossEntropy check
+- `lab_w4_experiment_tracking.ipynb`: reproducibility, checkpoint, resume, multi-seed plot
 - `lab_w5_lstm_sequence.ipynb`: sine+noise regression, RNN vs LSTM gradient flow (log-plot), grad clipping, visualisasi
 - `lab_w6_temporal_leakage.ipynb`: causal vs leaky pipeline, leakage inflation, chronological vs random split
+- `lab_w6_eda_leakage.ipynb`: 5-layer EDA, MD5 overlap, leakage audit
+- `lab_w6_feature_representation.ipynb`: representasi 3 strategi CIFAR-10
 - `lab_w7_transformer_mini.ipynb`: `scaled_dot_product_attention` dari nol, `SingleHeadAttention`, `TinyBlock` (pre-norm LN+GELU), parity vs `nn.TransformerEncoderLayer`
+- `lab_w7_text_classification.ipynb`: sentimen IndoNLU SmSA
+- `lab_w7_llm_assisted.ipynb`: mixup, 4 sanity tests, comparison training
+- `lab_w7_repo_adoption.ipynb`: adopsi repo eksternal, repo_map.md, modifikasi minimal-invasif (§3+D1-D7)
+- `lab_w8_remote_training.ipynb`: training jarak jauh di RunPod (RTX 3090 spot), SSH tunnel TensorBoard, rsync checkpoint, kontrol biaya
 - `lab_w9_multimodal_ablation.ipynb`: late fusion, 7-condition ablation, modality dropout
+- `lab_w10_paper_to_code.ipynb`: pilih paper kecil (Focal Loss/DropBlock/dll), three-pass reading, implementasi
+- `lab_w12_demo_app.ipynb`: aggregation plot, Streamlit, Gradio annotation
 - `lab_breadth_autoencoder.ipynb`: conv AE CIFAR-10, rekonstruksi, t-SNE 32-dim, denoising AE, peta VAE/GAN/Diffusion
+- `portofolio_mandiri.ipynb`: log W4-W10+refleksi; template Setup/Temuan/Kejutan/Yang-Akan-Diubah/Koneksi
 
-**Arsitektur di `template/src/models.py`:**
-- `SimpleMLP(input_dim, hidden_sizes, num_classes, dropout, activation)` - W1+tabular
-- `SimpleLSTM(input_size, hidden_size, num_layers, num_classes, dropout, readout)` - W5, readout "last"/"all"
-- `TransformerMini(vocab_size, d_model, nhead, num_layers, dim_feedforward, max_len, num_classes, dropout)` - W7
-- `SimpleAutoencoder(image_channels, bottleneck_dim)` - breadth AE, method `encode`/`decode`/`forward`
-- `build_model(cfg)`: `simple_cnn`, `simple_mlp`, `simple_lstm`, `transformer_mini`, `simple_ae`
-- `apply_freeze` raises ValueError untuk non-SimpleCNN
+**`template/src/`:**
+- `models.py`: `SimpleMLP(input_dim, hidden_sizes, num_classes, dropout, activation)` (W1), `SimpleLSTM(input_size, hidden_size, num_layers, num_classes, dropout, readout)` (W5, readout "last"/"all"), `TransformerMini(vocab_size, d_model, nhead, num_layers, dim_feedforward, max_len, num_classes, dropout)` (W7), `SimpleAutoencoder(image_channels, bottleneck_dim)` (breadth AE, method `encode`/`decode`/`forward`), `build_model(cfg)` untuk `simple_cnn`/`simple_mlp`/`simple_lstm`/`transformer_mini`/`simple_ae`, `apply_freeze` raises ValueError untuk non-SimpleCNN
+- `data.py`: loader `mnist` (flattened untuk MLP), `sine_sequence` (sintetis sine+noise untuk RNN/LSTM/Transformer), `cifar10_unlabeled` (CIFAR-10 untuk AE; label keluar hanya untuk t-SNE coloring)
+- `losses.py`: `FocalLoss` dan loss kustom lain untuk ablation W3
+- `train.py`: loop training utama; `warmup_epochs` pakai `SequentialLR` dengan `LinearLR` warmup
+- `utils.py`: helper seed, checkpoint, logging
 
-**Config di `template/configs/`:** `mlp_mnist.yaml`, `lstm_timeseries.yaml`, `transformer_mini.yaml`, `ae_cifar.yaml`.
+**Config di `template/configs/`:** `baseline.yaml`, `focal_freeze.yaml`, `mlp_mnist.yaml`, `mlp_tabular.yaml`, `lstm_timeseries.yaml`, `transformer_mini.yaml`, `ae_cifar.yaml`.
 
-**Loader di `template/src/data.py`:**
-- `mnist` (flattened untuk MLP)
-- `sine_sequence` (sintetis sine+noise untuk RNN/LSTM/Transformer)
-- `cifar10_unlabeled` (CIFAR-10 untuk AE; label keluar hanya untuk t-SNE coloring)
-
-**Template repo perubahan:**
-- `src/train.py`: bug `warmup_epochs` fix - `SequentialLR` dengan `LinearLR` warmup
-- `docs/prereg_template.md`: template pre-registration lengkap
-- `notebooks/lab_w2_cnn_baseline.ipynb`: smoke test, forward pass, log parser, confusion matrix, error analysis
-- `notebooks/lab_w3_loss_ablation.ipynb`: FocalLoss, 2×2 ablation, bar chart dengan error bars
-- `notebooks/lab_w4_experiment_tracking.ipynb`: reproducibility, checkpoint, resume, multi-seed plot
-- `notebooks/lab_w6_eda_leakage.ipynb`: 5-layer EDA, MD5 overlap, leakage audit
-- `notebooks/lab_w7_llm_assisted.ipynb`: mixup, 4 sanity tests, comparison training
-- `notebooks/lab_w12_demo_app.ipynb`: aggregation plot, Streamlit, Gradio annotation
-- `notebooks/lab_w6_feature_representation.ipynb`: representasi 3 strategi CIFAR-10
-- `notebooks/lab_w7_text_classification.ipynb`: sentimen IndoNLU SmSA
-- `notebooks/portofolio_mandiri.ipynb`: log W4-W10+refleksi; template Setup/Temuan/Kejutan/Yang-Akan-Diubah/Koneksi
+**`docs/prereg_template.md`:** template pre-registration eksperimen lengkap.
 
 ## Template Repo (`template/`)
 
@@ -396,7 +365,7 @@ npm run lint     # TypeScript type check
 
 `npm run sync` jalankan `scripts/sync-content.mjs`:
 1. Salin 17 `.md` dari `chapters/` → `website/src/content/chapters/`
-2. Salin 6 config YAML dari `template/configs/` → `website/src/content/configs/`
+2. Salin 7 config YAML dari `template/configs/` → `website/src/content/configs/`
 3. Parse glosarium `14_Lampiran.md` → `website/src/content/glossary.json`
 4. Salin figures dari `figures/` → `website/public/figures/`
 
@@ -410,7 +379,7 @@ Tiap `.md` baru/rename, update:
 
 **Content:** Markdown di-import via Vite `?raw` - semua masuk bundle JS, no fetch runtime. `src/lib/content.ts`: strip nav `<details>`, rewrite link antar-bab ke hash route (`01_W1.md` → `#/modul/01`), rewrite path gambar ke `/figures/`.
 
-**Routing:** HashRouter (`/#/modul/01`, `/#/glosarium`) - diperlukan untuk GitHub Pages.
+**Routing:** HashRouter (`/#/modul/01`, `/#/glosarium`, `/#/kompetensi/:id`) - diperlukan untuk GitHub Pages. `routes/tools/`: `ToolsIndex`, `ProtocolGenerator`, `ConfigDiff` - utilitas bantu eksperimen.
 
 **Rendering:** `src/components/MarkdownRenderer.tsx` pakai `react-markdown` + remark-gfm, rehype-slug, rehype-autolink-headings, Shiki. Admonition GFM di-handle plugin custom di renderer yang sama.
 
@@ -463,14 +432,16 @@ Slide ringkasan per bab via **Reveal.js**. Trailer (bukan pengganti modul) - max
 
 ### Panduan Menambah Slide Baru
 
-**3 file wajib:**
+Slide data disimpan **per-bab** di `website/src/lib/slides/slides-XX.ts` (bukan satu file besar). `website/src/lib/slides.ts` hanya re-export dari `./slides/index`.
 
-1. **`website/src/lib/slides.ts`** - data slide:
+**File yang perlu disentuh:**
+
+1. **`website/src/lib/slides/slides-XX.ts`** - data slide bab tersebut:
 
 ```typescript
-const slides02: SlideSection[] = [
+export const slides02: SlideSection[] = [
   {
-    layout: "title",           // title | section | bullets | split | grid | quote | code | cta
+    layout: "title",           // title | section | bullets | split | grid | quote | code | cta | image | video | table
     title: "W2 - Images & CNN",
     subtitle: "Tensor citra & three-level smoke test",
     body: "Bab 02 - Minggu 2",
@@ -479,24 +450,24 @@ const slides02: SlideSection[] = [
   {
     layout: "bullets",
     title: "Poin Kunci",
+    body: "Tiga konsep berikut menjadi fondasi CNN minggu ini:",
     bullets: [
-      "**Tensor citra:** (N, C, H, W) untuk batch RGB",
-      "**Conv2d:** filter lokal, parameter sharing",
-      "**Pooling:** downsampling spatial",
+      "**Tensor citra** berbentuk (N, C, H, W) untuk batch RGB.",
+      "**Conv2d** menerapkan filter lokal dengan parameter sharing.",
+      "**Pooling** melakukan downsampling spasial.",
     ],
     footnote: "Smoke test 3 level: forward → backward → data",
   },
-  // ... minimal 6-8 slide total
+  // ... 18-22 slide untuk deck kelas mingguan, 6-8 untuk trailer
 ];
 ```
 
-2. **Register di registry:**
+2. **`website/src/lib/slides/index.ts`** - import file baru lalu daftarkan di `SLIDE_DECKS`:
 
 ```typescript
+import { slides02 } from "./slides-02";
+
 export const SLIDE_DECKS: Record<string, SlideDeckData> = {
-  "00": { chapterId: "00", slides: slides00 },
-  "00a": { chapterId: "00a", slides: slides00a },
-  "01": { chapterId: "01", slides: slides01 },
   "02": { chapterId: "02", slides: slides02 },  // tambahkan di sini
 };
 ```
@@ -622,9 +593,8 @@ Warna ini konsisten di semua diagram, slide, dan chapter. Jangan pakai warna yan
 
 1. Claude menyediakan **prompt deskriptif detail** - posisi setiap elemen, warna, teks label, ikon, gaya garis, rasio.
 2. Pengguna membuat gambar sendiri dari prompt tersebut.
-3. Simpan di `figures/` dengan nama `fig<XX><huruf>_<deskripsi>.png`.
-4. Copy manual ke `website/public/figures/` (sync script tidak selalu meng-copy figures baru otomatis).
-5. Segera update referensi di chapter `.md` dan `slides-XX.ts` yang relevan.
+3. Simpan di `figures/` dengan nama `fig<XX><huruf>_<deskripsi>.png`. `npm run sync` menyalin seluruh `figures/` → `website/public/figures/` otomatis, tidak perlu copy manual.
+4. Segera update referensi di chapter `.md` dan `slides-XX.ts` yang relevan.
 
 ### Konvensi Penamaan
 
