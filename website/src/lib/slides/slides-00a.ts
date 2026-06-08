@@ -14,7 +14,7 @@ export const slides00a: SlideSection[] = [
   {
     layout: "section",
     title: "Mengapa Prasyarat Ini?",
-    body: "Prasyarat ini bukan ujian masuk, melainkan kosakata bersama yang dipakai di setiap bab - mulai dari shape tensor, konvensi huruf, hingga tiga operasi PyTorch. Tanpa kosakata ini, penjelasan di W1 akan membutuhkan banyak catatan kaki yang mengganggu alur bacaan.",
+    body: "Prasyarat ini adalah kosakata bersama yang dipakai di setiap bab, mulai dari shape tensor, konvensi huruf, hingga tiga operasi PyTorch, dan bukan ujian masuk. Tanpa kosakata ini, penjelasan di W1 akan membutuhkan banyak catatan kaki yang mengganggu alur bacaan.",
     footnote: "Jika sudah pernah memakai PyTorch dan paham shape (B, C, H, W), slide ini bisa di-skip.",
   },
 
@@ -31,7 +31,7 @@ export const slides00a: SlideSection[] = [
       "**PyTorch primer** - tiga operasi inti: cek shape, pindah ke device, dan backward.",
       "**Glosarium 19 istilah** yang muncul berulang sejak W1, cukup dikenali sebagai peta kasar.",
     ],
-    footnote: "Bab ini bukan ujian masuk - kosakata bersama yang dipakai sebagai rujukan cepat.",
+    footnote: "Bab ini berfungsi sebagai kosakata bersama yang dipakai sebagai rujukan cepat, bukan ujian masuk.",
   },
 
   // ── Slide 2c: Objektif Belajar ──
@@ -90,7 +90,7 @@ export const slides00a: SlideSection[] = [
     title: "Visualisasi Tensor (B, C, H, W)",
     imageUrl: "/figures/fig00a_tensor_nchw.jpeg",
     caption: "Gambar ini menunjukkan representasi volumetrik dari satu citra dengan tiga dimensi (Channel, Height, Width); batch berarti menumpuk B volume serupa di sumbu paling depan.",
-    footnote: "Sumber: Stanford CS231n (cs231n.github.io). Bayangkan (32, 3, 224, 224) sebagai 32 lembar volume RGB beresolusi 224x224.",
+    footnote: "Sumber: Stanford CS231n (cs231n.github.io). Shape (32, 3, 224, 224) berarti 32 volume RGB beresolusi 224x224 yang ditumpuk.",
   },
 
   // ── Slide 3b: Quiz shape reading ──

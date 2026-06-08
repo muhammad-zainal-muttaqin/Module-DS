@@ -1,227 +1,123 @@
 import type { SlideSection } from "./index";
 
 export const slides01: SlideSection[] = [
-  // ── Slide 1: Title ──
+  // -- 1: Title --
   {
     layout: "title",
-    title: "W1: Tabular, Output Heads & Pencocokan Loss",
-    subtitle: "MLP mengubah bentuk tensor. Tugas menentukan head, dan head menentukan loss.",
-    body: "Lab 1a mencakup tiga perumusan tugas dan eksperimen ketidakcocokan head dan loss. Lab 1b membangun MLP dari nol menggunakan NumPy.",
+    title: "W1: Tabular & Output Heads",
+    subtitle: "Memetakan satu tugas tabular ke pasangan output head dan loss yang cocok, lalu menjalankan satu training MLP end-to-end.",
     footnote: "Bab 01 - Minggu 1",
   },
 
-  // ── Slide 1b: Kuis Pembuka ──
-  {
-    layout: "bullets",
-    title: "Cek Siap: Sebelum Masuk W1",
-    body: "Jawab tiga pertanyaan berikut untuk memastikan prasyaratmu sudah cukup kuat:",
-    bullets: [
-      "**Soal 1:** Harga rumah (angka kontinu). Pakai loss apa: MSE atau CrossEntropy?",
-      "**Soal 2:** Deteksi spam (ya/tidak). Output head pakai `Linear(D,1)` atau `Linear(D,2)`?",
-      "**Soal 3:** 3 kategori cuaca. Target `y` bertipe `int` (0,1,2) atau `float` (0.0, 1.0, 2.0)?",
-    ],
-    footnote: "Tiga soal ini memakan waktu sekitar 2 menit. Ini bukan ujian, melainkan cara untuk memeriksa apakah prasyarat sudah dikuasai sebelum masuk W1.",
-  },
-
-  // ── Slide 1c: Jawaban Kuis Pembuka ──
+  // -- 2: Agenda --
   {
     layout: "grid",
-    title: "Jawaban: Cek Siap W1",
-    body: "Berikut adalah penjelasan untuk jawaban setiap soal:",
+    title: "Kali ini kita akan membahas",
+    body: "Empat materi minggu ini mengikuti alur dari melihat tugas sampai membaca hasilnya:",
     gridItems: [
       {
-        title: "Soal 1: MSELoss",
-        body: "Soal 1 meminta prediksi angka kontinu, sehingga tugasnya adalah regresi dan loss yang dipakai adalah MSELoss. Head-nya adalah Linear(D,1) dan target-nya adalah float biasa, bukan kelas.",
+        title: "1. MLP Mengubah Bentuk Tensor",
+        body: "Kita memisahkan body yang mengekstrak fitur dari head yang berubah mengikuti tugas.",
       },
       {
-        title: "Soal 2: Dua-duanya boleh",
-        body: "Kamu boleh memakai Linear(D,1)+BCEWithLogitsLoss ATAU Linear(D,2)+CrossEntropyLoss. Pilih salah satu dan pakai secara konsisten sampai akhir.",
+        title: "2. Pencocokan Output Head dan Loss",
+        body: "Kita mencocokkan tiga pasangan kanonik untuk regression, binary, dan multiclass.",
       },
       {
-        title: "Soal 3: int (0,1,2)",
-        body: "CrossEntropyLoss membutuhkan target integer, bukan float. Contohnya: `y = torch.tensor([0,1,2], dtype=torch.long)`.",
+        title: "3. Training Loop PyTorch",
+        body: "Kita menjalankan lima langkah yang berulang dari W1 sampai capstone, plus pipeline data di sekitarnya.",
+      },
+      {
+        title: "4. Observasi Sebelum Kesimpulan",
+        body: "Kita memisahkan apa yang teramati dari apa yang disimpulkan saat membaca hasil.",
       },
     ],
-    footnote: "Kalau ketiganya benar: kamu siap masuk W1. Kalau ada yang ragu: baca ulang bab 00a dulu, cukup 15 menit.",
   },
 
-  // ── Slide 1d: Materi Bab Ini ──
+  // -- 3: Recap prasyarat --
   {
     layout: "bullets",
-    title: "Materi Bab Ini",
-    body: "Minggu pertama membahas lima ide fondasi yang menjadi dasar seluruh bootcamp:",
+    title: "Di pertemuan sebelumnya (Prasyarat)",
+    body: "Prasyarat modul menyiapkan bekal yang langsung dipakai minggu ini. Kalau salah satu masih asing, baca ulang sebelum lanjut:",
     bullets: [
-      "**MLP mengubah bentuk tensor:** Rangkaian Linear dan ReLU memetakan input (F,) menjadi output (D_out,) melalui transformasi bertahap.",
-      "**Body dan Head:** Badan model bersama dipakai untuk semua tugas, sementara head berubah sesuai bentuk output yang dibutuhkan.",
-      "**Pasangan output head dan loss:** Regresi cocok dengan MSE, biner cocok dengan BCE atau CrossEntropy, dan multikelas cocok dengan CrossEntropy.",
-      "**Pipeline training PyTorch:** Lima langkah kunci berjalan berurutan setiap iterasi: forward, loss, zero_grad, backward, dan step.",
-      "**Kebiasaan riset W1:** Menulis observasi sebelum kesimpulan adalah kebiasaan inti yang ditanamkan sejak W1 dan dipakai sepanjang modul.",
+      "Kita sudah belajar membaca shape tensor sebagai tuple, misalnya (F,) untuk satu sampel dan (B, F) untuk satu batch.",
+      "Kita sudah melihat satu langkah training PyTorch dan dasar kalkulus untuk chain rule.",
+      "Refleks W1 yang dibangun: lihat shape input dan shape output, lalu pilih keluarga model yang memetakan keduanya.",
     ],
-    footnote: "Lima ide ini menjadi rujukan yang akan dipakai berulang di W2 sampai W11.",
+    footnote: "W1 memakai tabular karena kompleksitas domainnya paling rendah: satu vektor masuk, satu prediksi keluar, tanpa augmentasi atau tokenisasi.",
   },
 
-  // ── Slide 1e: Objektif Belajar ──
-  {
-    layout: "bullets",
-    title: "Objektif Belajar",
-    body: "W1 ini mencakup empat capaian yang harus dikerjakan:",
-    bullets: [
-      "Kamu **menerapkan tiga tugas berbeda** (regresi, biner, multikelas) pada satu dataset tabular yang sama.",
-      "Kamu **memilih output head dan loss** yang cocok dari tabel rujukan §2.2.4 di modul.",
-      "Kamu **sengaja salah-pasangkan loss dan head,** lalu mengamati bagaimana training gagal. Pengalaman ini jauh lebih jelas daripada penjelasan teori saja.",
-      "Kamu **menulis observasi dan interpretasi** dalam dua paragraf terpisah di catatan lab.",
-    ],
-    footnote: "Lab W1 mencakup dua pelaksanaan: Lab 1a (3 tugas plus ketidakcocokan loss dan head) dan Lab 1b (MLP from scratch dengan NumPy).",
-  },
-
-  // ── Slide 1f: Setelah Bab Ini Kamu Paham ──
-  {
-    layout: "grid",
-    title: "Setelah Bab Ini Kamu Paham",
-    body: "Setelah Lab W1 selesai, kamu diharapkan mampu:",
-    gridItems: [
-      {
-        title: "Menjawab 'Tugas X Butuh Head dan Loss Apa'",
-        body: "Saat menerima tugas baru, kamu memiliki refleks otomatis untuk membaca shape input dan tipe output, lalu memilih pasangan head dan loss yang sesuai dari lima konfigurasi resmi.",
-      },
-      {
-        title: "Mengidentifikasi Ketidakcocokan Loss dan Head",
-        body: "Saat loss konstan dari epoch pertama atau berubah dengan cara yang aneh, kamu memeriksa pasangan loss, head, dan target lebih dulu sebelum mendebug arsitektur atau hyperparameter.",
-      },
-      {
-        title: "Memisahkan Observasi dan Interpretasi",
-        body: "Kamu terbiasa menulis dua paragraf terpisah: satu murni angka dan bentuk kurva yang dilihat, satu lagi tafsiran tentang apa yang terjadi - kebiasaan ini akan dipakai sepanjang modul.",
-      },
-    ],
-    footnote: "Tiga capaian W1 menjadi pondasi yang tidak boleh dilewati - W2 dan setelahnya bertumpu di sini.",
-  },
-
-  // ── Slide 2: Mengapa tabular lebih dulu ──
+  // -- 4: Materi 1 section --
   {
     layout: "section",
-    title: "Mengapa Tabular Lebih Dulu?",
-    body: "Ada empat alasan mengapa kita memulai dari tabular: pertama, pipeline-nya paling pendek karena tidak ada augmentasi dan tidak ada tokenizer; kedua, tiga perumusan tugas bisa diuji pada dataset yang sama; ketiga, ketidakcocokan loss dan head terlihat jelas dari output shape; dan keempat, tidak ada domain baru yang perlu dipelajari.",
-    footnote: "Kita memulai dari tabular karena kompleksitasnya paling rendah, bukan karena tabular lebih penting dari domain lain.",
+    title: "1. MLP Mengubah Bentuk Tensor",
+    body: "MLP mengambil vektor fitur (F,) dan menghasilkan vektor output (D_out,) lewat rangkaian Linear dan ReLU. D_out ditentukan oleh tugas, bukan oleh data.",
+    footnote: "Regression memakai D_out = 1, binary memakai 1 atau 2, dan multiclass dengan N kelas memakai N.",
   },
 
-  // ── Slide 3: Gambar satu dataset tiga tugas ──
+  // -- 5: Body-head image (bottom-up: gambar dulu) --
   {
     layout: "image",
-    title: "Satu Dataset, Tiga Tugas",
+    title: "Satu Body Bersama, Tiga Head",
     imageUrl: "/figures/fig01g_tiga_tugas.png",
-    caption: "Gambar ini menunjukkan satu badan MLP bersama menghasilkan representasi, lalu tiga head berbeda menyesuaikan kebutuhan setiap tugas.",
-    footnote: "Badan (body) sama - hanya head yang berbeda. Ini yang memungkinkan perbandingan yang setara.",
+    caption: "Gambar ini menunjukkan satu badan MLP bersama yang mengekstrak fitur, lalu tiga head berbeda yang mengubah fitur itu ke bentuk output untuk regresi, klasifikasi biner, dan multikelas.",
+    footnote: "Body sama untuk semua tugas; hanya head yang berubah. Inilah yang membuat tiga tugas bisa dibandingkan pada data yang sama.",
   },
 
-  // ── Slide 4: MLP mengubah bentuk ──
-  {
-    layout: "split",
-    title: "MLP Mengubah Bentuk Tensor",
-    left: {
-      title: "Alur Shape",
-      bullets: [
-        "Input berbentuk **(B, F)**, yang berarti B sampel tabular dengan F fitur.",
-        "Layer 1 mengubah (B,F) → (B,64) dengan Linear+ReLU.",
-        "Layer 2 mengubah (B,64) → (B,32) dengan Linear+ReLU.",
-        "Head mengubah (B,32) → **(B, 1 atau 2 atau K)** sesuai dengan tugas.",
-      ],
-    },
-    right: {
-      title: "Mengapa Butuh Non-Linearitas?",
-      body: "Dua layer Linear tanpa aktivasi secara matematika setara dengan satu Linear saja, karena gabungannya tetap fungsi linier.\n\nReLU menambahkan titik patah di antara lapisan, sehingga decision boundary bisa melengkung dan mengikuti data yang tidak linier.",
-    },
-    footnote: "Fakta ini (non-linearitas wajib) akan muncul lagi di W2 (CNN) dan W5 (RNN).",
-  },
-
-  // ── Slide 4b: MLP 2 Layer - alur shape (image) ──
-  {
-    layout: "image",
-    title: "MLP 2 Layer: Alur Shape dari Input ke Representasi",
-    imageUrl: "/figures/mlp_shape_flow.png",
-    caption: "Gambar ini menunjukkan bagaimana shape tensor berubah dari (B,F) ke (B,64) lalu ke (B,32) saat melewati dua layer Linear+ReLU. Dimensi batch B tidak pernah berubah sepanjang seluruh forward pass.",
-    footnote: "Semua layer yang berada sebelum head secara kolektif disebut BODY. Representasi berukuran (B,32) yang dihasilkan BODY dipakai bersama oleh semua head, sehingga tidak ada operasi yang perlu dijalankan dua kali.",
-  },
-
-  // ── Slide 5: Linear Layer mekanik ──
-  {
-    layout: "bullets",
-    title: "Linear Layer: Mekanik",
-    body: "Linear layer adalah blok dasar MLP yang bekerja dengan cara berikut:",
-    bullets: [
-      "Formula-nya adalah **y = W × x + b**, yaitu satu perkalian matriks ditambah bias.",
-      "Contoh `nn.Linear(10, 64)` menghasilkan W berukuran (64, 10) = 640 parameter, dan b berukuran (64,) = 64 parameter.",
-      "Total layer ini memiliki **704 parameter** - semuanya akan menerima gradient saat backward.",
-      "Shape berubah dari **(B, 10) → (B, 64)**: dimensi fitur berubah, sementara ukuran batch tetap.",
-      "ReLU yang mengikutinya menggunakan rumus `max(0, x)`: nilai negatif menjadi nol, sementara nilai positif tetap.",
-    ],
-    footnote: "Parameter terdiri dari weight dan bias. Semakin dalam jaringan, semakin banyak parameter yang perlu diperbarui setiap iterasi.",
-  },
-
-  // ── Slide 5b: Linear Layer - tiap input ke semua neuron (image) ──
-  {
-    layout: "image",
-    title: "Linear Layer: Tiap Input Terhubung ke Semua Neuron",
-    imageUrl: "/figures/mlp_fully_connected.png",
-    caption: "Gambar ini menunjukkan bagaimana setiap fitur input (x1, x2, x3) terhubung ke setiap neuron di hidden layer (h1-h4), dan setiap hidden neuron terhubung ke output y. Inilah yang membuat lapisan ini disebut fully connected.",
-    footnote: "Badge 'ReLU' dalam gambar ditempelkan di h1 sebagai penanda untuk seluruh lapisan. Aktivasi ReLU sebenarnya berlaku untuk semua neuron di hidden layer secara bersamaan, bukan hanya h1.",
-  },
-
-  // ── Slide 6: nn.Linear kode ──
-  {
-    layout: "code",
-    title: "nn.Linear: Forward Pass",
-    body: "Cara paling langsung untuk melihat transformasi shape adalah dengan menjalankan kode berikut dan memeriksa output `.shape` di tiap langkah.",
-    code: `import torch.nn as nn
-
-# Definisi layer
-layer = nn.Linear(10, 64)
-
-# Forward pass
-x = torch.randn(32, 10)
-y = layer(x)
-print(y.shape)                # torch.Size([32, 64])
-
-# Tambah ReLU
-z = nn.ReLU()(y)
-print(z.shape)                # torch.Size([32, 64])`,
-    lang: "python",
-    footnote: "Output berukuran (B,64) memperlihatkan bahwa dimensi batch tidak berubah. Hanya dimensi fitur yang berubah, dari 10 menjadi 64.",
-  },
-
-  // ── Slide 7: Body vs Head ──
+  // -- 6: Body-head text (mengacu ke gambar) --
   {
     layout: "split",
     title: "Body dan Head: Struktur Dua Bagian",
+    body: "Dari gambar tersebut, model terbagi dua bagian dengan peran yang berbeda:",
     left: {
-      title: "Badan Bersama",
-      body: "Badan bersama adalah rangkaian Linear+ReLU yang mengekstrak fitur dari input. Struktur ini sama untuk semua tugas.\n\nOutput badan menghasilkan tensor **(B, H)** dengan H sebagai ukuran hidden layer terakhir.",
+      title: "Body (bersama)",
+      body: "Body adalah rangkaian Linear dan ReLU yang mengekstrak fitur generik dari input. Struktur ini sama untuk semua tugas pada data yang sama.\n\nOutput body berbentuk (B, H) dengan H sebagai ukuran hidden layer terakhir.",
     },
     right: {
-      title: "Head Berbeda per Tugas",
+      title: "Head (per-tugas)",
       bullets: [
-        "**Regresi** memakai head `Linear(H, 1)` tanpa aktivasi.",
-        "**Biner** memakai head `Linear(H, 2)` dengan CrossEntropyLoss.",
-        "**Multikelas** memakai head `Linear(H, K)` dengan CrossEntropyLoss.",
-        "Head yang salah menyebabkan loss tidak bisa turun dengan benar.",
+        "Regression memakai head Linear(H, 1) tanpa aktivasi apa pun.",
+        "Multiclass dengan K kelas memakai head Linear(H, K) yang menghasilkan K logit.",
+        "Head yang salah membuat loss tidak bisa turun dengan benar, dan bug ini lebih mudah didiagnosis karena cakupannya terbatas.",
       ],
     },
-    footnote: "Badan mengekstrak fitur umum dari semua sampel. Head mengkhususkan representasi tersebut untuk setiap tugas. Kesalahan di head lebih mudah didiagnosis karena cakupannya lebih terbatas.",
+    footnote: "Pola body-head ini sama dengan model pretrained di W7-W8: backbone bersama di-freeze, lalu head kecil dilatih untuk tugas baru.",
   },
 
-  // ── Slide 7a: Body + Head fork (image) ──
+  // -- 7: Linear layer mekanik --
   {
-    layout: "image",
-    title: "Body + Head: Satu Representasi, Tiga Tugas",
-    imageUrl: "/figures/body_head_fork.png",
-    caption: "Gambar ini menunjukkan bagaimana satu BODY bersama menghasilkan representasi (B,32), lalu tiga head berbeda mengubah representasi tersebut ke bentuk output yang sesuai dengan masing-masing tugas.",
-    footnote: "Pola body-head ini sama persis dengan cara kerja pretrained model yang akan dipelajari di W7 dan W8. Di sana, backbone bersama menghasilkan representasi, lalu setiap head menyesuaikannya ke tugas yang spesifik.",
+    layout: "bullets",
+    title: "Linear Layer: Mekanik dengan Angka Kecil",
+    body: "Satu Linear layer menjalankan transformasi affine y = W x + b. Berikut tiga hal yang perlu dikenali dari setiap layer:",
+    bullets: [
+      "Rumusnya adalah y = W x + b, yaitu satu perkalian matriks ditambah bias, dengan W dan b yang dipelajari otomatis lewat training.",
+      "Contoh nn.Linear(10, 64) memiliki W berukuran (64, 10) dan b berukuran (64,), total 704 parameter yang menerima gradient saat backward.",
+      "Shape berubah dari (B, 10) ke (B, 64): dimensi fitur berubah, sedangkan ukuran batch B tetap.",
+    ],
+    footnote: "ReLU(x) = max(0, x) yang mengikuti Linear mengubah nilai negatif menjadi nol dan melewatkan nilai positif apa adanya.",
   },
 
-  // ── Slide 7b: Body + 3 Head dalam PyTorch ──
+  // -- 8: Kenapa butuh non-linearitas --
+  {
+    layout: "split",
+    title: "Kenapa Butuh ReLU?",
+    body: "ReLU diperlukan agar kedalaman model benar-benar menambah kapasitas. Tanpa aktivasi non-linear, dua layer setara dengan satu:",
+    left: {
+      title: "Dua Linear = satu Linear",
+      body: "Menumpuk dua Linear tanpa aktivasi setara dengan satu Linear, karena W₂(W₁ x + b₁) + b₂ tetap fungsi linier.\n\nWalaupun lebih dalam secara struktur, kapasitas representasi tidak naik.",
+    },
+    right: {
+      title: "ReLU menambah titik patah",
+      body: "ReLU menambahkan titik patah di antara layer, sehingga komposisi dua layer bisa membentuk decision boundary yang melengkung.\n\nKombinasi Linear → ReLU → Linear → ReLU adalah resep MLP standar.",
+    },
+    footnote: "Fakta ini, bahwa non-linearitas wajib ada, muncul lagi di W2 (CNN) dan W5 (RNN dan LSTM).",
+  },
+
+  // -- 9: Body + 3 head dalam PyTorch --
   {
     layout: "code",
     title: "Body + 3 Head dalam PyTorch",
-    body: "Diagram body-head dapat ditulis langsung dalam PyTorch: satu badan bersama diikuti tiga head paralel, sehingga satu forward pass menghasilkan tiga output sekaligus.",
+    body: "Diagram body-head ditulis langsung sebagai satu badan bersama diikuti tiga head paralel, sehingga satu forward pass menghasilkan tiga output sekaligus:",
     code: `class ArsitekturMultiTugas(nn.Module):
     def __init__(self, jumlah_fitur=10, jumlah_kelas=3):
         super().__init__()
@@ -239,215 +135,228 @@ print(z.shape)                # torch.Size([32, 64])`,
                 self.kepala_biner(fitur),
                 self.kepala_multikelas(fitur))`,
     lang: "python",
-    footnote: "Tiga head berbagi badan yang sama. Pretrained model di W7-W8 memakai pola yang identik: satu backbone bersama dengan head yang berbeda untuk setiap tugas.",
+    footnote: "Tiga head berbagi badan yang sama, sehingga representasi (B, 32) tidak perlu dihitung dua kali.",
   },
 
-  // ── Slide 8: Harus dipasangkan ──
+  // -- 10: Materi 2 section --
   {
     layout: "section",
-    title: "Output Head + Loss: Harus Dipasangkan",
-    body: "Pasangan output head dan loss bukan pilihan bebas. Tugas menentukan bentuk head, dan head menentukan fungsi loss yang dipakai. Menukar pasangan ini menghasilkan bug yang sulit didiagnosis: loss masih bisa turun, tapi model tidak belajar hal yang benar.",
-    footnote: "Tiga perempat bug di W1 berasal dari ketidakcocokan loss dan head. Lab W1 meminta kamu mengalaminya secara sengaja agar efeknya bisa dirasakan langsung.",
+    title: "2. Pencocokan Output Head dan Loss",
+    body: "Pasangan output head dan loss tidak bebas dipilih. Tugas menentukan bentuk head, dan head menentukan loss yang dipakai.",
+    footnote: "Menukar pasangan ini menghasilkan bug yang sulit didiagnosis: loss kadang tetap turun, tapi model tidak belajar hal yang benar.",
   },
 
-  // ── Slide 9: Regresi ──
+  // -- 11: Regression --
   {
     layout: "split",
-    title: "Regresi: MSE + Linear Head",
-    body: "Tugas regresi memerlukan pasangan head dan loss yang spesifik:",
+    title: "Regression: Linear Head + MSE",
+    body: "Tugas regression memprediksi angka kontinu seperti harga rumah atau suhu besok:",
     left: {
-      title: "Arsitektur",
-      body: "Untuk regresi, output head-nya adalah `nn.Linear(H, 1)` tanpa aktivasi apapun. Output shape-nya adalah **(B, 1)**, yang berarti satu nilai kontinu per sampel.\n\nTarget y harus berupa bilangan real, bukan indeks kelas.",
+      title: "Head",
+      body: "Output head-nya adalah Linear(D, 1) tanpa aktivasi, dengan output shape (B, 1) berisi satu nilai kontinu per sampel.\n\nTarget y berupa bilangan real, bukan indeks kelas.",
     },
     right: {
-      title: "Loss: MSELoss",
-      body: "`MSELoss` menghitung rata-rata kuadrat selisih dengan rumus (1/N) × Σ (ŷ - y)².\n\nLoss ini sensitif terhadap outlier karena selisihnya dikuadratkan. Untuk data dengan outlier banyak, pertimbangkan `L1Loss` (MAE) sebagai alternatif.",
+      title: "Loss: MSE",
+      body: "MSE menghitung rata-rata kuadrat selisih, (1/N) Σ (ŷ - y)².\n\nPenalti naik kuadratis, sehingga meleset 1.0 menyumbang loss empat kali lebih besar daripada meleset 0.5. Untuk data dengan banyak outlier, MAE sering lebih stabil.",
     },
-    footnote: "MSE selalu positif dan nol hanya jika prediksi sempurna. Unitnya dikuadratkan - perhatikan hal ini saat membaca hasil.",
+    footnote: "MSE selalu positif dan bernilai nol hanya saat prediksi sempurna.",
   },
 
-  // ── Slide 10: Binary ──
+  // -- 12: Binary --
   {
     layout: "split",
-    title: "Klasifikasi Biner: CrossEntropy + 2 Output",
-    body: "Tugas klasifikasi biner juga memiliki pasangan head dan loss yang harus diperhatikan:",
+    title: "Binary: Logit + BCE atau CrossEntropy",
+    body: "Tugas binary memprediksi ya atau tidak, dan punya dua bentuk head yang sama-sama valid:",
     left: {
-      title: "Arsitektur",
-      body: "Untuk klasifikasi biner, output head-nya adalah `nn.Linear(H, 2)` yang menghasilkan dua logit (satu per kelas 0 dan kelas 1).\n\nSaat evaluasi, `logits.argmax(dim=1)` menghasilkan prediksi kelas dengan shape **(B,)**.",
+      title: "Dua varian head",
+      body: "Varian pertama memakai Linear(D, 1) yang menghasilkan satu logit, dipasangkan dengan BCEWithLogitsLoss.\n\nVarian kedua memakai Linear(D, 2) yang menghasilkan dua logit, dipasangkan dengan CrossEntropyLoss. Pilih satu dan pakai konsisten.",
     },
     right: {
-      title: "Loss: CrossEntropyLoss",
-      body: "`CrossEntropyLoss` sudah memasukkan softmax di dalamnya, sehingga kamu cukup memasukkan **logit mentah**.\n\nJangan tambahkan Softmax atau Sigmoid sebelum loss. Jika kamu memakai BCEWithLogitsLoss, output head harus berbentuk `Linear(H, 1)` bukan `Linear(H, 2)`.",
+      title: "Sigmoid menghukum yang yakin tapi salah",
+      body: "Sigmoid memetakan logit z=0 ke 0.5, z=2 ke 0.88, dan z=-2 ke 0.12.\n\nSaat target 1 tapi model output z=-2 (yakin salah), loss melonjak ≈ 2.13. Penalti naik tajam saat prediksi makin yakin di sisi yang salah.",
     },
-    footnote: "Dua pendekatan biner (2 output + CE vs 1 output + BCE) keduanya valid - pilih satu dan konsisten.",
+    footnote: "Pakai BCEWithLogitsLoss yang menggabung sigmoid dan log dalam satu langkah stabil, bukan Sigmoid lalu BCELoss terpisah.",
   },
 
-  // ── Slide 11: Multiclass ──
+  // -- 13: Multiclass --
   {
     layout: "split",
-    title: "Klasifikasi Multikelas: CrossEntropy + K Output",
-    body: "Tugas klasifikasi multikelas mengikuti pola yang sama dengan biner, tapi dengan jumlah kelas lebih dari dua:",
+    title: "Multiclass: K Logit + CrossEntropy",
+    body: "Tugas multiclass dengan N kelas memprediksi salah satu dari N kategori:",
     left: {
-      title: "Arsitektur",
-      body: "Untuk klasifikasi multikelas, output head-nya adalah `nn.Linear(H, K)` yang menghasilkan K logit untuk K kelas. Untuk 3 kelas, output shape-nya adalah **(B, 3)**.\n\nSaat evaluasi, `logits.argmax(dim=1)` menghasilkan indeks kelas prediksi.",
+      title: "Head",
+      body: "Output head-nya adalah Linear(D, N) yang menghasilkan vektor logit panjang N. Untuk 3 kelas, output shape-nya (B, 3).\n\nSaat evaluasi, logits.argmax(dim=1) menghasilkan indeks kelas prediksi.",
     },
     right: {
-      title: "Loss: CrossEntropyLoss",
-      body: "Penggunaannya sama dengan biner, tapi dengan K > 2. Log-softmax sudah ada di dalam loss.\n\nTarget-nya adalah tensor integer dengan nilai 0 sampai K-1, bukan one-hot. Jangan masukkan probabilitas ke loss ini.",
+      title: "Loss: CrossEntropy",
+      body: "Softmax memetakan logit ke distribusi probabilitas yang jumlahnya 1. Misal logit [2.0, 1.0, 0.5] menjadi sekitar [0.62, 0.23, 0.15].\n\nTarget-nya tensor integer 0 sampai N-1, bukan one-hot dan bukan probabilitas.",
     },
-    footnote: "CrossEntropyLoss menggabungkan log-softmax dan negative log likelihood menjadi satu operasi untuk stabilitas numerik.",
+    footnote: "CrossEntropyLoss menggabung LogSoftmax dan NLLLoss, dan menerima logit mentah tanpa softmax tambahan.",
   },
 
-  // ── Slide 12: Gambar 5 konfigurasi ──
-  {
-    layout: "image",
-    title: "5 Konfigurasi Head dan Loss Resmi",
-    imageUrl: "/figures/fig01h_output_head_loss.png",
-    caption: "Gambar ini menunjukkan lima konfigurasi resmi: dari kiri adalah regresi skalar, biner dalam dua varian (2 output vs 1 output), multikelas, dan multilabel.",
-    footnote: "Tabel ini juga ada di Lampiran. Tempel di samping layar saat Lab W1.",
-  },
-
-  // ── Slide 12b: Ketidakcocokan loss dan head - benar vs salah (image) ──
-  {
-    layout: "image",
-    title: "Pasangan Head dan Loss: Benar vs Bug Umum",
-    imageUrl: "/figures/loss_head_matching.png",
-    caption: "Gambar ini membandingkan tiga pasangan head dan loss yang benar (kiri) dengan tiga bug yang paling sering terjadi (kanan). Kolom kanan menunjukkan bahwa ketidakcocokan ini tidak selalu menghasilkan error - kadang training berjalan tapi model tidak belajar hal yang benar.",
-    footnote: "Bug paling berbahaya adalah baris ketiga kolom kanan: Linear(H,K) + MSELoss tidak menghasilkan error, loss bahkan bisa turun, tapi model tidak belajar distribusi kelas yang benar karena MSE tidak dirancang untuk output kategoris.",
-  },
-
-  // ── Slide 13: Gambar sigmoid vs softmax ──
-  {
-    layout: "image",
-    title: "Sigmoid vs Softmax: Perbedaan Fundamental",
-    imageUrl: "/figures/fig01i_sigmoid_softmax.png",
-    caption: "Gambar ini menunjukkan perbedaan fundamental: sigmoid membuat setiap output independen sehingga total bisa lebih dari 1, sementara softmax menghasilkan distribusi probabilitas yang totalnya selalu = 1.",
-    footnote: "Gunakan sigmoid untuk multilabel (setiap kelas independen). Gunakan softmax untuk multiclass (saling eksklusif).",
-  },
-
-  // ── Slide 14: Video StatQuest CrossEntropy ──
-  {
-    layout: "video",
-    title: "Cross-Entropy Loss: Tonton ~15 Menit",
-    videoUrl: "https://www.youtube.com/embed/6ArSys5qHAU",
-    caption: "Video ini adalah StatQuest berjudul \"Neural Networks Part 6: Cross Entropy\", yang menyajikan penjelasan mudah dipahami tentang cross-entropy loss oleh Josh Starmer.",
-    footnote: "Video ini dianjurkan ditonton setelah melihat tabel 5 konfigurasi. StatQuest terkenal karena penjelasannya yang sabar dan langkah demi langkah.",
-  },
-
-  // ── Slide 15: Backpropagation overview ──
+  // -- 14: Logit mentah penting --
   {
     layout: "bullets",
-    title: "Backpropagation: Gambaran Umum",
-    body: "Backpropagation adalah proses inti dalam training neural network. Berikut adalah gambaran umumnya:",
+    title: "Logit Mentah: Aturan yang Sering Dilanggar",
+    body: "Kesalahan paling umum pemula adalah menambahkan softmax atau sigmoid sebelum loss. Tiga hal yang perlu diingat:",
     bullets: [
-      "Backpropagation adalah **chain rule yang berjalan mundur** dari loss menuju layer pertama.",
-      "Setiap parameter menerima satu nilai gradient yang menjawab pertanyaan: kalau parameter ini naik sedikit, loss naik atau turun berapa?",
-      "Optimizer memakai gradient tersebut untuk update parameter dengan rumus `θ ← θ - lr × ∂L/∂θ`.",
-      "PyTorch menangani semua gradient lewat Autograd, sehingga kamu cukup memanggil `loss.backward()`.",
-      "Detail 7-langkah derivasi manual ada di Lampiran A.1 - baca setelah Lab W1 selesai.",
+      "Logit mentah adalah output Linear terakhir tanpa aktivasi apa pun.",
+      "BCEWithLogitsLoss dan CrossEntropyLoss keduanya mengharapkan logit mentah, karena sigmoid dan softmax dilakukan di dalam loss untuk stabilitas numerik.",
+      "Menambahkan softmax lalu mengirimnya ke CrossEntropyLoss membuat gradient mengecil tidak wajar dan training tidak konvergen.",
     ],
-    footnote: "Lab 1b meminta kamu mengerjakan backprop manual 7-langkah. Slide ini hanya memberikan gambaran sebelum masuk ke lab.",
+    footnote: "Cek pasangan loss, head, dan target lebih dulu sebelum mendebug arsitektur.",
   },
 
-  // ── Slide 16: Video 3Blue1Brown backprop ──
-  {
-    layout: "video",
-    title: "Backpropagation: Visualisasi (Tonton ~20 Menit)",
-    videoUrl: "https://www.youtube.com/embed/Ilg3gGewQ5U",
-    caption: "Video ini adalah karya 3Blue1Brown berjudul \"What is backpropagation really doing?\", yang menampilkan visualisasi chain rule yang dihitung mundur dari loss menuju setiap parameter.",
-    footnote: "Video ini menjelaskan konsep yang sama dengan Lampiran A.1 - pilih cara yang cocok dengan gaya belajar Anda.",
-  },
-
-  // ── Slide 16b: Training Loop - operasi tiap iterasi (image) ──
+  // -- 15: Sigmoid vs softmax image --
   {
     layout: "image",
-    title: "Training Loop: Lima Langkah yang Berulang",
-    imageUrl: "/figures/training_loop_cycle.png",
-    caption: "Gambar ini menunjukkan lima langkah training yang berjalan berulang untuk setiap batch. Node zero_grad() diberi penekanan merah karena paling sering dilupakan dan menyebabkan bug yang sulit didiagnosis.",
-    footnote: "Jika zero_grad() tidak dipanggil sebelum backward(), gradient dari batch sebelumnya akan menumpuk di atas gradient yang baru dihitung. Akibatnya, parameter model diperbarui berdasarkan campuran dua batch yang berbeda, dan hasilnya tidak dapat diprediksi.",
+    title: "Sigmoid vs Softmax",
+    imageUrl: "/figures/fig01i_sigmoid_softmax.png",
+    caption: "Gambar ini membandingkan sigmoid yang membuat tiap output independen dengan softmax yang menghasilkan distribusi probabilitas yang totalnya selalu 1.",
+    footnote: "Sigmoid dipakai untuk multilabel karena tiap kelas independen, sementara softmax dipakai untuk multiclass karena kelasnya saling eksklusif.",
   },
 
-  // ── Slide 17: Training loop 8 baris ──
+  // -- 16: Tabel 5 konfigurasi --
+  {
+    layout: "table",
+    title: "5 Konfigurasi Head dan Loss",
+    body: "Tabel berikut adalah rujukan cepat. Cetak dan tempel di samping monitor saat Lab:",
+    tableHead: ["Tugas", "Output head", "Loss", "Bentuk target"],
+    tableRows: [
+      ["Regression scalar", "Linear(D, 1)", "MSE atau MAE", "float"],
+      ["Binary", "Linear(D, 1)", "BCEWithLogitsLoss", "float 0/1"],
+      ["Binary (alt)", "Linear(D, 2)", "CrossEntropyLoss", "int64 0/1"],
+      ["Multiclass (N)", "Linear(D, N)", "CrossEntropyLoss", "int64 0..N-1"],
+      ["Multilabel", "Linear(D, N)", "BCEWithLogitsLoss", "float vektor 0/1"],
+    ],
+    footnote: "Tabel ini juga ada di Lampiran dan menjadi rujukan utama untuk Lab langkah 2-4.",
+  },
+
+  // -- 17: Bug umum image --
+  {
+    layout: "image",
+    title: "Pasangan Benar vs Bug Umum",
+    imageUrl: "/figures/loss_head_matching.png",
+    caption: "Gambar ini membandingkan tiga pasangan head dan loss yang benar dengan tiga bug yang paling sering terjadi. Sebagian bug tidak menghasilkan error, tapi membuat model tidak belajar hal yang benar.",
+    footnote: "Bug paling berbahaya adalah Linear(H, K) dengan MSELoss: tidak ada error, loss bahkan bisa turun, tapi model tidak belajar distribusi kelas yang benar.",
+  },
+
+  // -- 18: Materi 3 section --
+  {
+    layout: "section",
+    title: "3. Training Loop PyTorch",
+    body: "MLP belajar lewat backpropagation: setelah loss dihitung, gradient terhadap tiap parameter dihitung mundur lewat chain rule, lalu optimizer memperbarui parameter ke arah penurunan loss.",
+    footnote: "Chain rule tidak perlu diturunkan manual minggu ini. Derivasi 7-langkah ada di Lampiran A.13 untuk dibaca setelah ada beberapa run sukses.",
+  },
+
+  // -- 19: Training loop image (bottom-up) --
+  {
+    layout: "image",
+    title: "Lima Langkah yang Berulang",
+    imageUrl: "/figures/fig03c_training_cycle.png",
+    caption: "Gambar ini menunjukkan lima langkah dalam satu iterasi training: forward, hitung loss, zero_grad, backward, lalu step. Urutan ini tidak bisa ditukar.",
+    footnote: "zero_grad() harus dipanggil sebelum backward(). Kalau dilewati, gradient batch sebelumnya menumpuk dan parameter diperbarui dari campuran dua batch.",
+  },
+
+  // -- 20: Training loop kode --
   {
     layout: "code",
     title: "Training Loop: 5 Langkah Inti",
-    body: "Urutan ini tidak bisa ditukar. zero_grad() harus sebelum backward().",
-    code: `model = SimpleMLP(input_dim=10, hidden=[64, 32], num_classes=3)
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-criterion = nn.CrossEntropyLoss()
+    body: "Dari gambar tersebut, lima langkah ini berulang sepanjang modul, dari W1 sampai capstone:",
+    code: `criterion = nn.CrossEntropyLoss()                # logit mentah, target int
+optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4)
 
-for batch_x, batch_y in dataloader:
-    logits = model(batch_x)           # 1. Forward pass
-    loss = criterion(logits, batch_y) # 2. Hitung loss
-    optimizer.zero_grad()              # 3. Reset gradient lama
-    loss.backward()                    # 4. Hitung gradient baru
-    optimizer.step()                   # 5. Update semua parameter`,
+for epoch in range(10):
+    for x, y in train_loader:        # x: (B, 10), y: (B,) int64
+        logits = model(x)            # 1. forward pass
+        loss = criterion(logits, y)  # 2. hitung loss
+        optimizer.zero_grad()        # 3. reset gradient lama
+        loss.backward()              # 4. chain rule mundur
+        optimizer.step()             # 5. geser parameter`,
     lang: "python",
-    footnote: "Jika zero_grad() dilewati, gradient terakumulasi dari batch sebelumnya - hasilnya tidak terduga.",
+    footnote: "Yang berubah antar minggu hanya definisi model, pilihan criterion, dan cara train_loader dibangun.",
   },
 
-  // ── Slide 17b: Gambar siklus training ──
-  {
-    layout: "image",
-    title: "Siklus Training PyTorch",
-    imageUrl: "/figures/fig03c_training_cycle.png",
-    caption: "Gambar ini menunjukkan lima langkah dalam satu iterasi: forward → loss → zero_grad → backward → step. Urutan langkah ini tidak bisa ditukar.",
-    footnote: "zero_grad() harus dipanggil sebelum backward() - selalu. Jika dilewati, gradient terakumulasi dari batch sebelumnya.",
-  },
-
-  // ── Slide 17c: Cue Live Coding ──
-  {
-    layout: "cta",
-    title: "Sesi Live Coding (Mulai 20 Menit)",
-    body: "Tutup slide ini. Buka Google Colab kosong. Kita akan menulis 15 baris kode PyTorch dari nol bersama-sama sebelum masuk ke Lab utama. Mahasiswa ikut mengetik.",
-    ctaText: "Buka Google Colab",
-    ctaTarget: "https://colab.new/",
-    footnote: "Ini adalah sesi interaktif. Jangan lanjut ke slide berikutnya sampai loop 5 baris sudah dicoba mahasiswa.",
-  },
-
-  // ── Slide 18: Pipeline praktis ──
+  // -- 21: Pipeline data --
   {
     layout: "bullets",
-    title: "Pipeline Praktis: Batch, DataLoader, Split",
-    body: "Berikut adalah praktik penting dalam pipeline training:",
+    title: "Pipeline Data di Sekitar Loop",
+    body: "Di sekitar training loop ada pipeline data yang menyiapkan batch dan menjaga evaluasi tetap bersih:",
     bullets: [
-      "**DataLoader** mengambil data dalam batch acak tiap epoch, sehingga kamu tidak perlu melakukan shuffle manual.",
-      "**Train/val/test split:** train dipakai untuk update parameter, val dipakai untuk early stopping, dan test dipakai untuk laporan akhir yang hanya dibuka sekali.",
-      "**Aturan paling penting:** statistik normalisasi (mean, std) dihitung dari **train saja**, lalu diterapkan ke val dan test dengan nilai yang sama.",
-      "Melanggar aturan ini berarti melakukan data leakage - topik utama W6 yang akan menunjukkan demo delta dramatik (0.92 → 0.63).",
+      "Sampel (F,) dikelompokkan jadi batch (B, F) untuk efisiensi, dan loss dihitung sebagai rata-rata atas seluruh batch.",
+      "Data dibagi tiga: train melatih parameter, val untuk early stopping dan tuning, dan test disentuh sekali di akhir untuk angka final.",
+      "Statistik preprocessing (mean, std) dihitung dari train saja, lalu diterapkan ke val dan test dengan nilai yang sama.",
     ],
-    footnote: "Test set yang pernah dilihat selama development tidak bisa lagi disebut test set - itu sudah menjadi val set.",
+    footnote: "Melanggar aturan statistik train-saja disebut preprocessing leakage, dan dibahas mendalam di W6 dengan demo akurasi yang turun dari 0.92 ke 0.63.",
   },
 
-  // ── Slide 18b: Gambar train/val/test ──
+  // -- 22: Materi 4 section --
   {
-    layout: "image",
-    title: "Train / Val / Test: Tidak Boleh Bocor",
-    imageUrl: "/figures/fig06c_train_val_leakage.png",
-    caption: "Gambar ini mengingatkan bahwa statistik normalisasi (mean, std) dihitung dari train saja, lalu diterapkan ke val dan test. Melanggar prinsip ini berarti melakukan data leakage.",
-    footnote: "Demo di W6 menunjukkan akurasi yang turun dari 0.92 ke 0.63 saat split diperbaiki.",
+    layout: "section",
+    title: "4. Observasi Sebelum Kesimpulan",
+    body: "Lab menjalankan tiga tugas pada satu dataset tabular sintetis: input identik, sedangkan output head dan loss berubah. Untuk tiap run, catat train loss, val loss, dan satu metrik yang sesuai.",
+    footnote: "MAE untuk regression, accuracy untuk binary, dan accuracy plus macro-F1 untuk multiclass.",
   },
 
-  // ── Slide 19: Pitfalls ──
+  // -- 23: Observasi vs kesimpulan --
+  {
+    layout: "split",
+    title: "Memisahkan Observasi dari Kesimpulan",
+    body: "Kebiasaan inti W1 adalah menulis observasi murni dulu, baru tafsiran. Pemisahan ini menahan overclaiming sepanjang semester:",
+    left: {
+      title: "Observasi",
+      body: "Observasi adalah angka dan bentuk kurva yang terlihat, ditulis tanpa tafsiran.\n\nContoh: val accuracy berhenti di sekitar 0.33 untuk tiga kelas, dan loss train turun sedikit lalu datar.",
+    },
+    right: {
+      title: "Kesimpulan",
+      body: "Kesimpulan adalah interpretasi dan hipotesis yang ditarik dari observasi.\n\nSebelum menyimpulkan model berhasil, cek apakah accuracy hanya mendekati 1/K, apakah loss benar-benar turun, dan apakah pasangan loss dan head sudah benar.",
+    },
+    footnote: "Kebiasaan ini menjadi dasar pelaporan hasil ke dosen yang dilatih penuh mulai W4.",
+  },
+
+  // -- 24: Lab --
   {
     layout: "bullets",
-    title: "4 Pitfalls Paling Sering di W1",
-    body: "Ada empat kesalahan yang paling sering terjadi di W1. Hindari pitfalls berikut:",
+    title: "Lab W1",
+    body: "Lab mengikuti urutan empat materi di atas, dengan estimasi waktu 3-4 jam:",
     bullets: [
-      "**Ketidakcocokan loss dan head:** Memakai MSE untuk multikelas, atau Softmax+CrossEntropy, menyebabkan loss masih turun tapi hasilnya tidak bermakna.",
-      "**Softmax sebelum CrossEntropyLoss:** CrossEntropyLoss sudah memasukkan log-softmax di dalamnya, sehingga menambahkan softmax lagi membuat distribusi menjadi salah.",
-      "**Accuracy stuck di 1/K:** Model tidak belajar lebih baik dari tebakan acak. Cek kembali pasangan loss dan head, learning rate, dan kualitas data.",
-      "**Kesimpulan sebelum observasi:** Angka akurasi yang bagus membuat kamu langsung mengklaim model berhasil, padahal confusion matrix belum dilihat.",
+      "Jalankan smoke test (--dry-run), lalu tiga run terpisah untuk regression, binary, dan multiclass dengan pasangan head dan loss yang benar.",
+      "Jalankan satu run dengan pasangan loss dan head yang sengaja salah, amati kegagalannya, lalu tulis 2 kalimat tentang apa yang gagal.",
+      "Tulis satu paragraf observasi murni dan satu paragraf interpretasi, terpisah, di observasi_vs_interpretasi.md.",
     ],
-    footnote: "Lab W1 langkah 5 meminta kamu menjalankan ketidakcocokan loss dan head secara sengaja dan mendokumentasikan apa yang terjadi.",
+    footnote: "Lab 1b (MLP numpy from-scratch) bersifat opsional dan menerapkan backprop 7-langkah secara konkret pada MNIST.",
   },
 
-  // ── Slide 20: CTA ──
+  // -- 25: Refleksi --
+  {
+    layout: "bullets",
+    title: "Refleksi",
+    body: "Tiga pertanyaan untuk dibawa ke portofolio mandiri sebagai entri pra-W4:",
+    bullets: [
+      "Binary bisa dijalankan dengan Linear(D, 1) + BCE atau Linear(D, 2) + CrossEntropy. Apa konsekuensi praktis tiap pilihan, dan mana yang Anda pakai?",
+      "Sebutkan satu pengamatan dari Lab yang tergoda Anda interpretasikan terlalu cepat, dan pertanyaan apa yang seharusnya diajukan dulu.",
+      "Tulis dua baris peta besar untuk regression dan multiclass Lab: apa bentuk input, bentuk output, dan keluarga modelnya?",
+    ],
+  },
+
+  // -- 26: Lanjut ke W2 --
+  {
+    layout: "bullets",
+    title: "Lanjut ke W2",
+    body: "W2 masuk ke domain citra, dengan fondasi W1 tetap berlaku:",
+    bullets: [
+      "Tensor citra (C, H, W) masuk sebagai input, dan CNN bekerja sebagai pendeteksi pola lokal.",
+      "Smoke test tiga level menjadi kebiasaan debugging utama minggu depan.",
+      "Pola body-head, pencocokan head dan loss, training loop lima langkah, dan kebiasaan observasi sebelum kesimpulan dari W1 dipakai di setiap minggu berikutnya.",
+    ],
+  },
+
+  // -- 27: CTA --
   {
     layout: "cta",
     title: "Mulai Lab W1",
-    body: "Slide ini hanya peta dari keseluruhan W1. Contoh angka, worked example, dan pitfall lengkap tersedia di modul penuh.\n\nWaktu yang dibutuhkan untuk membaca modul adalah sekitar 45 menit, sementara pengerjaan lab membutuhkan 3 sampai 4 jam.",
-    ctaText: "Baca Modul W1 Penuh",
-    ctaTarget: "01",
+    body: "Semua konsep deck ini ada di lab notebook: tiga tugas pada satu dataset, eksperimen pasangan loss dan head yang sengaja salah, dan tulisan observasi versus interpretasi.\n\nEstimasi waktu 3-4 jam termasuk refleksi.",
+    ctaText: "Buka Lab W1 di Colab",
+    ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w1_tabular_heads.ipynb",
   },
 ];

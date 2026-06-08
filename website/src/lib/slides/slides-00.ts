@@ -5,7 +5,7 @@ export const slides00: SlideSection[] = [
   {
     layout: "title",
     title: "Bootcamp ML/DL: Asisten Riset Dosen",
-    subtitle: "11 minggu bootcamp + 4 minggu capstone. Berpikir seperti peneliti, bukan sekadar menjalankan kode.",
+    subtitle: "11 minggu bootcamp + 4 minggu capstone. Tujuannya melatih cara berpikir seperti peneliti, lengkap dengan kebiasaan kerja di balik kode.",
     body: "Orientasi, target hasil, kontrak belajar.",
     footnote: "Bab 00 - Pendahuluan",
   },
@@ -13,9 +13,9 @@ export const slides00: SlideSection[] = [
   // ── Slide 2: Skenario email PI ──
   {
     layout: "section",
-    title: "Bayangkan: Kamu Baru Masuk Lab",
-    body: "Bayangkan hari pertama kamu sebagai asisten riset: dosen mengirim email pendek tanpa template maupun petunjuk langkah demi langkah. Email itu hanya berisi sebuah permintaan riset, dan kamu harus memutuskan langkah berikutnya sendiri.",
-    footnote: "Modul ini menyiapkan kamu untuk situasi persis seperti ini.",
+    title: "Situasi Awal Seorang Asisten Riset",
+    body: "Situasi paling umum yang dihadapi asisten riset adalah email pendek dari dosen tanpa template maupun petunjuk langkah demi langkah. Email itu hanya berisi satu permintaan riset, dan kamu harus memutuskan langkah berikutnya sendiri.",
+    footnote: "Modul ini menyiapkan kamu untuk situasi seperti ini.",
   },
 
   // ── Slide 3: Isi email ──
@@ -30,7 +30,7 @@ export const slides00: SlideSection[] = [
       "\"Kirim laporan singkat dalam **3 hari**\"",
       "Email berakhir di sini, dan tidak ada penjelasan lebih lanjut.",
     ],
-    footnote: "Email seperti ini normal di lingkungan riset. Bukan tanda dosen tidak peduli - justru tanda kepercayaan.",
+    footnote: "Email seperti ini normal di lingkungan riset dan menandakan dosen mempercayai kamu untuk menentukan detailnya sendiri.",
   },
 
   // ── Slide 4: Reaksi wajar ──
@@ -82,7 +82,7 @@ export const slides00: SlideSection[] = [
       "**Menyetujui Kontrak Belajar** dengan tiga komitmen: ritme mingguan, akuntabilitas pemikiran, dan breadth empat dari lima keluarga arsitektur.",
       "**Menulis refleksi awal** yang akan dirujuk kembali di Minggu 14 untuk mengukur perubahan.",
     ],
-    footnote: "Tujuannya bukan sekadar membaca - bab ini memberi kamu peta yang siap dipakai sebelum masuk W1.",
+    footnote: "Bab ini memberi kamu peta orientasi yang siap dipakai sebelum masuk W1.",
   },
 
   // ── Slide 5d: Setelah Bab Ini Kamu Paham ──
@@ -111,7 +111,7 @@ export const slides00: SlideSection[] = [
   {
     layout: "section",
     title: "Target Akhir: 3 Pilar Kompetensi",
-    body: "Bootcamp ini bukan tentang menguasai framework sebanyak mungkin. Tujuannya lebih sempit dan lebih dalam: kita membangun tiga pilar yang membuat seorang asisten riset bisa bekerja secara mandiri.",
+    body: "Bootcamp ini fokus pada tiga pilar yang membuat seorang asisten riset bisa bekerja secara mandiri, bukan pada jumlah framework yang dikuasai.",
     footnote: "Semua lab, breadth check, dan capstone diarahkan ke ketiga pilar ini.",
   },
 
@@ -130,7 +130,7 @@ export const slides00: SlideSection[] = [
     title: "Pilar 1: Ketajaman Teknis & Rigor Eksperimen",
     left: {
       title: "Artinya",
-      body: "Pilar ini melatih ketajaman teknis: kamu akan membaca shape tensor terlebih dahulu sebelum membaca kode, memilih arsitektur dari bentuk data (bukan dari nama paper yang sedang tren), dan mendiagnosis training dari kurva loss (bukan dari feeling).",
+      body: "Pilar ini melatih ketajaman teknis: kamu membaca shape tensor sebelum membaca kode, memilih arsitektur dari bentuk data (bukan dari nama paper yang sedang tren), dan mendiagnosis training dari kurva loss (bukan dari perasaan).",
     },
     right: {
       title: "Wujud Konkretnya",
@@ -149,7 +149,7 @@ export const slides00: SlideSection[] = [
     title: "Pilar 2: Diagnosis & Kemandirian",
     left: {
       title: "Artinya",
-      body: "Pilar ini melatih kemandirian diagnosis: kamu bisa membaca training signal dan tahu apa artinya, bisa mengaudit data untuk leakage sebelum melatih model, dan bisa mengadopsi repository baru tanpa bimbingan.",
+      body: "Pilar ini melatih kemandirian diagnosis: kamu bisa membaca log dan kurva selama training dan tahu apa artinya, mengaudit data untuk leakage sebelum melatih model, dan mengadopsi repositori baru tanpa bimbingan.",
     },
     right: {
       title: "Wujud Konkretnya",
@@ -280,7 +280,7 @@ export const slides00: SlideSection[] = [
     gridItems: [
       {
         title: "Curiosity",
-        body: "Sikap Curiosity berarti kamu bertanya 'mengapa' sebelum menerima hasil, tidak puas dengan 'pokoknya jalan', dan justru mencurigai angka yang terlalu baik di hari pertama.",
+        body: "Sikap Curiosity berarti kamu bertanya 'mengapa' sebelum menerima hasil, tidak puas dengan 'pokoknya jalan', dan mencurigai angka yang terlalu baik di hari pertama.",
       },
       {
         title: "Rigor",
@@ -288,7 +288,7 @@ export const slides00: SlideSection[] = [
       },
       {
         title: "Skepticism",
-        body: "Sikap Skepticism berarti kamu tidak langsung percaya pada angka sendiri. Akurasi 99% di hari pertama adalah lampu merah, dan kamu selalu mengecek apakah ada data leakage atau kesalahan evaluasi.",
+        body: "Sikap Skepticism berarti kamu tidak langsung percaya pada angka sendiri. Akurasi 99% di hari pertama patut dicurigai, dan kamu selalu mengecek apakah ada data leakage atau kesalahan evaluasi.",
       },
       {
         title: "Ownership",

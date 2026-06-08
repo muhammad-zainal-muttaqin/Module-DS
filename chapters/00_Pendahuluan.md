@@ -27,8 +27,6 @@
 
 # 00 · Pendahuluan
 
-> *Riset yang baik berawal dari keberanian bertanya. Modul ini mengajak Anda melihat setiap instruksi bukan sebagai jawaban akhir, melainkan sebagai pintu masuk untuk menyelidiki lebih jauh.*
-
 > [!TIP]
 > Sebelum membuka W1, luangkan 20 menit untuk membaca [Prasyarat Modul](00a_Prasyarat.md): notasi shape tensor, konvensi huruf, kalkulus mini, dan primer PyTorch. Jika sudah terbiasa dengan PyTorch dan NumPy, cukup baca bagian glosarium singkat di sana lalu lanjut ke §1 di bawah.
 
@@ -36,19 +34,19 @@
 
 ## 1. Satu Email dari Dosen Pembimbing
 
-Bayangkan Anda baru bergabung di laboratorium riset sebagai asisten. Pada hari ketiga, Anda menerima pesan singkat:
+Sebagai asisten riset, salah satu situasi paling umum yang Anda hadapi adalah instruksi singkat dari dosen pembimbing, misalnya:
 
 > "Tolong uji focal loss dan freeze blok awal pada backbone. Bandingkan dengan baseline yang setara, lalu kirim ringkasan hasil hari Kamis."
 
 Email dua kalimat ini terdengar sederhana, tetapi setiap fragmen menyimpan keputusan yang tidak disebut: focal loss versi apa, nilai `gamma` berapa, blok awal mana yang di-freeze, baseline seperti apa yang setara, metrik mana yang menentukan, bagaimana memastikan dua run tidak berbeda hanya karena seed acak, dan kapan angka layak dilaporkan.
 
-Semua keputusan itu ada di tangan Anda. Modul ini dirancang untuk melatih Anda membuat keputusan-keputusan tersebut secara sistematis, sehingga email semacam itu menjadi titik awal eksperimen yang terstruktur, bukan sumber kepanikan.
+Semua keputusan itu ada di tangan Anda. Modul ini melatih Anda mengambil keputusan-keputusan tersebut secara sistematis, sehingga email semacam itu menjadi titik awal eksperimen yang terstruktur.
 
 ---
 
 ## 2. Target Hasil
 
-Di akhir bootcamp ini, Anda diharapkan mampu menguasai tiga pilar utama riset: mengeksekusi eksperimen dengan presisi tinggi sesuai standar industri, mendiagnosis masalah secara mandiri, sekaligus merumuskan pertanyaan riset dari sebuah permasalahan umum.
+Di akhir bootcamp ini, Anda diharapkan menguasai tiga pilar utama riset: menjalankan eksperimen dengan presisi sesuai standar industri, mendiagnosis masalah secara mandiri, dan merumuskan pertanyaan riset dari sebuah permasalahan umum.
 
 ### 1. Ketajaman Teknis & Rigor Eksperimen
 
@@ -56,7 +54,7 @@ Peserta mampu memetakan tipe data ke arsitektur model yang tepat, merancang eksp
 
 ### 2. Diagnosis & Kemandirian
 
-Anda dibekali kemampuan untuk membaca sinyal selama proses *training*, melakukan audit data guna mendeteksi *leakage*, serta mampu mengadopsi dan mempelajari repositori baru secara mandiri.
+Anda dibekali kemampuan untuk membaca log dan kurva selama *training*, mengaudit data untuk mendeteksi *leakage*, serta mengadopsi dan mempelajari repositori baru secara mandiri.
 
 ### 3. Perancangan Riset (*Research Framing*)
 
@@ -72,11 +70,11 @@ Modul ini adalah **bootcamp 11 minggu + capstone 4 minggu** yang disusun sebagai
 
 ![Peta Dependensi Modul: hubungan antar bab dan jalur pembelajaran](../figures/fig00a_module_map.svg)
 
-**Big Map** adalah kerangka berpikir yang dipakai dari W1 sampai W11: setiap minggu menjawab pertanyaan yang sama - *tensor shape apa yang masuk, shape apa yang keluar, dan keluarga model apa yang cocok?* Peta ini bertambah lengkap setiap minggu sehingga deep learning terlihat sebagai satu lanskap, bukan banyak teknik terputus. Tabel rangkuman Big Map ada di [Lampiran D.3](14_Lampiran.md#d3-big-map).
+**Big Map** adalah kerangka berpikir yang dipakai dari W1 sampai W11: setiap minggu menjawab pertanyaan yang sama - *tensor shape apa yang masuk, shape apa yang keluar, dan keluarga model apa yang cocok?* Peta ini bertambah lengkap setiap minggu sehingga deep learning terlihat sebagai satu lanskap yang terhubung. Tabel rangkuman Big Map ada di [Lampiran D.3](14_Lampiran.md#d3-big-map).
 
 ![Big Map: framework Input → Middle → Output](../figures/fig00_big_map.svg)
 
-Dua alur lain berjalan senyap di balik setiap minggu: **Alur Praktik Riset** memperkenalkan satu kebiasaan riset baru per minggu yang tetap dipakai setelahnya (tabel kebiasaan per minggu di [Lampiran D.4](14_Lampiran.md#d4-kebiasaan-riset)); **Representation Choice** mencatat pilihan representasi yang berubah dari minggu ke minggu dan sering menentukan kualitas eksperimen.
+Dua alur lain berjalan paralel di setiap minggu: **Alur Praktik Riset** memperkenalkan satu kebiasaan riset baru per minggu yang tetap dipakai setelahnya (tabel kebiasaan per minggu di [Lampiran D.4](14_Lampiran.md#d4-kebiasaan-riset)); **Representation Choice** mencatat pilihan representasi yang berubah dari minggu ke minggu dan sering menentukan kualitas eksperimen.
 
 Lab inti memakai basis kode dan dataset yang sama lalu bertambah kompleks dari W1 sampai W10. Lab breadth (MLP numpy, Transformer-mini, Autoencoder) memenuhi Kontrak Belajar poin breadth. Setiap minggu bergantung pada kebiasaan minggu sebelumnya - hindari melompat. Detail lab, panduan Komponen Mandiri, dan peta prasyarat antar minggu ada di [Lampiran D.6-D.7](14_Lampiran.md#d6-indeks-lab).
 
@@ -103,9 +101,9 @@ Kompetensi teknis cepat tumpul kalau tidak dibiasakan bersama sikap riset yang t
 
 **Curiosity** adalah rasa ingin tahu yang tak kenal lelah. Ketika angka akurasi meloncat dari 78% ke 80% setelah Anda mengganti loss, sikap ini yang bertanya: "apakah kenaikan ini konsisten jika aku jalankan tiga kali dengan seed berbeda, atau sekadar kebetulan?" Curiosity menuntun Anda ke eksperimen tambahan sebelum menulis laporan.
 
-**Rigor** adalah disiplin dalam prosedur - bukan sekadar "rapi", tetapi taat pada aturan seperti: satu variabel berubah pada satu waktu, seluruh konfigurasi disimpan bersama checkpoint, setiap angka di laporan dapat dilacak kembali ke run mana. Rigor melelahkan di awal dan menyelamatkan Anda berjam-jam di akhir.
+**Rigor** adalah disiplin dalam prosedur: satu variabel berubah pada satu waktu, seluruh konfigurasi disimpan bersama checkpoint, dan setiap angka di laporan dapat dilacak kembali ke run mana. Rigor melelahkan di awal dan menghemat berjam-jam waktu Anda di akhir.
 
-**Skepticism** adalah kesediaan untuk tidak mempercayai angka sendiri. Akurasi 99% pada hari pertama bukan kabar baik, itu lampu merah. Hampir selalu ada *leakage*, label yang bocor, atau data test yang tercampur dengan training. Skeptisisme memaksa Anda memeriksa sebelum berbangga.
+**Skepticism** adalah kesediaan untuk tidak mempercayai angka sendiri. Akurasi 99% pada hari pertama patut dicurigai: hampir selalu ada *leakage*, label yang bocor, atau data test yang tercampur dengan training. Skeptisisme membuat Anda memeriksa dulu sebelum menyimpulkan hasil bagus.
 
 **Ownership** adalah rasa memiliki yang melampaui alat. LLM mungkin menulis separuh kode Anda; repositori orang lain mungkin menyediakan arsitektur; RunPod mungkin menjalankan training. Tetapi saat dosen bertanya mengapa pilihan tertentu diambil, jawabannya tetap tanggung jawab Anda. Ownership berarti Anda bisa menjelaskan setiap keputusan yang nama Anda tercantum padanya.
 
@@ -147,7 +145,7 @@ Sebelum melangkah ke W1, luangkan waktu sepuluh menit untuk menulis jawaban sing
 
 ## 8. Bacaan Lanjutan
 
-- **Andrej Karpathy - *A Recipe for Training Neural Networks*** (blog, 2019). Tulisan ini adalah esai pendek tentang bagaimana seorang peneliti berpengalaman memulai proyek, dan sangat relevan sebelum W2 karena menanamkan ritme "verify everything before you scale".
+- **Andrej Karpathy - *A Recipe for Training Neural Networks*** (blog, 2019). Tulisan ini adalah esai pendek tentang bagaimana seorang peneliti berpengalaman memulai proyek, dan sangat relevan sebelum W2 karena menanamkan kebiasaan "verify everything before you scale".
 - **Goodfellow, Bengio, Courville - *Deep Learning*** (Bab 1 & 5). Buku ini memuat fondasi konseptual yang sengaja tidak diulang di modul ini; baca bab 1 untuk konteks sejarah dan bab 5 untuk kerangka pikir machine learning.
 - **The Turing Way - *A Handbook for Reproducible Research*** (bagian *Reproducibility*). Buku ini cocok dibaca ringan pada minggu 1-2 karena penuh analogi yang akan kembali relevan di W4.
 
@@ -155,4 +153,4 @@ Sebelum melangkah ke W1, luangkan waktu sepuluh menit untuk menulis jawaban sing
 
 ## Lanjut ke W1
 
-Setelah menyelesaikan refleksi, buka [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md). Bab tersebut memperkenalkan MLP sebagai pengubah bentuk tensor, pencocokan output head dan loss, dan ritme observasi sebelum interpretasi - bukan sebagai daftar definisi, melainkan sebagai keputusan desain yang dimulai dari pertanyaan: data seperti apa yang sedang kita olah, dan struktur apa yang paling cocok untuk data itu?
+Setelah menyelesaikan refleksi, buka [W1 - Tabular & Output Heads](01_W1_Tabular_Output_Heads.md). Bab tersebut memperkenalkan cara MLP mengubah bentuk tensor, cara mencocokkan output head dengan loss, dan kebiasaan mengamati hasil sebelum menafsirkannya. Ketiganya dibahas sebagai keputusan desain yang dimulai dari satu pertanyaan: data seperti apa yang sedang kita olah, dan struktur apa yang paling cocok untuk data itu?
