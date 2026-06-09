@@ -481,7 +481,7 @@ export const SLIDE_DECKS: Record<string, SlideDeckData> = {
 - Deck **kelas mingguan utama** untuk diajarkan langsung di kelas targetkan **18-22 slide utama**. Boleh tambah lampiran opsional setelah alur utama jika ada detail referensi, tetapi jangan biarkan lampiran memutus alur ajar.
 - Deck **standalone panjang** 35-45 slide hanya dipakai jika user eksplisit meminta presentasi penuh tanpa modul atau materi harus menggantikan bacaan. Jangan memakai target 35-45 otomatis untuk semua deck mingguan.
 - Slide 1: `layout: "title"` + footnote chapter.
-- Slide terakhir: `layout: "cta"` + `ctaTarget`.
+- Slide penutup minggu: `layout: "cta"` + `ctaTarget`. CTA adalah penutup materi minggu ini, dan boleh diikuti oleh slide transisi (misalnya "Lanjut ke W5" atau tugas jembatan ke minggu berikutnya). CTA tidak wajib menjadi slide terakhir secara absolut.
 - **Max 3 bullet per slide.** Lebih dari 3 = pecah jadi dua slide terpisah.
 - **Bold lead-in** di bullets untuk scanning cepat.
 - `layout: "section"` hanya untuk **pembatas babak besar**, bukan tiap topik. Targetkan 3-5 pembatas untuk deck standalone, 0-1 untuk trailer. Memberi pembatas di tiap sub-topik membuat hampir sepertiga deck terasa kosong saat diklik satu per satu - hindari. Tiap pembatas wajib punya `body` yang berdiri sendiri dan **tidak boleh** mendeskripsikan konten yang baru muncul di slide berikutnya (mis. jangan janjikan kurva yang gambarnya ada di slide setelahnya). Jika sebuah pembatas hanya berisi satu kalimat situasi, lebur kalimat itu menjadi pembuka slide isi pertama topik tersebut alih-alih membuat slide pembatas terpisah.

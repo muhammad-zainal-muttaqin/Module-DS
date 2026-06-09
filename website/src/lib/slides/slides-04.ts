@@ -325,7 +325,80 @@ optim:
     footnote: "Checklist: protokol ditulis lebih dulu, config dan checkpoint tersimpan bersama, git hash tercatat, resume melanjutkan epoch, dan mean ± std diringkas kalau ada beberapa seed.",
   },
 
-  // -- 23: Refleksi --
+  // -- 23: CTA --
+  {
+    layout: "cta",
+    title: "Mulai Lab W4",
+    body: "Semua konsep deck ini ada di lab notebook: protocol dan matriks, penguncian seed, dry-run reproducibility, checkpoint bermetadata, dirty flag, dan resume state.\n\nEstimasi waktu 3-4 jam termasuk inspeksi checkpoint dan refleksi.",
+    ctaText: "Buka Lab W4 di Colab",
+    ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb",
+  },
+
+  // -- 24: Tugas jembatan W4 ke W5 --
+  {
+    layout: "bullets",
+    title: "Tugas jembatan: ablation penuh untuk laporan awal W5",
+    body: "Lab W4 melatih infrastrukturnya di dataset toy. Tugas jembatan ini menjalankan satu ablation penuh di baseline CIFAR-10 dengan protokol yang Anda tulis sendiri, lalu dilaporkan di awal W5:",
+    bullets: [
+      "**Jalankan matriks eksperimen** dari protocol.md: baseline ditambah satu varian, masing-masing tiga seed, dengan tepat satu variabel berubah.",
+      "**Rangkum hasilnya** sebagai tabel mean ± std, lalu simpulkan terhadap hipotesis termasuk saat hipotesisnya meleset.",
+      "**Pastikan tiap run terlacak**: config, git hash, dan checkpoint tersimpan sehingga hasilnya bisa dijalankan ulang orang lain.",
+    ],
+    footnote: "Siapkan satu slide berisi tabel hasil dan satu paragraf interpretasi; slide ini dipresentasikan ke dosen di awal W5.",
+  },
+
+  // -- 25: Contoh protocol.md tugas jembatan --
+  {
+    layout: "code",
+    title: "Contoh isi protocol.md tugas jembatan",
+    body: "Langkah pertama brief: tulis protokol sebelum kode. Protokol ini mengunci tepat satu variabel berubah, baseline yang setara, dua hipotesis yang bisa salah, dan matriks enam run. Tanggal file harus lebih awal dari commit hasil sebagai bukti rencana ditulis duluan.",
+    lang: "markdown",
+    code: `# protocol.md - Label Smoothing pada CIFAR-10 (bridge W4->W5)
+
+Variabel uji : CrossEntropy -> CrossEntropy(label_smoothing=0.1)
+Baseline     : SimpleCNN, CrossEntropy biasa, semua layer trainable
+Konstan      : AdamW lr=3e-4, batch 128, 20 epoch
+Hipotesis    : H1 - F1 kelas minor naik >= 3 poin
+               H2 - akurasi total turun <= 1 poin (pengaman)
+Metrik       : utama F1 kelas minor; pengaman akurasi total + train/val gap
+
+Matriks run (tepat 1 variabel berubah, 3 seed per kondisi):
+  baseline      seed {42, 43, 44}
+  labelsmooth   seed {42, 43, 44}`,
+    footnote: "Hipotesis ditulis sebagai pernyataan yang bisa salah, supaya hasil yang meleset pun tetap terbaca sebagai temuan, bukan kegagalan.",
+  },
+
+  // -- 26: Contoh luaran tabel hasil (hipotesis meleset) --
+  {
+    layout: "table",
+    title: "Contoh luaran: tabel hasil saat hipotesis meleset",
+    body: "Langkah kedua: enam run dari protokol di atas diringkas jadi mean ± std. Temuan: label smoothing belum menjawab masalah kelas minor, karena F1 minor hanya naik 1.7 poin sementara target H1 minimal 3 poin.",
+    tableHead: ["Kondisi", "F1 minor (mean ± std)", "Akurasi total", "Train/val gap"],
+    tableRows: [
+      ["Baseline (CE)", "0.612 ± 0.018", "0.781 ± 0.007", "0.09"],
+      ["Label smoothing", "0.629 ± 0.021", "0.776 ± 0.010", "0.07"],
+    ],
+    footnote: "Interpretasi jujur: kenaikan F1 1.7 poin lebih kecil dari 2x std gabungan, jadi belum bisa dibedakan dari noise. H2 terpenuhi (akurasi turun 0.5 poin, train/val gap malah turun ke 0.07), tetapi H1 meleset; langkah berikutnya mengarah ke focal loss atau resampling, bukan menambah smoothing.",
+  },
+
+  // -- 27: Contoh tiap run terlacak --
+  {
+    layout: "table",
+    title: "Contoh: tiap run terlacak dan bisa diulang",
+    body: "Langkah ketiga: tiap run punya satu baris jejak. Orang lain cukup checkout git hash yang sama lalu menjalankan config yang sama untuk mendapat angka yang sama. Rata-rata kolom F1 minor di sini persis menghasilkan tabel mean ± std di slide sebelumnya.",
+    tableHead: ["Run (folder)", "Git hash", "Checkpoint", "Seed", "F1 minor"],
+    tableRows: [
+      ["baseline_s42", "a3f9c1d", "ckpt_best.pt", "42", "0.594"],
+      ["baseline_s43", "a3f9c1d", "ckpt_best.pt", "43", "0.612"],
+      ["baseline_s44", "a3f9c1d", "ckpt_best.pt", "44", "0.630"],
+      ["labelsmooth_s42", "a3f9c1d", "ckpt_best.pt", "42", "0.608"],
+      ["labelsmooth_s43", "a3f9c1d", "ckpt_best.pt", "43", "0.629"],
+      ["labelsmooth_s44", "a3f9c1d", "ckpt_best.pt", "44", "0.650"],
+    ],
+    footnote: "Git hash sama untuk semua run karena hanya config dan seed yang berubah, bukan kode. Tiap checkpoint menyimpan config, git hash, epoch, dan metrics, jadi run bisa di-resume atau diaudit kapan saja.",
+  },
+
+  // -- 28: Refleksi --
   {
     layout: "bullets",
     title: "Refleksi",
@@ -337,7 +410,7 @@ optim:
     ],
   },
 
-  // -- 24: Lanjut ke W5 --
+  // -- 29: Lanjut ke W5 --
   {
     layout: "bullets",
     title: "Lanjut ke W5",
@@ -347,14 +420,5 @@ optim:
       "Diagnosis gradient flow menjadi kebiasaan baru minggu depan.",
       "Rancangan penelitian, kontrol satu variabel, dan trace result dari W4 dipakai di setiap eksperimen berikutnya.",
     ],
-  },
-
-  // -- 25: CTA --
-  {
-    layout: "cta",
-    title: "Mulai Lab W4",
-    body: "Semua konsep deck ini ada di lab notebook: protocol dan matriks, penguncian seed, dry-run reproducibility, checkpoint bermetadata, dirty flag, dan resume state.\n\nEstimasi waktu 3-4 jam termasuk inspeksi checkpoint dan refleksi.",
-    ctaText: "Buka Lab W4 di Colab",
-    ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb",
   },
 ];
