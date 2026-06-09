@@ -129,8 +129,18 @@ Hasil harus bisa direproduksi di komputer lain. Untuk itu, tiap run merekam empa
 
 1. **Config YAML** - semua hyperparameter dideklarasikan di satu file, bukan tersebar di kode.
 2. **Seed** - dikunci di awal training dengan `set_seed(cfg['seed'])` sebelum operasi apa pun. Untuk GPU yang ketat, tambah `torch.backends.cudnn.deterministic = True`.
-3. **Checkpoint metadata** - selain `model.state_dict()`, simpan `config`, `git_hash`, `epoch`, `metrics`, dan `timestamp`.
-4. **Git hash** - mengikat run ke commit yang menghasilkannya. Flag "dirty" menandai perubahan yang belum di-commit.
+3. **Checkpoint metadata** - selain `model.state_dict()`, simpan `config`, `epoch`, `metrics`, dan `timestamp`.
+4. **Git hash** - mengikat run ke commit yang menghasilkannya. Jika Anda menjalankan eksperimen di Google Colab, download folder output (`lab4_outputs/`) ke laptop, susun dengan nama yang jelas:
+
+```text
+Exp-Ablasi/
+  09-06-2026 - 09_40AM/
+    lab4_baseline_seed42_run1/
+    lab4_baseline_seed43_run1/
+    plots/
+```
+
+Inisialisasi git repo di dalam folder induk (`git init && git add . && git commit -m "run awal"`), lalu push ke GitHub. Dengan begitu tiap run punya jejak yang bisa ditelusuri kapan saja.
 
 Contoh `configs/baseline.yaml`:
 
@@ -171,7 +181,7 @@ Tiap run menulis ke folder sendiri:
 experiments/<config>_seed<N>/
   config.yaml      # konfigurasi persis run ini
   train.log
-  ckpt_best.pt     # + metadata: git_hash, epoch, metrics, timestamp
+  ckpt_best.pt     # + metadata: epoch, metrics, timestamp
   summary.json
   tb/              # log TensorBoard
 ```
@@ -219,8 +229,8 @@ Buka [lab_w4_experiment_tracking.ipynb](https://colab.research.google.com/github
 
 1. Tulis `protocol.md` dan matriks eksperimen dari satu hipotesis bridge W3, sebelum menyentuh kode training baru.
 2. Jalankan dua dry-run dengan seed dan config sama, lalu bandingkan `best_val_acc`.
-3. Buka checkpoint dan periksa metadata: `config`, `git_hash`, `epoch`, `metrics`, dirty flag.
-4. Uji deteksi dirty flag saat repo memiliki perubahan yang belum di-commit.
+3. Buka checkpoint dan periksa metadata: `config`, `epoch`, `metrics`, dan `timestamp`.
+4. Download folder output dari Colab ke laptop, inisialisasi git repo (`git init`), commit semua file, lalu push ke GitHub.
 5. Verifikasi resume dari checkpoint melanjutkan epoch, bukan mulai dari epoch 1.
 6. Kalau ada beberapa run seed berbeda, plot variasi val accuracy sebagai estimasi seed variance.
 
@@ -229,7 +239,7 @@ Checklist:
 - [ ] `protocol.md` dan matriks eksperimen ditulis sebelum run baru.
 - [ ] Dua dry-run seed sama menghasilkan `val_acc` identik atau hampir identik.
 - [ ] Config dan checkpoint tersimpan bersama.
-- [ ] Git hash atau dirty flag tercatat di checkpoint.
+- [ ] Folder output di-download dan diarsipkan di git repo sendiri.
 - [ ] Resume melanjutkan epoch, bukan memulai dari epoch 1.
 - [ ] Ringkasan mean ± std ditulis kalau ada beberapa seed.
 

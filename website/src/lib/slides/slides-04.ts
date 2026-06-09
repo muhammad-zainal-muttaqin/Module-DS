@@ -218,7 +218,7 @@ Divariasikan untuk replikasi:
       },
       {
         title: "Git hash",
-        body: "Tiap run terikat ke commit penghasilnya, dan flag dirty menandai perubahan yang belum di-commit.",
+        body: "Tiap run terikat ke commit penghasilnya. Kalau training di Colab, download folder output lalu inisialisasi git repo sendiri supaya hasil punya jejak.",
       },
     ],
     footnote: "Implementasi keempatnya ada di template/src/utils.py.",
@@ -320,7 +320,7 @@ optim:
     bullets: [
       "Tulis protocol.md dan matriks dari satu hipotesis bridge W3 sebelum menyentuh kode.",
       "Jalankan dua dry-run seed sama, lalu bandingkan val accuracy untuk menguji reproduksibilitas.",
-      "Periksa metadata checkpoint, uji dirty flag, dan verifikasi resume melanjutkan epoch.",
+      "Periksa metadata checkpoint, download folder output untuk diarsipkan di git, dan verifikasi resume melanjutkan epoch.",
     ],
     footnote: "Checklist: protokol ditulis lebih dulu, config dan checkpoint tersimpan bersama, git hash tercatat, resume melanjutkan epoch, dan mean ± std diringkas kalau ada beberapa seed.",
   },
@@ -329,7 +329,7 @@ optim:
   {
     layout: "cta",
     title: "Mulai Lab W4",
-    body: "Semua konsep deck ini ada di lab notebook: protocol dan matriks, penguncian seed, dry-run reproducibility, checkpoint bermetadata, dirty flag, dan resume state.\n\nEstimasi waktu 3-4 jam termasuk inspeksi checkpoint dan refleksi.",
+    body: "Semua konsep deck ini ada di lab notebook: protocol dan matriks, penguncian seed, dry-run reproducibility, checkpoint bermetadata, dan resume state.\n\nEstimasi waktu 3-4 jam termasuk inspeksi checkpoint dan refleksi.",
     ctaText: "Buka Lab W4 di Colab",
     ctaTarget: "https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w4_experiment_tracking.ipynb",
   },
