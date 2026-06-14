@@ -70,6 +70,10 @@ class SequenceClassifier(nn.Module):
 
 `batch_first=True` membuat dimensi pertama adalah batch, sehingga input berbentuk `(B, T, F)`.
 
+![Many-to-one vs many-to-many: dari titik mana hidden state diambil](../figures/fig05e_output_tapping.jpg)
+
+Diagram di atas membandingkan dua pola pengambilan output. Tugas dengan satu jawaban di akhir cukup memakai `h_T`, persis seperti `h_n[-1]` di kode tadi. Tugas dengan jawaban di tiap langkah memakai seluruh `h_t`.
+
 Sebelum memilih head, jawab tiga pertanyaan untuk dataset sequence apa pun. Pertama, seberapa jauh jarak ketergantungannya: prediksi berikutnya butuh konteks 5 langkah atau 500 langkah. Kedua, output apa yang dibutuhkan: satu angka, satu kelas, atau seluruh sequence masa depan. Ketiga, apakah urutannya memang bermakna, atau data cuma tersusun padahal bisa diacak tanpa kehilangan makna. Jawaban pertama menentukan apakah RNN vanilla cukup. Jawaban kedua menentukan head. Jawaban ketiga menentukan apakah model recurrent memang perlu dipakai.
 
 ---
@@ -91,6 +95,10 @@ Hidden state `h_t` menyimpan nilai internal yang diperbarui setiap langkah. Inis
 ### Backpropagation Through Time
 
 Di [W1 §2.3](01_W1_Tabular_Output_Heads.md) dan [Prasyarat Modul §4](00a_Prasyarat.md#4-kalkulus-mini-turunan-dan-chain-rule), chain rule sudah dibahas: kalau `y = f(g(x))`, maka `dy/dx = f'(g(x)) · g'(x)`. Backpropagation di MLP adalah chain rule yang dirantai mundur lewat layer. Pada RNN, chain rule berjalan ke dua arah sekaligus. Arah pertama mundur ke layer dalam, sama seperti MLP, dari output ke hidden ke input pada satu timestep. Arah kedua mundur ke timestep sebelumnya, dari `h_t` ke `h_{t-1}`, lalu ke `h_{t-2}`, dan seterusnya. Arah inilah yang baru di model sequence.
+
+![BPTT: gradient mengalir mundur ke dua arah pada RNN yang dibentangkan](../figures/fig05d_bptt_unrolled.jpg)
+
+Diagram di atas menunjukkan kedua arah itu pada RNN yang dibentangkan. Arah 1 mundur dalam satu timestep, sama seperti MLP. Arah 2 mundur antar timestep dan mengalikan `W_h` berulang, dan inilah sumber vanishing gradient.
 
 Chain rule yang dirantai sepanjang T timestep disebut **Backpropagation Through Time (BPTT)**. Untuk sequence 3 timestep dengan loss `L = (y_3 - h_3)²`, gradient terhadap `W_h` adalah jumlah tiga jalur:
 
@@ -148,19 +156,27 @@ hidden state: h_t = o_t ⊙ tanh(c_t)                     # shape (d_h,)
 
 Ketiga gate mengatur tiga hal berbeda. Forget gate `f_t` mengatur berapa banyak cell state lama yang disimpan: `f_t[i] = 0.9` artinya simpan 90% komponen ke-i, `f_t[i] = 0.1` artinya hampir semua dibuang. Input gate `i_t` mengatur berapa banyak informasi baru `g_t` yang ditulis ke cell state. Output gate `o_t` mengatur berapa banyak isi cell state yang dikeluarkan jadi hidden state. Di antara ketiganya, cell update `g_t` adalah calon informasi baru dari `tanh`. Cell state baru `c_t` lalu menggabungkan bagian lama yang disimpan (`f_t ⊙ c_{t-1}`) dengan bagian baru yang ditulis (`i_t ⊙ g_t`).
 
+![Sel LSTM: tiga gate dan jalur cell state](../figures/fig05c_lstm_cell_detail.jpg)
+
+Diagram di atas menyatukan keenam persamaan jadi satu alur. Jalur cell state membentang di atas dengan operasi penjumlahan di tengahnya, sedangkan ketiga gate di bawah memberi makan operasi tersebut lewat konkatenasi `[h_{t-1}, x_t]`.
+
 Notasi `[h_{t-1}, x_t]` adalah konkatenasi vektor: kalau `h_{t-1}` berbentuk `(d_h,)` dan `x_t` berbentuk `(F,)`, hasil konkatenasi `(d_h + F,)`, sehingga `W_f` berukuran `(d_h, d_h + F)`.
 
 ### Kenapa Cell State Memutus Vanishing Gradient
 
 Kuncinya ada di baris cell state. Saat backprop, turunannya `∂c_t/∂c_{t-1} = f_t`, cuma forget gate, bukan perkalian matriks `W_h` yang berulang. Kalau forget gate `f_t ≈ 1` sepanjang sequence, gradient di cell state tetap stabil dan tidak cepat menyusut. Bandingkan dengan RNN vanilla yang mengalikan gradient dengan `W_h` tiap langkah mundur, sehingga setelah 100 langkah gradient mendekati nol. LSTM tidak punya rantai perkalian matriks ini di cell state, hanya rantai gate. Dan gate bisa belajar mendekati 1 untuk menyimpan informasi lama yang masih penting.
 
-![Vanishing Gradient: RNN vs LSTM - gradient norm per timestep saat backprop](../figures/fig05b_gradient_flow.svg)
+![Vanishing Gradient: RNN vs LSTM - gradient norm per timestep saat backprop](../figures/fig05b_gradient_flow.jpg)
 
 Diagram di atas menunjukkan norma gradient per timestep saat backpropagation. Kurva RNN turun eksponensial sehingga gradient di timestep awal nyaris hilang, sedangkan kurva LSTM tetap relatif datar.
 
 ### Forget Gate: Gambaran Konkret
 
 Ambil contoh sequence sensor pasien: glukosa setiap 5 menit selama 24 jam (288 timestep). Cell state `c_t` menyimpan kondisi pasien terakhir kali stabil. Forget gate `f_t` adalah keputusan model di tiap timestep, apakah kondisi sebelumnya masih relevan. Saat data tetap normal, `f_t ≈ 1.0`. Cell state hampir tidak berubah, jadi gambaran kondisi stabil tetap tersimpan. Saat ada anomali, misalnya lonjakan glukosa sehabis makan berat, `f_t` turun ke ~0.3 untuk komponen yang terkait kondisi sebelum makan, dan cell state diperbarui dengan informasi baru. Saat pasien tidur dan sinyal berubah lambat, `f_t ≈ 1.0` lagi, jadi noise kecil tidak mengganggu kondisi yang tersimpan. Forget gate belajar *kapan* informasi lama harus dilupakan lewat training, bukan diatur manual.
+
+![Forget gate pada sinyal glukosa 24 jam: f_t turun saat lonjakan, mendekati 1 saat stabil](../figures/fig05f_forget_gate_timeline.jpg)
+
+Diagram di atas menyandingkan sinyal glukosa dengan nilai forget gate sepanjang 24 jam. Saat sinyal stabil `f_t` mendekati 1, saat ada lonjakan `f_t` turun ke sekitar 0.3, lalu naik lagi saat sinyal kembali tenang.
 
 ### Cell State vs Hidden State
 

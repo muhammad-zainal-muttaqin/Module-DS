@@ -76,11 +76,20 @@ export const slides05: SlideSection[] = [
     footnote: "Di W5 kita fokus pada tiga yang pertama; token classification dibahas di W7.",
   },
 
+  // -- image fig05e: output tapping --
+  {
+    layout: "image",
+    title: "Dari Titik Mana Hidden State Diambil",
+    imageUrl: "/figures/fig05e_output_tapping.jpg",
+    caption: "Gambar ini membandingkan dua pola pengambilan output. Pola many-to-one hanya mengambil hidden state langkah terakhir h_T, cocok untuk klasifikasi atau regression akhir. Pola many-to-many mengambil hidden state tiap langkah h_t, cocok untuk forecast atau token classification.",
+    footnote: "Bentuk output yang dibutuhkan menentukan pola mana yang dipakai, dan dari situ head serta loss ditentukan.",
+  },
+
   // -- 6: Dari mana h_t diambil --
   {
     layout: "bullets",
     title: "Yang baru di sequence: dari mana h_t diambil",
-    body: "Pemilihan loss mengikuti head, sama seperti W1. Yang baru di sequence adalah dari titik mana hidden state diambil:",
+    body: "Dari gambar di atas, yang baru di sequence adalah dari titik mana hidden state diambil. Pemilihan loss tetap mengikuti head, sama seperti W1:",
     bullets: [
       "Tugas yang butuh satu jawaban di akhir, seperti klasifikasi atau regression scalar, ambil hidden state langkah terakhir saja, yaitu h_T.",
       "Tugas yang butuh jawaban di tiap langkah, seperti forecast atau token classification, ambil hidden state semua langkah, yaitu h_t untuk tiap t.",
@@ -140,11 +149,20 @@ export const slides05: SlideSection[] = [
     footnote: "Untuk klasifikasi, output diambil dari h_T. Untuk forecasting, output dihitung di tiap langkah.",
   },
 
+  // -- image fig05d: BPTT dua arah --
+  {
+    layout: "image",
+    title: "BPTT: Gradient Mengalir Mundur ke Dua Arah",
+    imageUrl: "/figures/fig05d_bptt_unrolled.jpg",
+    caption: "Gambar ini menunjukkan RNN yang dibentangkan sepanjang langkah waktu. Arah 1 adalah gradient yang mundur dalam satu langkah, dari loss ke output ke input, sama seperti MLP. Arah 2 adalah gradient yang mundur antar langkah waktu, dari h_t ke h_{t-1}, dan di tiap langkah ia dikalikan W_h.",
+    footnote: "Jalur terpanjang (Arah 2) mengalikan W_h sebanyak T kali, dan di sinilah vanishing gradient muncul.",
+  },
+
   // -- 11: BPTT dua sumbu --
   {
     layout: "bullets",
     title: "BPTT: chain rule pada dua arah",
-    body: "Di MLP, backprop berjalan mundur lewat layer saja. Di RNN, backprop berjalan ke dua arah sekaligus:",
+    body: "Dari gambar di atas, di RNN backprop berjalan ke dua arah sekaligus, tidak seperti MLP yang cuma mundur lewat layer:",
     bullets: [
       "Arah pertama sama seperti MLP: mundur dari output ke hidden ke input, di dalam satu langkah waktu.",
       "Arah kedua mundur ke langkah waktu sebelumnya, dari h_t ke h_{t-1} ke h_{t-2}. Arah inilah yang baru di model sequence.",
@@ -226,6 +244,15 @@ export const slides05: SlideSection[] = [
     footnote: "Gate dihasilkan fungsi sigmoid, yang selalu memberi nilai antara 0 dan 1.",
   },
 
+  // -- image fig05c: sel LSTM detail --
+  {
+    layout: "image",
+    title: "Sel LSTM: Tiga Gate dan Jalur Cell State",
+    imageUrl: "/figures/fig05c_lstm_cell_detail.jpg",
+    caption: "Gambar ini menunjukkan isi satu sel LSTM. Jalur cell state membentang di atas dengan operasi penjumlahan di tengahnya, dan jalur inilah yang membuat gradient tidak menyusut. Tiga gate di bawah, yaitu forget, input, dan output, memberi makan jalur itu lewat konkatenasi [h_{t-1}, x_t].",
+    footnote: "Tanda + di jalur cell state adalah jalur penjumlahan, beda dari perkalian W_h yang berulang di RNN vanilla.",
+  },
+
   // -- 18: enam persamaan --
   {
     layout: "code",
@@ -258,7 +285,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
   {
     layout: "image",
     title: "Vanishing Gradient: RNN vs LSTM",
-    imageUrl: "/figures/fig05b_gradient_flow.svg",
+    imageUrl: "/figures/fig05b_gradient_flow.jpg",
     caption: "Gambar ini menunjukkan besar gradient di tiap langkah waktu saat backprop, untuk RNN vanilla dibanding LSTM. Kurva RNN turun tajam, jadi gradient di langkah-langkah awal nyaris hilang. Kurva LSTM tetap relatif datar, jadi gradient dari langkah awal masih terbaca.",
     footnote: "Lab W5 memvisualisasikan gejala ini dengan plot log-scale gradient norm per timestep.",
   },
@@ -276,11 +303,20 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     footnote: "Forget gate bisa belajar mendekati 1 untuk menyimpan informasi lama yang masih penting.",
   },
 
+  // -- image fig05f: forget gate glukosa --
+  {
+    layout: "image",
+    title: "Forget Gate pada Sinyal Glukosa",
+    imageUrl: "/figures/fig05f_forget_gate_timeline.jpg",
+    caption: "Gambar ini menyandingkan sinyal sensor glukosa selama 24 jam dengan nilai forget gate di bawahnya. Saat sinyal stabil, forget gate mendekati 1 sehingga kondisi lama tetap tersimpan. Saat ada lonjakan sehabis makan, forget gate turun ke sekitar 0.3 sehingga cell state diperbarui dengan informasi baru.",
+    footnote: "Nilai forget gate ini dipelajari saat training, bukan diatur manual.",
+  },
+
   // -- 22: forget gate konkret --
   {
     layout: "bullets",
     title: "Forget gate dalam gambaran konkret",
-    body: "Contoh: sequence sensor glukosa pasien tiap 5 menit selama 24 jam. Cell state menyimpan kondisi terakhir yang stabil. Forget gate menentukan kapan kondisi lama itu masih relevan:",
+    body: "Dari gambar di atas, contohnya sequence sensor glukosa pasien tiap 5 menit selama 24 jam. Cell state menyimpan kondisi terakhir yang stabil, dan forget gate menentukan kapan kondisi lama itu masih relevan:",
     bullets: [
       "Saat data normal, forget gate dekat 1.0. Cell state hampir tidak berubah, jadi kondisi stabil tetap tersimpan.",
       "Saat ada lonjakan glukosa, misalnya sehabis makan berat, forget gate turun ke sekitar 0.3 untuk bagian terkait. Cell state pun diperbarui.",
