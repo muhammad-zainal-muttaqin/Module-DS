@@ -24,6 +24,8 @@ ModulePembelajaran/
 ├── CLAUDE.md
 ├── chapter-style-guide.md           Struktur penyampaian materi bab
 ├── GUIDE-SLIDE.md                   Pedagogi & struktur slide deck
+├── GUIDE_LAB_STYLE.md               Struktur & gaya notebook lab (self-contained, bottom-up)
+├── SWEEPER.md                       Panduan sapu bahasa anti AI-slop (W1-W11)
 ├── README.md
 └── .gitignore
 ```
@@ -134,6 +136,8 @@ ruff format src/
 
 Struktur bab materi mengikuti **`chapter-style-guide.md`**: Langkah 0 (turunkan garis besar minggu dulu) → Pembuka (agenda + recap minggu lalu) → materi (inti + artefak yang bisa disalin + contoh + link antar-minggu) → Lab → Penutup. Panduan itu menggantikan urutan tetap lama (Peta Bab → Motivasi → Konsep Inti → ... → Bacaan Lanjutan), yang dibuang karena terlalu naratif dan boros.
 
+Sebelum membuat atau merevisi bab, baca `chapter-style-guide.md` lengkap: ada alur cold-start (acuan W4), Langkah 0 wajib, dan **Checklist audit-diri** yang harus dijalankan baris demi baris pada draf sebelum dinyatakan selesai. Setelah draf bab jadi, sapu bahasanya mengikuti **`SWEEPER.md`** (lihat Gaya Penulisan di bawah).
+
 Bahasa Indonesia. Istilah teknis ML/DL tetap Inggris (loss, checkpoint, seed, freeze, ablation). Glosarium di `14_Lampiran.md`.
 
 Sikap (Curiosity, Rigor, Skepticism, Ownership) dan cara lapor ke dosen diselipkan di materi tempatnya muncul wajar (Thread lintas-bab di `chapter-style-guide.md`), bukan section atau bab khusus.
@@ -143,6 +147,8 @@ Sikap (Curiosity, Rigor, Skepticism, Ownership) dan cara lapor ke dosen diselipk
 **Sinkronisasi gambar:** Setelah gambar baru dibuat atau diperbarui, update semua file yang mereferensikannya: chapter `.md` (path gambar), `slides-XX.ts` (imageUrl + caption), dan catatan sumber di CLAUDE.md bagian Struktur Konten jika diperlukan. Jangan biarkan gambar baru ada di `figures/` tapi belum dipakai.
 
 ## Gaya Penulisan (Style Guide)
+
+Aturan di bawah adalah dasar diksi dan tanda baca. Untuk menyapu bahasa yang sudah terlanjur kaku atau terasa seperti terjemahan/ringkasan AI di bab dan slide W1-W11, ikuti **`SWEEPER.md`**: ia memuat pola target (kalimat objektif jadi daftar verba, `sebagai` yang menggantikan verba, bahasa moral/administratif, kata sifat abstrak, metafora teknis, struktur Inggris sisa), cara baca per minggu, dan grep verifikasi akhir. Baca penuh, jangan hanya grep.
 
 **Tanda baca:**
 
@@ -392,6 +398,8 @@ Tiap `.md` baru/rename, update:
 ## Slide Deck Instruktur (`website/src/routes/SlideDeck.tsx`)
 
 Slide ringkasan per bab via **Reveal.js**. Trailer (bukan pengganti modul) - max 8-10 slide.
+
+Pedagogi dan cara menurunkan slide dari bab diatur di **`GUIDE-SLIDE.md`**: slide diturunkan dari bab (bab dulu, baru slide), Pola A (materi bergejala, mulai dari artefak teramati) vs Pola B (materi notasi, objek literal + tambah satu sumbu per langkah), kalimat kunci sekali per topik, dan Checklist audit-diri slide. Aturan teknis layout (jumlah bullet, lead sentence, image-before-text, design system) ada di bagian ini. Setelah slide jadi, sapu bahasanya mengikuti `SWEEPER.md`.
 
 ### Design System
 
