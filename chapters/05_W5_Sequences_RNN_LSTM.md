@@ -30,7 +30,7 @@
 Kali ini kita akan membahas:
 
 1. **Output Head untuk Sequence** - memetakan bentuk input `(T, F)` ke bentuk output yang diinginkan beserta loss-nya.
-2. **RNN Vanilla dan BPTT** - memproses urutan satu langkah waktu demi satu, dan menghitung gradient sepanjang waktu.
+2. **RNN Vanilla dan BPTT (Backpropagation Through Time)** - memproses urutan satu langkah waktu demi satu, dan menghitung gradient sepanjang waktu.
 3. **Vanishing Gradient** - gejala gradient yang menyusut di sequence panjang, dan prinsip aditif yang mengatasinya.
 4. **LSTM: Gate dan Cell State** - cara gate dan cell state memutus rantai perkalian penyebab vanishing, plus GRU sebagai alternatif ringan.
 5. **Memilih dan Mendiagnosis Arsitektur Sequence** - menulis alasan pemilihan arsitektur dan mendiagnosis training sequence yang gagal.

@@ -66,6 +66,7 @@ Bagian akhir file boleh diisi catatan rujukan kalau berguna, tapi jangan ulang p
 - [ ] Persamaan dijelaskan di dalam kalimat utuh dengan nama tiap suku, bukan ejaan simbol terpotong.
 - [ ] Slide agenda/daftar menyebut sebab-akibat penting, bukan cuma judul materi.
 - [ ] Slide teks setelah gambar dibuka dengan "Dari gambar tadi, ...".
+- [ ] Tiap singkatan dijabarkan kepanjangannya saat pertama kali muncul, bukan baru di slide tengah. Contoh: pertama kali sebut BPTT, langsung "BPTT, singkatan dari Backpropagation Through Time". Cek juga kepanjangan yang sama sudah ada di chapter dan slide pada titik pertama munculnya.
 - [ ] Penanda lisan ("kemudian", "nah", "jadi", "sebaliknya") dipakai untuk menyambung, naskah terdengar mengalir saat dibaca lantang.
 - [ ] Tidak ada em dash, metafora teknis, dramatisasi, atau calque (cek `SWEEPER.md`).
 - [ ] Catatan panggung `[...]` cuma untuk instruksi, bukan untuk dibaca.

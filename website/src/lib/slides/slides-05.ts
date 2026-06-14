@@ -21,7 +21,7 @@ export const slides05: SlideSection[] = [
       },
       {
         title: "2. RNN Vanilla dan BPTT",
-        body: "Kita proses sequence satu langkah waktu demi satu. Lalu kita hitung gradient mundur sepanjang waktu.",
+        body: "Kita proses sequence satu langkah waktu demi satu. Lalu kita hitung gradient mundur sepanjang waktu, dan cara ini disebut BPTT, singkatan dari Backpropagation Through Time.",
       },
       {
         title: "3. Vanishing Gradient",
