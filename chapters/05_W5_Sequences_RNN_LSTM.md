@@ -43,7 +43,7 @@ W5 adalah bab paling padat secara teknis sejauh ini. Materi disusun bottom-up: k
 
 ## 1. Output Head untuk Sequence
 
-Keputusan pertama pada tugas sequence adalah bentuk output yang diinginkan. Bentuk output menentukan arsitektur head dan loss. Input tugas sequence umumnya berbentuk `(T, F)`: T langkah waktu, masing-masing dengan F fitur. Empat formulasi berikut mencakup hampir semua tugas yang akan dijumpai.
+Saat menangani tugas sequence, hal pertama yang perlu kita tentukan adalah bentuk output yang ingin dihasilkan. Bentuk output inilah yang menentukan arsitektur head dan loss. Input tugas sequence umumnya berbentuk `(T, F)`: ada T langkah waktu, dan setiap langkah membawa F fitur. Empat formulasi berikut mencakup hampir semua tugas yang akan dijumpai.
 
 | Tugas | Input shape | Output shape | Head | Loss | Contoh |
 |---|---|---|---|---|---|
@@ -52,9 +52,9 @@ Keputusan pertama pada tugas sequence adalah bentuk output yang diinginkan. Bent
 | Forecast sequence | `(T, F)` | `(T'', 1)` | `Linear(hidden, 1)` pada tiap `h_t` | MSE/MAE | Prediksi 12 jam ke depan sinyal CGM |
 | Token classification | `(T,)` | `(T, N)` | `Linear(hidden, N)` pada tiap `h_t` | CrossEntropy per token | NER, POS tagging |
 
-Di W5 kita fokus pada tiga yang pertama. Token classification dibahas di W7. Pemilihan loss mengikuti head: regression memakai MSE/MAE, klasifikasi memakai CrossEntropy, persis seperti [W1 §2](01_W1_Tabular_Output_Heads.md). Yang baru di sequence adalah dari mana `h_t` diambil: satu nilai di langkah terakhir (`h_T`) untuk tugas akhir, atau seluruh langkah (`h_t` di tiap t) untuk tugas per-langkah.
+Di W5 kita fokus pada tiga formulasi pertama; token classification dibahas di W7. Pemilihan loss mengikuti head, persis seperti [W1 §2](01_W1_Tabular_Output_Heads.md): regression memakai MSE/MAE, klasifikasi memakai CrossEntropy. Yang baru pada sequence hanya satu hal, yaitu dari mana hidden state diambil. Tugas akhir memakai hidden state langkah terakhir (`h_T`), sedangkan tugas per-langkah memakai hidden state di setiap langkah (`h_t`).
 
-Implementasi minimal sequence classifier mengambil hidden state timestep terakhir lalu meneruskannya ke head:
+Berikut contoh implementasi minimal untuk kasus tugas akhir tadi. Sequence classifier ini mengambil hidden state langkah terakhir, lalu meneruskannya ke head:
 
 ```python
 class SequenceClassifier(nn.Module):
@@ -70,7 +70,11 @@ class SequenceClassifier(nn.Module):
 
 `batch_first=True` membuat dimensi pertama adalah batch, sehingga input berbentuk `(B, T, F)`.
 
-![Many-to-one vs many-to-many: dari titik mana hidden state diambil](../figures/fig05e_output_tapping.jpg)
+Argumen `num_layers` pada `nn.LSTM` menumpuk beberapa LSTM menjadi satu. Hidden state tiap langkah dari satu layer menjadi input layer di atasnya, dan setiap layer memproses seluruh sequence. Dengan `num_layers=2` ada dua tingkat seperti ini. Karena itu `h_n` menyimpan hidden state akhir untuk tiap layer, dan `h_n[-1]` mengambil hidden state dari layer teratas.
+
+![Stacked RNN tiga layer: tiap layer memproses seluruh sequence, output satu layer menjadi input layer berikutnya](../figures/fig05h_stacked_rnn.png)
+
+![Dari titik mana hidden state diambil: h_T saja untuk tugas akhir, atau semua h_t untuk tugas per-langkah](../figures/fig05e_output_tapping.png)
 
 Diagram di atas membandingkan dua pola pengambilan output. Tugas dengan satu jawaban di akhir cukup memakai `h_T`, persis seperti `h_n[-1]` di kode tadi. Tugas dengan jawaban di tiap langkah memakai seluruh `h_t`.
 
@@ -134,6 +138,8 @@ Vanishing gradient adalah konsekuensi langsung dari perkalian berulang di chain 
 ### Prinsip Aditif: Satu Pola yang Berulang
 
 LSTM (§4) mengatasi rantai perkalian ini dengan satu ide sederhana: ganti perkalian berulang dengan penjumlahan. *Cell state* LSTM memakai `c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t`. Tanda `+` di tengah itu adalah jalur penjumlahan yang tidak ikut menyusut. Turunannya `∂c_t/∂c_{t-1} = f_t` cuma perkalian element-wise dengan forget gate, bukan perkalian dengan matriks `W_h` penuh. Jadi gradient di timestep awal tetap bisa dihitung tanpa cepat teredam.
+
+![Kontras gradient RNN vs LSTM: perkalian berulang pada RNN menyusut eksponensial, sedangkan jalur aditif pada cell state LSTM menjaga gradient tetap stabil](../figures/fig05g_gradient_contrast.png)
 
 Ide yang sama dipakai **residual connection** yang akan dijumpai di W7 dan W8. Daripada mempelajari `H(x)` langsung, blok residual mempelajari `F(x) = H(x) - x`, lalu menghasilkan `F(x) + x`. Penambahan `x` itu memberi gradient jalur langsung ke layer sebelumnya, tanpa lewat transformasi di dalam blok. Jadi *cell state* LSTM, residual connection di ResNet, dan skip connection di Transformer memakai prinsip yang sama: **menambah jalur penjumlahan untuk mengurangi perkalian berulang pada gradient**. Cukup paham prinsip ini sekali, dan polanya mudah dikenali lagi di W7 dan W8.
 

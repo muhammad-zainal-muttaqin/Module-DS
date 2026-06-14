@@ -156,13 +156,17 @@
     display: none;
   }
   .prose-modul table {
-    @apply w-full border-collapse my-6 text-sm;
+    @apply min-w-full border-collapse my-6 text-sm;
   }
   .prose-modul th {
     @apply text-left bg-parchment dark:bg-white/5 font-semibold px-3 py-2 border border-black/10 dark:border-white/10;
   }
   .prose-modul td {
     @apply px-3 py-2 border border-black/10 dark:border-white/10 align-top;
+  }
+  .prose-modul th code,
+  .prose-modul td code {
+    white-space: nowrap;
   }
   .prose-modul details {
     @apply my-5 border border-black/10 dark:border-white/10 rounded-lg bg-parchment/50 dark:bg-white/5;

@@ -56,6 +56,10 @@ Judul singkat, diturunkan dari isi (Langkah 0). Boleh campur Inggris-Indonesia; 
 Pola isi:
 
 1. Satu sampai dua kalimat inti, langsung ke definisi atau tujuan.
+
+   Kalau kalimat inti memperkenalkan "hal pertama yang ditentukan" atau langkah awal sebuah alur, jangan tulis sebagai nominalisasi-kopula ("Keputusan pertama ... adalah X"). Beri jangkar konteks dan pelaku: "Saat [konteks kegiatan], hal pertama yang perlu kita tentukan adalah X." Pembaca jadi tahu kapan pola itu berlaku dan siapa yang bertindak, dan kalimatnya tidak terbaca seperti entri kamus.
+   - Kaku: "Keputusan pertama pada tugas sequence adalah bentuk output yang diinginkan."
+   - Natural: "Saat menangani tugas sequence, hal pertama yang perlu kita tentukan adalah bentuk output yang ingin dihasilkan."
 2. Artefak yang bisa disalin **kalau ada**: blok kode markdown, tabel, atau quote.
 3. Contoh benar, dengan penjelasan singkat kenapa formatnya begitu.
 4. Link ke section minggu lain saat konsep sudah pernah dibahas. Jangan jelaskan ulang.

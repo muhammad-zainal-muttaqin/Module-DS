@@ -80,7 +80,7 @@ export const slides05: SlideSection[] = [
   {
     layout: "image",
     title: "Dari Titik Mana Hidden State Diambil",
-    imageUrl: "/figures/fig05e_output_tapping.jpg",
+    imageUrl: "/figures/fig05e_output_tapping.png",
     caption: "Gambar ini membandingkan dua pola pengambilan output. Pola many-to-one hanya mengambil hidden state langkah terakhir h_T, cocok untuk klasifikasi atau regression akhir. Pola many-to-many mengambil hidden state tiap langkah h_t, cocok untuk forecast atau token classification.",
     footnote: "Bentuk output yang dibutuhkan menentukan pola mana yang dipakai, dan dari situ head serta loss ditentukan.",
   },
