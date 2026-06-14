@@ -43,7 +43,7 @@ W5 adalah bab paling padat secara teknis sejauh ini. Materi disusun bottom-up: k
 
 ## 1. Output Head untuk Sequence
 
-Keputusan pertama pada tugas sequence adalah bentuk output yang diinginkan. Bentuk output menentukan head architecture dan loss. Input tugas sequence umumnya berbentuk `(T, F)`: T langkah waktu, masing-masing dengan F fitur. Empat formulasi berikut mencakup hampir semua tugas yang akan dijumpai.
+Keputusan pertama pada tugas sequence adalah bentuk output yang diinginkan. Bentuk output menentukan arsitektur head dan loss. Input tugas sequence umumnya berbentuk `(T, F)`: T langkah waktu, masing-masing dengan F fitur. Empat formulasi berikut mencakup hampir semua tugas yang akan dijumpai.
 
 | Tugas | Input shape | Output shape | Head | Loss | Contoh |
 |---|---|---|---|---|---|
@@ -82,7 +82,7 @@ RNN vanilla memproses sequence satu langkah waktu demi satu. Di setiap timestep 
 h_t = tanh(W_x x_t + W_h h_{t-1} + b)
 ```
 
-![RNN Vanilla vs LSTM Cell: perbandingan arsitektur unrolled dan detail gate mechanism pada LSTM](../figures/fig05a_rnn_vs_lstm.svg)
+![RNN Vanilla vs LSTM Cell: perbandingan arsitektur unrolled dan detail gate mechanism pada LSTM](../figures/fig05a_rnn_vs_lstm.jpg)
 
 Diagram di atas membandingkan RNN vanilla yang di-unroll sepanjang timestep (atas) dengan detail satu sel LSTM (bawah). Untuk RNN vanilla, persamaannya menggabungkan tiga komponen. `W_x x_t` memproyeksikan input baru ke ruang hidden, dengan `W_x` berukuran `(d_h, F)` dan `x_t` berbentuk `(F,)`. `W_h h_{t-1}` adalah perkalian matriks hidden-to-hidden yang membawa nilai internal dari langkah sebelumnya, dengan `W_h` berukuran `(d_h, d_h)`. `tanh` menjaga `h_t` berada di rentang (-1, 1) sehingga hidden state tidak meledak ke nilai besar. Hidden size `d_h` ditentukan oleh perancang.
 

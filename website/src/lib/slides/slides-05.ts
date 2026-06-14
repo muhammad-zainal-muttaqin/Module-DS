@@ -57,7 +57,7 @@ export const slides05: SlideSection[] = [
   {
     layout: "section",
     title: "1. Output Head untuk Sequence",
-    body: "Keputusan pertama pada tugas sequence adalah bentuk output yang diinginkan, karena bentuk output menentukan head architecture dan loss.",
+    body: "Keputusan pertama pada tugas sequence adalah bentuk output yang diinginkan, karena bentuk output menentukan arsitektur head dan loss.",
     footnote: "Input tugas sequence umumnya berbentuk (T, F): T langkah waktu, masing-masing dengan F fitur.",
   },
 
@@ -122,7 +122,7 @@ export const slides05: SlideSection[] = [
   {
     layout: "image",
     title: "RNN Vanilla vs LSTM Cell",
-    imageUrl: "/figures/fig05a_rnn_vs_lstm.svg",
+    imageUrl: "/figures/fig05a_rnn_vs_lstm.jpg",
     caption: "Gambar ini membandingkan dua arsitektur recurrent: RNN vanilla yang di-unroll sepanjang timestep di bagian atas, dan detail mekanisme gate di dalam satu sel LSTM di bagian bawah. RNN vanilla hanya memiliki satu jalur hidden state, sedangkan LSTM menambahkan cell state terpisah beserta tiga gate yang mengatur informasi yang dipertahankan, ditulis, dan dikeluarkan.",
     footnote: "Warna amber dipakai konsisten untuk keluarga RNN/LSTM di seluruh modul.",
   },
