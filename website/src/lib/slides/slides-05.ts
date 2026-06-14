@@ -5,7 +5,7 @@ export const slides05: SlideSection[] = [
   {
     layout: "title",
     title: "W5: Sequences - RNN & LSTM",
-    subtitle: "Membangun model recurrent untuk data berurutan, melihat kenapa RNN gagal di sequence panjang, dan memilih antara RNN, LSTM, dan GRU.",
+    subtitle: "Membangun RNN untuk data berurutan, melihat kenapa RNN gagal di sequence panjang, dan memilih antara RNN, LSTM, dan GRU.",
     footnote: "Bab 05 - Minggu 5",
   },
 
