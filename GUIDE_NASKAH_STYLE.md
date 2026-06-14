@@ -26,6 +26,7 @@ Aturan praktis:
 - Kalau persamaan punya banyak baris (mis. enam persamaan LSTM), jangan eja tiap simbol. Jelaskan tiap baris itu **apa** dan **untuk apa**: "Persamaan keempat adalah cell state baru, dan inilah baris yang penting itu, karena di sini ada tanda tambah yang menyelamatkan gradient."
 - Angka eksponen dan desimal dibaca natural: `~9e-16` jadi "praktis nol", `0.5` jadi "nol koma lima", `10^2` jadi "sepuluh pangkat dua" hanya kalau angkanya memang inti penjelasan.
 - Simbol khusus dijelaskan sekali saat pertama muncul: `⊙` jadi "lingkaran kecil dengan titik di tengah, dan itu artinya perkalian element-wise".
+- **Setelah membongkar persamaan bagian per bagian, tutup dengan rangkuman alur berurutan ("dalam satu tarikan napas").** Sebutkan operasi sesuai urutan dihitung, dari input sampai output, supaya pendengar dapat gambaran utuh. Contoh untuk RNN: pertama input dikali W_x, kedua hidden state lama dikali W_h, ketiga keduanya dijumlahkan plus bias, keempat hasilnya dilewatkan tanh jadi hidden state baru. Hati-hati menjaga urutan operasi yang benar, mis. tanh dikenakan pada hasil penjumlahan, bukan dikalikan.
 
 ## Pola per Tipe Layout Slide
 
