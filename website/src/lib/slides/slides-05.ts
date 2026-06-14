@@ -221,11 +221,20 @@ export const slides05: SlideSection[] = [
     footnote: "Di sini W_h dianggap satu angka biar mudah. Untuk W_h berbentuk matriks penuh, ukuran yang dipakai lebih teknis (eigenvalue terbesar), tapi prinsipnya sama. Detail di Lampiran.",
   },
 
+  // -- image fig05g: kontras gradien --
+  {
+    layout: "image",
+    title: "Perkalian Berulang vs Jalur Aditif",
+    imageUrl: "/figures/fig05g_gradient_contrast.png",
+    caption: "Gambar ini menunjukkan kenapa gradient RNN dan LSTM berbeda nasib. Di RNN (kiri), gradient dikalikan faktor yang sama di tiap langkah, jadi setelah beberapa langkah menyusut cepat dari 1.0 ke sekitar 0.24. Di LSTM (kanan), cell state memakai jalur penjumlahan, jadi gradient tetap dekat 1.0 dari langkah awal sampai akhir.",
+    footnote: "Inti perbaikan LSTM ada di sini: ganti perkalian berulang dengan penjumlahan supaya gradient tidak menyusut.",
+  },
+
   // -- 16: prinsip aditif --
   {
     layout: "bullets",
     title: "Satu prinsip: ganti perkalian berulang dengan penjumlahan",
-    body: "Inti masalahnya satu: gradient rusak karena dikalikan berulang. Solusinya juga satu: ganti perkalian dengan penjumlahan. Beberapa arsitektur memakai ide yang sama:",
+    body: "Dari gambar di atas, inti masalahnya satu: gradient rusak karena dikalikan berulang, sedangkan jalur penjumlahan tidak. Solusinya pun satu: ganti perkalian dengan penjumlahan. Beberapa arsitektur memakai ide yang sama:",
     bullets: [
       "Cell state LSTM memakai c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t. Tanda + di tengah rumus itu adalah jalur penjumlahan yang tidak ikut menyusut.",
       "Saat gradient lewat jalur penjumlahan ini, ia diteruskan apa adanya, tidak dikalikan berulang. Jadi nilainya tidak jatuh ke nol meski sequence panjang.",
