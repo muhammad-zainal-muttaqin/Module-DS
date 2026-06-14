@@ -152,7 +152,7 @@ export const slides05: SlideSection[] = [
   // -- image fig05d: BPTT dua arah --
   {
     layout: "image",
-    title: "BPTT: Gradient Mengalir Mundur ke Dua Arah",
+    title: "BPTT: Gradient Dihitung Mundur ke Dua Arah",
     imageUrl: "/figures/fig05d_bptt_unrolled.jpg",
     caption: "Gambar ini menunjukkan RNN yang dibentangkan sepanjang langkah waktu. Arah 1 adalah gradient yang mundur dalam satu langkah, dari loss ke output ke input, sama seperti MLP. Arah 2 adalah gradient yang mundur antar langkah waktu, dari h_t ke h_{t-1}, dan di tiap langkah ia dikalikan W_h.",
     footnote: "Jalur terpanjang (Arah 2) mengalikan W_h sebanyak T kali, dan di sinilah vanishing gradient muncul.",
@@ -249,7 +249,7 @@ export const slides05: SlideSection[] = [
     layout: "image",
     title: "Sel LSTM: Tiga Gate dan Jalur Cell State",
     imageUrl: "/figures/fig05c_lstm_cell_detail.jpg",
-    caption: "Gambar ini menunjukkan isi satu sel LSTM. Jalur cell state membentang di atas dengan operasi penjumlahan di tengahnya, dan jalur inilah yang membuat gradient tidak menyusut. Tiga gate di bawah, yaitu forget, input, dan output, memberi makan jalur itu lewat konkatenasi [h_{t-1}, x_t].",
+    caption: "Gambar ini menunjukkan isi satu sel LSTM. Jalur cell state membentang di atas dengan operasi penjumlahan di tengahnya, dan jalur inilah yang membuat gradient tidak menyusut. Tiga gate di bawah, yaitu forget, input, dan output, menyuplai jalur itu lewat konkatenasi [h_{t-1}, x_t].",
     footnote: "Tanda + di jalur cell state adalah jalur penjumlahan, beda dari perkalian W_h yang berulang di RNN vanilla.",
   },
 

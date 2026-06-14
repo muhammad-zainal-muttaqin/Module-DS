@@ -96,7 +96,7 @@ Hidden state `h_t` menyimpan nilai internal yang diperbarui setiap langkah. Inis
 
 Di [W1 §2.3](01_W1_Tabular_Output_Heads.md) dan [Prasyarat Modul §4](00a_Prasyarat.md#4-kalkulus-mini-turunan-dan-chain-rule), chain rule sudah dibahas: kalau `y = f(g(x))`, maka `dy/dx = f'(g(x)) · g'(x)`. Backpropagation di MLP adalah chain rule yang dirantai mundur lewat layer. Pada RNN, chain rule berjalan ke dua arah sekaligus. Arah pertama mundur ke layer dalam, sama seperti MLP, dari output ke hidden ke input pada satu timestep. Arah kedua mundur ke timestep sebelumnya, dari `h_t` ke `h_{t-1}`, lalu ke `h_{t-2}`, dan seterusnya. Arah inilah yang baru di model sequence.
 
-![BPTT: gradient mengalir mundur ke dua arah pada RNN yang dibentangkan](../figures/fig05d_bptt_unrolled.jpg)
+![BPTT: gradient dihitung mundur ke dua arah pada RNN yang dibentangkan](../figures/fig05d_bptt_unrolled.jpg)
 
 Diagram di atas menunjukkan kedua arah itu pada RNN yang dibentangkan. Arah 1 mundur dalam satu timestep, sama seperti MLP. Arah 2 mundur antar timestep dan mengalikan `W_h` berulang, dan inilah sumber vanishing gradient.
 
@@ -158,7 +158,7 @@ Ketiga gate mengatur tiga hal berbeda. Forget gate `f_t` mengatur berapa banyak 
 
 ![Sel LSTM: tiga gate dan jalur cell state](../figures/fig05c_lstm_cell_detail.jpg)
 
-Diagram di atas menyatukan keenam persamaan jadi satu alur. Jalur cell state membentang di atas dengan operasi penjumlahan di tengahnya, sedangkan ketiga gate di bawah memberi makan operasi tersebut lewat konkatenasi `[h_{t-1}, x_t]`.
+Diagram di atas menyatukan keenam persamaan jadi satu alur. Jalur cell state membentang di atas dengan operasi penjumlahan di tengahnya, sedangkan ketiga gate di bawah menyuplai operasi tersebut lewat konkatenasi `[h_{t-1}, x_t]`.
 
 Notasi `[h_{t-1}, x_t]` adalah konkatenasi vektor: kalau `h_{t-1}` berbentuk `(d_h,)` dan `x_t` berbentuk `(F,)`, hasil konkatenasi `(d_h + F,)`, sehingga `W_f` berukuran `(d_h, d_h + F)`.
 
