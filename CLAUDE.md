@@ -22,8 +22,8 @@ ModulePembelajaran/
 ├── notes/                           Catatan sumber (referensi, tidak dirender)
 ├── _archive/                        File lama (tidak dirender website)
 ├── CLAUDE.md
-├── chapter-style-guide.md           Struktur penyampaian materi bab
-├── GUIDE-SLIDE.md                   Pedagogi & struktur slide deck
+├── GUIDE_CHAPTER_STYLE.md           Struktur penyampaian materi bab
+├── GUIDE_SLIDE_STYLE.md             Pedagogi & struktur slide deck
 ├── GUIDE_LAB_STYLE.md               Struktur & gaya notebook lab (self-contained, bottom-up)
 ├── SWEEPER.md                       Panduan sapu bahasa anti AI-slop (W1-W11)
 ├── README.md
@@ -37,7 +37,7 @@ ModulePembelajaran/
 - **W1** (`01_W1_Tabular_Output_Heads.md`): tabular MLP, output heads+loss matching, observation before conclusion
 - **W2** (`02_W2_Images_CNN_Smoke_Test.md`): tensor citra, CNN, smoke test tiga level
 - **W3** (`03_W3_Loss_Optimizer_Evaluasi.md`): galeri 5 training → loss/optimizer/evaluasi; representasi fitur 3 strategi
-- **W4** (`04_W4_Reproducibility_Experiment_Matrix.md`): gaya baru `chapter-style-guide.md`, 4 materi (Rancangan Penelitian, Training Terkontrol, Trace Result, Hasil Research); matriks eksperimen, YAML/seed/checkpoint/git hash, seed variance, hasil negatif; lapor ke dosen diselipkan
+- **W4** (`04_W4_Reproducibility_Experiment_Matrix.md`): gaya baru `GUIDE_CHAPTER_STYLE.md`, 4 materi (Rancangan Penelitian, Training Terkontrol, Trace Result, Hasil Research); matriks eksperimen, YAML/seed/checkpoint/git hash, seed variance, hasil negatif; lapor ke dosen diselipkan
 - **W5** (`05_W5_Sequences_RNN_LSTM.md`): RNN vs LSTM, gradient flow; **§1.5.2**: bridge LSTM cell→vanishing gradient+residual; **§4**: gradient clipping (norma global, clip_grad_norm_ vs clip_grad_value_)
 - **W6** (`06_W6_Representations_Temporal_Leakage.md`): representasi recap + temporal leakage demo (0.92→0.63 §0.6); §2.6.3 negative results; Lab 6c peer review
 - **W7** (`07_W7_Text_Transformers_Repo_Adoption.md`): text+Transformers+AI tools+repo adoption (Part 1 ringkas + Part 2 Pendalaman D1-D7); **§1.1**: pretraining rationale; **§1.3 BARU**: QKV, Transformer block, multi-head, positional encoding, freeze vs fine-tune
@@ -134,13 +134,13 @@ ruff format src/
 
 ## Konvensi Penulisan Bab
 
-Struktur bab materi mengikuti **`chapter-style-guide.md`**: Langkah 0 (turunkan garis besar minggu dulu) → Pembuka (agenda + recap minggu lalu) → materi (inti + artefak yang bisa disalin + contoh + link antar-minggu) → Lab → Penutup. Panduan itu menggantikan urutan tetap lama (Peta Bab → Motivasi → Konsep Inti → ... → Bacaan Lanjutan), yang dibuang karena terlalu naratif dan boros.
+Struktur bab materi mengikuti **`GUIDE_CHAPTER_STYLE.md`**: Langkah 0 (turunkan garis besar minggu dulu) → Pembuka (agenda + recap minggu lalu) → materi (inti + artefak yang bisa disalin + contoh + link antar-minggu) → Lab → Penutup. Panduan itu menggantikan urutan tetap lama (Peta Bab → Motivasi → Konsep Inti → ... → Bacaan Lanjutan), yang dibuang karena terlalu naratif dan boros.
 
-Sebelum membuat atau merevisi bab, baca `chapter-style-guide.md` lengkap: ada alur cold-start (acuan W4), Langkah 0 wajib, dan **Checklist audit-diri** yang harus dijalankan baris demi baris pada draf sebelum dinyatakan selesai. Setelah draf bab jadi, sapu bahasanya mengikuti **`SWEEPER.md`** (lihat Gaya Penulisan di bawah).
+Sebelum membuat atau merevisi bab, baca `GUIDE_CHAPTER_STYLE.md` lengkap: ada alur cold-start (acuan W4), Langkah 0 wajib, dan **Checklist audit-diri** yang harus dijalankan baris demi baris pada draf sebelum dinyatakan selesai. Setelah draf bab jadi, sapu bahasanya mengikuti **`SWEEPER.md`** (lihat Gaya Penulisan di bawah).
 
 Bahasa Indonesia. Istilah teknis ML/DL tetap Inggris (loss, checkpoint, seed, freeze, ablation). Glosarium di `14_Lampiran.md`.
 
-Sikap (Curiosity, Rigor, Skepticism, Ownership) dan cara lapor ke dosen diselipkan di materi tempatnya muncul wajar (Thread lintas-bab di `chapter-style-guide.md`), bukan section atau bab khusus.
+Sikap (Curiosity, Rigor, Skepticism, Ownership) dan cara lapor ke dosen diselipkan di materi tempatnya muncul wajar (Thread lintas-bab di `GUIDE_CHAPTER_STYLE.md`), bukan section atau bab khusus.
 
 **Penempatan gambar:** Gambar disisipkan langsung di dalam section tempat kontennya dibahas - bukan dikumpulkan di akhir bab. Prinsip bottom-up berlaku: letakkan gambar tepat setelah teks yang mendeskripsikan konsep tersebut, sehingga pembaca melihat penjelasan teks lalu langsung melihat visualnya. Setiap gambar baru yang dibuat harus segera disisipkan di semua section relevan pada hari yang sama.
 
@@ -399,7 +399,7 @@ Tiap `.md` baru/rename, update:
 
 Slide ringkasan per bab via **Reveal.js**. Trailer (bukan pengganti modul) - max 8-10 slide.
 
-Pedagogi dan cara menurunkan slide dari bab diatur di **`GUIDE-SLIDE.md`**: slide diturunkan dari bab (bab dulu, baru slide), Pola A (materi bergejala, mulai dari artefak teramati) vs Pola B (materi notasi, objek literal + tambah satu sumbu per langkah), kalimat kunci sekali per topik, dan Checklist audit-diri slide. Aturan teknis layout (jumlah bullet, lead sentence, image-before-text, design system) ada di bagian ini. Setelah slide jadi, sapu bahasanya mengikuti `SWEEPER.md`.
+Pedagogi dan cara menurunkan slide dari bab diatur di **`GUIDE_SLIDE_STYLE.md`**: slide diturunkan dari bab (bab dulu, baru slide), Pola A (materi bergejala, mulai dari artefak teramati) vs Pola B (materi notasi, objek literal + tambah satu sumbu per langkah), kalimat kunci sekali per topik, dan Checklist audit-diri slide. Aturan teknis layout (jumlah bullet, lead sentence, image-before-text, design system) ada di bagian ini. Setelah slide jadi, sapu bahasanya mengikuti `SWEEPER.md`.
 
 ### Design System
 

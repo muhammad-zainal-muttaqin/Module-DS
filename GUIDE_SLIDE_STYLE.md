@@ -1,8 +1,8 @@
-# GUIDE-SLIDE.md - Panduan Slide Pembelajaran
+# GUIDE_SLIDE_STYLE.md - Panduan Slide Pembelajaran
 
 Panduan ini dipakai saat membuat atau merevisi slide deck di `website/src/lib/slides/slides-XX.ts`.
 
-**Slide diturunkan dari bab.** Polanya sama dengan `chapter-style-guide.md`, hanya dipadatkan jadi bentuk slide: ambil objektif dan materi bab yang sudah ditulis, lalu render tiap materi jadi beberapa slide yang ringkas dan padat. Slide tidak menambah materi baru di luar bab, dan tidak menyalin prosa bab utuh.
+**Slide diturunkan dari bab.** Polanya sama dengan `GUIDE_CHAPTER_STYLE.md`, hanya dipadatkan jadi bentuk slide: ambil objektif dan materi bab yang sudah ditulis, lalu render tiap materi jadi beberapa slide yang ringkas dan padat. Slide tidak menambah materi baru di luar bab, dan tidak menyalin prosa bab utuh.
 
 Panduan ini tunduk pada `CLAUDE.md` (gaya bahasa, larangan em dash, larangan kiasan fisik) dan `SWEEPER.md` (anti AI-slop). Aturan teknis layout slide (jumlah bullet, lead sentence, image-before-text, design system) ada di `CLAUDE.md` bagian "Slide Deck Instruktur".
 
@@ -10,7 +10,7 @@ Audiens: mahasiswa Ilmu Komputer semester 6 yang sudah belajar ML/DL dasar tetap
 
 ## Mulai dari sini (alur cold-start)
 
-1. Pastikan bab minggu itu sudah direvisi mengikuti `chapter-style-guide.md`. Slide diturunkan dari bab, jadi bab dulu, baru slide.
+1. Pastikan bab minggu itu sudah direvisi mengikuti `GUIDE_CHAPTER_STYLE.md`. Slide diturunkan dari bab, jadi bab dulu, baru slide.
 2. Baca contoh acuan yang sudah disetujui: `website/src/lib/slides/slides-04.ts`. Samakan bar-nya.
 3. Render tiap materi bab jadi slide (bagian 2 dan 3 di bawah).
 4. Jalankan Checklist audit-diri di bawah pada deck Anda sendiri, perbaiki temuannya, sebelum selesai.
@@ -28,7 +28,7 @@ Slide bahan ajar. Tulis ringkas dan padat.
 
 ## 2. Struktur deck = struktur bab, dipadatkan
 
-Deck mengikuti kerangka bab (`chapter-style-guide.md`), diturunkan lewat Langkah 0 yang sama.
+Deck mengikuti kerangka bab (`GUIDE_CHAPTER_STYLE.md`), diturunkan lewat Langkah 0 yang sama.
 
 - **Slide agenda:** judul + daftar materi minggu ini. Sejajar dengan "Kali ini kita akan membahas:" di bab.
 - **Slide recap:** satu slide "Di pertemuan sebelumnya" berisi inti minggu lalu dan output yang dibawa. Boleh rujuk minggu lebih awal.

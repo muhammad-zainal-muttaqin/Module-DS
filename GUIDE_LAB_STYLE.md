@@ -6,7 +6,7 @@ Panduan ini melengkapi, bukan menggantikan:
 
 - `CLAUDE.md` bagian **Gaya Penulisan** - aturan diksi, tanda baca, SPOK, tabel kata calque. Berlaku penuh untuk teks di dalam notebook.
 - `SWEEPER.md` - pola sapu bahasa anti AI-slop. Jalankan setelah menulis teks lab.
-- `chapter-style-guide.md` - acuan untuk bab `.md`, bukan notebook.
+- `GUIDE_CHAPTER_STYLE.md` - acuan untuk bab `.md`, bukan notebook.
 
 Kalau ada konflik, `CLAUDE.md` menang untuk urusan bahasa; dokumen ini menang untuk urusan struktur notebook.
 
