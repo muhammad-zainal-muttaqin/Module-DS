@@ -89,6 +89,9 @@ function SlideContent({ section }: { section: SlideSection }) {
       return (
         <div className="slide-bullets-layout">
           <h2 className="slide-heading">{section.title}</h2>
+          {section.body && (
+            <p className="slide-body" dangerouslySetInnerHTML={{ __html: markdownish(section.body) }} />
+          )}
           <ul className="slide-list">
             {section.bullets?.map((b, i) => (
               <li
