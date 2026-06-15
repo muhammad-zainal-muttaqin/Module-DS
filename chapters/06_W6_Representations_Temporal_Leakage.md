@@ -58,6 +58,8 @@ Definisi lengkap ketiga strategi ada di [W3 §2.4](03_W3_Loss_Optimizer_Evaluasi
 
 ## 2. Temporal Leakage
 
+Tugas jembatan di akhir W5 sudah memberi gejalanya: saat LSTM dilatih pada Air Passengers, random split menghasilkan MAE yang lebih kecil daripada chronological split, padahal di praktiknya kita selalu meramal masa depan. Section ini menjelaskan kenapa angka yang lebih kecil itu justru menyesatkan.
+
 Temporal leakage terjadi ketika informasi dari masa depan masuk ke prediksi masa lalu. Berikut satu pipeline yang sering ditulis dan tampak wajar. Datanya sensor suhu mesin industri dengan label failure. Kita membuat fitur rolling mean 24 jam, lalu membagi data secara acak.
 
 ```python
