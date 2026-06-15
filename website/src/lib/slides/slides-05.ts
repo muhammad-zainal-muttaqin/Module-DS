@@ -61,6 +61,15 @@ export const slides05: SlideSection[] = [
     footnote: "Input tugas sequence umumnya berbentuk (T, F): T langkah waktu, masing-masing dengan F fitur.",
   },
 
+  // -- image fig05j: bentuk input sequence --
+  {
+    layout: "image",
+    title: "Bentuk Input Sequence: dari mana F berasal",
+    imageUrl: "/figures/fig05j_bentuk_input_sequence.png",
+    caption: "Gambar ini menunjukkan beberapa bentuk input sequence. Pada data univariat, tiap langkah waktu cuma punya satu angka, sehingga bentuknya (B, T, 1). Pada data multivariat, tiap langkah waktu punya vektor fitur, sehingga bentuknya (B, T, F). Dua kasus lain, yaitu data spasio-temporal dan format hibrida, menambah dimensi tapi tetap diringkas jadi (B, T, F) sebelum masuk ke RNN.",
+    footnote: "Fokus W5 ada di dua kasus pertama, univariat dan multivariat. Dua kasus terakhir cukup dikenali polanya sekarang.",
+  },
+
   // -- 5: Empat formulasi (table) --
   {
     layout: "table",
@@ -74,6 +83,15 @@ export const slides05: SlideSection[] = [
       ["Token classification", "(T, N)", "Linear pada tiap h_t", "CrossEntropy/token"],
     ],
     footnote: "Di W5 kita fokus pada tiga yang pertama; token classification dibahas di W7.",
+  },
+
+  // -- image fig05i: formulasi output sequence --
+  {
+    layout: "image",
+    title: "Empat Formulasi Output dalam Gambar",
+    imageUrl: "/figures/fig05i_formulasi_output_sequence.png",
+    caption: "Gambar ini menggambarkan empat formulasi tadi. Di kelompok seq-to-1, seluruh sequence diringkas jadi satu jawaban, baik satu angka untuk regresi maupun satu kelas untuk klasifikasi. Di kelompok seq-to-seq, tiap langkah menghasilkan jawabannya sendiri, baik berupa peramalan langkah ke depan maupun label untuk tiap langkah.",
+    footnote: "Pelabelan sekuens (contoh B-PER, I-PER) adalah token classification yang detailnya dibahas di W7.",
   },
 
   // -- image fig05e: output tapping --

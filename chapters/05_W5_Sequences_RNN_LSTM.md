@@ -43,7 +43,13 @@ W5 adalah bab paling padat secara teknis sejauh ini. Materi disusun bottom-up: k
 
 ## 1. Output Head untuk Sequence
 
-Saat menangani tugas sequence, hal pertama yang perlu kita tentukan adalah bentuk output yang ingin dihasilkan. Bentuk output inilah yang menentukan arsitektur head dan loss. Input tugas sequence umumnya berbentuk `(T, F)`: ada T langkah waktu, dan setiap langkah membawa F fitur. Empat formulasi berikut mencakup hampir semua tugas yang akan dijumpai.
+Saat menangani tugas sequence, hal pertama yang perlu kita tentukan adalah bentuk output yang ingin dihasilkan. Bentuk output inilah yang menentukan arsitektur head dan loss. Input tugas sequence umumnya berbentuk `(T, F)`: ada T langkah waktu, dan setiap langkah membawa F fitur.
+
+![Bentuk input sequence: univariat (B, T, 1), multivariat (B, T, F), spasio-temporal, dan format hibrida](../figures/fig05j_bentuk_input_sequence.png)
+
+Diagram di atas memperjelas dari mana F berasal. Pada data univariat, tiap langkah waktu hanya membawa satu angka, sehingga inputnya berbentuk `(B, T, 1)`. Pada data multivariat, tiap langkah membawa beberapa fitur sekaligus, sehingga inputnya berbentuk `(B, T, F)`. Data spasio-temporal dan format hibrida menambah dimensi lain, tetapi semuanya diringkas menjadi `(B, T, F)` sebelum masuk ke RNN. Di W5 kita fokus pada dua kasus pertama, yaitu univariat dan multivariat.
+
+Empat formulasi berikut mencakup hampir semua tugas yang akan dijumpai.
 
 | Tugas | Input shape | Output shape | Head | Loss | Contoh |
 |---|---|---|---|---|---|
@@ -51,6 +57,10 @@ Saat menangani tugas sequence, hal pertama yang perlu kita tentukan adalah bentu
 | Klasifikasi akhir | `(T, F)` | `(N,)` | `Linear(hidden, N)` pada `h_T` | CrossEntropy | Klasifikasi aktivitas dari sensor IMU |
 | Forecast sequence | `(T, F)` | `(T'', 1)` | `Linear(hidden, 1)` pada tiap `h_t` | MSE/MAE | Prediksi 12 jam ke depan sinyal CGM |
 | Token classification | `(T,)` | `(T, N)` | `Linear(hidden, N)` pada tiap `h_t` | CrossEntropy per token | NER, POS tagging |
+
+![Empat formulasi output sequence: seq-to-1 untuk regresi dan klasifikasi, seq-to-seq untuk peramalan dan pelabelan](../figures/fig05i_formulasi_output_sequence.png)
+
+Diagram di atas menggambarkan keempat formulasi itu. Pada kelompok seq-to-1, seluruh sequence diringkas menjadi satu jawaban, baik satu angka untuk regresi maupun satu kelas untuk klasifikasi. Pada kelompok seq-to-seq, tiap langkah menghasilkan jawabannya sendiri, baik berupa peramalan langkah ke depan maupun label untuk tiap langkah. Pelabelan sekuens pada contoh tersebut (B-PER, I-PER) adalah token classification yang dibahas di W7.
 
 Di W5 kita fokus pada tiga formulasi pertama; token classification dibahas di W7. Pemilihan loss mengikuti head, persis seperti [W1 §2](01_W1_Tabular_Output_Heads.md): regression memakai MSE/MAE, klasifikasi memakai CrossEntropy. Yang baru pada sequence hanya satu hal, yaitu dari mana hidden state diambil. Tugas akhir memakai hidden state langkah terakhir (`h_T`), sedangkan tugas per-langkah memakai hidden state di setiap langkah (`h_t`).
 
