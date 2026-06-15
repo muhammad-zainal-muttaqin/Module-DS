@@ -489,7 +489,20 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     ],
   },
 
-  // -- 33: Lanjut ke W6 --
+  // -- 33: Tugas jembatan W5 ke W6 --
+  {
+    layout: "bullets",
+    title: "Tugas jembatan: random vs chronological split untuk awal W6",
+    body: "Lab W5 melatih LSTM pada sequence sintetis. Tugas jembatan ini memakai dataset Air Passengers (deret bulanan penumpang pesawat, 1949-1960) untuk menyiapkan bahan diskusi di awal W6:",
+    bullets: [
+      "**Latih LSTM** dari `lab_w5_lstm_sequence` pada Air Passengers dengan dua skema split: random split dan chronological split (bulan-bulan terakhir jadi test).",
+      "**Bandingkan MAE atau RMSE** dari kedua skema pada test set yang sama, lalu catat selisihnya.",
+      "**Bawa satu hipotesis** tentang sumber selisih tersebut ke W6, sebelum materi temporal leakage dibuka.",
+    ],
+    footnote: "Siapkan satu slide ringkas berisi dua angka metrik dan satu paragraf dugaan; slide ini dipresentasikan di awal W6 sebelum materi leakage dimulai.",
+  },
+
+  // -- 34: Lanjut ke W6 --
   {
     layout: "bullets",
     title: "Lanjut ke W6",
@@ -501,7 +514,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     ],
   },
 
-  // -- 34: CTA --
+  // -- 35: CTA --
   {
     layout: "cta",
     title: "Mulai Lab W5",
