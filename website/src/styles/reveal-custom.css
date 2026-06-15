@@ -238,6 +238,25 @@
   border-left-color: #F59E0B;
 }
 
+/* Math / pseudo blocks (lang: "text"): a soft surface that matches the slide,
+   not the dark code box. Full hairline border instead of the code accent rule. */
+.reveal pre.slide-math-block {
+  background: rgba(0, 0, 0, 0.035);
+  color: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 0.62em;
+}
+
+.dark .reveal pre.slide-math-block {
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.reveal pre.slide-math-block sub {
+  font-size: 0.72em;
+}
+
 .reveal pre code {
   font-family: inherit;
   background: transparent;

@@ -51,8 +51,8 @@ export const slides01: SlideSection[] = [
   {
     layout: "section",
     title: "1. MLP Mengubah Bentuk Tensor",
-    body: "MLP mengambil vektor fitur (F,) dan menghasilkan vektor output (D_out,) lewat rangkaian Linear dan ReLU. D_out ditentukan oleh tugas, bukan oleh data.",
-    footnote: "Regression memakai D_out = 1, binary memakai 1 atau 2, dan multiclass dengan N kelas memakai N.",
+    body: "MLP mengambil vektor fitur (F,) dan menghasilkan vektor output (D_{out},) lewat rangkaian Linear dan ReLU. D_{out} ditentukan oleh tugas, bukan oleh data.",
+    footnote: "Regression memakai D_{out} = 1, binary memakai 1 atau 2, dan multiclass dengan N kelas memakai N.",
   },
 
   // -- 5: Body-head image (bottom-up: gambar dulu) --

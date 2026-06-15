@@ -21,8 +21,12 @@ function staggerStyle({ index }: StaggerProps): CSSProperties {
 
 function SlideCode({ code, lang = "python" }: { code: string; lang?: string }) {
   const [html, setHtml] = useState<string | null>(null);
+  // `lang: "text"` is used for math/pseudo blocks (equations, decision trees).
+  // Render these with subscript formatting instead of syntax highlighting.
+  const isMath = lang === "text";
 
   useEffect(() => {
+    if (isMath) return;
     let cancelled = false;
     const isDark = document.documentElement.classList.contains("dark");
     highlight(code, lang, isDark).then((h) => {
@@ -31,7 +35,15 @@ function SlideCode({ code, lang = "python" }: { code: string; lang?: string }) {
     return () => {
       cancelled = true;
     };
-  }, [code, lang]);
+  }, [code, lang, isMath]);
+
+  if (isMath) {
+    return (
+      <pre className="slide-code-block slide-math-block">
+        <code dangerouslySetInnerHTML={{ __html: subscriptify(escapeHtml(code)) }} />
+      </pre>
+    );
+  }
 
   if (html === null) {
     return (
@@ -271,19 +283,32 @@ function SlideContent({ section }: { section: SlideSection }) {
   }
 }
 
-// Minimal inline formatting: **bold**, *italic*, math subscripts (h_t, h_{t-1}), \n→<br>.
-// Subscripts only fire for a single-letter base followed by `_` and either one
-// alphanumeric char or a `{...}` group, so code identifiers like batch_first,
-// max_norm, or clip_grad_norm_ are left untouched.
+// Math subscript rule, shared by prose and `lang: "text"` equation blocks.
+// A subscript fires only for a 1-2 letter base (variable or a `d`-derivative like `dc`)
+// followed by `_` and either a `{...}` group or a SINGLE trailing alphanumeric. The
+// negative lookahead means a bare `_word` (X_train, D_out, batch_first, max_norm,
+// seq_len, clip_grad_norm_, freeze_until, d_model) is left untouched; brace it
+// (`D_{out}`) to force a subscript.
+const SUBSCRIPT_RE = /(\b[A-Za-z]{1,2})_(\{[^}]+\}|[A-Za-z0-9](?![A-Za-z0-9]))/g;
+
+function subscriptify(text: string): string {
+  return text.replace(SUBSCRIPT_RE, (_m, base: string, sub: string) => {
+    const inner = sub.startsWith("{") ? sub.slice(1, -1) : sub;
+    return `${base}<sub>${inner}</sub>`;
+  });
+}
+
+function escapeHtml(text: string): string {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// Minimal inline formatting: **bold**, *italic*, math subscripts, \n→<br>.
 function markdownish(text: string): string {
-  return text
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.+?)\*/g, "<em>$1</em>")
-    .replace(/\b([A-Za-z])_(\{[^}]+\}|[A-Za-z0-9])/g, (_m, base: string, sub: string) => {
-      const inner = sub.startsWith("{") ? sub.slice(1, -1) : sub;
-      return `${base}<sub>${inner}</sub>`;
-    })
-    .replace(/\n/g, "<br>");
+  return subscriptify(
+    text
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.+?)\*/g, "<em>$1</em>"),
+  ).replace(/\n/g, "<br>");
 }
 
 // Renders a paragraph with markdownish inline formatting (bold, italic, subscripts).
