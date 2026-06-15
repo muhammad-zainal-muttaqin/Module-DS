@@ -74,8 +74,15 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: safe center;
   overflow-y: auto;
+}
+
+/* Robust vertical centering: auto margins center the single content wrapper when
+   it fits, and collapse to 0 (top-aligned, scrollable) when it overflows. This
+   avoids the `justify-content: safe center` fallback-to-top bug across browsers. */
+.reveal .slides section > * {
+  margin-block: auto;
+  width: 100%;
 }
 
 /* ═══════════════════════════════════════════

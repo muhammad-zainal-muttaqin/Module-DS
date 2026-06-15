@@ -69,7 +69,7 @@ function SlideContent({ section }: { section: SlideSection }) {
           {section.body && (
             <p className="slide-body" dangerouslySetInnerHTML={{ __html: markdownish(section.body) }} />
           )}
-          {section.footnote && <p className="slide-footnote">{section.footnote}</p>}
+          {section.footnote && <Fmt className="slide-footnote" text={section.footnote} />}
         </div>
       );
 
@@ -87,7 +87,7 @@ function SlideContent({ section }: { section: SlideSection }) {
               />
             ))}
           </ul>
-          {section.footnote && <p className="slide-footnote">{section.footnote}</p>}
+          {section.footnote && <Fmt className="slide-footnote" text={section.footnote} />}
         </div>
       );
 
@@ -125,7 +125,7 @@ function SlideContent({ section }: { section: SlideSection }) {
               )}
             </div>
           </div>
-          {section.footnote && <p className="slide-footnote">{section.footnote}</p>}
+          {section.footnote && <Fmt className="slide-footnote" text={section.footnote} />}
         </div>
       );
 
@@ -147,7 +147,7 @@ function SlideContent({ section }: { section: SlideSection }) {
               </div>
             ))}
           </div>
-          {section.footnote && <p className="slide-footnote">{section.footnote}</p>}
+          {section.footnote && <Fmt className="slide-footnote" text={section.footnote} />}
         </div>
       );
     }
@@ -170,9 +170,9 @@ function SlideContent({ section }: { section: SlideSection }) {
       return (
         <div className="slide-code-layout">
           <h2 className="slide-heading">{section.title}</h2>
-          {section.body && <p className="slide-body">{section.body}</p>}
+          {section.body && <Fmt className="slide-body" text={section.body} />}
           <SlideCode code={section.code ?? ""} lang={section.lang ?? "python"} />
-          {section.footnote && <p className="slide-footnote">{section.footnote}</p>}
+          {section.footnote && <Fmt className="slide-footnote" text={section.footnote} />}
         </div>
       );
 
@@ -208,8 +208,8 @@ function SlideContent({ section }: { section: SlideSection }) {
             alt={section.caption ?? section.title ?? ""}
             className="slide-figure"
           />
-          {section.caption && <p className="slide-caption">{section.caption}</p>}
-          {section.footnote && <p className="slide-footnote">{section.footnote}</p>}
+          {section.caption && <Fmt className="slide-caption" text={section.caption} />}
+          {section.footnote && <Fmt className="slide-footnote" text={section.footnote} />}
         </div>
       );
 
@@ -226,8 +226,8 @@ function SlideContent({ section }: { section: SlideSection }) {
               title={section.title ?? "Video"}
             />
           </div>
-          {section.caption && <p className="slide-caption">{section.caption}</p>}
-          {section.footnote && <p className="slide-footnote">{section.footnote}</p>}
+          {section.caption && <Fmt className="slide-caption" text={section.caption} />}
+          {section.footnote && <Fmt className="slide-footnote" text={section.footnote} />}
         </div>
       );
 
@@ -262,7 +262,7 @@ function SlideContent({ section }: { section: SlideSection }) {
               ))}
             </tbody>
           </table>
-          {section.footnote && <p className="slide-footnote">{section.footnote}</p>}
+          {section.footnote && <Fmt className="slide-footnote" text={section.footnote} />}
         </div>
       );
 
@@ -271,12 +271,26 @@ function SlideContent({ section }: { section: SlideSection }) {
   }
 }
 
-// Minimal inline formatting: **bold**, *italic*, \n→<br>
+// Minimal inline formatting: **bold**, *italic*, math subscripts (h_t, h_{t-1}), \n→<br>.
+// Subscripts only fire for a single-letter base followed by `_` and either one
+// alphanumeric char or a `{...}` group, so code identifiers like batch_first,
+// max_norm, or clip_grad_norm_ are left untouched.
 function markdownish(text: string): string {
   return text
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/\b([A-Za-z])_(\{[^}]+\}|[A-Za-z0-9])/g, (_m, base: string, sub: string) => {
+      const inner = sub.startsWith("{") ? sub.slice(1, -1) : sub;
+      return `${base}<sub>${inner}</sub>`;
+    })
     .replace(/\n/g, "<br>");
+}
+
+// Renders a paragraph with markdownish inline formatting (bold, italic, subscripts).
+function Fmt({ text, className }: { text: string; className?: string }) {
+  return (
+    <p className={className} dangerouslySetInnerHTML={{ __html: markdownish(text) }} />
+  );
 }
 
 export default function SlideDeck() {
