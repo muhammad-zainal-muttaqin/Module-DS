@@ -489,17 +489,30 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
     ],
   },
 
-  // -- 33: Tugas jembatan W5 ke W6 --
+  // -- 33a: Tugas jembatan W5 ke W6, bagian protokol --
   {
     layout: "bullets",
-    title: "Tugas jembatan: random vs chronological split untuk awal W6",
-    body: "Lab W5 melatih LSTM pada sequence sintetis. Tugas jembatan ini memakai dataset [Air Passengers](https://www.kaggle.com/datasets/rakannimer/air-passengers) (deret bulanan penumpang pesawat, 1949-1960) untuk menyiapkan bahan diskusi di awal W6:",
+    title: "Tugas jembatan: rancang eksperimen split, bukan sekadar latih",
+    body: "Lab W5 melatih LSTM pada sequence sintetis. Tugas jembatan ini memakai dataset [Air Passengers](https://www.kaggle.com/datasets/rakannimer/air-passengers) (deret bulanan penumpang pesawat, 1949-1960), tapi diperlakukan sebagai eksperimen ter-pre-register, bukan sekadar latih lalu lihat angka:",
     bullets: [
-      "**Latih LSTM** dari `lab_w5_lstm_sequence` pada Air Passengers dengan dua skema split: random split dan chronological split (bulan-bulan terakhir jadi test).",
-      "**Bandingkan MAE atau RMSE** dari kedua skema pada test set yang sama, lalu catat selisihnya.",
-      "**Bawa satu hipotesis** tentang sumber selisih tersebut ke W6, sebelum materi temporal leakage dibuka.",
+      "**Tebak sebelum melatih.** Tulis pre-registration singkat: skema evaluasi mana yang errornya paling rendah, kira-kira seberapa besar selisihnya terhadap baseline, dan mekanisme apa yang Anda duga jadi penyebab. Simpan tebakan ini sebelum menjalankan satu baris kode.",
+      "**Jalankan tiga skema evaluasi, bukan dua.** Latih `lab_w5_lstm_sequence` pada Air Passengers dengan random split, chronological holdout (ekor deret jadi test), dan rolling-origin (walk-forward) sebagai evaluasi deret waktu yang sah.",
+      "**Pasang dua baseline dan satu jebakan scaler.** Sertakan persistence dan seasonal-naive(12) sebagai pembanding wajib, fit scaler hanya pada data train, lalu ulangi satu kali dengan scaler yang sengaja di-fit pada seluruh deret untuk mengukur kebocoran kedua.",
     ],
-    footnote: "Siapkan satu slide ringkas berisi dua angka metrik dan satu paragraf dugaan; slide ini dipresentasikan di awal W6 sebelum materi leakage dimulai.",
+    footnote: "Rolling-origin cukup beberapa titik origin: latih ulang pada jendela yang membesar, ramal satu langkah ke depan tiap origin, lalu rata-ratakan errornya.",
+  },
+
+  // -- 33b: Tugas jembatan W5 ke W6, bagian yang dibawa ke kelas --
+  {
+    layout: "bullets",
+    title: "Yang dibawa ke W6: angka yang sudah teruji skeptis",
+    body: "Awal W6 bukan tempat memamerkan RMSE terkecil, melainkan mempertahankan satu klaim yang bisa dibantah. Tiga hal berikut yang dibawa:",
+    bullets: [
+      "**Laporkan skill relatif terhadap baseline, bukan MAE mentah.** Nyatakan tiap skema sebagai perbaikan atas seasonal-naive(12), karena RMSE yang terlihat bagus pada deret bertren bisa kalah dari tebakan musiman yang trivial.",
+      "**Pisahkan selisih nyata dari noise seed.** Jalankan minimal tiga seed, laporkan rata-rata beserta rentangnya, dan jangan mengklaim selisih yang lebih kecil dari sebaran antar-seed.",
+      "**Bawa klaim yang bisa digugurkan.** Rumuskan satu hipotesis mekanisme, misalnya chronological holdout memaksa ekstrapolasi tren sedangkan random split membiarkan interpolasi, lalu sebutkan observasi apa yang akan menggugurkannya, misalnya selisih menyusut setelah differencing.",
+    ],
+    footnote: "Siapkan satu slide: pre-registration Anda, tabel kecil skill vs baseline per skema dengan mean dan rentang antar-seed, lalu satu paragraf klaim mekanisme. Dipresentasikan di awal W6 sebelum materi temporal leakage dibuka.",
   },
 
   // -- 34: Lanjut ke W6 --
