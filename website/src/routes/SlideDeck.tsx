@@ -302,12 +302,16 @@ function escapeHtml(text: string): string {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-// Minimal inline formatting: **bold**, *italic*, math subscripts, \n→<br>.
+// Minimal inline formatting: **bold**, *italic*, [text](url) links, math subscripts, \n→<br>.
 function markdownish(text: string): string {
   return subscriptify(
     text
       .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.+?)\*/g, "<em>$1</em>"),
+      .replace(/\*(.+?)\*/g, "<em>$1</em>")
+      .replace(
+        /\[(.+?)\]\((.+?)\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>',
+      ),
   ).replace(/\n/g, "<br>");
 }
 

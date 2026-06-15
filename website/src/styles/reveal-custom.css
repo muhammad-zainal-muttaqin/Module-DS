@@ -191,6 +191,21 @@
 }
 
 /* ═══════════════════════════════════════════
+   INLINE LINKS
+   ═══════════════════════════════════════════ */
+
+.reveal a {
+  color: #059669;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.dark .reveal a {
+  color: #F59E0B;
+}
+
+/* ═══════════════════════════════════════════
    BLOCKQUOTE
    ═══════════════════════════════════════════ */
 

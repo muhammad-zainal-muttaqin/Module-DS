@@ -493,7 +493,7 @@ h_t = o_t ⊙ tanh(c_t)                # hidden state`,
   {
     layout: "bullets",
     title: "Tugas jembatan: random vs chronological split untuk awal W6",
-    body: "Lab W5 melatih LSTM pada sequence sintetis. Tugas jembatan ini memakai dataset Air Passengers (deret bulanan penumpang pesawat, 1949-1960) untuk menyiapkan bahan diskusi di awal W6:",
+    body: "Lab W5 melatih LSTM pada sequence sintetis. Tugas jembatan ini memakai dataset [Air Passengers](https://www.kaggle.com/datasets/rakannimer/air-passengers) (deret bulanan penumpang pesawat, 1949-1960) untuk menyiapkan bahan diskusi di awal W6:",
     bullets: [
       "**Latih LSTM** dari `lab_w5_lstm_sequence` pada Air Passengers dengan dua skema split: random split dan chronological split (bulan-bulan terakhir jadi test).",
       "**Bandingkan MAE atau RMSE** dari kedua skema pada test set yang sama, lalu catat selisihnya.",
