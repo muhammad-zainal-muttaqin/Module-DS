@@ -40,7 +40,7 @@ export const slides04: SlideSection[] = [
     title: "Di pertemuan sebelumnya (W3)",
     body: "W3 mengajarkan cara membaca dan menilai hasil training. Outputnya menjadi bahan mentah W4:",
     bullets: [
-      "Kita belajar membaca loss curve untuk mendiagnosis training, lalu memilih loss dan optimizer dengan alasan.",
+      "Kita belajar membaca loss curve untuk mendiagnosis training, lalu menentukan loss dan optimizer yang sesuai.",
       "Kita mengevaluasi model dengan metrik yang sesuai untuk kondisi kelas yang tidak seimbang.",
       "Output yang dibawa: satu diagnosis baseline CIFAR-10 berisi gejala, usulan ablation, dan hipotesis.",
     ],
