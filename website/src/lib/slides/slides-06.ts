@@ -78,7 +78,7 @@ export const slides06: SlideSection[] = [
   {
     layout: "bullets",
     title: "Window: satu unit temporal",
-    body: "Dari gambar tadi, deret sensor yang panjang tidak dipakai utuh, melainkan dipotong dulu menjadi window sebelum representasi apa pun dipilih:",
+    body: "Dari gambar tadi, deret sensor yang panjang dipotong dulu menjadi window sebelum representasi apa pun dipilih, bukan dipakai utuh:",
     bullets: [
       "**Window size (W)** menentukan berapa timestamp berurutan masuk ke satu potongan, dan **stride (S)** menentukan jarak geser ke window berikutnya.",
       "**Sliding window** terjadi saat S < W sehingga window saling tumpang tindih, sedangkan **tumbling window** terjadi saat S = W sehingga tidak ada tumpang tindih.",
