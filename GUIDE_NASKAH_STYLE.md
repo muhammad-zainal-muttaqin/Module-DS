@@ -33,7 +33,7 @@ Aturan praktis:
 Tiap layout di `slides-XX.ts` punya cara baca yang khas:
 
 - **`title`** - Buka dengan sapaan ("Selamat datang di minggu kelima"), sebut posisi (sudah belajar apa), lalu sebut tujuan minggu ini dalam kalimat penuh. Akhiri catatan panggung `[...]` kalau perlu.
-- **`section` (pembatas)** - Kalimat transisi: "Kita masuk ke materi pertama." Lalu satu-dua kalimat yang membingkai apa yang akan dibahas. Jangan menjanjikan gambar yang baru muncul di slide setelahnya.
+- **`section` (pembatas)** - Buka dengan jembatan dari penutup topik sebelumnya, bukan rumus "Kita masuk ke materi ke-N" yang berdiri sendiri (lihat bagian "Transisi Antar-Topik"). Lalu satu-dua kalimat yang membingkai apa yang akan dibahas. Jangan menjanjikan gambar yang baru muncul di slide setelahnya.
 - **`grid` (agenda/daftar)** - Bacakan tiap item sebagai kalimat berurutan dengan "Pertama, ... Kedua, ... Ketiga, ...". Sebutkan **konsekuensi atau sebab**, bukan cuma judulnya. Untuk agenda, pastikan sebab-akibat penting (mis. kenapa RNN gagal) ikut disebut, jangan cuma judul materi.
 - **`bullets`** - Buka dengan lead sentence (kalau slide mengikuti gambar, mulai dengan "Dari gambar tadi, ..."). Lalu tiap bullet jadi satu-dua kalimat penuh, disambung penanda lisan. Jangan baca bullet sebagai frasa.
 - **`table`** - Jangan baca sel mentah. Bacakan per baris sebagai kalimat: "Baris pertama adalah regression dengan satu angka di akhir, head-nya Linear pada langkah terakhir, dan loss-nya MSE atau MAE." Untuk tabel angka, tunjukkan polanya, bukan semua sel.
@@ -41,6 +41,21 @@ Tiap layout di `slides-XX.ts` punya cara baca yang khas:
 - **`split` (perbandingan)** - "Yang pertama adalah ... Yang kedua adalah ..." Jelaskan kedua sisi sebagai dua paragraf kontras yang utuh.
 - **`image`** - Buka dengan ajakan melihat ("Lihat gambar ini", "Biar tidak abstrak, lihat contoh nyata ini"), lalu jelaskan isi gambar dalam kalimat, lalu tarik kesimpulannya. Slide teks **setelah** gambar wajib membuka dengan "Dari gambar tadi, ...".
 - **`cta`** - Ajakan menutup: rangkum yang dipraktikkan di lab, sebut perkiraan waktu, lalu undang membuka lab.
+
+## Transisi Antar-Topik (jembatan, bukan reset)
+
+Naskah harus bisa dibaca lantang dari slide pertama sampai terakhir tanpa terasa ada sambungan yang patah. Flow di dalam satu topik dijaga oleh penanda lisan (Prinsip Inti nomor 3). Tetapi flow antar-topik punya bahaya sendiri, dan letaknya di slide `section` pembatas: kalau tiap topik dibuka dengan rumus yang sama ("Kita masuk ke materi ke-N"), naskah terdengar seperti beberapa presentasi terpisah yang ditempel, bukan satu alur utuh.
+
+Aturannya: **pembuka tiap topik baru menjembatani dari kalimat penutup topik sebelumnya.** Ambil satu gagasan yang baru saja ditutup, lalu jadikan itu alasan kenapa topik berikutnya muncul sekarang. Rambu struktur seperti "ini materi ketiga" boleh tetap ada, tapi ditaruh setelah jembatannya, bukan jadi kalimat pertama.
+
+- **Reset (hindari):** "Kita masuk ke materi ketiga. EDA sering diajarkan sebagai daftar langkah..."
+- **Jembatan (pakai):** "Kalau angka bocor memang sulit dibedakan dari angka jujur, bagaimana cara menemukannya secara sistematis? Jawabannya lewat EDA, dan itu materi ketiga kita."
+
+Tiga pola jembatan yang sering berhasil:
+
+1. **Pertanyaan yang muncul dari penutup tadi.** Topik lalu menutup sebuah masalah, topik baru menjawabnya: "...lalu bagaimana cara mendeteksinya secara sistematis?"
+2. **Gejala yang baru disebut lalu dinamai.** "Korelasi mencurigakan yang tadi muncul di EDA itu gejala leakage; sekarang kita kenali jenis-jenisnya."
+3. **Solusi yang naik jadi aturan sendiri.** "Preprocessing leakage tadi solusinya cukup penting untuk diperlakukan sebagai satu aturan tersendiri."
 
 ## Suara dan Diksi
 
@@ -69,6 +84,7 @@ Bagian akhir file boleh diisi catatan rujukan kalau berguna, tapi jangan ulang p
 - [ ] Slide teks setelah gambar dibuka dengan "Dari gambar tadi, ...".
 - [ ] Tiap singkatan dijabarkan kepanjangannya saat pertama kali muncul, bukan baru di slide tengah. Contoh: pertama kali sebut BPTT, langsung "BPTT, singkatan dari Backpropagation Through Time". Cek juga kepanjangan yang sama sudah ada di chapter dan slide pada titik pertama munculnya.
 - [ ] Penanda lisan ("kemudian", "nah", "jadi", "sebaliknya") dipakai untuk menyambung, naskah terdengar mengalir saat dibaca lantang.
+- [ ] Tiap slide `section` pembatas dibuka dengan jembatan dari penutup topik sebelumnya, bukan rumus "Kita masuk ke materi ke-N" yang berdiri sendiri.
 - [ ] Tidak ada em dash, metafora teknis, dramatisasi, atau calque (cek `SWEEPER.md`).
 - [ ] Catatan panggung `[...]` cuma untuk instruksi, bukan untuk dibaca.
-- [ ] Coba baca lantang satu materi penuh. Kalau tersendat atau terdengar seperti daftar, perbaiki.
+- [ ] Coba baca lantang seluruh deck dari slide pertama sampai terakhir tanpa berhenti. Kalau tersendat di perbatasan antar-topik atau di dalam satu materi, atau terdengar seperti daftar, perbaiki.
