@@ -381,13 +381,13 @@ print('Train-test overlap:', len(train_h & test_h))`,
   {
     layout: "bullets",
     title: "Lab W6",
-    body: "Dua lab minggu ini melatih audit data menyeluruh sekaligus mengukur dampak leakage secara langsung:",
+    body: "Tiga lab minggu ini melatih audit data menyeluruh sekaligus mengukur dampak leakage secara langsung:",
     bullets: [
-      "Lab 6a menjalankan EDA tiga lapis pada PathMNIST, cek overlap antar split dengan hashing, dan membangun pipeline fit-only-on-train.",
-      "Lab 6b membandingkan pipeline causal dan leaky pada data sensor, lalu menghitung leakage inflation = F1_leaky - F1_causal.",
-      "Ambang modul ini: inflation >= 0.05 absolut atau >= 10% relatif dianggap signifikan dan wajib dilaporkan eksplisit.",
+      "**Audit EDA (lab_w6_eda_leakage)** menjalankan EDA tiga lapis pada PathMNIST, cek overlap antar split dengan hashing, dan membangun pipeline fit-only-on-train.",
+      "**Temporal leakage (lab_w6_temporal_leakage)** membandingkan pipeline causal dan leaky pada data sensor lalu menghitung leakage inflation = F1_leaky - F1_causal; inflation >= 0.05 absolut atau >= 10% relatif wajib dilaporkan.",
+      "**Representasi fitur (lab_w6_feature_representation, opsional)** membandingkan strategi engineered, extracted, dan learned pada CIFAR-10 untuk melihat trade-off-nya.",
     ],
-    footnote: "Luaran utama: audit.md satu halaman, tabel F1 causal vs leaky, dan paragraf mengapa angka bocor terlihat meyakinkan.",
+    footnote: "Luaran utama dari dua lab inti: audit.md satu halaman, tabel F1 causal vs leaky, dan paragraf mengapa angka bocor terlihat meyakinkan.",
   },
 
   // -- 30: Refleksi --
