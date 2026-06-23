@@ -61,11 +61,33 @@ export const slides06: SlideSection[] = [
   {
     layout: "section",
     title: "1. Representasi Fitur untuk Sequence dan Sensor",
-    body: "Tiga strategi representasi dari W3 - engineered, extracted, dan learned - muncul lagi di domain sensor dan time series. Di sini pilihannya menentukan satu hal baru: apakah hasil valid secara temporal.",
+    body: "Materi pertama memeriksa dari mana fitur model berasal. Sebelum representasi dipilih, deret sensor dipotong dulu menjadi window, lalu tiga strategi dari W3 - engineered, extracted, learned - dipakai lagi dengan dimensi temporal yang harus dijaga.",
     footnote: "Definisi lengkap ketiga strategi ada di W3 dan tidak diulang minggu ini.",
   },
 
-  // -- 5: Tabel tiga strategi + risiko leakage --
+  // -- 5: Image windowing (image-before-text) --
+  {
+    layout: "image",
+    title: "Window: memotong deret jadi unit temporal",
+    imageUrl: "/figures/fig06e_windowing.png",
+    caption: "Gambar ini menunjukkan satu deret time series panjang yang dipotong menjadi window berukuran tetap. Window size W menentukan panjang tiap potongan, dan stride S menentukan jarak geser antar window. Saat stride lebih kecil dari window size, window berurutan saling tumpang tindih.",
+    footnote: "Tiap window menjadi satu unit temporal: satu sampel dengan satu label yang diambil dari timestamp terakhir window.",
+  },
+
+  // -- 6: Penjelasan window --
+  {
+    layout: "bullets",
+    title: "Window: satu unit temporal",
+    body: "Dari gambar tadi, deret sensor yang panjang tidak dipakai utuh, melainkan dipotong dulu menjadi window sebelum representasi apa pun dipilih:",
+    bullets: [
+      "**Window size (W)** menentukan berapa timestamp berurutan masuk ke satu potongan, dan **stride (S)** menentukan jarak geser ke window berikutnya.",
+      "**Sliding window** terjadi saat S < W sehingga window saling tumpang tindih, sedangkan **tumbling window** terjadi saat S = W sehingga tidak ada tumpang tindih.",
+      "**Window punya rentang waktu**, jadi satu window tidak boleh melewati batas train-test, karena isinya akan mencampur kedua sisi dan memicu leakage.",
+    ],
+    footnote: "Contoh: sinyal 100 Hz dengan W=200 dan S=100 menghasilkan sekitar 59 window per menit, masing-masing berbentuk (200, channel).",
+  },
+
+  // -- 7: Tabel tiga strategi + risiko leakage --
   {
     layout: "table",
     title: "Tiga strategi, satu kolom baru",
@@ -81,7 +103,7 @@ export const slides06: SlideSection[] = [
 
   // ============ MATERI 2: Temporal Leakage (Pola A) ============
 
-  // -- 6: Materi 2 --
+  // -- 8: Materi 2 --
   {
     layout: "section",
     title: "2. Temporal Leakage",
@@ -89,7 +111,7 @@ export const slides06: SlideSection[] = [
     footnote: "Datanya sensor suhu mesin industri dengan label failure, fitur rolling mean 24 jam, lalu split acak.",
   },
 
-  // -- 7: Pipeline yang bocor (code) --
+  // -- 9: Pipeline yang bocor (code) --
   {
     layout: "code",
     title: "Pipeline yang tampak wajar tetapi bocor",
@@ -103,7 +125,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Dua keputusan ini bersama-sama membuat data setelah titik test ikut terlihat saat training.",
   },
 
-  // -- 8: Dua sumber kebocoran --
+  // -- 10: Dua sumber kebocoran --
   {
     layout: "bullets",
     title: "Dua sumber kebocoran dalam satu pipeline",
@@ -116,7 +138,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Selisih 0.29 inilah harga temporal leakage, dan baru terlihat setelah model dipakai.",
   },
 
-  // -- 9: Image split (image-before-text) --
+  // -- 11: Image split (image-before-text) --
   {
     layout: "image",
     title: "Split temporal yang benar vs data leakage",
@@ -125,7 +147,7 @@ X_train, X_test = train_test_split(df, test_size=0.2,
     footnote: "Cutoff berbasis quantile timestamp menjaga seluruh data train berada sebelum seluruh data test.",
   },
 
-  // -- 10: Solusi causal (code) --
+  // -- 12: Solusi causal (code) --
   {
     layout: "code",
     title: "Pipeline yang benar: split berbasis waktu",
@@ -141,7 +163,7 @@ test  = df[df['timestamp'] > cutoff]
     footnote: "Lab 6 menampilkan selisih ini eksplisit: F1 dengan leakage vs tanpa leakage pada dataset yang sama.",
   },
 
-  // -- 11: Kenapa angka bocor berbahaya (kalimat kunci topik) --
+  // -- 13: Kenapa angka bocor berbahaya (kalimat kunci topik) --
   {
     layout: "bullets",
     title: "Mengapa angka bocor berbahaya",
@@ -156,7 +178,7 @@ test  = df[df['timestamp'] > cutoff]
 
   // ============ MATERI 3: EDA sebagai Investigasi ============
 
-  // -- 12: Materi 3 --
+  // -- 14: Materi 3 --
   {
     layout: "section",
     title: "3. EDA sebagai Investigasi",
@@ -164,7 +186,7 @@ test  = df[df['timestamp'] > cutoff]
     footnote: "Kerangka yang produktif menyusun pertanyaan dalam tiga lapis berurutan.",
   },
 
-  // -- 13: Tiga lapis EDA --
+  // -- 15: Tiga lapis EDA --
   {
     layout: "grid",
     title: "Tiga lapis pertanyaan dalam EDA",
@@ -188,7 +210,7 @@ test  = df[df['timestamp'] > cutoff]
 
   // ============ MATERI 4: Lima Jenis Data Leakage (Pola A) ============
 
-  // -- 14: Materi 4 --
+  // -- 16: Materi 4 --
   {
     layout: "section",
     title: "4. Lima Jenis Data Leakage",
@@ -196,7 +218,7 @@ test  = df[df['timestamp'] > cutoff]
     footnote: "Mengenali jenisnya menentukan tes deteksi dan solusi yang tepat.",
   },
 
-  // -- 15: Image lima jenis leakage (image-before-text) --
+  // -- 17: Image lima jenis leakage (image-before-text) --
   {
     layout: "image",
     title: "Lima jenis leakage dan cara mendeteksinya",
@@ -205,7 +227,7 @@ test  = df[df['timestamp'] > cutoff]
     footnote: "Tanda umum semua leakage adalah akurasi yang terlalu bagus dibanding ekspektasi wajar.",
   },
 
-  // -- 16: Leakage 1-3 --
+  // -- 18: Leakage 1-3 --
   {
     layout: "bullets",
     title: "Leakage 1 sampai 3: target, contamination, temporal",
@@ -218,7 +240,7 @@ test  = df[df['timestamp'] > cutoff]
     footnote: "Tes cepat target leakage: latih model dengan satu fitur itu saja - kalau akurasi sudah tinggi, curigai.",
   },
 
-  // -- 17: Leakage 4-5 --
+  // -- 19: Leakage 4-5 --
   {
     layout: "bullets",
     title: "Leakage 4 dan 5: group dan preprocessing",
@@ -233,7 +255,7 @@ test  = df[df['timestamp'] > cutoff]
 
   // ============ MATERI 5: Pipeline yang Aman ============
 
-  // -- 18: Materi 5 --
+  // -- 20: Materi 5 --
   {
     layout: "section",
     title: "5. Pipeline Pra-pemrosesan yang Aman",
@@ -241,7 +263,7 @@ test  = df[df['timestamp'] > cutoff]
     footnote: "Label test memang tidak bocor, tetapi distribusi fitur test bisa bocor lewat statistik normalisasi.",
   },
 
-  // -- 19: Salah vs benar (split) --
+  // -- 21: Salah vs benar (split) --
   {
     layout: "split",
     title: "Salah vs benar: urutan fit dan split",
@@ -257,11 +279,20 @@ test  = df[df['timestamp'] > cutoff]
     footnote: "sklearn.pipeline.Pipeline dan ColumnTransformer menjaga urutan fit/transform ini secara otomatis.",
   },
 
-  // -- 20: Domain shift --
+  // -- 22: Image tiga bentuk domain shift (image-before-text) --
+  {
+    layout: "image",
+    title: "Tiga bentuk domain shift",
+    imageUrl: "/figures/fig06d_domain_shift.png",
+    caption: "Gambar ini membandingkan tiga bentuk domain shift lewat distribusi yang berubah. Pada covariate shift, distribusi fitur P(x) bergeser sementara batas keputusan tetap. Pada label shift, proporsi kelas P(y) berubah sementara tampilan tiap kelas tetap. Pada concept drift, input identik bisa berlabel berbeda karena aturan fitur ke target P(y|x) berubah.",
+    footnote: "Diagnosis awal ketiganya sama: bandingkan histogram tiap fitur antara train dan produksi, lalu uji KS untuk lebih formal.",
+  },
+
+  // -- 23: Domain shift --
   {
     layout: "grid",
     title: "Tiga bentuk domain shift",
-    body: "Pipeline yang bersih pun bisa gagal kalau data produksi berbeda dari data training. Tiga shift menuntut solusi berbeda:",
+    body: "Dari gambar tersebut, ketiga shift menuntut solusi berbeda meski pipeline sudah bersih:",
     gridItems: [
       {
         title: "Covariate Shift",
@@ -281,7 +312,7 @@ test  = df[df['timestamp'] > cutoff]
 
   // ============ MATERI 6: Audit dan Pelaporan ============
 
-  // -- 21: Materi 6 --
+  // -- 24: Materi 6 --
   {
     layout: "section",
     title: "6. Audit Dataset dan Pelaporan",
@@ -289,7 +320,7 @@ test  = df[df['timestamp'] > cutoff]
     footnote: "Audit ditulis ke experiments/lab4/audit.md dan dibaca bersama protokol eksperimen W4.",
   },
 
-  // -- 22: Empat pemeriksaan audit --
+  // -- 25: Empat pemeriksaan audit --
   {
     layout: "bullets",
     title: "Empat pemeriksaan audit dataset",
@@ -302,7 +333,7 @@ test  = df[df['timestamp'] > cutoff]
     footnote: "Untuk dataset publik matang overlap biasanya 0, tetapi periksa selalu - jangan percaya begitu saja.",
   },
 
-  // -- 23: Cek overlap (code) --
+  // -- 26: Cek overlap (code) --
   {
     layout: "code",
     title: "Cek leakage: overlap hash antar split",
@@ -318,7 +349,7 @@ print('Train-test overlap:', len(train_h & test_h))`,
     footnote: "Overlap > 0 dicatat, dilaporkan, dan dipertimbangkan untuk difilter sebelum training.",
   },
 
-  // -- 24: Audit berakhir dengan keputusan --
+  // -- 27: Audit berakhir dengan keputusan --
   {
     layout: "bullets",
     title: "Audit berakhir dengan keputusan, bukan hanya temuan",
@@ -331,7 +362,7 @@ print('Train-test overlap:', len(train_h & test_h))`,
     footnote: "Audit yang berhenti di temuan tanpa keputusan belum menyelesaikan tugasnya.",
   },
 
-  // -- 25: Catat yang gagal (ethics thread woven in) --
+  // -- 28: Catat yang gagal (ethics thread woven in) --
   {
     layout: "bullets",
     title: "Catat juga yang gagal",
@@ -346,7 +377,7 @@ print('Train-test overlap:', len(train_h & test_h))`,
 
   // ============ LAB + REFLEKSI + BRIDGE ============
 
-  // -- 26: Lab W6 --
+  // -- 29: Lab W6 --
   {
     layout: "bullets",
     title: "Lab W6",
@@ -359,7 +390,7 @@ print('Train-test overlap:', len(train_h & test_h))`,
     footnote: "Luaran utama: audit.md satu halaman, tabel F1 causal vs leaky, dan paragraf mengapa angka bocor terlihat meyakinkan.",
   },
 
-  // -- 27: Refleksi --
+  // -- 30: Refleksi --
   {
     layout: "bullets",
     title: "Refleksi",
@@ -372,7 +403,7 @@ print('Train-test overlap:', len(train_h & test_h))`,
     footnote: "Ketiga pertanyaan kembali relevan saat memilih dataset capstone.",
   },
 
-  // -- 28: Lanjut ke W7 --
+  // -- 31: Lanjut ke W7 --
   {
     layout: "bullets",
     title: "Lanjut ke W7",
@@ -384,7 +415,7 @@ print('Train-test overlap:', len(train_h & test_h))`,
     ],
   },
 
-  // -- 29: CTA --
+  // -- 32: CTA --
   {
     layout: "cta",
     title: "Mulai Lab W6",

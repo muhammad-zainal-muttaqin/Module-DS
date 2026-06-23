@@ -44,7 +44,23 @@ Setelah W6, setiap pipeline preprocessing diperiksa dengan satu pertanyaan: apak
 
 ## 1. Representasi Fitur untuk Sequence dan Sensor
 
-Di [W3 §2.4](03_W3_Loss_Optimizer_Evaluasi.md) kita membahas tiga strategi representasi fitur: *engineered*, *extracted*, dan *learned*. Ketiganya muncul lagi di domain sensor dan time series, tetapi sekarang pilihannya menentukan satu hal baru: apakah hasil valid secara temporal. Representasi yang sama bisa membawa informasi dari masa depan tanpa disadari.
+Sebelum memilih cara merepresentasikan sinyal, deret mentahnya harus dipotong dulu menjadi unit-unit berukuran tetap. Unit itu disebut *window*, dan tiga strategi representasi nanti bekerja di atas window, bukan di atas deret utuh.
+
+### Window: satu unit temporal
+
+Data sensor dan time series datang sebagai satu deret panjang: satu nilai, atau satu vektor fitur, per *timestamp*, dan deret itu berlanjut tanpa batas alami. Model tidak bisa menerima deret sepanjang itu sebagai satu input. Karena itu langkah pertama, sebelum representasi apa pun, adalah memotong deret panjang menjadi potongan-potongan berukuran tetap. Satu potongan disebut *window*. Satu window menjadi satu unit temporal, diberi satu label, lalu diperlakukan sebagai satu sampel training.
+
+Pembentukan window dikendalikan dua angka. *Window size* (`W`) menentukan berapa timestamp berurutan masuk ke satu potongan. *Stride* (`S`) menentukan berapa langkah potongan digeser untuk membentuk window berikutnya. Saat `S < W`, window berurutan saling tumpang tindih (*sliding window*). Saat `S = W`, window tidak tumpang tindih (*tumbling window*).
+
+![Windowing: deret sensor mentah dipotong menjadi window berukuran tetap dengan window size W dan stride S; saat S kurang dari W window saling tumpang tindih, tiap window jadi satu sampel dengan label dari timestamp terakhir](../figures/fig06e_windowing.png)
+
+Sebagai contoh, sinyal getaran mesin direkam pada 100 Hz, jadi ada 6000 sampel per menit. Dengan `W = 200` (rentang 2 detik) dan `S = 100` (geser 1 detik tiap langkah), satu menit data menghasilkan sekitar 59 window, masing-masing berbentuk `(200, jumlah_channel)`. Tiap window inilah yang nanti diringkas menjadi fitur *engineered* seperti mean, variance, dan spektrum FFT, atau diberikan utuh ke LSTM pada strategi *learned*.
+
+Label untuk satu window biasanya diambil dari timestamp terakhir window itu, misalnya status `failure` pada titik `t`, supaya prediksi memakai data sampai `t` untuk menebak kondisi di `t`. Pilihan ini menjaga arah waktu: fitur berasal dari masa lalu, label berasal dari titik yang diprediksi.
+
+Satu sifat window penting untuk sisa minggu ini: window punya rentang waktu, bukan satu titik. Window pada timestamp `t` memuat nilai dari `t-W+1` sampai `t`. Saat data dibagi menjadi train dan test berdasarkan waktu, satu window tidak boleh melewati batas itu. Kalau sebagian isinya ada di sisi train dan sebagian di sisi test, fitur dari window tersebut mencampur kedua sisi. Pencampuran inilah akar temporal leakage yang dibahas di §2.
+
+Setelah tiap window terbentuk, barulah representasinya dipilih. Di [W3 §2.4](03_W3_Loss_Optimizer_Evaluasi.md) kita membahas tiga strategi representasi fitur: *engineered*, *extracted*, dan *learned*. Ketiganya muncul lagi di domain sensor dan time series, tetapi sekarang pilihannya menentukan satu hal baru: apakah hasil valid secara temporal. Representasi yang sama bisa membawa informasi dari masa depan tanpa disadari.
 
 | Strategi | Contoh di sensor/time-series | Kekuatan | Risiko leakage |
 |---|---|---|---|
@@ -252,6 +268,8 @@ Untuk model PyTorch yang memakai augmentasi, prinsipnya sama: augmentasi hanya d
 ### Domain Shift
 
 Pipeline yang bersih pun bisa gagal kalau data produksi berbeda dari data training. Ada tiga bentuk perubahan distribusi, dan masing-masing menuntut solusi berbeda.
+
+![Tiga bentuk domain shift: covariate shift menggeser distribusi fitur P(x), label shift mengubah proporsi kelas P(y), concept drift mengubah aturan fitur ke target P(y|x)](../figures/fig06d_domain_shift.png)
 
 **Covariate shift** terjadi ketika distribusi fitur `P(x)` berubah, tetapi hubungan fitur→target `P(y|x)` tetap. Model masih bisa di-deploy kalau fitur baru tidak terlalu jauh dari yang dilihat saat training. Contoh: model klasifikasi daun penyakit dilatih di musim kemarau (warna lebih kekuningan), lalu dipakai di musim hujan (warna lebih gelap). Pola visual penyakit sama, tetapi distribusi warna pixel bergeser. Untuk mendeteksinya, bandingkan histogram per-channel train dan deploy, lalu jalankan uji KS pada distribusi fitur.
 
