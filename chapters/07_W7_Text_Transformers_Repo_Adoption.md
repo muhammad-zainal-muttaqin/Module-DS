@@ -289,7 +289,7 @@ Alat AI berguna melampaui penulisan kode. Tiga prompt berikut produktif kalau An
 - Saat **mendiskusikan hipotesis**: "diberikan bahwa distribusi kelas sangat tidak seimbang, apakah ada alasan untuk tidak memakai focal loss?"
 - Saat **menavigasi repo**: "bagaimana alur data dari DataLoader ke model dalam repo ini?" sambil memberikan struktur folder sebagai konteks agar jawaban lebih akurat.
 
-![Alur Kerja LLM: sintesis, verifikasi, dan dokumentasi dalam riset ML](../figures/fig05a_llm_workflow.svg)
+![Alur Kerja LLM: sintesis, verifikasi, dan dokumentasi dalam riset ML](../figures/fig05a_llm_workflow.jpg)
 
 Diagram di atas menempatkan peneliti sebagai pemegang keputusan: LLM membantu pencarian, peringkasan, dan pengecekan awal, sedangkan verifikasi terhadap kode dan data tetap di tangan Anda, dan setiap keputusan dicatat beserta alasannya.
 
@@ -315,7 +315,7 @@ flowchart TD
     F --> G[Config\nrentang eksperimen yang didukung]
 ```
 
-![Urutan membaca repo riset: 7 langkah dari luar ke dalam dengan estimasi waktu](../figures/fig06a_repo_navigation.svg)
+![Urutan membaca repo riset: 7 langkah dari luar ke dalam dengan estimasi waktu](../figures/fig06a_repo_navigation.jpg)
 
 Diagram di atas memecah pembacaan menjadi tujuh langkah:
 
