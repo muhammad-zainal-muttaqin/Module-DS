@@ -35,7 +35,7 @@ Kali ini kita akan membahas:
 4. **Ablation Kecil** - menjalankan satu perubahan terkontrol untuk menguji klaim paper.
 5. **Peta Model Generatif** - kosakata untuk membaca paper VAE, GAN, Diffusion, dan Normalizing Flow.
 
-Di pertemuan sebelumnya (W9) kita sudah belajar menggabungkan beberapa modalitas dengan fusion strategies, menjalankan per-modality ablation, dan menangani missing modality. Output W9 yang dipakai minggu ini adalah kebiasaan menguji satu komponen sambil mengunci sisanya. Minggu ini kebiasaan itu diarahkan ke paper orang lain: membaca klaimnya, mengisolasi satu komponen inti, lalu mengujinya dengan ablation. Disiplin eksperimen terkontrol dan trace result dari [W4 §2-§3](04_W4_Reproducibility_Experiment_Matrix.md) dipakai saat menjalankan ablation paper.
+Di pertemuan sebelumnya (W9) kita sudah belajar menggabungkan beberapa modalitas dengan strategi fusion, menjalankan ablation per modalitas, dan menangani modalitas hilang. Output W9 yang dipakai minggu ini adalah kebiasaan menguji satu komponen sambil mengunci sisanya. Minggu ini kebiasaan itu diarahkan ke paper orang lain: membaca klaimnya, mengisolasi satu komponen inti, lalu mengujinya dengan ablation. Disiplin eksperimen terkontrol dan trace result dari [W4 §2-§3](04_W4_Reproducibility_Experiment_Matrix.md) dipakai saat menjalankan ablation paper.
 
 ---
 

@@ -44,8 +44,8 @@ export const slides10: SlideSection[] = [
     title: "Di pertemuan sebelumnya (W9)",
     body: "W9 mengajarkan cara menggabungkan beberapa modalitas dan menguji kontribusi tiap modalitas. Kebiasaan itu dibawa ke W10:",
     bullets: [
-      "Kita menggabungkan beberapa modalitas dengan fusion strategies dan menangani missing modality.",
-      "Kita menjalankan per-modality ablation: menguji satu komponen sambil mengunci sisanya.",
+      "Kita menggabungkan beberapa modalitas dengan strategi fusion dan menangani modalitas hilang.",
+      "Kita menjalankan ablation per modalitas: menguji satu komponen sambil mengunci sisanya.",
       "Output yang dibawa: kebiasaan mengisolasi satu komponen lalu mengujinya, kini diarahkan ke paper orang lain.",
     ],
     footnote: "Disiplin eksperimen terkontrol dan trace result dari W4 dipakai saat menjalankan ablation paper.",
