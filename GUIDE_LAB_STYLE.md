@@ -38,7 +38,7 @@ Susun sel dari satu objek konkret menuju eksperimen lengkap: satu sampel -> satu
 
 Bottom-up adalah cara menyusun urutan sel, bukan sesuatu yang dijelaskan ke mahasiswa. **Notebook tidak butuh sel yang menyebut atau menjelaskan istilah "bottom-up".** Jangan menulis "lab ini dibangun dari unit kecil ke perbandingan penuh"; cukup urutkan selnya begitu.
 
-Agenda singkat di awal lab boleh ada (opsional). Kalau dipakai, beri judul biasa seperti `## Alur Lab`, isi dengan daftar langkah konkret, tanpa label "(bottom-up)" dan tanpa kalimat rasional pedagogis. Daftar langkah yang baik menyebut apa yang dikerjakan tiap tahap, misalnya "Bandingkan RNN, LSTM, dan GRU pada sequence pendek", bukan "kita naik dari unit kecil ke besar".
+`## Alur Lab` adalah konten pembuka **wajib** (lihat §3): daftar langkah konkret yang jadi hal pertama dilihat mahasiswa setelah kalimat tugas. Beri judul biasa `## Alur Lab`, isi dengan langkah konkret, tanpa label "(bottom-up)" dan tanpa kalimat rasional pedagogis. Daftar langkah yang baik menyebut apa yang dikerjakan tiap tahap, misalnya "Bandingkan RNN, LSTM, dan GRU pada sequence pendek", bukan "kita naik dari unit kecil ke besar".
 
 ---
 
@@ -48,45 +48,43 @@ Setiap lab mengikuti urutan ini. Nomori section dengan `## N.` (mulai dari `## 0
 
 | Urutan | Sel | Isi |
 | --- | --- | --- |
-| 1 | Title + Pre-flight Checklist (markdown) | judul `# Lab WX: ...`, lalu checklist (lihat §3) |
-| 2 | Alur Lab (markdown, **opsional**) | `## Alur Lab` + daftar langkah konkret, tanpa framing "bottom-up" |
+| 1 | Title + kalimat tugas (markdown) | judul `# Lab WX: ...`, lalu 1-2 kalimat "apa yang dikerjakan dan kenapa" + 1 baris prasyarat/hardware (lihat §3) |
+| 2 | Alur Lab (markdown, **wajib**, konten pertama) | `## Alur Lab` + daftar langkah konkret, tanpa framing "bottom-up" |
 | 3 | Setup (markdown + code) | heading `## Setup` + lead 1 kalimat soal isi sel, lalu code: import + definisi inline + seed |
 | 4 | Section materi (markdown + code) | tiap `## N. Judul` punya lead sentence sebelum code |
 | 5 | Analisis / justifikasi (markdown) | pertanyaan tertarget + sel jawaban kosong |
-| 6 | Refleksi + Self-Check Quick (markdown) | pertanyaan refleksi + checklist `- [ ]` |
+| 6 | Refleksi + Self-Check Quick (markdown) | pertanyaan refleksi + checklist `- [ ]` yang juga menampung daftar luaran |
 
 ---
 
-## 3. Pre-flight Checklist (sel pertama)
+## 3. Pembuka lab: langsung ke tugas
 
-Format baku. Empat blok, label persis seperti di bawah, tanpa ekor tambahan.
+Lab dibuka dengan **tugasnya**, bukan dengan seremoni. Mahasiswa harus tahu apa yang dikerjakan dalam tiga detik pertama. Format baku:
 
 ```markdown
 # Lab WX: Judul Ringkas
 
-## Pre-flight Checklist
+Satu sampai dua kalimat SPOK: apa yang dikerjakan mahasiswa dan kenapa. Boleh menyebut § bab rujukan di sini.
 
-> [!IMPORTANT]
-> Lab ini <status: wajib / utama / opsional> untuk WX. Konsep yang ditandai (§) merujuk ke `0X_WX_Nama_Bab.md`.
+**Prasyarat:** Bab WX §... sudah dibaca, Lab W... selesai, familiar dengan ... (konkret, 1 baris). **Hardware & waktu:** CPU cukup / GPU dianjurkan, ~X-Y jam.
 
-**Yang Anda butuhkan sebelum mulai:**
-- Bab WX sudah dibaca, terutama §... (sebutkan section konkret).
-- Familiar dengan ... (prasyarat teknis konkret).
+## Alur Lab
 
-**Yang Anda hasilkan di akhir lab:**
-- ... (luaran konkret yang bisa dicek, satu bullet per artefak).
-
-**Kebutuhan teknis:**
-- **Hardware:** ... (CPU cukup / GPU dianjurkan, dengan alasan).
-- **Estimasi waktu:** X-Y jam termasuk membaca, eksekusi, dan refleksi.
+1. **Lead-in:** langkah konkret yang dikerjakan.
+2. **Lead-in:** langkah berikutnya.
+3. ...
 ```
 
 Aturan:
 
-- Pakai label **"Yang Anda hasilkan di akhir lab:"** (bukan "Yang akan Anda hasilkan" - hindari `Anda akan + V`).
-- Pakai **"Kebutuhan teknis:"** bukan "Resource:" (calque, lihat tabel CLAUDE.md).
-- **Jangan** tambahkan ekor "Pendamping:" dan "Tujuan pedagogis:" di akhir. Keduanya mengulang isi admonition dan blok "Yang Anda hasilkan". Buang.
-- Status lab (wajib/opsional, Breadth Check) ditulis di dalam admonition `> [!IMPORTANT]`, sekali saja.
+- **Tidak ada heading "Pre-flight Checklist".** Tidak ada blok "Yang Anda hasilkan" atau "Kebutuhan teknis" multi-bullet di atas. Itu seremoni yang menunda mahasiswa melihat tugas.
+- **Kalimat tugas wajib SPOK utuh** dan langsung menyebut apa yang dibuat: "Kamu mengimplementasi `mixup_batch` lewat protokol 5-tahap LLM lalu menguji dengan sanity test", bukan "Lab ini membahas mixup".
+- **Prasyarat, hardware, dan estimasi waktu dipadatkan jadi satu baris** dengan lead-in bold (`**Prasyarat:**`, `**Hardware & waktu:**`). Detail storage hanya ditulis kalau memang besar dan relevan.
+- **Status lab** (wajib / utama / opsional / Breadth Check) masuk ke **judul** atau kalimat tugas, bukan admonition block tersendiri. Contoh: `# Lab W7b (WAJIB - Breadth Check Transformer): Transformer-Mini dari Nol`.
+- **Rujukan § bab** cukup satu klausa di kalimat tugas atau baris prasyarat, bukan admonition `> [!IMPORTANT]`.
+- **Daftar luaran pindah ke akhir** sebagai `## Self-Check Quick` (§5). Jangan duplikat di atas.
+- **`## Alur Lab` adalah konten pertama setelah baris prasyarat** dan wajib ada (lihat §1.2).
+- Admonition `> [!TIP]` / `> [!WARNING]` yang berisi peringatan teknis nyata (mis. "jangan skip `repo_map.md`, itu produk utama lab") tetap dipertahankan, tapi diletakkan di **section tempat konsepnya dibahas**, bukan di pembuka.
 
 ---
 
@@ -139,7 +137,7 @@ Kalau ragu: tanya "apakah kalimat ini membantu mahasiswa mengerjakan lab, atau h
 Akhiri lab dengan dua hal:
 
 1. **Pertanyaan tertarget** yang memaksa mahasiswa membaca datanya sendiri (bukan opini). Format: nomor + **bold lead-in** + instruksi konkret yang menyebut sel/angka tertentu.
-2. **Self-Check Quick** berupa GitHub task list `- [ ]`, satu baris per luaran yang harus ada. Baris terakhir biasanya menautkan lab wajib lain atau Breadth Check bila relevan.
+2. **Self-Check Quick** berupa GitHub task list `- [ ]`, satu baris per luaran yang harus ada. Section ini menampung daftar luaran yang bisa dicek (artefak yang dulu ditulis di blok "Yang Anda hasilkan" di atas) - jadi tempat memeriksa luaran ada di akhir, bukan di pembuka. Baris terakhir biasanya menautkan lab wajib lain atau Breadth Check bila relevan.
 
 Sel jawaban dikosongkan dengan placeholder `> *[tulis di sini]*` di bawah tiap sub-pertanyaan, supaya mahasiswa mengisi langsung di notebook.
 
@@ -151,8 +149,8 @@ Sel jawaban dikosongkan dengan placeholder `> *[tulis di sini]*` di bawah tiap s
 - [ ] Semua kelas/fungsi yang dipakai didefinisikan inline di notebook.
 - [ ] Urutan sel mengikuti pola kecil-ke-besar; smoke test muncul sebelum training penuh.
 - [ ] Tidak ada sel teks yang menjelaskan aturan penyusunan lab (framing "bottom-up", catatan "tanpa impor dari `src/`", dll).
-- [ ] Agenda awal (kalau ada) berjudul `## Alur Lab` tanpa label "(bottom-up)" dan tanpa kalimat rasional pedagogis.
-- [ ] Pre-flight Checklist memakai label baku, tanpa ekor "Pendamping/Tujuan pedagogis", tanpa "Resource".
+- [ ] `## Alur Lab` ada sebagai konten pertama, tanpa label "(bottom-up)" dan tanpa kalimat rasional pedagogis.
+- [ ] Pembuka langsung ke tugas: tidak ada heading "Pre-flight Checklist", tidak ada blok "Yang Anda hasilkan"/"Kebutuhan teknis" di atas. Tugas tampil di 1-2 kalimat pembuka, prasyarat+hardware+waktu jadi 1 baris, status lab di judul/kalimat tugas, luaran pindah ke Self-Check Quick di akhir.
 - [ ] Setiap `## N.` punya lead sentence SPOK utuh dan ringkas, bukan fragmen atau label.
 - [ ] Tidak ada em dash di teks, komentar, judul plot, maupun string print.
 - [ ] Tidak ada kiasan untuk konsep teknis.
@@ -163,4 +161,4 @@ Sel jawaban dikosongkan dengan placeholder `> *[tulis di sini]*` di bawah tiap s
 
 ## 7. Contoh Acuan
 
-`lab_w5_lstm_sequence.ipynb` dipakai sebagai contoh acuan struktur dan gaya. Saat ragu soal format checklist, lead sentence, atau agenda lab, lihat lab itu lebih dulu.
+`lab_w7_llm_assisted.ipynb` dipakai sebagai contoh acuan struktur dan gaya pembuka "langsung ke tugas". Saat ragu soal format kalimat tugas, baris prasyarat, Alur Lab, atau Self-Check Quick, lihat lab itu lebih dulu. Lab W1-W6 dan W12 masih memakai pola lama (Pre-flight Checklist) dan akan menyusul.
