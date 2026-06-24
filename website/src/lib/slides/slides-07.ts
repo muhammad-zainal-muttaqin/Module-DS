@@ -260,7 +260,7 @@ Output (T, d_model)`,
     title: "Tiga Aturan Verifikasi Kode AI",
     body: "Setiap kode yang dihasilkan AI melewati tiga pemeriksaan sebelum dipakai:",
     bullets: [
-      "**Verifikasi bentuk tensor** memastikan input dan output shape yang diklaim benar-benar cocok dengan kode.",
+      "**Verifikasi bentuk tensor** memastikan input dan output shape yang diklaim cocok dengan kode.",
       "**Uji kasus tepi** menjalankan kode dengan satu sampel lalu memeriksa hasilnya secara manual.",
       "**Baca baris per baris** memastikan Anda bisa menjelaskan fungsi setiap baris setelah dua kali baca.",
     ],
