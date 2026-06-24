@@ -261,7 +261,7 @@ Pilih satu pertanyaan dari materi W8 untuk dijelajahi lebih dalam. Boleh memakai
 
 - Seberapa besar perbedaan frozen CLIP vs fine-tuned ResNet sebagai feature extractor, dan dalam kondisi apa salah satu lebih unggul?
 - Apa yang sebenarnya ada dan tidak ada dalam model card HuggingFace, dan apakah informasinya cukup untuk membuat keputusan adaptasi?
-- Kapan domain-specific model benar-benar lebih baik dari general model, dan bagaimana Anda merancang eksperimen yang setara untuk membuktikannya?
+- Kapan domain-specific model lebih baik dari general model, dan bagaimana Anda merancang eksperimen yang setara untuk membuktikannya?
 - Bagaimana LoRA bekerja secara mekanis, dan apakah implementasi dari nol menghasilkan parity dengan library PEFT?
 
 Kerjakan, dokumentasikan di `notebooks/portofolio_mandiri.ipynb`, dan presentasikan 10 menit di awal W9. Format mengikuti [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
