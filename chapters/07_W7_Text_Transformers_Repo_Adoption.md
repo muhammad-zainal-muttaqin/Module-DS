@@ -39,17 +39,79 @@ Di pertemuan sebelumnya (W6) kita sudah belajar membandingkan tiga strategi repr
 
 ## 1. Teks dengan Pretrained Transformer
 
-### 1.1 Mengapa Contextual Embeddings
+### 1.1 Perkembangan Representasi Kata: Dari Angka Statis ke Vektor Dinamis
 
-TF-IDF adalah baseline yang cepat, interpretable, dan sering efektif pada dataset kecil. Dua kelemahannya muncul karena ia memperlakukan kata sebagai simbol lepas tanpa konteks.
+Sebelum kita masuk ke dalam model bahasa modern berbasis Transformer, kita harus menjawab satu pertanyaan mendasar: bagaimana cara komputer membaca bahasa manusia? Teks mentah berupa rangkaian huruf dan kata bersifat diskret, sedangkan Neural Network bekerja menggunakan operasi matematika kontinu berbasis matriks pecahan berdimensi tetap. Oleh karena itu, kita membutuhkan teknik representasi yang mampu mengubah teks menjadi struktur angka kontinu yang kaya akan makna semantik.
 
-Kelemahan pertama adalah **polisemi**. Kata "bank" dalam "bank sungai" dan "bank uang" mendapat vektor yang identik di TF-IDF, sehingga dua makna yang berbeda tidak bisa dipisahkan.
+![Jembatan Konversi Teks ke Angka Kontinu](/figures/fig07_text_to_numbers_bridge.jpg)
 
-Kelemahan kedua adalah **ketergantungan antar kata yang hilang**. "Tidak buruk" dan "tidak baik" mendapat representasi yang sepenuhnya berbeda dari "baik" dan "buruk", padahal negasi seharusnya mengubah polaritas secara teratur.
+#### 1.1.1 Memahami Landasan: Struktur Diskret vs. Struktur Angka Kontinu
 
-Contextual embeddings (BERT, RoBERTa, IndoBERT) menghasilkan representasi yang berbeda untuk kata yang sama tergantung konteksnya. Setiap token mendapat embedding yang dipengaruhi oleh seluruh sequence di sekitarnya lewat self-attention.
+Bagi pemula yang baru memasuki dunia pemrosesan bahasa alami (NLP), sangat penting untuk membedakan dua cara komputer menyimpan informasi data:
 
-Model yang dilatih pada miliaran token Wikipedia dan Common Crawl tetap membantu klasifikasi sentimen teks Indonesia, dan alasannya ada pada struktur lapisan. Layer-layer awal Transformer mempelajari pola umum yang berlaku lintas domain, seperti semantik subkata ("##nya" menandai akhiran), pola sintaksis dasar (hubungan subjek-verba), dan cara negasi mengubah makna. Pola-pola ini muncul di hampir semua teks manusia, tidak bergantung pada topik. Layer-layer yang lebih dalam baru belajar hal yang lebih spesifik domain. Saat Anda memuat bobot pretrained, layer awal sudah menguasai struktur bahasa, dan tugas Anda tinggal melatih layer akhir agar memetakan pemahaman itu ke label yang diinginkan. Hal ini juga mendasari pilihan freeze vs fine-tune di [§1.4](#14-frozen-vs-fine-tuned-eksperimen-2x2): seberapa banyak lapisan yang perlu beradaptasi ke domain Anda.
+1. **Struktur Diskret (Terputus-putus):** Representasi ini menggunakan angka biner atau bilangan bulat kaku yang terisolasi sepenuhnya satu sama lain. Sebagai contoh, jika kita mengurutkan kata-kata dalam kamus kosakata, kita mungkin menetapkan kata "kucing" pada indeks 1, "anjing" pada indeks 2, dan "meja" pada indeks 10.000. 
+   - Di sini, tidak ada nilai "di antara" dua kata. 
+   - Secara matematis, komputer tidak memiliki jembatan logika untuk mengetahui apakah kata indeks 1 memiliki kemiripan arti dengan kata indeks 2. Semuanya dianggap sebagai kategori terpisah yang berdiri sendiri.
+
+2. **Struktur Angka Kontinu (Sinambung):** Representasi ini menggunakan bilangan desimal pecahan (*floating-point numbers*, seperti `0.254`, `-1.890`, `0.007`) dalam bentuk ruang vektor berdimensi tinggi yang padat (*dense vector* atau *embeddings*). 
+   - Alih-alih diwakili oleh satu angka bulat kaku, sebuah kata seperti "kucing" dipetakan ke dalam deretan angka desimal panjang, misalnya:
+     $$\text{Vektor("kucing")} = [0.25, -0.47, 0.81, \dots, -0.12]$$
+    - Nilai angka desimal ini bisa bergeser secara halus dan sangat sensitif terhadap perubahan kecil, memungkinkan komputer memetakan nuansa makna bahasa yang sangat tipis dan bervariasi.
+
+![Struktur Diskret vs. Struktur Angka Kontinu](/figures/fig07_discrete_vs_continuous.jpg)
+
+Terdapat tiga alasan mendasar mengapa model kecerdasan buatan modern sangat bergantung pada struktur angka kontinu ini:
+- **Representasi Semantik Geometris:** Dalam ruang vektor kontinu, kata-kata dengan makna yang berdekatan atau sering berada dalam konteks yang serupa akan diposisikan saling berdekatan. Komputer dapat menghitung tingkat kemiripan makna menggunakan operasi jarak seperti *Cosine Similarity* (mengukur sudut antara dua vektor).
+- **Operasi Aljabar Analogi:** Struktur angka kontinu memungkinkan kita melakukan perhitungan logika analogis murni menggunakan operasi tambah dan kurang pada koordinat vektor kata. Persamaan terkenal dalam NLP membuktikan fenomena menakjubkan ini:
+  $$\vec{\text{Raja}} - \vec{\text{Pria}} + \vec{\text{Wanita}} \approx \vec{\text{Ratu}}$$
+- **Kebutuhan Optimasi Kalkulus (Gradien):** Semua model *Deep Learning* dilatih menggunakan algoritma pembelajaran *backpropagation* yang berbasis pada kalkulus (turunan fungsi/gradien). Kalkulus hanya dapat bekerja pada fungsi matematika yang bersifat kontinu dan dapat diturunkan (*differentiable*). Angka diskret yang kaku tidak mendukung perhitungan gradien ini, sehingga semua input teks harus dikonversi menjadi angka kontinu agar model dapat belajar dari kesalahan prediksinya.
+
+#### 1.1.2 Representasi Paling Sederhana: One-Hot Encoding
+Pendekatan awal yang paling sederhana adalah memperlakukan setiap kata unik di dalam kamus kosakata (*vocabulary*) sebagai satu dimensi sumbu tersendiri yang ortogonal (saling tegak lurus). Jika kosa kata kita berisi kata "kucing", "anjing", dan "meja", maka representasinya adalah:
+- "kucing" $\rightarrow [1, 0, 0]$
+- "anjing" $\rightarrow [0, 1, 0]$
+- "meja" $\rightarrow [0, 0, 1]$
+
+Meskipun sangat sederhana, pendekatan One-Hot Encoding memiliki dua kelemahan fatal yang membatasi kegunaannya:
+1. **Kehilangan Hubungan Semantik (Orthogonality):** Karena setiap sumbu saling tegak lurus, jarak Euclidean antara kata "kucing" dan "anjing" bernilai persis sama dengan jarak antara "kucing" dan "meja" ($\sqrt{2}$). Model komputer kehilangan kemampuan untuk mengetahui bahwa "kucing" secara makna jauh lebih dekat dengan "anjing" dibandingkan dengan "meja".
+2. **Ledakan Dimensi (Scalability):** Jika sebuah korpus data riset memiliki 100.000 kata unik, maka setiap kata harus diwakili oleh vektor berukuran 100.000 dimensi yang isinya hampir seluruhnya berupa angka nol (*sparse vector*). Hal ini sangat tidak efisien untuk memori komputasi.
+
+#### 1.1.3 Baseline Klasik: TF-IDF (Term Frequency - Inverse Document Frequency)
+TF-IDF merupakan teknik statistik klasik yang mengukur seberapa pentingnya suatu kata di dalam sebuah dokumen tertentu dibandingkan dengan seluruh kumpulan dokumen (korpus). Bobot kepentingannya dihitung dengan memperkalikan frekuensi kata di dalam dokumen bersangkutan (TF) dengan tingkat kelangkaan kata tersebut di seluruh korpus dokumen (IDF).
+
+$$\text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D)$$
+
+![TF-IDF Keseimbangan Timbangan Statistik](/figures/fig07_tfidf_balance.jpg)
+
+Teknik ini sangat cepat dihitung, tidak menuntut kapasitas komputasi GPU, mudah ditafsirkan (*interpretable*), dan sangat mumpuni sebagai *baseline* klasifikasi teks berbasis kemunculan kata kunci. Namun, TF-IDF memiliki **dua kelemahan utama** karena ia mengabaikan urutan kata (*Bag-of-Words*):
+1. **Gagal Mengatasi Polisemi:** Kata "bank" di dalam frasa "bank sungai" dan "bank uang" akan mendapatkan vektor representasi statis yang identik, sehingga komputer gagal membedakan dua makna yang sepenuhnya bertolak belakang tersebut.
+2. **Ketiadaan Informasi Urutan:** Kalimat "tidak buruk" dan "tidak baik" diolah sebagai tumpukan kata lepas secara acak, sehingga komputer tidak mampu mencerna efek negasi dari kata "tidak" yang berpotensi membalikkan polaritas sentimen kalimat secara teratur.
+
+![Cacat Fatal Polisemi dan Bag of Words](/figures/fig07_tfidf_limitations.jpg)
+
+#### 1.1.4 Static Word Embeddings: Word2Vec dan GloVe
+Menjelang era Deep Learning modern, para peneliti merintis teknik *static word embeddings* seperti Word2Vec dan GloVe. Teknik ini memproyeksikan setiap kata ke dalam ruang vektor padat (*dense vector*) berdimensi rendah (misalnya 300 dimensi) menggunakan prinsip distribusi linguistik: kata-kata yang sering muncul di dalam konteks kalimat yang mirip cenderung diletakkan saling berdekatan di dalam ruang koordinat vektor.
+
+Pendekatan kontinu ini melahirkan kemampuan hubungan kemiripan semantik yang sangat menawan melalui perhitungan aljabar vektor:
+
+$$\text{vektor("raja")} - \text{vektor("pria")} + \text{vektor("wanita")} \approx \text{vektor("ratu")}$$
+
+![Visualisasi Aljabar Vektor Semantis](/figures/fig07_word_analogy.jpg)
+
+Kendati demikian, representasi Word2Vec masih memiliki satu batasan besar: ia bersifat **statis**. Setiap kata unik di dalam kamus hanya dikunci ke dalam satu vektor permanen yang tidak bisa berubah. Kata "bank" akan selalu memiliki vektor yang sama persis di mana pun ia berada, sehingga masalah makna ganda (polisemi) belum terpecahkan secara tuntas.
+
+#### 1.1.5 Lompatan ke Contextual Embeddings
+Contextual embeddings (seperti BERT, RoBERTa, dan IndoBERT) berhasil menyelesaikan seluruh rentetan keterbatasan di atas secara elegan dengan menghadirkan representasi **dinamis**. Di dalam arsitektur model ini, vektor angka untuk satu kata tidak lagi dikunci mati, melainkan akan dihitung ulang secara dinamis mengikuti seluruh rangkaian kata di sekelilingnya melalui bantuan mekanisme self-attention.
+
+![Dinamisme Vektor Berdasarkan Konteks](/figures/fig07_contextual_dynamic.jpg)
+
+Model bahasa berskala besar yang telah dilatih pada miliaran token Wikipedia dan Common Crawl tetap sangat membantu tugas klasifikasi sentimen teks dalam bahasa Indonesia yang berukuran kecil. Manfaat luar biasa ini berasal dari struktur pembagian tugas belajarnya di setiap layer:
+- **Layer awal model** mempelajari kaidah kebahasaan yang paling mendasar dan berlaku umum lintas domain, seperti batas semantik subkata (misalnya akhiran kata "##nya"), tata bahasa dasar, dan logika penolakan kalimat. Pola kebahasaan dasar ini bersifat universal di hampir seluruh teks buatan manusia.
+- **Layer dalam model** baru mengasah kemampuannya pada pola yang lebih spesifik mengikuti domain target.
+
+Saat Anda memuat bobot pretrained (*pretrained weights*), lapisan-lapisan awal model sebenarnya sudah menguasai aturan bahasa baku dengan sangat solid. Tugas Anda tinggal memandu pelatihan pada lapisan akhirnya saja agar memetakan tingkat pemahaman bahasa dasar tersebut ke dalam label kategori yang kita ingin targetkan. Pembagian fungsi ini juga melandasi keputusan penting kita saat harus menentukan antara metode freeze atau fine-tune di [§1.4](#14-frozen-vs-fine-tuned-eksperimen-2x2): seberapa banyak lapisan yang perlu beradaptasi ke domain Anda.
+
+![Pembagian Tugas Adaptasi Layer Transformer](/figures/fig07_layer_hierarchy.jpg)
 
 ### 1.2 Tokenization: Sebelum Pelatihan Dimulai
 
@@ -58,6 +120,8 @@ Pretrained Transformer membaca urutan integer (token ID), bukan string mentah. *
 - **Word-level** memetakan satu token per kata (whitespace-split). Skema ini sederhana, tetapi vocab menjadi besar dan rentan OOV (out-of-vocabulary) untuk kata baru.
 - **Character-level** memetakan satu token per karakter, sehingga vocab kecil tetapi sequence menjadi sangat panjang.
 - **Subword (BPE / WordPiece / SentencePiece)** mengambil jalan tengah: kata umum menjadi 1 token, kata jarang dipecah jadi sub-unit. Skema ini dipakai BERT, GPT, IndoBERT, dan hampir semua Transformer modern. Kata "tidak" mungkin menjadi 1 token, sedangkan "tertangkap" mungkin terpisah jadi `["ter", "tangkap"]`.
+
+![Komparasi Tiga Metode Tokenisasi](/figures/fig07_tokenization_comparison.jpg)
 
 Setiap pretrained model punya tokenizer spesifik (vocab + algoritma). Bug paling umum saat memakai pretrained model adalah perbedaan antara tokenizer model dan cara Anda memproses teks. Tokenizer yang salah menghasilkan input yang tidak cocok dengan apa yang dilihat model saat pretraining.
 
@@ -84,6 +148,8 @@ Inspeksi tokenizer pada 5-10 sampel dari dataset Anda sebelum pelatihan menjawab
 Pada [W5 §1.5](05_W5_Sequences_RNN_LSTM.md), Anda sudah melihat mengapa RNN kesulitan menangani sequence yang panjang. Masalah utamanya adalah **bottleneck informasi**: seluruh makna dari token-token sebelumnya harus dipadatkan ke satu *hidden state* berukuran tetap sebelum memproses langkah berikutnya. LSTM menambahkan *gate* untuk mengelola ini, tetapi *bottleneck* itu sendiri tidak hilang. Informasi tetap harus melewati setiap langkah perantara untuk mencapai akhir.
 
 Attention menghilangkan bottleneck tersebut sepenuhnya. Pertimbangkan kalimat **"Buku itu tidak muat di dalam tas karena ukurannya terlalu besar."** Untuk mengetahui benda apa yang dirujuk oleh "ukurannya" (yakni buku, bukan tas), Anda tidak membaca ulang dari awal, tetapi langsung mencari kandidat yang relevan. Attention melakukan hal yang sama: setiap token dapat membaca dari semua token lain dalam satu langkah, dibobot berdasarkan relevansinya. Tidak ada informasi yang harus diteruskan langkah demi langkah.
+
+![RNN Bottleneck vs. Attention Direct Routing](/figures/fig07_rnn_vs_attention.jpg)
 
 Untuk menghitung bobot relevansi ini, setiap token diproyeksikan menjadi tiga vektor dengan peran berbeda: **Query** ("apa yang saya cari?"), **Key** ("apa yang saya miliki?"), dan **Value** ("apa yang sebenarnya saya berikan?"). Skor relevansi antara dua posisi adalah *dot product* dari Query suatu token dengan Key token lainnya. *Dot product* yang besar berarti kecocokan yang kuat. Proyeksi ini dihasilkan tiga matriks bobot yang dipelajari, yaitu $W_Q$, $W_K$, dan $W_V$. Ketiga matriks ini adalah parameter permanen di dalam layer, dan parameter inilah yang disimpan ke *checkpoint* Anda.
 
@@ -135,9 +201,13 @@ Input (T, d_model)
 Output (T, d_model)
 ```
 
+![Alur Kerja Satu Blok Transformer](/figures/fig07_transformer_block.jpg)
+
 Dimensi input dan *output* selalu sama, itulah sebabnya blok ini dapat ditumpuk hingga 12 atau 24 lapis tanpa perubahan di antaranya. Layer *feed-forward* tidak mencampur token; hanya layer attention yang melakukannya. Dalam praktiknya, model menjalankan operasi attention paralel sebanyak $h$ kali (*multi-head attention*). Masing-masing berjalan pada subruang representasi berdimensi lebih rendah, kemudian menggabungkan dan memproyeksikan hasilnya. Setiap *head* dapat menangkap pola struktural yang berbeda, meskipun spesialisasi yang rapi tidak dijamin oleh rancangannya. Saat satu sequence memperhatikan sequence lain (misalnya Q dari satu sequence, lalu K dan V dari sequence lain), proses ini disebut *cross-attention*. Penerapannya muncul lagi di [W9](09_W9_Multimodal_Reasoning.md) untuk fusi multimodal.
 
-Attention tidak memiliki konsep urutan. Skor antara token *i* dan token *j* hanya bergantung pada vektor Q dan K keduanya, bukan pada posisi mereka dalam sequence. Artinya, "anjing menggigit orang" dan "orang menggigit anjing" menghasilkan input attention yang identik: himpunan token yang sama, tanpa urutan. RNN tidak pernah menghadapi masalah ini karena memproses token satu langkah demi satu langkah dan secara implisit mengetahui posisi. Karena Transformer memproses semua token secara paralel, informasi posisi harus disuntikkan secara eksplisit. *Positional encoding* menambahkan vektor yang bergantung pada posisi ke setiap *token embedding* sebelum masuk ke blok pertama, sehingga model mendapatkan informasi urutan yang tidak bisa diperoleh dari attention saja.
+Attention tidak memiliki konsep urutan. Skor antara token *i* dan token *j* hanya bergantung pada vektor Q and K keduanya, bukan pada posisi mereka dalam sequence. Artinya, "anjing menggigit orang" dan "orang menggigit anjing" menghasilkan input attention yang identik: himpunan token yang sama, tanpa urutan. RNN tidak pernah menghadapi masalah ini karena memproses token satu langkah demi satu langkah dan secara implisit mengetahui posisi. Karena Transformer memproses semua token secara paralel, informasi posisi harus disuntikkan secara eksplisit. *Positional encoding* menambahkan vektor yang bergantung pada posisi ke setiap *token embedding* sebelum masuk ke blok pertama, sehingga model mendapatkan informasi urutan yang tidak bisa diperoleh dari attention saja.
+
+![Multi-Head Attention dan Positional Encoding](/figures/fig07_mha_positional.jpg)
 
 Pilihan freeze atau fine-tune sebenarnya adalah keputusan tentang apakah $W_Q, W_K, W_V$ boleh berubah. *Freeze* mengunci ketiga matriks ini (beserta parameter lain), sehingga kalkulasi attention tetap berjalan tetapi tidak bisa beradaptasi dengan domain Anda. *Fine-tune* memungkinkan matriks-matriks ini beradaptasi agar bobot attention menangkap hubungan yang dibutuhkan tugas Anda. Matematika di balik attention tidak berubah; hanya matriks proyeksinya yang berubah.
 
@@ -149,6 +219,8 @@ Dua keputusan perlu dibandingkan dalam satu grid. Keputusan pertama menyangkut b
 
 **Frozen backbone** melatih hanya head kecil di atas embedding tetap. Pendekatan ini cepat, hemat komputasi, dan stabil, sehingga cocok untuk dataset kecil atau saat domain sangat mirip dengan pretraining. **Fine-tuned** melatih seluruh model (atau sebagian) bersama head. Pendekatan ini lebih lambat dan lebih fleksibel, dan sering menghasilkan performa lebih baik pada dataset yang cukup besar.
 
+![Pilihan Eksekusi: Frozen vs Fine-Tuned Backbone](/figures/fig07_freeze_vs_finetune.jpg)
+
 > [!TIP]
 > Contoh waktu/biaya konkret (IndoBERT-base, ~110M parameter, dataset SmSA ~12k sampel, GPU T4):
 > - **Frozen + Linear head** membutuhkan training ~2-3 menit (1 epoch) dengan val macro-F1 ~0.78-0.82. Inference ~5 ms/sample karena forward pass tetap full BERT, tetapi tidak perlu backward.
@@ -159,6 +231,8 @@ Dua keputusan perlu dibandingkan dalam satu grid. Keputusan pertama menyangkut b
 **[CLS] pooling** memakai token `[CLS]` untuk mewakili seluruh sequence. Token ini ditambahkan otomatis di awal setiap input oleh tokenizer keluarga BERT. Selama pretraining, model belajar menaruh ringkasan global di posisi ini lewat objective next-sentence prediction, sehingga `[CLS]` menjadi pilihan natural untuk classification head.
 
 **Mean pooling** mengambil rata-rata embedding semua token kecuali padding. Pendekatan ini sering lebih robust untuk sentence similarity tasks karena representasi tidak berat sebelah ke satu posisi, tetapi bisa kehilangan ketegasan kalau hanya sebagian token yang relevan untuk tugas tersebut. Untuk classification, [CLS] dan mean pool biasanya berbeda 1-3 poin F1, dan mana yang menang bergantung dataset.
+
+![Alternatif Pooling: CLS vs Mean Pooling](/figures/fig07_pooling_comparison.jpg)
 
 Lab 5b menjalankan 2×2 ini secara eksplisit supaya Anda melihat sendiri pada dataset Indonesia:
 
@@ -193,6 +267,8 @@ Setiap kode yang dihasilkan AI melewati tiga pemeriksaan sebelum dipakai:
 
 Kalau Anda tidak bisa menjelaskan baris tertentu setelah membacanya dua kali, kode itu belum layak dikumpulkan dengan nama Anda.
 
+![Checklist Tiga Tahap Verifikasi AI](/figures/fig07_verification_checklist.jpg)
+
 ### 2.2 Aturan Sintesis: Dua Sumber Sebelum Eksekusi
 
 Sebelum mengeksekusi pendekatan penting (pemilihan model, arsitektur, strategi fine-tuning), kumpulkan setidaknya dua sumber berbeda:
@@ -202,6 +278,8 @@ Sebelum mengeksekusi pendekatan penting (pemilihan model, arsitektur, strategi f
 - Satu respons AI ditambah satu peer review.
 
 Lalu tulis satu paragraf sintesis: "Sumber A menyarankan X karena P. Sumber B menyarankan Y karena Q. Saya memilih Z karena R." Paragraf ini merekam alasan keputusan Anda sebelum eksekusi, dan menjadi catatan saat pilihan itu perlu dijelaskan.
+
+![Pipa Distilasi Sintesis Dua Sumber](/figures/fig07_synthesis_pipeline.jpg)
 
 ### 2.3 AI untuk Tugas di Luar Kode
 
@@ -254,6 +332,8 @@ Alokasi waktu tipikal untuk repo ukuran sedang (10-30 file Python): 30-60 menit 
 ### 3.2 Smoke Test Sebelum Pelatihan Penuh
 
 Setelah environment terpasang, jangan langsung training dengan dataset penuh. Jalankan *smoke test*, versi minimal yang memverifikasi seluruh pipeline jalan tanpa error. Smoke test tiga level dari [W2 §2.3](02_W2_Images_CNN_Smoke_Test.md) dipakai lagi di sini untuk repo eksternal.
+
+![Piramida Disiplin Smoke Test](/figures/fig07_smoke_test_pyramid.jpg)
 
 **Level 1 - Import test** memastikan dependency dan path benar:
 
@@ -337,6 +417,8 @@ parser.add_argument('--freeze-blocks', type=str, default='',
 ```
 
 **Pola 4: Commit kecil dengan pesan jelas.** Satu commit per perubahan logis. "Add mixup augmentation support" adalah satu commit; "refactor data loader to accept mixup-aware sampler" adalah commit berbeda. Commit kecil memudahkan review dan bisection.
+
+![Tiga Perisai Kebersihan Modifikasi Kode](/figures/fig07_clean_modification_tactics.jpg)
 
 > [!TIP]
 > Bagian pendalaman repo adoption ([D1-D7](#pendalaman-w7---repo-adoption-deep-dive) di bawah) memuat worked example tiga jam mengadopsi repo, teknik navigasi cepat dengan `grep`/`git log`, taktik saat dokumentasi minim, dan cara menyumbang balik. Baca saat W7 kalau ada waktu, atau tunda sebagai referensi saat Capstone.
