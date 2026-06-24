@@ -74,8 +74,8 @@ ModulePembelajaran/
 - `lab_w6_feature_representation.ipynb`: representasi 3 strategi CIFAR-10
 - `lab_w7_transformer_mini.ipynb`: `scaled_dot_product_attention` dari nol, `SingleHeadAttention`, `TinyBlock` (pre-norm LN+GELU), parity vs `nn.TransformerEncoderLayer`
 - `lab_w7_text_classification.ipynb`: sentimen IndoNLU SmSA
-- `lab_w7_llm_assisted.ipynb`: mixup, 4 sanity tests, comparison training
-- `lab_w7_repo_adoption.ipynb`: adopsi repo eksternal, repo_map.md, modifikasi minimal-invasif (§3+D1-D7)
+- `lab_w7_llm_assisted.ipynb`: mixup di level embedding pada classifier sentimen SmSA (token diskret tak bisa dimixup), 4 sanity tests, comparison training, llm_log
+- `lab_w7_repo_adoption.ipynb`: adopsi repo eksternal (clone `huggingface/transformers`, fokus examples/pytorch/text-classification), repo_map.md, smoke test 3-level pakai model teks kecil, port opsi focal loss minimal-invasif ke `src/losses_text.py`, baseline CE vs focal di SmSA (§3+D1-D7)
 - `lab_w8_remote_training.ipynb`: training jarak jauh di RunPod (RTX 3090 spot), SSH tunnel TensorBoard, rsync checkpoint, kontrol biaya
 - `lab_w9_multimodal_ablation.ipynb`: late fusion, 7-condition ablation, modality dropout
 - `lab_w10_paper_to_code.ipynb`: pilih paper kecil (Focal Loss/DropBlock/dll), three-pass reading, implementasi

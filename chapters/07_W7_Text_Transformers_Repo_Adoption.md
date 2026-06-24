@@ -215,7 +215,7 @@ Alat AI berguna melampaui penulisan kode. Tiga prompt berikut produktif kalau An
 
 Diagram di atas menempatkan peneliti sebagai pemegang keputusan: LLM membantu pencarian, peringkasan, dan pengecekan awal, sedangkan verifikasi terhadap kode dan data tetap di tangan Anda, dan setiap keputusan dicatat beserta alasannya.
 
-Untuk pengalaman langsung mengikuti protokol di atas, buka [lab_w7_llm_assisted.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_llm_assisted.ipynb). Lab ini memandu implementasi MixUp augmentation dengan bantuan AI, termasuk 4 sanity tests, comparison training, dan log interaksi LLM.
+Untuk pengalaman langsung mengikuti protokol di atas, buka [lab_w7_llm_assisted.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_llm_assisted.ipynb). Lab ini memandu implementasi mixup augmentation dengan bantuan AI pada classifier sentimen SmSA. Karena token bersifat diskret, mixup diterapkan di level embedding (lihat §1.2-§1.3), sekaligus melatih 4 sanity tests, comparison training, dan log interaksi LLM.
 
 ---
 
@@ -367,9 +367,9 @@ Checklist:
 
 Buka [lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_repo_adoption.ipynb).
 
-1. Clone satu repositori riset publik (daftar pilihan disediakan di lab).
+1. Clone `huggingface/transformers`, fokus ke reference `examples/pytorch/text-classification/`.
 2. Tulis `repo_map.md`: entry point, model, loss, config, DataLoader.
-3. Modifikasi minimal satu komponen (ganti config, tambah logging).
+3. Modifikasi minimal satu komponen (tambah opsi focal loss untuk klasifikasi teks).
 4. Buat branch git, commit diff, inspeksi diff sebelum merge.
 
 ---
@@ -670,10 +670,10 @@ Beberapa keyakinan yang sering memperlambat adopsi repo, dan koreksinya:
 
 Buka [lab_w7_repo_adoption.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w7_repo_adoption.ipynb).
 
-1. Pilih satu repository klasifikasi image yang sederhana (pytorch/examples/mnist, atau reference implementation Fast.ai beginner). Clone ke folder Anda.
+1. Clone `huggingface/transformers` dan fokus ke reference `examples/pytorch/text-classification/run_classification.py` (skeleton text-classification yang paling mudah diadaptasi, sesuai [D3](#d3-worked-example-mengadopsi-repo-hipotetis-vision-baseline)).
 2. Ikuti urutan pembacaan (README → struktur → entry point → model → data → config). Tulis peta satu halaman di `docs/repo_map.md`.
-3. Jalankan smoke test tiga level. Kalau `--dry-run` tidak ada, tambahkan sendiri dan commit.
-4. Tambahkan satu fitur seminimal mungkin: pilihan focal loss, pilihan freeze layer pertama, atau flag deterministik (set_seed + cudnn.deterministic).
+3. Jalankan smoke test tiga level pada model teks kecil: import, forward dummy (logits), satu iterasi training.
+4. Tambahkan satu fitur seminimal mungkin: opsi focal loss untuk klasifikasi teks pincang kelas (file baru, default lama tetap), lalu bandingkan CrossEntropy vs focal pada SmSA.
 5. Jalankan baseline + variasi Anda (2 kondisi × 2 seed). Laporkan hasil dalam `docs/report.md`.
 6. Siapkan draft deskripsi PR (tidak perlu benar-benar dikirim) yang menjelaskan motivasi, perubahan, cara pakai, dan cara reproduksi hasil.
 
