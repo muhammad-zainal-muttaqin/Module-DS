@@ -104,9 +104,17 @@ Sama seperti bab. Konsep yang sudah dibahas tidak diulang di slide; cukup recap 
 
 Kalau materi mengandung lab, akhiri dengan checklist verifikasi: notebook, plot, log, config, dan interpretasi hasil bisa diperiksa ulang orang lain.
 
+## 8. Anti-AI-Slop & Akurasi Faktual
+
+Untuk memastikan kualitas akademis yang tinggi dan kemudahan pemahaman bagi pemula:
+
+- **Bebas dari Drama dan Narasi Moral (Anti-AI-Slop):** Hindari bahasa moral atau dramatisasi berlebih khas AI yang tidak mencerminkan sains objektif. Contoh kata yang dilarang keras di slide: *"di bawah naungan"*, *"menyiksa/siksaan"*, *"nekat"*, *"menjinakkan"*, *"otoritas kontrol"*, *"investasi emosional"*, *"tenaga asisten"*, *"bakat lahir"*. Gantilah dengan bahasa teknis yang ramah pemula, lugas, dan objektif.
+- **Konsistensi Nama Lab/Praktikum:** Slide tidak boleh menggunakan nama-nama lab fiktif atau fungsional generik (seperti "Lab 5b" atau "Lab 6"). Semua nama lab di slide deck wajib disinkronkan secara persis dengan nama berkas `.ipynb` riil di folder `template/notebooks/` (misalnya: `lab_w7_text_classification.ipynb`, `lab_w7_llm_assisted.ipynb`, `lab_w7_repo_adoption.ipynb`, atau `lab_w7_transformer_mini.ipynb`).
+- **Pencegahan Kebocoran Bahasa Inggris:** Hindari penggunaan kata sambung bahasa Inggris seperti *"and"* (tulis *"dan"*), serta preposisi bahasa Inggris yang mengawali kalimat Indonesia seperti *"Before kita"* (tulis *"Sebelum kita"*) atau *"With berpedoman"* (tulis *"Dengan berpedoman"*).
+
 ## Ringkasan
 
-Slide diturunkan dari bab, pola sama, dipadatkan. Buka dengan agenda dan recap, render tiap materi bab jadi slide secukupnya - adaptif sesuai banyak dan pentingnya materi, tanpa batas jumlah - lalu tutup dengan bridge ke minggu depan. Materi bergejala pakai Pola A (mulai dari artefak teramati); materi notasi pakai Pola B (objek literal, tambah satu sumbu per langkah, kalimat-baca, indeks konkret, tunda istilah). Pakai objek literal, hindari metafora. Kalimat kunci sekali per topik.
+Slide diturunkan dari bab, pola sama, dipadatkan. Buka dengan agenda dan recap, render tiap materi bab jadi slide secukupnya - adaptif sesuai banyak dan pentingnya materi, tanpa batas jumlah - lalu tutup dengan bridge ke minggu depan. Materi bergejala pakai Pola A (mulai dari artefak teramati); materi notasi pakai Pola B (objek literal, tambah satu sumbu per langkah, kalimat-baca, indeks konkret, tunda istilah). Pakai objek literal, hindari metafora. Kalimat kunci sekali per topik. Bebas dari AI-slop dramatis dan tidak ada kata bahasa Inggris yang bocor ke bahasa Indonesia.
 
 ## Checklist audit-diri
 
@@ -120,5 +128,8 @@ Baca ulang deck sebagai reviewer yang menolak slide bertele-tele. Perbaiki kalau
 - [ ] Kalimat kunci muncul di banyak slide, bukan sekali per topik.
 - [ ] Slide "Sikap Riset" atau "Komunikasi" yang berdiri sendiri.
 - [ ] Materi baru yang tidak ada di bab; slide harus diturunkan dari bab.
+- [ ] Bahasa bermasalah seperti dramatisasi berlebih, kata-kata moral, atau metafora personifikasi ("di bawah naungan", "siksaan", "nekat", "menjinakkan", "bakat lahir").
+- [ ] Adanya kebocoran kosakata/preposisi bahasa Inggris ("and" di slide Indonesia, "Before kita", "With berpedoman").
+- [ ] Nama praktikum atau berkas notebook tidak akurat atau tidak cocok dengan file `.ipynb` asli di dalam `template/notebooks/`.
 
 Kalau satu pun tercentang, perbaiki sebelum selesai.

@@ -577,6 +577,11 @@ npm run build    # pastikan tidak error
 
 Slide otomatis muncul sebagai chip "▶ Slide Ringkasan" karena `ModuleReader.tsx` baca `hasSlideDeck(id)`.
 
+**Aturan Ketat Pencegahan AI-Slop & Konsistensi pada Slide:**
+* **Bebas Dramatisasi & Bahasa Moral (Anti-AI-Slop):** Dilarang keras menggunakan kata-kata dramatis, bombastis, atau personifikasi moral yang berlebihan (hindari: *"di bawah naungan"*, *"menyiksa/siksaan"*, *"nekat"*, *"menjinakkan"*, *"otoritas kontrol"*, *"investasi emosional"*, *"tenaga asisten"*, *"bakat lahir"*). Gunakan penjelasan teknis yang lugas, objektif, dan akademis.
+* **Kebocoran Bahasa Inggris:** Pastikan tidak ada kata hubung Inggris (*"and"*) atau preposisi Inggris (*"Before"*, *"With"*) yang mengawali atau terselip di kalimat bahasa Indonesia pada slide (`slides-XX.ts`).
+* **Verifikasi Faktual Nama Lab:** Nama praktikum/lab di dalam slide wajib merujuk secara persis pada nama file `.ipynb` asli yang ada di direktori `template/notebooks/` (contoh: `lab_w7_text_classification.ipynb`, dll.). Dilarang mengarang atau memakai penomoran fiktif/generik (seperti "Lab 5b" atau "Lab 6").
+
 ## Gambar (Figures)
 
 ### Format dan Kualitas
