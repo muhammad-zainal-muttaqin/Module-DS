@@ -305,7 +305,7 @@ Checklist:
 
 Pilih satu pertanyaan dari materi W9 untuk dijelajahi lebih dalam, memakai setup multimodal dari lab atau paper yang relevan. Beberapa pertanyaan pemantik, tidak wajib salah satunya:
 
-1. Apakah cross-attention fusion benar-benar lebih baik daripada late fusion, dan pada kondisi ablation per modalitas yang mana keunggulannya muncul?
+1. Apakah cross-attention fusion lebih baik daripada late fusion, dan pada kondisi ablation per modalitas yang mana keunggulannya muncul?
 2. Dari dua paper multimodal di arXiv, seberapa lengkap pelaporan ablation per modalitasnya, dan adakah tanda modalitas terabaikan?
 3. Bagaimana merancang sistem yang bisa mendeteksi modalitas hilang secara otomatis saat inference?
 4. Apakah modality dropout saat training meningkatkan robustness, dan seberapa besar perbedaannya di tujuh kondisi ablation?
