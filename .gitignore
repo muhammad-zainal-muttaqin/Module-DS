@@ -36,6 +36,9 @@ ENV/
 *.swo
 desktop.ini
 
+# AI/editor tooling
+.kilo/
+
 # OS
 .DS_Store
 Thumbs.db

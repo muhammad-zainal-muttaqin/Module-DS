@@ -44,7 +44,7 @@ export const slides08: SlideSection[] = [
       "Minggu ini pandangan diperluas dari satu model teks ke banyak modalitas, dan dari dua opsi ke pohon keputusan adaptasi.",
       "Taksonomi representasi engineered, extracted, dan learned dari W3 tetap dipakai untuk menempatkan tiap mode adaptasi.",
     ],
-    footnote: "Tugas utama minggu ini adalah Foundation Model Map beserta selection memo.",
+    footnote: "Tugas utama minggu ini adalah Foundation Model Map beserta memo pemilihan model.",
   },
 
   // -- 4: Materi 1 --
@@ -75,7 +75,7 @@ export const slides08: SlideSection[] = [
     body: "Pada dataset kecil dengan kosakata khusus, memilih titik mulai menentukan hasil akhir:",
     left: {
       title: "Latih LSTM dari Nol",
-      body: "LSTM dimulai dari bobot acak pada 5.000 sampel.\n\nPola dasar mungkin terpelajari, tetapi kosakata medis terlalu jarang untuk dipelajari dari data sekecil itu.\n\nHasilnya rapuh dan butuh banyak data untuk stabil.",
+      body: "LSTM dimulai dari bobot acak pada 5.000 sampel.\n\nPola dasar mungkin bisa dipelajari, tetapi kosakata medis terlalu jarang untuk dipelajari dari data sekecil itu.\n\nHasilnya rapuh dan butuh banyak data untuk stabil.",
     },
     right: {
       title: "Mulai dari IndoBERT",
@@ -304,7 +304,7 @@ export const slides08: SlideSection[] = [
       title: "Pengaruh Temperature",
       body: "Pada T=1, softmax hampir one-hot dan informasi kelas non-mayoritas hilang.\n\nPada T=4, distribusi melembut sehingga student belajar hubungan antar kelas. Loss dikalikan T kuadrat untuk mengompensasi gradient yang menyusut.",
     },
-    footnote: "Pola ini membuat DistilBERT dengan 40% parameter BERT mencapai 95% lebih performa teacher.",
+    footnote: "Pola ini membuat DistilBERT, dengan parameter 40% lebih sedikit dari BERT, tetap mencapai sekitar 97% performa teacher.",
   },
 
   // -- 23: Lab W8 --
@@ -313,9 +313,9 @@ export const slides08: SlideSection[] = [
     title: "Tugas W8: Foundation Model Map",
     body: "Tugas utama minggu ini menyusun peta foundation model untuk domain riset Anda, mengikuti urutan materi di atas:",
     bullets: [
-      "Petakan 3-4 model ke kolom modalitas, pretraining, downstream role, adaptasi, dan status teacher-only.",
+      "Petakan 3-4 model ke kolom modalitas, pretraining, peran hilir, adaptasi, dan status teacher-only.",
       "Baca model card tiap model dengan tujuh pertanyaan, lalu tetapkan adaptasi lewat pohon keputusan.",
-      "Tulis selection memo satu paragraf per model dan simpan sebagai foundation_model_map.md di folder eksperimen W8.",
+      "Tulis memo pemilihan satu paragraf per model dan simpan sebagai foundation_model_map.md di folder eksperimen W8.",
     ],
     footnote: "Lab penunjang opsional lab_w8_remote_training.ipynb melatih menjalankan training di cloud GPU.",
   },

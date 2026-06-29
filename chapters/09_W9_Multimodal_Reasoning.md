@@ -283,9 +283,9 @@ Codebase multimodal sering lebih kompleks daripada codebase single-modal karena 
 
 Buka [lab_w9_multimodal_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w9_multimodal_ablation.ipynb). Tugas mengikuti urutan enam materi di atas.
 
-1. Muat dataset multimodal yang disediakan (synthetic sensor + image) atau adopsi repositori multimodal publik.
+1. Muat dataset multimodal yang disediakan (dua view nyata dari angka tulisan tangan mfeat: intensitas pixel dan fitur morfologi) atau adopsi repositori multimodal publik.
 2. Implementasikan late fusion baseline dan jalankan smoke test sebelum training penuh.
-3. Jalankan protokol ablation per modalitas §5 (tujuh kondisi plus uji modalitas acak).
+3. Jalankan protokol ablation per modalitas §5 (untuk dua modalitas di lab ini, protokolnya menjadi enam kondisi termasuk uji modalitas acak).
 4. Tulis diagnosis: apakah ada modalitas yang diabaikan?
 5. Jika ada, implementasikan satu solusi dari §2 atau §3 (modality dropout atau learnable null token).
 6. Kalau mengadopsi repo publik, buat `repo_map.md` kedua dengan kolom modalitas.
@@ -293,7 +293,7 @@ Buka [lab_w9_multimodal_ablation.ipynb](https://colab.research.google.com/github
 Checklist:
 
 - [ ] Late fusion baseline lolos smoke test.
-- [ ] Tujuh kondisi ablation tercatat dalam satu tabel hasil.
+- [ ] Enam kondisi ablation tercatat dalam satu tabel hasil.
 - [ ] Uji modalitas acak dijalankan untuk mendeteksi modalitas terabaikan.
 - [ ] Diagnosis modalitas terabaikan ditulis eksplisit, ya atau tidak.
 - [ ] Satu solusi diimplementasikan kalau masalah ditemukan.
@@ -308,7 +308,7 @@ Pilih satu pertanyaan dari materi W9 untuk dijelajahi lebih dalam, memakai setup
 1. Apakah cross-attention fusion lebih baik daripada late fusion, dan pada kondisi ablation per modalitas yang mana keunggulannya muncul?
 2. Dari dua paper multimodal di arXiv, seberapa lengkap pelaporan ablation per modalitasnya, dan adakah tanda modalitas terabaikan?
 3. Bagaimana merancang sistem yang bisa mendeteksi modalitas hilang secara otomatis saat inference?
-4. Apakah modality dropout saat training meningkatkan robustness, dan seberapa besar perbedaannya di tujuh kondisi ablation?
+4. Apakah modality dropout saat training meningkatkan robustness, dan seberapa besar perbedaannya di enam kondisi ablation?
 
 Kerjakan, dokumentasikan di [`notebooks/portofolio_mandiri.ipynb`](https://github.com/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/portofolio_mandiri.ipynb), lalu presentasikan 10 menit di awal W10. Format mengikuti [Lampiran C.9](14_Lampiran.md#c9-template-komponen-mandiri).
 

@@ -241,7 +241,7 @@ Tugas utama minggu ini adalah menyusun **Foundation Model Map** untuk 3-4 model 
 
 2. Untuk tiap model, baca model card-nya dengan tujuh pertanyaan dari materi 2, lalu catat dataset pretraining, batasan, dan lisensinya.
 3. Pakai pohon keputusan materi 3 untuk menetapkan mode adaptasi tiap model, sesuaikan dengan compute, ukuran data, dan jarak domain.
-4. Tulis selection memo satu paragraf per model: mengapa model ini, asumsi apa yang dibawanya, dan apa batasannya.
+4. Tulis memo pemilihan satu paragraf per model: mengapa model ini, asumsi apa yang dibawanya, dan apa batasannya.
 
 Lab penunjang opsional [`lab_w8_remote_training.ipynb`](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w8_remote_training.ipynb) melatih menjalankan training di cloud GPU (RunPod), berguna kalau model yang Anda pilih butuh GPU besar.
 
@@ -250,7 +250,7 @@ Checklist:
 - [ ] Foundation Model Map berisi 3-4 model dengan semua kolom terisi.
 - [ ] Tiap model punya catatan dataset pretraining, batasan, dan lisensi dari model card-nya.
 - [ ] Mode adaptasi tiap model ditetapkan lewat pohon keputusan, bukan tebakan.
-- [ ] Tiap model punya selection memo satu paragraf.
+- [ ] Tiap model punya memo pemilihan satu paragraf.
 - [ ] File tersimpan sebagai `foundation_model_map.md` di folder eksperimen W8.
 
 ---

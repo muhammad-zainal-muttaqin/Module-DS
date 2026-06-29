@@ -96,7 +96,7 @@ Format ini memastikan setiap sesi: (1) menuntaskan tindak lanjut minggu sebelumn
 | 5 | 05 W5 | Lab 3b | Sequences RNN/LSTM | **Lab 3b wajib**. Tunjukkan gradient flow secara visual - jangan hanya ceritakan. Minta pernyataan justifikasi arsitektur. | Curiosity + Rigor | Lab 3b selesai; gradient plot ada; justification tertulis |
 | 6 | 06 W6 | Lab 6 baru | Representations + temporal leakage | Demo leakage yang menipu: tampilkan F1 tinggi lalu tunjukkan validasi tanpa temporal guard. Delta harus dramatis. | Skepticism | Lab 6 temporal leakage: delta leaky vs causal terdokumentasi |
 | 7 | 07 W7 | Lab 5b + Lab 6 | Text, transformers, repo adoption | 2×2 comparison frozen/fine-tune × [CLS]/mean-pool. Minta `repo_map.md` pertama. Catatan sintesis alat AI. | Ownership | repo_map.md terisi; 2×2 macro-F1 ada |
-| 8 | 08 W8 | Foundation Map | Foundation models taxonomy | Drill model card reading - 7 pertanyaan wajib. Dorong skeptisisme pada klaim benchmark. | Skepticism + Ownership | Foundation model map 3-4 model + selection memo |
+| 8 | 08 W8 | Foundation Map | Foundation models taxonomy | Drill model card reading - 7 pertanyaan wajib. Dorong skeptisisme pada klaim benchmark. | Skepticism + Ownership | Foundation model map 3-4 model + memo pemilihan |
 | 9 | 09 W9 | Lab 8 | Multimodal + ablasi per modalitas | Tunjukkan masalah modalitas terabaikan secara empiris. "Hasil bagus" belum cukup - ablation wajib. | Skepticism | 7 kondisi ablation selesai; cek modalitas terabaikan selesai |
 | 10 | 10 W10 | Lab W10 | Membaca paper + implementasi | metode tiga putaran eksplisit. Minta mahasiswa membawa paper yang sudah di-skim ke kelas. Langkah paper-to-code. | Rigor + Curiosity | Catatan tiga putaran + metode inti terimplementasi |
 | 11 | 11 W11 | Lokakarya Framing | Framing riset (Input → Middle → Output + filter literatur) | **W11 adalah persiapan capstone**. Demo langsung dekomposisi dataset. Lokakarya menu framing + triage literatur. Mahasiswa keluar dengan 3-5 framing kandidat. | Integrasi empat sikap | Dokumen dekomposisi + tabel triage literatur; siap presentasi di W12 |
@@ -195,7 +195,7 @@ Konten di luar `<details>` adalah **konten inti** - wajib untuk semua mahasiswa.
 - **Pitfall:** Mahasiswa langsung memilih model terbesar atau terpopuler. Drill: "kapan adapter cukup vs full fine-tuning?" sebelum menyentuh GPU.
 - **Refleksi berbobot:** "Anda menemukan model baru yang klaim SOTA. Bagaimana memverifikasi?"
 - **Kaitan rubrik:** Kompetensi 8 (Platform & alat baru, foundation map). Target: Developing.
-- **Waktu lab:** Foundation Model Map + selection memo: 4-5 jam.
+- **Waktu lab:** Foundation Model Map + memo pemilihan: 4-5 jam.
 
 ### W9 - Multimodal Reasoning
 
