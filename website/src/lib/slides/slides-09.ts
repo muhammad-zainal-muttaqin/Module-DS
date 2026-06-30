@@ -5,7 +5,7 @@ export const slides09: SlideSection[] = [
   {
     layout: "title",
     title: "W9: Multimodal Reasoning",
-    subtitle: "Menggabungkan beberapa modalitas jadi satu prediksi, lalu membuktikan dengan ablation bahwa model benar-benar memakai semuanya.",
+    subtitle: "Menggabungkan beberapa modalitas jadi satu prediksi, lalu memakai ablation untuk memastikan model memakai semuanya.",
     footnote: "Bab 09 - Minggu 9",
   },
 
@@ -33,11 +33,11 @@ export const slides09: SlideSection[] = [
       },
       {
         title: "5. Protokol Ablation",
-        body: "Kita menyusun matriks kondisi yang membuktikan tiap modalitas benar-benar berkontribusi.",
+        body: "Kita menyusun matriks kondisi yang membuktikan tiap modalitas berkontribusi.",
       },
       {
         title: "6. Repo Adoption Multimodal",
-        body: "Kita membaca codebase dengan banyak encoder dan modul fusion yang abstrak.",
+        body: "Kita membaca codebase dengan banyak encoder dan satu modul fusion.",
       },
     ],
   },
@@ -52,20 +52,20 @@ export const slides09: SlideSection[] = [
       "Minggu ini beberapa encoder itu digabung menjadi satu prediksi multimodal.",
       "Cross-attention dari W7 dipakai lagi, tetapi sumber Query, Key, dan Value sekarang lintas modalitas.",
     ],
-    footnote: "Disiplin ablation satu variabel dari W4 menjadi alat utama minggu ini.",
+    footnote: "Disiplin ablation satu variabel dari W4 dipakai sepanjang minggu ini.",
   },
 
   // -- 4: Motivasi (artefak: angka ablation) --
   {
     layout: "bullets",
     title: "Apakah Model Memakai Kedua Modalitas?",
-    body: "Sebuah model memprediksi skala nyeri dari ekspresi wajah dan sensor accelerometer. Angka ablation berikut mengungkap sesuatu yang penting:",
+    body: "Sebuah model memprediksi skala nyeri dari ekspresi wajah dan sensor accelerometer. Angka ablation berikut menunjukkan masalahnya:",
     bullets: [
-      "Validation F1 mencapai 0.79 dengan kedua modalitas, dan hasilnya terlihat bagus.",
+      "Validation F1 mencapai 0.79 dengan kedua modalitas.",
       "Setelah seluruh input sensor dihapus, F1 hanya turun ke 0.78, selisih 0.01.",
-      "Artinya model pada dasarnya tidak memakai data sensor, dan dua minggu kerja fusion setara satu modalitas.",
+      "Artinya model hampir tidak memakai data sensor: hasil fusion setara satu modalitas saja.",
     ],
-    footnote: "Sebelum melaporkan hasil multimodal apa pun, ablation per modalitas wajib dijalankan.",
+    footnote: "Sebelum melaporkan hasil multimodal, jalankan dulu ablation per modalitas.",
   },
 
   // -- 5: Materi 1 --
@@ -93,11 +93,11 @@ export const slides09: SlideSection[] = [
     gridItems: [
       {
         title: "Late Fusion",
-        body: "Tiap modalitas diproses encoder sendiri lalu output digabungkan di ujung. Strategi ini mudah diimplementasikan dan tahan modalitas hilang, tetapi tidak ada interaksi antar modalitas sebelum penggabungan.",
+        body: "Tiap modalitas diproses encoder sendiri lalu output digabungkan di ujung. Mudah diimplementasikan dan tahan modalitas hilang, tetapi tidak ada interaksi antar modalitas sebelum penggabungan.",
       },
       {
         title: "Early Fusion",
-        body: "Input berbagai modalitas digabungkan di level representasi awal sebelum model bersama. Strategi ini bisa belajar interaksi sejak awal, tetapi butuh projection cermat dan sulit menangani modalitas hilang.",
+        body: "Input berbagai modalitas digabungkan di level representasi awal sebelum model bersama. Interaksi bisa dipelajari sejak awal, tetapi butuh projection cermat dan sulit menangani modalitas hilang.",
       },
       {
         title: "Cross-Attention Fusion",
@@ -127,7 +127,7 @@ out = w @ V                  # (B, T_text, d)`,
     layout: "section",
     title: "2. Modalitas Terabaikan",
     body: "Saat training multimodal, optimizer mengikuti jalur yang paling mudah. Jika satu modalitas lebih bersih atau lebih mudah dioptimasi, model bisa mengabaikan modalitas lain sambil loss tetap turun.",
-    footnote: "Performa tampak bagus, tetapi model sebenarnya memakai satu modalitas saja.",
+    footnote: "Performa tampak bagus, padahal model hanya memakai satu modalitas.",
   },
 
   // -- 10: Tiga cara mendeteksi --
@@ -136,11 +136,11 @@ out = w @ V                  # (B, T_text, d)`,
     title: "Tiga Cara Mendeteksi Modalitas Terabaikan",
     body: "Failure mode ini tidak terlihat dari loss curve atau F1, jadi tiga uji berikut yang memunculkannya:",
     bullets: [
-      "**Ablation per modalitas** menghapus satu modalitas sekaligus, dan jika F1 tidak turun signifikan, modalitas itu diabaikan.",
-      "**Modalitas acak** mengganti satu modalitas dengan noise, dan jika performa tidak memburuk, modalitas itu memang tidak dipakai.",
-      "**Gradient magnitude check** menghitung gradient norm tiap encoder, dan encoder yang konsisten kecil tidak berkontribusi.",
+      "**Ablation per modalitas** menghapus satu modalitas. Jika F1 tidak turun signifikan, modalitas itu diabaikan.",
+      "**Modalitas acak** mengganti satu modalitas dengan noise. Jika performa tidak memburuk, modalitas itu memang tidak dipakai.",
+      "**Gradient magnitude check** menghitung gradient norm tiap encoder. Encoder yang norm-nya konsisten kecil tidak berkontribusi.",
     ],
-    footnote: "Ablation dibaca dua arah: selisih nol berarti diabaikan, dan kenaikan tipis belum membuktikan apa pun tanpa uji modalitas acak.",
+    footnote: "Selisih nol berarti modalitas diabaikan; kenaikan tipis belum cukup tanpa uji modalitas acak.",
   },
 
   // -- 11: Tiga solusi --
@@ -153,14 +153,14 @@ out = w @ V                  # (B, T_text, d)`,
       "**Separate loss terms** menambahkan auxiliary loss per modalitas agar tiap encoder mendapat gradient yang jelas.",
       "**Gradient balancing** menyesuaikan learning rate tiap modalitas berdasarkan gradient magnitude masing-masing.",
     ],
-    footnote: "Menemukan modalitas terabaikan adalah temuan yang dilaporkan, bukan disembunyikan.",
+    footnote: "Modalitas terabaikan adalah temuan yang dilaporkan ke dosen.",
   },
 
   // -- 12: Materi 3 --
   {
     layout: "section",
     title: "3. Modalitas Hilang",
-    body: "Di produksi, satu modalitas sering tidak tersedia: sensor rusak, gambar terlalu kabur, atau teks tidak terisi. Sistem multimodal yang baik menangani ini secara rapi, bukan crash atau menebak.",
+    body: "Di produksi, satu modalitas sering tidak tersedia: sensor rusak, gambar terlalu kabur, atau teks tidak terisi. Sistem multimodal yang baik tetap memberi prediksi yang masuk akal saat itu terjadi, bukan crash atau menebak asal.",
     footnote: "Zero padding memberi sinyal ambigu, sehingga tiga strategi berikut lebih tepat.",
   },
 
@@ -172,15 +172,15 @@ out = w @ V                  # (B, T_text, d)`,
     gridItems: [
       {
         title: "Modality Dropout",
-        body: "Strategi ini mengosongkan satu modalitas secara acak saat training, sehingga model terbiasa memprediksi bahkan ketika satu modalitas hilang saat inference.",
+        body: "Saat training, satu modalitas dikosongkan secara acak, sehingga model terbiasa memprediksi walau satu modalitas hilang saat inference.",
       },
       {
         title: "Learnable Null Token",
-        body: "Strategi ini mengganti modalitas hilang dengan embedding yang dipelajari untuk merepresentasikan tidak adanya modalitas itu, lebih baik daripada zero padding yang ambigu.",
+        body: "Modalitas yang hilang diganti embedding khusus yang dipelajari untuk menandai ketiadaannya, lebih informatif daripada zero padding yang ambigu.",
       },
       {
         title: "Fallback Single-Modal",
-        body: "Strategi ini mendesain model sebagai ensemble: pakai semua modalitas jika tersedia, lalu jatuh ke model unimodal saat satu modalitas hilang. Sederhana dan andal untuk produksi.",
+        body: "Model didesain sebagai ensemble: pakai semua modalitas saat tersedia, lalu jatuh ke model unimodal saat satu modalitas hilang. Sederhana dan andal untuk produksi.",
       },
     ],
     footnote: "Probabilitas dropout 0.10-0.25 lazim; naikkan ke 0.30-0.40 untuk modalitas yang terlalu dominan.",
@@ -213,7 +213,7 @@ out = w @ V                  # (B, T_text, d)`,
       "**Event-to-window mapping** memetakan tiap event ke window dari stream kontinu terdekat, cocok untuk data berbasis event.",
       "**Temporal position encoding** menyuntikkan waktu absolut sebagai feature eksplisit dan membiarkan model belajar alignment sendiri.",
     ],
-    footnote: "Jika drift sudah terlanjur, sertakan koreksinya dalam preprocessing yang terdokumentasi, bukan perbaikan diam-diam.",
+    footnote: "Jika drift sudah terlanjur, sertakan koreksinya di preprocessing yang terdokumentasi.",
   },
 
   // -- 17: Contoh drift 250 ms --
@@ -234,7 +234,7 @@ out = w @ V                  # (B, T_text, d)`,
     layout: "section",
     title: "5. Protokol Ablation Per Modalitas",
     body: "Protokol ablation per modalitas adalah matriks kondisi yang menyalakan subset modalitas berbeda untuk mengukur kontribusi tiap modalitas secara terisolasi. Setiap laporan multimodal menjalankannya sebelum klaim apa pun.",
-    footnote: "Protokol penuh memakai tujuh kondisi, dengan random image sebagai pengecekan paling penting.",
+    footnote: "Protokol penuh memakai tujuh kondisi, termasuk random image untuk mengecek modalitas terabaikan.",
   },
 
   // -- 19: Ablation image (sebelum teks) --
@@ -250,7 +250,7 @@ out = w @ V                  # (B, T_text, d)`,
   {
     layout: "table",
     title: "Protokol Ablation yang Bisa Disalin",
-    body: "Dari gambar tersebut, tujuh kondisi disusun sebagai protokol berikut, dan tabel ini bisa disalin langsung:",
+    body: "Dari gambar tersebut, tujuh kondisi disusun menjadi protokol berikut:",
     tableHead: ["Eksperimen", "Input", "Temuan yang diharapkan"],
     tableRows: [
       ["Full model", "image + text + sensor", "Performa baseline"],
@@ -297,7 +297,7 @@ out = w @ V                  # (B, T_text, d)`,
   {
     layout: "bullets",
     title: "6. Repo Adoption Multimodal",
-    body: "Codebase multimodal lebih kompleks karena memuat banyak encoder, beberapa DataLoader, dan modul fusion abstrak. Repo map dari W7 dipakai dengan tiga langkah tambahan:",
+    body: "Codebase multimodal lebih kompleks karena memuat banyak encoder, beberapa DataLoader, dan modul fusion. Repo map dari W7 dipakai dengan tiga langkah tambahan:",
     bullets: [
       "**Identifikasi titik fusion** dengan menemukan tempat embedding berbagai modalitas digabungkan, karena titik ini menentukan arsitektur.",
       "**Telusuri satu forward pass** dengan mengikuti satu batch tiap modalitas dari DataLoader sampai prediction sambil mencatat shape.",
@@ -310,7 +310,7 @@ out = w @ V                  # (B, T_text, d)`,
   {
     layout: "bullets",
     title: "Lab W9: Multimodal Ablation",
-    body: "Lab membangun baseline fusion lalu membuktikan apakah model benar-benar multimodal, mengikuti urutan enam materi:",
+    body: "Lab membangun baseline fusion lalu menguji apakah model memakai semua modalitas, mengikuti urutan enam materi:",
     bullets: [
       "Implementasikan late fusion baseline dengan smoke test, lalu jalankan protokol ablation enam kondisi untuk dua modalitas, termasuk uji modalitas acak.",
       "Tulis diagnosis eksplisit apakah ada modalitas yang diabaikan dari tabel hasil.",
