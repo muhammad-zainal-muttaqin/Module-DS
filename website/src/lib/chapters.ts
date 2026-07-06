@@ -1,4 +1,4 @@
-// Metadata 17 bab week-based. Konten aktual dari src/content/chapters/*.md (di-import raw).
+// Metadata 18 bab week-based. Konten aktual dari src/content/chapters/*.md (di-import raw).
 
 export type Sikap = "curiosity" | "rigor" | "skepticism" | "ownership";
 
@@ -168,6 +168,17 @@ export const CHAPTERS: ChapterMeta[] = [
     sikap: ["ownership", "rigor"],
     labName: "Capstone",
     filename: "12_Capstone.md",
+  },
+  {
+    id: "12a",
+    number: 12,
+    title: "Brief Capstone 100 Jam",
+    subtitle: "Dataset 2021-2026, tema proyek, alur kerja, checklist final",
+    weeks: "12-15",
+    weekNumbers: [12, 13, 14, 15],
+    sikap: ["ownership", "rigor"],
+    labName: null,
+    filename: "12a_Capstone_Briefs.md",
   },
   {
     id: "13",

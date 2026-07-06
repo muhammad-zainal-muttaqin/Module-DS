@@ -14,6 +14,7 @@ import c09 from "../content/chapters/09_W9_Multimodal_Reasoning.md?raw";
 import c10 from "../content/chapters/10_W10_Paper_Reading.md?raw";
 import c11 from "../content/chapters/11_W11_Research_Framing.md?raw";
 import c12 from "../content/chapters/12_Capstone.md?raw";
+import c12a from "../content/chapters/12a_Capstone_Briefs.md?raw";
 import c13 from "../content/chapters/13_Rubrik_Penilaian.md?raw";
 import c14 from "../content/chapters/14_Lampiran.md?raw";
 import c15 from "../content/chapters/15_Panduan_Instruktur.md?raw";
@@ -43,6 +44,7 @@ const RAW: Record<string, string> = {
   "10": c10,
   "11": c11,
   "12": c12,
+  "12a": c12a,
   "13": c13,
   "14": c14,
   "15": c15,

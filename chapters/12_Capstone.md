@@ -46,6 +46,9 @@ Capstone yang baik memenuhi tiga syarat:
 - **Cakupan yang bisa ditutup** dalam 3 minggu kerja yang fokus - proyek kecil yang dieksekusi dengan baik lebih berharga daripada proyek ambisius yang setengah selesai.
 - **Artefak publik**: repositori yang bisa di-clone dan dijalankan orang lain, laporan yang bisa dibaca orang lain secara mandiri, dan demo yang bisa dicoba orang lain.
 
+> [!TIP]
+> Butuh contoh proyek konkret? [12a - Brief Capstone 100 Jam](12a_Capstone_Briefs.md) memberi pilihan dataset 2021-2026, tema proyek, alur kerja, dan checklist final.
+
 ---
 
 ## 1. Alur Empat Minggu
@@ -312,6 +315,7 @@ Ini adalah cara paling umum proyek capstone mengalami kesulitan. Mengetahuinya l
 
 ## Bacaan Lanjutan
 
+- **[12a - Brief Capstone 100 Jam](12a_Capstone_Briefs.md)** memberi pilihan dataset 2021-2026, tema proyek, alur kerja, dan checklist final.
 - **[W11 - Research Framing](11_W11_Research_Framing.md)** menyediakan kerangka dekomposisi dan template sebagai referensi saat mempersiapkan pertahanan framing W12.
 - **`template/docs/prereg_template.md`** adalah template pre-registration yang sudah ada di repo; gunakan untuk Eksperimen 1 dan 2.
 - **[Rubrik Penilaian](13_Rubrik_Penilaian.md)** menjelaskan rubrik capstone untuk memahami bagaimana setiap fase dievaluasi.
