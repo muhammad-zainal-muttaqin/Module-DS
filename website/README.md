@@ -30,7 +30,7 @@ npm run build
 npm run preview  # preview dist lokal
 ```
 
-Output di `dist/`. Deploy otomatis via `.github/workflows/deploy-pages.yml` pada push ke `main`.
+Output di `dist/`. Deploy otomatis via Cloudflare Pages pada push ke `master`: build `npm run build`, output `website/dist/`, live di [module-ds.pages.dev](https://module-ds.pages.dev/).
 
 ## Struktur
 
