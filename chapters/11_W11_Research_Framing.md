@@ -231,7 +231,7 @@ Kalau paragraf itu belum bisa ditulis dengan jelas, framing-nya belum siap dipre
 
 ## Lab
 
-Sesi kelas W11 berjalan 120 menit: demo langsung dekomposisi pada satu dataset nyata, lalu tiga lokakarya. Kerja mandiri antara W11 dan W12 mengulang siklus yang sama pada dataset pilihan masing-masing. Tugas mengikuti urutan empat materi di atas.
+Sesi kelas W11 berjalan 120 menit: demo langsung dekomposisi pada satu dataset, lalu tiga lokakarya. Kerja mandiri antara W11 dan W12 mengulang siklus yang sama pada dataset pilihan masing-masing. Tugas mengikuti urutan empat materi di atas.
 
 1. **Demo langsung.** Bu Fatma memfasilitasi dekomposisi satu dataset 2025 di papan tulis. Mahasiswa menghasilkan framing, Bu Fatma memeriksa dan mengoreksi.
 2. **Lokakarya 1 (20 menit, kelompok).** Hasilkan menu 3 framing kandidat dari dataset kelompok (Kelompok A: Paddy Doctor; Kelompok B: NusaX), memakai template dekomposisi. Jangan mulai coding, jangan terkunci pada satu framing.

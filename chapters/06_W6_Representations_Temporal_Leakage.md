@@ -283,7 +283,7 @@ Diagnosis awal ketiganya sama: bandingkan histogram tiap fitur antara train dan 
 
 ## 6. Audit Dataset dan Pelaporan
 
-Audit dataset menjalankan EDA tiga lapis dan cek leakage pada satu dataset nyata, lalu menutupnya dengan laporan yang berisi keputusan eksperimen. Worked example ini memakai PathMNIST: dataset histopatologi kolon dari koleksi MedMNIST, sembilan kelas jaringan, resolusi 28×28.
+Audit dataset menjalankan EDA tiga lapis dan cek leakage pada satu dataset, lalu menutupnya dengan laporan yang berisi keputusan eksperimen. Worked example ini memakai PathMNIST: dataset histopatologi kolon dari koleksi MedMNIST, sembilan kelas jaringan, resolusi 28×28.
 
 **Muat dan periksa struktur.**
 

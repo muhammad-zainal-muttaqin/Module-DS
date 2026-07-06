@@ -263,6 +263,7 @@ Prinsip:
 | `sum to 1` | `jumlahnya 1` | |
 | `di-cover` / `sudah di-cover` | `dibahas` / `tercakup` | |
 | `representasi yang informatif` / `yang kaya` | hapus adjective / restrukturisasi | Calque "rich/informative representations" |
+| `dataset nyata` / `data nyata` / `kondisi nyata` (penegas redundan) | `dataset` / `data` / `kondisi` | Calque "real X"/"actual X"; buang penegas. Sah hanya saat kontras dengan sintetis/toy/dummy, makna `asli`=original/upstream (`repo asli`, `paper asli`, `label asli`), atau idiom `dunia nyata` |
 | `membaca X sebagai sinyal diagnostik` | `membaca X untuk mendiagnosis hasil Y` | Jangan pakai `sebagai` kalau maksudnya tujuan tindakan |
 | `memilih X dengan alasan` | `menentukan X yang sesuai` / `menjelaskan alasan memilih X` | Pilih bentuk sesuai konteks; jangan dibuat formal |
 | `mengukur model dengan jujur` | `mengevaluasi model dengan metrik yang sesuai` | Hindari bahasa moral kalau cukup teknis |

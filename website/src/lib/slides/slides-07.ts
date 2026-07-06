@@ -401,7 +401,7 @@ Output (Panjang kata T, dimensi D)`,
   {
     layout: "split",
     title: "Trade-off Biaya di antara Frozen dan Fine-tune",
-    body: "Kita bisa melihat kontras performa antara dua pilihan adaptasi tadi dengan memakai data nyata sebanyak 12 ribu sampel sentimen pada GPU berkapasitas sedang:",
+    body: "Kita bisa melihat kontras performa antara dua pilihan adaptasi tadi dengan memakai 12 ribu sampel sentimen pada GPU berkapasitas sedang:",
     left: {
       title: "Frozen dan Linear Head Atas",
       body: "Training hanya berjalan dalam waktu 2 sampai 3 menit saja per epochnya, dan berhasil mencatat skor rentang menengah F1 sebesar 0.80.\n\nPendekatan ini luar biasa cepat dan aman, sangat disarankan bila jumlah dataset kita masih di bawah lima ribu baris.",
@@ -485,7 +485,7 @@ Output (Panjang kata T, dimensi D)`,
     bullets: [
       "**Gunakan dua sesi obrolan AI terpisah** dengan prompt berbeda agar kita mendapatkan perspektif teknis yang saling melengkapi.",
       "**Bandingkan jawaban AI dengan dokumentasi resmi** atau paper riset tepercaya untuk memastikan keakuratan informasi tersebut.",
-      "**Susun kesimpulan satu paragraf** yang merangkum alasan pemilihan strategi teknis agar dapat dipertanggungjawabkan saat evaluasi.",
+      "**Susun kesimpulan satu paragraf** yang merangkum alasan pemilihan strategi teknis dan bisa dijelaskan saat evaluasi.",
     ],
     footnote: "Catatan kesimpulan ini akan menjadi dokumentasi penting di setiap tahap keputusan riset kita.",
   },

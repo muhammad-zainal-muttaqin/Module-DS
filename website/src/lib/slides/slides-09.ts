@@ -190,7 +190,7 @@ out = w @ V                  # (B, T_text, d)`,
   {
     layout: "section",
     title: "4. Temporal Alignment",
-    body: "Banyak dataset multimodal nyata punya aliran data dengan sampling rate atau clock berbeda: video 25 fps versus audio 44 kHz, atau sensor IMU 100 Hz versus kamera 30 fps.",
+    body: "Banyak dataset multimodal punya aliran data dengan sampling rate atau clock berbeda: video 25 fps versus audio 44 kHz, atau sensor IMU 100 Hz versus kamera 30 fps.",
     footnote: "Tanpa sinkronisasi, model mengasosiasikan event dari waktu yang salah dan cross-attention belajar korelasi semu.",
   },
 

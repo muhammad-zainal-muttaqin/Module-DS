@@ -283,7 +283,7 @@ Codebase multimodal sering lebih kompleks daripada codebase single-modal karena 
 
 Buka [lab_w9_multimodal_ablation.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w9_multimodal_ablation.ipynb). Tugas mengikuti urutan enam materi di atas.
 
-1. Muat dataset multimodal yang disediakan (dua view nyata dari angka tulisan tangan mfeat: intensitas pixel dan fitur morfologi) atau adopsi repositori multimodal publik.
+1. Muat dataset multimodal yang disediakan (dua view dari angka tulisan tangan mfeat: intensitas pixel dan fitur morfologi) atau adopsi repositori multimodal publik.
 2. Implementasikan late fusion baseline dan jalankan smoke test sebelum training penuh.
 3. Jalankan protokol ablation per modalitas §5 (untuk dua modalitas di lab ini, protokolnya menjadi enam kondisi termasuk uji modalitas acak).
 4. Tulis diagnosis: apakah ada modalitas yang diabaikan?

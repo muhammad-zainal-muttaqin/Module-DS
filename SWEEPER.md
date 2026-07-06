@@ -117,6 +117,7 @@ Hindari jika tidak menambah makna:
 - `kritis` sebagai intensifier umum
 - `nyaman` untuk kompetensi
 - `intuitif` untuk penjelasan
+- `nyata` / `asli` sebagai penegas kata benda (calque `real X` / `actual X`): `dataset nyata`, `data nyata`, `kondisi nyata`, `foto nyata`
 
 Ubah menjadi makna konkret:
 
@@ -126,6 +127,8 @@ Ubah menjadi makna konkret:
 - `lebih stabil`
 - `lebih jelas`
 - `membantu diagnosis`
+
+Khusus `nyata` / `asli`: buang penegasnya, cukup kata bendanya (`dataset nyata` → `dataset`). Dalam Bahasa Indonesia "dataset" sudah berarti dataset; tidak perlu dibedakan dari "dataset palsu". **Pertahankan hanya** saat ada lawan eksplisit di konteks: kontras dengan data sintetis/toy/dummy (`data nyata, bukan data sintetis`; `sampel nyata` vs tensor random di smoke test), makna "asli" = original/upstream (`repo asli`, `paper asli`, `bobot W asli`, `label asli`), atau idiom `dunia nyata`. Tes: hapus penegasnya - kalau makna kalimat tidak berubah, itu redundan.
 
 ### 5. Metafora teknis yang tidak perlu
 
@@ -282,7 +285,7 @@ npm run build
 Lalu dari root repo jalankan grep verifikasi untuk memastikan frasa target tidak tersisa di W1-W11 sumber:
 
 ```powershell
-rg -n -i "dipertanggungjawabkan|dengan alasan|sebagai sinyal|sinyal diagnostik|mengukur model dengan jujur|evaluasi yang jujur|melatih mata|otak punya|memori utama|aliran informasi|gradient mengalir|gerbang keputusan|lebih informatif|representasi yang kaya|representasi yang informatif|nyaman|intuitif|misi|ritual|sakti|ajaib" chapters/0*_W*.md chapters/10_W10_Paper_Reading.md chapters/11_W11_Research_Framing.md website/src/lib/slides/slides-*.ts
+rg -n -i "dipertanggungjawabkan|dengan alasan|sebagai sinyal|sinyal diagnostik|mengukur model dengan jujur|evaluasi yang jujur|melatih mata|otak punya|memori utama|aliran informasi|gradient mengalir|gerbang keputusan|lebih informatif|representasi yang kaya|representasi yang informatif|(dataset|data|kondisi|foto|citra|gambar|tugas|masalah) (nyata|asli)|nyaman|intuitif|misi|ritual|sakti|ajaib" chapters/0*_W*.md chapters/10_W10_Paper_Reading.md chapters/11_W11_Research_Framing.md website/src/lib/slides/slides-*.ts
 ```
 
 Grep bersih bukan bukti cukup, tetapi grep yang masih berisi frasa target perlu diperiksa manual. Jika frasa muncul di `CLAUDE.md` atau `SWEEPER.md` sebagai contoh larangan, itu boleh.

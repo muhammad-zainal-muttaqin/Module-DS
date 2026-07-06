@@ -316,7 +316,7 @@ test  = df[df['timestamp'] > cutoff]
   {
     layout: "section",
     title: "6. Audit Dataset dan Pelaporan",
-    body: "Audit menjalankan EDA tiga lapis dan cek leakage pada satu dataset nyata, lalu menutupnya dengan laporan berisi keputusan. Worked example memakai PathMNIST: histopatologi kolon, sembilan kelas, resolusi 28x28.",
+    body: "Audit menjalankan EDA tiga lapis dan cek leakage pada satu dataset, lalu menutupnya dengan laporan berisi keputusan. Worked example memakai PathMNIST: histopatologi kolon, sembilan kelas, resolusi 28x28.",
     footnote: "Audit ditulis ke experiments/lab4/audit.md dan dibaca bersama protokol eksperimen W4.",
   },
 
