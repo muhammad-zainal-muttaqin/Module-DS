@@ -186,9 +186,318 @@ Autoencoder di [`lab_breadth_autoencoder`](https://colab.research.google.com/git
 
 ---
 
+## Daftar Paket Latihan W10
+
+Pilih satu paket untuk latihan paper-to-code. Setiap paket berisi satu paper utama, dataset untuk reproduksi kecil, parity check, dan satu ablasi unik. Rincian di bawah disalin dari lembar informasi tiap paket, dan versi `.docx` lengkapnya bisa diunduh di akhir tiap paket.
+
+Untuk tiap paket, diskusikan lebih dulu: klaim apa yang diuji, baseline apa yang dipakai, dataset mana yang paling realistis, hasil paper mana yang akan dijadikan pembanding, dan bagian eksperimen mana yang sulit disamakan.
+
+### W10-01 - Image: Colorful Cutout
+
+Paper: [Colorful Cutout: Enhancing Image Data Augmentation with Curriculum Learning](https://arxiv.org/abs/2403.20012)
+
+Venue: ICLR 2024 Tiny Papers / arXiv (2024). Dataset di paper: CIFAR-10 / CIFAR-100 / Tiny ImageNet.
+
+Paper ini menguji variasi Cutout: bagian gambar ditutup dengan warna acak, lalu tingkat gangguannya dinaikkan bertahap dengan curriculum. Klaim utama: augmentasi sederhana ini bisa memperbaiki akurasi dibanding Cutout biasa.
+
+Rencana eksperimen (titik awal, boleh direvisi dengan alasan):
+
+| No | Eksperimen | Yang berubah | Untuk mengecek |
+|---|---|---|---|
+| 1 | Baseline | Cutout biasa / augmentasi standar | Pembanding utama |
+| 2 | Reproduksi paper | Colorful Cutout | Apakah arah hasil mengikuti paper? |
+| 3 | Ablasi curriculum | Colorful Cutout tanpa curriculum | Apakah curriculum memang berpengaruh? |
+| 4 | Ablasi unik | jumlah warna / jadwal curriculum / warm-up / pilihan kelompok | Batas klaim yang ingin diuji |
+
+Parameter yang dibuat tetap:
+
+| Parameter | Nilai |
+|---|---|
+| Dataset reproduksi | CIFAR-10 |
+| Model | ResNet-18 |
+| Epoch | 20 |
+| Optimizer | SGD |
+| Learning rate | 0.1 |
+| Batch size | 128 |
+| Seed | 42 |
+| Split | train 45k / validation 5k / test 10k |
+| Metrik | akurasi validasi dan test |
+
+Parity check: bandingkan hasil reproduksi dengan paper, apakah Colorful Cutout mengalahkan Cutout pada setup kalian? Jika tidak, jelaskan kemungkinan penyebabnya.
+
+Ablasi unik: pilih satu ablasi yang tidak ada di paper, lalu jelaskan batas klaim yang ingin diuji. Beberapa opsi: jumlah warna / jadwal curriculum / Colorful Cutout hanya setelah warm-up / [tentukan sendiri].
+
+Lembar informasi lengkap: [unduh .docx](../template/notebooks/information_sheet/01_Image_ColorfulCutout_info_sample.docx)
+
+### W10-02 - NLP: Adverb Deletion
+
+Paper: [Adverb Is the Key: Simple Text Data Augmentation with Adverb Deletion](https://arxiv.org/abs/2403.20015)
+
+Venue: ICLR 2024 Tiny Papers / arXiv (2024). Dataset di paper: SST-2 / SST-5 / CoLA / TREC / RTE / MNLI / QNLI.
+
+Paper ini menguji augmentasi teks yang sangat sederhana: hapus adverb dari kalimat. Klaim utama: penghapusan adverb cenderung menjaga makna, sehingga bisa membantu klasifikasi teks dan NLI.
+
+Rencana eksperimen (titik awal, boleh direvisi dengan alasan):
+
+| No | Eksperimen | Yang berubah | Untuk mengecek |
+|---|---|---|---|
+| 1 | Baseline | tanpa augmentasi | Pembanding utama |
+| 2 | Reproduksi paper | adverb deletion | Apakah arah hasil mengikuti paper? |
+| 3 | Ablasi rule | hapus satu adverb vs semua adverb | Apakah agresivitas penghapusan berpengaruh? |
+| 4 | Ablasi unik | threshold POS / discourse marker / pilihan kelompok | Batas klaim yang ingin diuji |
+
+Parameter yang dibuat tetap:
+
+| Parameter | Nilai |
+|---|---|
+| Dataset reproduksi | SST-2 |
+| Model | bert-base-uncased |
+| Epoch | 3 |
+| Optimizer | AdamW |
+| Learning rate | 2e-5 |
+| Batch size | 16 |
+| Seed | 42 |
+| Split | train / validation GLUE |
+| Metrik | validation accuracy |
+
+Parity check: bandingkan hasil reproduksi dengan paper, apakah adverb deletion mengalahkan baseline tanpa augmentasi pada setup kalian? Jika tidak, jelaskan kemungkinan penyebabnya.
+
+Ablasi unik: pilih satu ablasi yang tidak ada di paper, lalu jelaskan batas klaim yang ingin diuji. Beberapa opsi: hapus satu adverb saja / hapus semua adverb / batasi pada adverb tertentu / [tentukan sendiri].
+
+Lembar informasi lengkap: [unduh .docx](../template/notebooks/information_sheet/02_NLP_AdverbDeletion_info.docx)
+
+### W10-03 - Tabular: TabM
+
+Paper: [TabM: Advancing Tabular Deep Learning with Parameter-Efficient Ensembling](https://arxiv.org/abs/2410.24210)
+
+Venue: ICLR 2025 / arXiv (2024). Dataset di paper: tabular benchmark datasets / OpenML.
+
+Paper ini menguji ide bahwa MLP tabular bisa menjadi lebih kuat dengan parameter-efficient ensembling. Klaim utama: TabM memberi baseline tabular deep learning yang sederhana, kuat, dan praktis.
+
+Rencana eksperimen (titik awal, boleh direvisi dengan alasan):
+
+| No | Eksperimen | Yang berubah | Untuk mengecek |
+|---|---|---|---|
+| 1 | Baseline | MLP biasa | Pembanding neural sederhana |
+| 2 | Reproduksi paper | TabM dengan backbone sama | Apakah ensemble efisien membantu MLP? |
+| 3 | Ablasi jumlah prediksi | 4 prediksi vs 8 prediksi | Apakah manfaat datang dari ensemble? |
+| 4 | Ablasi unik | single head / shared layer / pilihan kelompok | Batas klaim yang ingin diuji |
+
+Parameter yang dibuat tetap:
+
+| Parameter | Nilai |
+|---|---|
+| Dataset reproduksi | Adult Income |
+| Task | binary classification |
+| Backbone | MLP 2 layer, hidden 256 |
+| Epoch | 50 |
+| Optimizer | AdamW |
+| Learning rate | 1e-3 |
+| Batch size | 512 |
+| Seed | 42 |
+| Split | 70% train / 15% validation / 15% test |
+| Metrik | ROC-AUC dan accuracy |
+
+Parity check: bandingkan hasil reproduksi dengan paper, apakah TabM mengalahkan MLP biasa pada dataset pilihan? Jika tidak, jelaskan apakah masalahnya dataset, tuning, atau implementasi.
+
+Ablasi unik: pilih satu ablasi yang tidak ada di paper, lalu jelaskan batas klaim yang ingin diuji. Beberapa opsi: jumlah prediksi / single head saat test / shared vs partially shared layer / [tentukan sendiri].
+
+Lembar informasi lengkap: [unduh .docx](../template/notebooks/information_sheet/03_Tabular_TabM_info.docx)
+
+### W10-04 - Tabular: GRANDE
+
+Paper: [GRANDE: Gradient-Based Decision Tree Ensembles for Tabular Data](https://arxiv.org/abs/2309.17130)
+
+Venue: ICLR 2024 / arXiv (2023). Dataset di paper: 19 tabular classification datasets.
+
+Paper ini melatih ensemble decision tree dengan gradient descent. Klaim utama: struktur tree tetap berguna untuk tabular, tetapi bisa digabung dengan fleksibilitas training neural.
+
+Rencana eksperimen (titik awal, boleh direvisi dengan alasan):
+
+| No | Eksperimen | Yang berubah | Untuk mengecek |
+|---|---|---|---|
+| 1 | Baseline tree | XGBoost | Pembanding tree-based |
+| 2 | Baseline neural | MLP biasa | Pembanding deep learning sederhana |
+| 3 | Reproduksi paper | GRANDE | Apakah GRANDE kompetitif pada tabular? |
+| 4 | Ablasi unik | depth / embeddings / instance weighting / pilihan kelompok | Batas klaim yang ingin diuji |
+
+Parameter yang dibuat tetap:
+
+| Parameter | Nilai |
+|---|---|
+| Dataset reproduksi | OpenML 46915 |
+| Task | binary classification |
+| Split | 64% train / 16% validation / 20% test |
+| Epoch | 100 |
+| Batch size | 256 |
+| Seed | 42 |
+| GRANDE depth | 5 |
+| GRANDE estimators | 256 |
+| Metrik | ROC-AUC dan F1 |
+
+Parity check: bandingkan hasil reproduksi dengan paper, apakah GRANDE mengalahkan MLP dan mendekati baseline tree pada setup kalian? Jika tidak, jelaskan kemungkinan penyebabnya.
+
+Ablasi unik: pilih satu ablasi yang tidak ada di paper, lalu jelaskan batas klaim yang ingin diuji. Beberapa opsi: depth tree / jumlah estimator / numeric embedding on-off / [tentukan sendiri].
+
+Lembar informasi lengkap: [unduh .docx](../template/notebooks/information_sheet/04_Tabular_GRANDE_info.docx)
+
+### W10-05 - Time Series: SOFTS
+
+Paper: [SOFTS: Efficient Multivariate Time Series Forecasting with Series-Core Fusion](https://arxiv.org/abs/2404.14197)
+
+Venue: NeurIPS 2024 / arXiv (2024). Dataset di paper: ETT / Traffic / Weather / ECL.
+
+Paper ini mengusulkan STAR: semua series diringkas menjadi core bersama, lalu informasi core dikembalikan ke tiap series. Klaim utama: channel interaction bisa dipelajari efisien tanpa attention yang berat.
+
+Rencana eksperimen (titik awal, boleh direvisi dengan alasan):
+
+| No | Eksperimen | Yang berubah | Untuk mengecek |
+|---|---|---|---|
+| 1 | Baseline | DLinear | Pembanding forecasting sederhana |
+| 2 | Reproduksi paper | SOFTS dengan STAR | Apakah fusion antar-series membantu? |
+| 3 | Ablasi STAR | mean pooling + broadcast | Apakah STAR lebih dari pooling biasa? |
+| 4 | Ablasi unik | jumlah core / stop gradient / pilihan kelompok | Batas klaim yang ingin diuji |
+
+Parameter yang dibuat tetap:
+
+| Parameter | Nilai |
+|---|---|
+| Dataset reproduksi | ETTh1 |
+| Task | multivariate forecasting |
+| Lookback | 96 |
+| Horizon | 96 |
+| Epoch | 10 |
+| Optimizer | Adam |
+| Learning rate | 1e-3 |
+| Batch size | 32 |
+| Seed | 42 |
+| Metrik | MSE dan MAE |
+
+Parity check: bandingkan hasil reproduksi dengan paper, apakah SOFTS memberi MSE/MAE lebih baik daripada baseline pada horizon yang sama? Jika tidak, jelaskan kemungkinan penyebabnya.
+
+Ablasi unik: pilih satu ablasi yang tidak ada di paper, lalu jelaskan batas klaim yang ingin diuji. Beberapa opsi: jumlah core / STAR vs mean pooling / stop gradient pada core / [tentukan sendiri].
+
+Lembar informasi lengkap: [unduh .docx](../template/notebooks/information_sheet/05_TimeSeries_SOFTS_info.docx)
+
+### W10-06 - Time Series: ModernTCN
+
+Paper: [ModernTCN: A Modern Pure Convolution Structure for General Time Series Analysis](https://openreview.net/forum?id=vpJMJerXHU)
+
+Venue: ICLR 2024 Spotlight / OpenReview (2024). Dataset di paper: ETT / M4 / SWaT / classification benchmarks.
+
+Paper ini membawa convolution kembali ke time series dengan large-kernel temporal convolution dan mixing antar-variabel. Klaim utama: model convolution murni bisa kuat untuk beberapa task time series.
+
+Rencana eksperimen (titik awal, boleh direvisi dengan alasan):
+
+| No | Eksperimen | Yang berubah | Untuk mengecek |
+|---|---|---|---|
+| 1 | Baseline | DLinear | Pembanding forecasting sederhana |
+| 2 | Reproduksi paper | ModernTCN | Apakah convolution modern membantu? |
+| 3 | Ablasi kernel | large kernel diganti kernel kecil | Apakah receptive field besar penting? |
+| 4 | Ablasi unik | depth / channel grouping / lookback / pilihan kelompok | Batas klaim yang ingin diuji |
+
+Parameter yang dibuat tetap:
+
+| Parameter | Nilai |
+|---|---|
+| Dataset reproduksi | ETTh2 |
+| Task | long-term forecasting |
+| Lookback | 96 |
+| Horizon | 96 |
+| Epoch | 10 |
+| Optimizer | Adam |
+| Learning rate | 1e-3 |
+| Batch size | 32 |
+| Seed | 42 |
+| Metrik | MSE dan MAE |
+
+Parity check: bandingkan hasil reproduksi dengan paper, apakah ModernTCN mengalahkan baseline pada dataset dan horizon yang sama? Jika tidak, jelaskan kemungkinan penyebabnya.
+
+Ablasi unik: pilih satu ablasi yang tidak ada di paper, lalu jelaskan batas klaim yang ingin diuji. Beberapa opsi: ukuran kernel / jumlah block / channel grouping / [tentukan sendiri].
+
+Lembar informasi lengkap: [unduh .docx](../template/notebooks/information_sheet/06_TimeSeries_ModernTCN_info.docx)
+
+### W10-07 - Time Series: TimeMixer
+
+Paper: [TimeMixer: Decomposable Multiscale Mixing for Time Series Forecasting](https://arxiv.org/abs/2405.14616)
+
+Venue: ICLR 2024 / arXiv (2024). Dataset di paper: ETT / Weather / Traffic / Electricity.
+
+Paper ini memecah time series ke beberapa skala, lalu mencampur informasi trend dan seasonal dari skala berbeda. Klaim utama: multiscale mixing membantu forecasting tanpa Transformer.
+
+Rencana eksperimen (titik awal, boleh direvisi dengan alasan):
+
+| No | Eksperimen | Yang berubah | Untuk mengecek |
+|---|---|---|---|
+| 1 | Baseline | DLinear | Pembanding forecasting sederhana |
+| 2 | Reproduksi paper | TimeMixer | Apakah multiscale mixing membantu? |
+| 3 | Ablasi decomposition | tanpa decomposition trend-seasonal | Apakah decomposition penting? |
+| 4 | Ablasi unik | fine-to-coarse / coarse-to-fine / predictor sharing | Batas klaim yang ingin diuji |
+
+Parameter yang dibuat tetap:
+
+| Parameter | Nilai |
+|---|---|
+| Dataset reproduksi | Weather |
+| Task | multivariate forecasting |
+| Lookback | 96 |
+| Horizon | 96 |
+| Epoch | 10 |
+| Optimizer | Adam |
+| Learning rate | 1e-3 |
+| Batch size | 32 |
+| Seed | 42 |
+| Metrik | MSE dan MAE |
+
+Parity check: bandingkan hasil reproduksi dengan paper, apakah TimeMixer memberi MSE/MAE lebih baik daripada baseline pada horizon yang sama? Jika tidak, jelaskan kemungkinan penyebabnya.
+
+Ablasi unik: pilih satu ablasi yang tidak ada di paper, lalu jelaskan batas klaim yang ingin diuji. Beberapa opsi: tanpa decomposition / satu arah mixing saja / shared predictor / [tentukan sendiri].
+
+Lembar informasi lengkap: [unduh .docx](../template/notebooks/information_sheet/07_TimeSeries_TimeMixer_info.docx)
+
+### W10-08 - Time Series: iTransformer
+
+Paper: [iTransformer: Inverted Transformers Are Effective for Time Series Forecasting](https://arxiv.org/abs/2310.06625)
+
+Venue: ICLR 2024 Spotlight / arXiv (2023). Dataset di paper: ETT / ECL / Traffic / Weather / Exchange / PEMS.
+
+Paper ini membalik cara Transformer membaca time series: attention dipakai antar-variabel, bukan antar-waktu. Klaim utama: tokenisasi terbalik ini membuat Transformer lebih cocok untuk multivariate forecasting.
+
+Rencana eksperimen (titik awal, boleh direvisi dengan alasan):
+
+| No | Eksperimen | Yang berubah | Untuk mengecek |
+|---|---|---|---|
+| 1 | Baseline | Transformer temporal-token | Pembanding transformer biasa |
+| 2 | Reproduksi paper | iTransformer | Apakah inverted tokenization membantu? |
+| 3 | Ablasi tokenisasi | attention inverted, FFN standar | Bagian mana yang paling berpengaruh? |
+| 4 | Ablasi unik | lookback / jumlah variate / pilihan kelompok | Batas klaim yang ingin diuji |
+
+Parameter yang dibuat tetap:
+
+| Parameter | Nilai |
+|---|---|
+| Dataset reproduksi | ECL |
+| Task | multivariate forecasting |
+| Lookback | 96 |
+| Horizon | 96 |
+| Epoch | 10 |
+| Optimizer | Adam |
+| Learning rate | 1e-4 |
+| Batch size | 32 |
+| Seed | 42 |
+| Metrik | MSE dan MAE |
+
+Parity check: bandingkan hasil reproduksi dengan paper, apakah iTransformer mengalahkan Transformer biasa pada dataset dan horizon yang sama? Jika tidak, jelaskan kemungkinan penyebabnya.
+
+Ablasi unik: pilih satu ablasi yang tidak ada di paper, lalu jelaskan batas klaim yang ingin diuji. Beberapa opsi: lookback 48 vs 96 / batasi jumlah variate / attention inverted saja / [tentukan sendiri].
+
+Lembar informasi lengkap: [unduh .docx](../template/notebooks/information_sheet/08_TimeSeries_iTransformer_info.docx)
+
+---
+
 ## Lab
 
-Buka [lab_w10_paper_to_code.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w10_paper_to_code.ipynb). Pilih satu paper dari menu: Focal Loss (Lin et al., 2017), DropBlock (Ghiasi et al., 2018), atau satu paper dari area riset Anda sendiri setelah konsultasi dengan dosen. Tugas mengikuti urutan lima materi di atas.
+Buka [lab_w10_paper_to_code.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w10_paper_to_code.ipynb). Pilih satu paket dari [Daftar Paket Latihan W10](#daftar-paket-latihan-w10) di atas, atau, sebagai latihan lanjut, satu paper arXiv pilihan sendiri seperti opsi di bagian akhir notebook. Tugas mengikuti urutan lima materi di atas.
 
 1. Kurasi paper, lalu baca tiga putaran dan tulis catatan empat bagian dengan template §2.
 2. Jalankan langkah paper-to-code 1-6 dari §3.
