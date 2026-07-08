@@ -497,22 +497,22 @@ Lembar informasi lengkap: [unduh .docx](../template/notebooks/information_sheet/
 
 ## Lab
 
-Buka [lab_w10_paper_to_code.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w10_paper_to_code.ipynb). Pilih satu paket dari [Daftar Paket Latihan W10](#daftar-paket-latihan-w10) di atas, atau, sebagai latihan lanjut, satu paper arXiv pilihan sendiri seperti opsi di bagian akhir notebook. Tugas mengikuti urutan lima materi di atas.
+Buka [lab_w10_paper_to_code.ipynb](https://colab.research.google.com/github/muhammad-zainal-muttaqin/Module-DS/blob/master/template/notebooks/lab_w10_paper_to_code.ipynb). Notebook ini berupa submission notebook: pilih satu paket dari [Daftar Paket Latihan W10](#daftar-paket-latihan-w10) di atas, lalu isi seluruh rencana, hasil, dan laporan langsung di tabel notebook. Opsi memilih paper arXiv sendiri tersedia di bagian akhir notebook sebagai latihan lanjut. Kerjakan mengikuti urutan bagian di dalam notebook.
 
-1. Kurasi paper, lalu baca tiga putaran dan tulis catatan empat bagian dengan template §2.
-2. Jalankan langkah paper-to-code 1-6 dari §3.
-3. Implementasikan metode inti di `src/` atau notebook, lalu smoke test pada dataset kecil.
-4. Lakukan parity check: reproduksi satu angka utama paper, atau jelaskan selisihnya.
-5. Jalankan satu ablation yang menghapus atau memodifikasi satu komponen inti.
-6. Tulis `experiment_report.md` yang mencatat apa yang lebih sulit dari yang tampak di paper, plus batas klaim hasilnya.
+1. Isi bagian Packet yang Dipilih dan Klaim Paper, dengan membaca paper tiga putaran (template §2) untuk mengisinya.
+2. Susun rencana eksperimen dan kunci parameter di tabel Rencana Eksperimen dan Parameter yang Dibuat Tetap.
+3. Implementasikan metode inti dari langkah paper-to-code §3, lalu smoke test pada dataset kecil.
+4. Isi tabel Hasil Reproduksi dan Parity Check: apakah arah hasil mengikuti paper, dan berapa selisihnya.
+5. Jalankan satu ablasi unik yang tidak ada di paper, dengan satu variabel berubah, lalu catat hasilnya.
+6. Tulis Kesimpulan Pendek: apakah hasil mendukung klaim paper, bagian yang paling sulit direproduksi, dan detail yang paling berpengaruh.
 
 Checklist:
 
-- [ ] Catatan tiga putaran tersimpan di `docs/papers/`.
+- [ ] Bagian Packet, Klaim, Rencana, dan Parameter yang Dibuat Tetap di notebook terisi.
 - [ ] Metode inti terimplementasi dan smoke test lulus.
-- [ ] Satu angka dari paper terproduksi, atau selisih < 2% disertai penjelasan.
-- [ ] Ablation menunjukkan dampak satu komponen inti.
-- [ ] `experiment_report.md` mencatat apa yang lebih sulit dari yang tampak dan batas klaim hasil.
+- [ ] Satu angka dari paper terproduksi, atau selisihnya dijelaskan di Parity Check.
+- [ ] Ablasi unik menunjukkan dampak satu komponen dengan satu variabel berubah.
+- [ ] Kesimpulan Pendek menilai klaim paper dan batas hasilnya.
 
 Target waktu: 6-8 jam.
 

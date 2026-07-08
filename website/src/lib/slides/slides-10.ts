@@ -276,13 +276,13 @@ Catatan skeptis: klaim utama bergantung pada satu dataset;
   {
     layout: "bullets",
     title: "Lab W10",
-    body: "Lab menjalankan seluruh alur pada satu paper pilihan (Focal Loss, DropBlock, atau paper area Anda), mengikuti urutan lima materi:",
+    body: "Lab kini berupa submission notebook: pilih satu dari 8 paket paper terkurasi (W10-01 sampai W10-08), lalu isi seluruh langkah langsung di tabel notebook.",
     bullets: [
-      "Kurasi paper, baca tiga putaran, lalu tulis catatan empat bagian di docs/papers/.",
-      "Implementasikan metode inti, smoke test pada dataset kecil, lalu parity check terhadap satu angka paper.",
-      "Jalankan satu ablation, lalu tulis experiment_report.md yang mencatat apa yang lebih sulit dari yang tampak dan batas klaim hasil.",
+      "Isi bagian Packet, Klaim Paper, Rencana Eksperimen, dan Parameter yang Dibuat Tetap sebelum menulis kode.",
+      "Implementasikan metode inti, smoke test pada dataset kecil, lalu isi Hasil Reproduksi dan Parity Check terhadap satu angka paper.",
+      "Jalankan satu ablasi unik yang tidak ada di paper, lalu tulis kesimpulan pendek tentang klaim paper.",
     ],
-    footnote: "Target waktu 6-8 jam; checklist menuntut satu angka paper terproduksi atau selisih di bawah 2% disertai penjelasan.",
+    footnote: "Opsi memilih paper arXiv sendiri tersedia di bagian akhir notebook sebagai latihan lanjut; target waktu 6-8 jam.",
   },
 
   // -- 21: Refleksi --
